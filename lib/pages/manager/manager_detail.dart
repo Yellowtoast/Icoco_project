@@ -523,7 +523,7 @@ class ManagerDetailPage extends StatelessWidget {
                                                                                 190,
                                                                             child:
                                                                                 Text(
-                                                                              reviewController.finalReviewModelList![index].value!.contents.substring(0, 15) + "...",
+                                                                              (reviewController.finalReviewModelList![index].value!.contents.length <= 16) ? reviewController.finalReviewModelList![index].value!.contents : reviewController.finalReviewModelList![index].value!.contents.substring(0, 15) + "...",
                                                                               style: IcoTextStyle.boldTextStyle16W,
                                                                               overflow: TextOverflow.ellipsis,
                                                                             ),
@@ -619,11 +619,24 @@ class ManagerDetailPage extends StatelessWidget {
                                               height: 11,
                                             ),
                                             Text(
-                                              reviewController
-                                                  .finalReviewModelList![index]
-                                                  .value!
-                                                  .contents
-                                                  .substring(0, 23),
+                                              (reviewController
+                                                          .finalReviewModelList![
+                                                              index]
+                                                          .value!
+                                                          .contents
+                                                          .length <=
+                                                      24)
+                                                  ? reviewController
+                                                      .finalReviewModelList![
+                                                          index]
+                                                      .value!
+                                                      .contents
+                                                  : reviewController
+                                                      .finalReviewModelList![
+                                                          index]
+                                                      .value!
+                                                      .contents
+                                                      .substring(0, 23),
                                               style:
                                                   IcoTextStyle.boldTextStyle16B,
                                             ),

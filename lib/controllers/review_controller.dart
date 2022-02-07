@@ -265,6 +265,7 @@
 // }
 import 'dart:io';
 import 'package:app/configs/purplebook.dart';
+import 'package:app/controllers/auth_controller.dart';
 import 'package:app/controllers/manager_controller.dart';
 import 'package:app/models/manager.dart';
 import 'package:app/models/review.dart';
@@ -281,6 +282,7 @@ import 'dart:convert';
 import 'package:image_picker/image_picker.dart';
 
 class ReviewController extends GetxController {
+  AuthController authController = Get.find();
   final FirebaseFirestore db = FirebaseFirestore.instance;
   late String reservationNum;
   late String userName;
@@ -341,11 +343,12 @@ class ReviewController extends GetxController {
   Future<void> createMidtermReviewFirestore(
       ManagerModel managerModel, String userName) async {
     ReviewModel _newReviewModel = ReviewModel(
+      userName: authController.reservationModel.value!.userName,
+      userId: authController.reservationModel.value!.uid,
       contents: reviewContents.value,
       managerId: managerModel.uid,
-      userName: managerModel.name,
-      specialtyItems: checkedSpecialtiesList,
       companyId: '',
+      specialtyItems: checkedSpecialtiesList,
       date: DateTime.now(),
       type: '중간',
     );
@@ -367,9 +370,10 @@ class ReviewController extends GetxController {
   Future<void> createFinalReviewModel(ManagerModel managerModel) async {
     ReviewModel _newReviewModel = ReviewModel(
       contents: reviewContents.value,
+      userId: authController.reservationModel.value!.uid,
       managerId: managerModel.uid,
       thumbnails: [],
-      userName: managerModel.name,
+      userName: authController.reservationModel.value!.userName,
       specialtyItems: checkedSpecialtiesList,
       companyId: '',
       date: DateTime.now(),
@@ -447,7 +451,7 @@ class ReviewController extends GetxController {
         model.value = ReviewModel.fromJson(res);
         modelList.add(model);
       }
-      allThumbnailsForReview.value = extractFirstIndexPictures(modelList);
+      allThumbnailsForReview.value = await extractFirstIndexPictures(modelList);
       //  reviewModelList.refresh();
       return modelList;
     } catch (e) {

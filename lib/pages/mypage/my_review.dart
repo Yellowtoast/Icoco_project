@@ -199,15 +199,11 @@ class MyReviewPage extends StatelessWidget {
                 DateLabelButton(
                   iconUrl: 'icons/speech_bubble.svg',
                   leadingIconColor: IcoColors.purple3,
-                  onTap: () async {
-                    startLoadingIndicator();
-                    mypageController.middleReviewModelList =
-                        await reviewController.getJsonReviews(
-                            authController.reservationModel.value!.uid,
-                            'user',
-                            managerController.managerModelList.length,
-                            '중간');
-                    finishLoadingIndicator();
+                  onTap: () {
+                    Get.toNamed(Routes.MIDTERM_REVIEW, arguments: {
+                      "index": 0,
+                      "reviewModelList": mypageController.middleReviewModelList,
+                    });
                   },
                   title: '중간평가',
                   date: dateFormatWithDot.format(

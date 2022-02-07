@@ -128,7 +128,7 @@ class MyPage extends StatelessWidget {
                       'user',
                       managerController.managerModelList.length,
                       '기말');
-              finishLoadingIndicator();
+              await finishLoadingIndicator();
               Get.to(MyReviewPage());
             },
             child: SizedBox(

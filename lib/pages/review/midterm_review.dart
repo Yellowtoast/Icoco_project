@@ -2,17 +2,12 @@ import 'package:app/configs/colors.dart';
 import 'package:app/configs/routes.dart';
 import 'package:app/configs/size.dart';
 import 'package:app/configs/text_styles.dart';
-import 'package:app/configs/enum.dart';
 import 'package:app/controllers/auth_controller.dart';
-import 'package:app/controllers/home_controller.dart';
 import 'package:app/controllers/manager_controller.dart';
-
 import 'package:app/controllers/review_controller.dart';
-import 'package:app/pages/reservation/step1/substep_voucher/voucher_signed/voucher_signed1.dart';
+import 'package:app/models/review.dart';
 import 'package:app/widgets/appbar.dart';
 import 'package:app/widgets/button/button.dart';
-import 'package:app/widgets/button/radio_button/text_radio_button.dart';
-import 'package:app/widgets/modal/result_modal.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_svg/svg.dart';
@@ -24,6 +19,9 @@ class MidtermReviewPage extends StatelessWidget {
   ManagerController managerController = Get.find();
   AuthController authController = Get.find();
   int managerNum = Get.arguments;
+  int? index = Get.arguments['index'];
+  RxList<Rxn<ReviewModel>>()
+
   @override
   Widget build(BuildContext context) {
     return GestureDetector(

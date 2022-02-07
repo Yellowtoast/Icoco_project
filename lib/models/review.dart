@@ -5,7 +5,7 @@ class ReviewModel {
   final String contents;
   final String managerId;
   final String companyId;
-
+  final String userId;
   final String type;
   final List<dynamic>? specialtyItems;
   List<dynamic>? thumbnails;
@@ -17,6 +17,7 @@ class ReviewModel {
     required this.contents,
     required this.managerId,
     required this.companyId,
+    required this.userId,
     required this.date,
     required this.type,
     required this.specialtyItems,
@@ -26,12 +27,14 @@ class ReviewModel {
 
   factory ReviewModel.fromJson(Map data) {
     return ReviewModel(
-      userName: data['name'] ?? '',
+      userName: data['userName'] ?? '',
       contents: data['contents'] ?? '',
       thumbnails: data['thumbnails'] ?? [],
-      managerId: data['helperUid'] ?? '',
+      managerId: data['managerId'],
       companyId: data['companyId'],
+      userId: data['userId'],
       date: DateTime.fromMillisecondsSinceEpoch(data['date']),
+      // date: DateTime.fromMillisecondsSinceEpoch(data['date']),
       type: data['type'],
       specialtyItems: data['specialtyItems'],
       reviewRate: data['reviewRate'],
@@ -39,12 +42,13 @@ class ReviewModel {
   }
 
   Map<String, dynamic> toJson() => {
-        "name": userName,
+        "userName": userName,
         "contents": contents,
         "thumbnails": thumbnails,
+        "userId": userId,
         "managerId": managerId,
         "companyId": companyId,
-        "date": date,
+        "date": date.millisecondsSinceEpoch,
         "type": type,
         "specialtyItems": specialtyItems,
         "reviewRate": reviewRate,
