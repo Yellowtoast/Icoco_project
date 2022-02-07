@@ -1,5 +1,5 @@
 import 'package:app/configs/colors.dart';
-import 'package:app/helpers/format.dart';
+import 'package:app/helpers/formatter.dart';
 import 'package:app/configs/routes.dart';
 import 'package:app/configs/text_styles.dart';
 import 'package:app/controllers/home_controller.dart';

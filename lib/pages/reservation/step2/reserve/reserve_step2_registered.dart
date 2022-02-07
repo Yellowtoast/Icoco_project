@@ -4,7 +4,7 @@ import 'package:app/configs/text_styles.dart';
 import 'package:app/controllers/auth_controller.dart';
 import 'package:app/controllers/reservation/step2/substep_controllers/birth_info_controller.dart';
 import 'package:app/controllers/reservation/step2/substep_controllers/service_info_controller.dart';
-import 'package:app/controllers/reservation_controller.dart';
+
 import 'package:app/pages/reservation/fee_guide/fee_guide.dart';
 import 'package:app/pages/reservation/step1/substep_voucher/voucher_unused/service_fee_info.dart';
 import 'package:app/widgets/button/button.dart';

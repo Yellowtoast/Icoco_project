@@ -109,14 +109,15 @@ class HomeStep7Items extends StatelessWidget {
                               child: InkWell(
                                 onTap: () async {
                                   startLoadingIndicator();
-                                  reviewController.managerNum.value = index;
-                                  reviewController.reviewType.value = '기말';
-                                  reviewController.searchTarget.value =
-                                      'manager';
-                                  reviewController.targetUid.value =
-                                      managerController
-                                          .managerModelList[index].value!.uid;
-                                  await reviewController.getJsonReviews();
+                                  reviewController.finalReviewModelList =
+                                      await reviewController.getJsonReviews(
+                                          managerController
+                                              .managerModelList[index]
+                                              .value!
+                                              .uid,
+                                          'manager',
+                                          3,
+                                          '기말');
                                   finishLoadingIndicator();
                                   Get.toNamed(Routes.MANAGER, arguments: index);
                                 },

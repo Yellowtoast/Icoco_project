@@ -1,6 +1,6 @@
 import 'package:app/helpers/database.dart';
 import 'package:app/configs/routes.dart';
-import 'package:app/helpers/format.dart';
+import 'package:app/helpers/formatter.dart';
 import 'package:app/models/reservation.dart';
 import 'package:app/models/user.dart';
 import 'package:app/pages/loading.dart';
@@ -26,7 +26,7 @@ class AuthController extends GetxController {
   Rxn<ReservationModel> reservationModel = Rxn<ReservationModel>();
   RxBool isJustLoaded = true.obs;
   bool isMarketingAllowed = false;
-  late Rx<dynamic> homeModel;
+  late Rxn<dynamic> homeModel;
 
   Future<User> get getUser async => _auth.currentUser!;
   Stream<User?> get user => _auth.authStateChanges();
@@ -60,22 +60,6 @@ class AuthController extends GetxController {
       Get.offAllNamed(Routes.HOME);
     }
   }
-
-  // Future<void> setHomeModel() async {
-  //   homeController = Get.find<HomeController>(tag: "HOME_CONTROL1");
-
-  //   if (userModel.value != null) {
-  //     homeController.homeInfoModel = userModel;
-  //   }
-  //   if (reservationModel.value != null) {
-  //     homeController.homeInfoModel = reservationModel;
-  //   }
-
-  // setModelInfo() async {
-  //   await setAuthModelInfo();
-
-  //   print("home model에 setting 하는 코드");
-  // }
 
   setModelInfo() async {
     userModel.value = await getFirestoreUser(await getUser);
@@ -259,4 +243,6 @@ class AuthController extends GetxController {
     reservationModel.value = null;
     return _auth.signOut();
   }
+
+  changeUsername(String newName, String uid) {}
 }

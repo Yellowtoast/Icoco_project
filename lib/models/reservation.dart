@@ -18,6 +18,7 @@ class ReservationModel {
   bool? useCareCenter;
   String? hospitalEndDate;
   String? careCenterEndDate;
+  String? careCenterStartDate;
   String? serviceStartDate;
   String? serviceEndDate;
   String? serviceDuration;
@@ -73,6 +74,7 @@ class ReservationModel {
     this.useCareCenter,
     this.hospitalEndDate,
     this.careCenterEndDate,
+    this.careCenterStartDate,
     this.serviceStartDate,
     this.serviceEndDate,
     this.serviceDuration,
@@ -129,10 +131,11 @@ class ReservationModel {
         useCareCenter: data['useCareCenter'] ?? false,
         hospitalEndDate: data['hospitalEndDate'] ?? '',
         careCenterEndDate: data['careCenterEndDate'] ?? '',
+        careCenterStartDate: data['careCenterStartDate'] ?? '',
+        careCenterDuration: data['careCenterDuration'] ?? '',
         serviceStartDate: data['serviceStartDate'] ?? '',
         serviceEndDate: data['serviceEndDate'] ?? '',
         serviceDuration: data['serviceDuration'] ?? '',
-        careCenterDuration: data['careCenterDuration'] ?? '',
         lactationType: data['lactationType'] ?? '',
         placeToBeServiced: data['placeToBeServiced'] ?? '',
         animalType: data['animalType'] ?? '',
@@ -185,6 +188,7 @@ class ReservationModel {
         "useCareCenter": useCareCenter,
         "hospitalEndDate": hospitalEndDate,
         "careCenterEndDate": careCenterEndDate,
+        "careCenterStartDate": careCenterStartDate,
         "serviceStartDate": serviceStartDate,
         "serviceEndDate": serviceEndDate,
         "serviceDuration": serviceDuration,

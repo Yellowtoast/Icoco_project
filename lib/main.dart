@@ -30,9 +30,11 @@ class IcocoApp extends StatelessWidget {
       localizationsDelegates: const [
         GlobalMaterialLocalizations.delegate,
         GlobalWidgetsLocalizations.delegate,
+        GlobalCupertinoLocalizations.delegate,
       ],
       supportedLocales: const [
         Locale('ko', 'KR'),
+        Locale('en', 'EN'),
       ],
       debugShowCheckedModeBanner: false,
       getPages: Routes.pages,

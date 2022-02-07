@@ -68,6 +68,7 @@ validateRegNum(String birth, String gender, Rxn<String> regNumErrorText) {
 
 validatePhoneNumber(
     String phone, RxBool codeSendButtonValid, Rxn<String> phoneErrorText) {
+  phone = phone.replaceAll('-', '');
   if (phone.isEmpty) {
     codeSendButtonValid.value = false;
     phoneErrorText.value = null;

@@ -5,7 +5,7 @@ import 'package:app/controllers/auth_controller.dart';
 import 'package:app/controllers/manager_controller.dart';
 import 'package:app/controllers/home_controller.dart';
 import 'package:app/controllers/reservation/step1/voucher_controller.dart';
-import 'package:app/controllers/reservation_controller.dart';
+
 import 'package:app/helpers/calc_date.dart';
 import 'package:app/pages/reservation/step3/remaining_fee_status.dart';
 import 'package:app/pages/reservation/step1/substep_address/address1.dart';

@@ -2,7 +2,7 @@ import 'package:app/configs/text_styles.dart';
 import 'package:app/pages/reservation/step1/substep_voucher/voucher_signed/voucher_signed1.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:app/helpers/format.dart';
+import 'package:app/helpers/formatter.dart';
 
 class CostInfoBox extends StatelessWidget {
   CostInfoBox({

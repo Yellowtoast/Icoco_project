@@ -3,7 +3,6 @@ import 'package:app/configs/purplebook.dart';
 import 'package:app/configs/steps.dart';
 import 'package:app/controllers/auth_controller.dart';
 import 'package:app/controllers/home_controller.dart';
-import 'package:app/controllers/reservation_controller.dart';
 import 'package:app/helpers/validator.dart';
 import 'package:app/configs/voucher_fee.dart';
 import 'package:app/models/reservation.dart';

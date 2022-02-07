@@ -5,7 +5,7 @@ import 'package:app/configs/text_styles.dart';
 import 'package:app/controllers/reservation/step1/voucher_controller.dart';
 import 'package:app/controllers/reservation/step2/substep_controllers/birth_info_controller.dart';
 import 'package:app/controllers/reservation/step2/substep_controllers/service_info_controller.dart';
-import 'package:app/controllers/reservation_controller.dart';
+
 import 'package:app/models/reservation.dart';
 import 'package:app/pages/reservation/step1/substep_voucher/voucher_signed/voucher_signed2.dart';
 import 'package:app/pages/reservation/step2/reserve/reserve_step2_1.dart';

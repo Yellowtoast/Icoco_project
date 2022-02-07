@@ -1,7 +1,6 @@
 import 'package:app/configs/enum.dart';
 import 'package:app/controllers/auth_controller.dart';
 import 'package:app/controllers/reservation/step1/voucher_controller.dart';
-import 'package:app/controllers/reservation_controller.dart';
 import 'package:app/helpers/addtional_fee_calc.dart';
 import 'package:app/models/reservation.dart';
 import 'package:flutter/material.dart';

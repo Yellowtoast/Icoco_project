@@ -5,7 +5,7 @@ import 'package:app/configs/text_styles.dart';
 import 'package:app/controllers/auth_controller.dart';
 import 'package:app/controllers/reservation/step2/substep_controllers/birth_info_controller.dart';
 import 'package:app/configs/enum.dart';
-import 'package:app/controllers/reservation_controller.dart';
+
 import 'package:app/pages/reservation/step1/substep_voucher/voucher_signed/voucher_signed1.dart';
 import 'package:app/pages/reservation/step2/reserve/reserve_step2_4.dart';
 import 'package:app/widgets/appbar.dart';

@@ -5,7 +5,7 @@ import 'package:app/controllers/auth_controller.dart';
 import 'package:app/controllers/home_controller.dart';
 import 'package:app/controllers/reservation/step1/address_controller.dart';
 import 'package:app/controllers/reservation/step1/voucher_controller.dart';
-import 'package:app/controllers/reservation_controller.dart';
+
 import 'package:app/pages/loading.dart';
 import 'package:app/widgets/button/button.dart';
 import 'package:app/widgets/appbar.dart';

@@ -1,11 +1,11 @@
 import 'package:app/configs/colors.dart';
-import 'package:app/helpers/format.dart';
+import 'package:app/helpers/formatter.dart';
 import 'package:app/configs/routes.dart';
 import 'package:app/configs/text_styles.dart';
 import 'package:app/controllers/auth_controller.dart';
 import 'package:app/controllers/home_controller.dart';
 import 'package:app/controllers/reservation/step1/voucher_controller.dart';
-import 'package:app/controllers/reservation_controller.dart';
+
 import 'package:app/pages/reservation/fee_guide/fee_guide.dart';
 import 'package:app/pages/reservation/step3/remaining_fee_status.dart';
 

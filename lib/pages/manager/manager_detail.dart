@@ -4,9 +4,9 @@ import 'package:app/configs/size.dart';
 import 'package:app/configs/text_styles.dart';
 import 'package:app/controllers/auth_controller.dart';
 import 'package:app/controllers/manager_controller.dart';
-import 'package:app/controllers/reservation_controller.dart';
+
 import 'package:app/controllers/review_controller.dart';
-import 'package:app/helpers/format.dart';
+import 'package:app/helpers/formatter.dart';
 import 'package:app/widgets/appbar.dart';
 import 'package:app/widgets/button/button.dart';
 import 'package:app/widgets/modal/bottomup_modal2.dart';
@@ -423,7 +423,7 @@ class ManagerDetailPage extends StatelessWidget {
                                                           )
                                                         : SizedBox(),
                                                     (reviewController
-                                                            .reviewModelList[
+                                                            .finalReviewModelList![
                                                                 index]
                                                             .value!
                                                             .thumbnails!
@@ -456,7 +456,7 @@ class ManagerDetailPage extends StatelessWidget {
                                                                         child: Image
                                                                             .network(
                                                                           reviewController
-                                                                              .reviewModelList[index]
+                                                                              .finalReviewModelList![index]
                                                                               .value!
                                                                               .thumbnails![0],
                                                                           fit: BoxFit
@@ -477,7 +477,7 @@ class ManagerDetailPage extends StatelessWidget {
                                                                         ignoreGestures:
                                                                             true,
                                                                         initialRating: reviewController
-                                                                            .reviewModelList[index]
+                                                                            .finalReviewModelList![index]
                                                                             .value!
                                                                             .reviewRate!
                                                                             .toDouble(),
@@ -523,7 +523,7 @@ class ManagerDetailPage extends StatelessWidget {
                                                                                 190,
                                                                             child:
                                                                                 Text(
-                                                                              reviewController.reviewModelList[index].value!.contents.substring(0, 15) + "...",
+                                                                              reviewController.finalReviewModelList![index].value!.contents.substring(0, 15) + "...",
                                                                               style: IcoTextStyle.boldTextStyle16W,
                                                                               overflow: TextOverflow.ellipsis,
                                                                             ),
@@ -533,7 +533,7 @@ class ManagerDetailPage extends StatelessWidget {
                                                                                 7,
                                                                           ),
                                                                           Text(
-                                                                            dateFormatWithDot.format(reviewController.reviewModelList[index].value!.date),
+                                                                            dateFormatWithDot.format(reviewController.finalReviewModelList![index].value!.date),
                                                                             style:
                                                                                 IcoTextStyle.mediumTextStyle13W,
                                                                           ),
@@ -565,15 +565,16 @@ class ManagerDetailPage extends StatelessWidget {
                       ],
                     ),
                     SizedBox(
-                      height: reviewController.reviewModelList.length * 165,
+                      height:
+                          reviewController.finalReviewModelList!.length * 165,
                       child: Column(
                         children: [
                           Expanded(
                             child: ListView.builder(
                                 scrollDirection: Axis.vertical,
                                 shrinkWrap: true,
-                                itemCount:
-                                    reviewController.reviewModelList.length,
+                                itemCount: reviewController
+                                    .finalReviewModelList!.length,
                                 physics: const NeverScrollableScrollPhysics(),
                                 itemBuilder: (BuildContext context, int index) {
                                   return Column(
@@ -594,7 +595,7 @@ class ManagerDetailPage extends StatelessWidget {
                                             RatingBar(
                                               ignoreGestures: true,
                                               initialRating: reviewController
-                                                  .reviewModelList[index]
+                                                  .finalReviewModelList![index]
                                                   .value!
                                                   .reviewRate!
                                                   .toDouble(),
@@ -619,7 +620,7 @@ class ManagerDetailPage extends StatelessWidget {
                                             ),
                                             Text(
                                               reviewController
-                                                  .reviewModelList[index]
+                                                  .finalReviewModelList![index]
                                                   .value!
                                                   .contents
                                                   .substring(0, 23),
@@ -631,7 +632,7 @@ class ManagerDetailPage extends StatelessWidget {
                                             ),
                                             Text(
                                               reviewController
-                                                  .reviewModelList[index]
+                                                  .finalReviewModelList![index]
                                                   .value!
                                                   .contents,
                                               style: IcoTextStyle
@@ -648,16 +649,17 @@ class ManagerDetailPage extends StatelessWidget {
                                               children: [
                                                 Text(
                                                   reviewController
-                                                      .reviewModelList[index]
+                                                      .finalReviewModelList![
+                                                          index]
                                                       .value!
-                                                      .name
+                                                      .userName
                                                       .replaceRange(
                                                           1,
                                                           reviewController
-                                                              .reviewModelList[
+                                                              .finalReviewModelList![
                                                                   index]
                                                               .value!
-                                                              .name
+                                                              .userName
                                                               .length,
                                                           "**"),
                                                   style: IcoTextStyle
@@ -666,7 +668,7 @@ class ManagerDetailPage extends StatelessWidget {
                                                 Text(
                                                   dateFormatWithDot.format(
                                                       reviewController
-                                                          .reviewModelList[
+                                                          .finalReviewModelList![
                                                               index]
                                                           .value!
                                                           .date),

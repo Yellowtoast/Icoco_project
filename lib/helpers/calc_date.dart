@@ -1,4 +1,4 @@
-import 'package:app/helpers/format.dart';
+import 'package:app/helpers/formatter.dart';
 
 String calcCertainDateBefore(int num, String date) {
   var dateTimeString = date.replaceAll(".", "-");

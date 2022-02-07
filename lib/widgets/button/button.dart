@@ -87,27 +87,16 @@ class IcoButton extends StatelessWidget {
                 ),
               )
             : SizedBox(),
-        (leadingIcon)
-            ? Visibility(
-                visible: leadingIcon,
-                child: Positioned(
-                  left: 13,
-                  child: SvgPicture.asset(
-                    'icons/kakao.svg',
-                    color: iconColor,
-                  ),
-                ),
-              )
-            : Visibility(
-                visible: leadingIcon,
-                child: Positioned(
-                  left: 13,
-                  child: SvgPicture.asset(
-                    'icons/kakao.svg',
-                    color: iconColor,
-                  ),
-                ),
-              )
+        Visibility(
+          visible: leadingIcon,
+          child: Positioned(
+            left: 13,
+            child: SvgPicture.asset(
+              'icons/call.svg',
+              color: iconColor,
+            ),
+          ),
+        )
       ],
     );
   }

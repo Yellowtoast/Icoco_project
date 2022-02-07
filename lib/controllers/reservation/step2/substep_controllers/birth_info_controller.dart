@@ -1,5 +1,5 @@
 import 'package:app/configs/enum.dart';
-import 'package:app/helpers/format.dart';
+import 'package:app/helpers/formatter.dart';
 import 'package:app/models/reservation.dart';
 import 'package:get/get.dart';
 
@@ -120,6 +120,11 @@ class DateInfoController extends GetxController {
     model.value!.careCenterEndDate = (careCenterChekcoutDate.value != null)
         ? dateFormatWithDot.format(careCenterChekcoutDate.value!)
         : null;
+
+    if (careCenterChekcoutDate.value != null) {
+      model.value!.careCenterEndDate = dateFormatWithDot
+          .format(careCenterChekcoutDate.value!.subtract(Duration(days: 21)));
+    }
 
     model.value!.serviceStartDate = (serviceStartDate.value != null)
         ? dateFormatWithDot.format(serviceStartDate.value!)

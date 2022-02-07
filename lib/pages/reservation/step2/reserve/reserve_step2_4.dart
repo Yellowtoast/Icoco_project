@@ -6,7 +6,7 @@ import 'package:app/controllers/auth_controller.dart';
 import 'package:app/controllers/reservation/step2/substep_controllers/birth_info_controller.dart';
 import 'package:app/configs/enum.dart';
 import 'package:app/controllers/reservation/step2/substep_controllers/service_info_controller.dart';
-import 'package:app/controllers/reservation_controller.dart';
+
 import 'package:app/models/reservation.dart';
 import 'package:app/pages/reservation/step1/substep_voucher/voucher_signed/voucher_signed1.dart';
 import 'package:app/pages/reservation/step2/reserve/reserve_step2_5.dart';
@@ -448,70 +448,71 @@ class ReserveStep2_4 extends StatelessWidget {
 }
 
 class OrderSelectionButton extends StatelessWidget {
-  OrderSelectionButton(
-      {Key? key,
-      required this.selectionType,
-      required this.selectionList,
-      required this.icon,
-      required this.text,
-      required this.onTap})
-      : super(key: key);
+  OrderSelectionButton({
+    Key? key,
+    required this.selectionType,
+    required this.selectionList,
+    required this.icon,
+    required this.text,
+    required this.onTap,
+    this.width,
+    this.height,
+  }) : super(key: key);
 
   Enum selectionType;
   RxList<dynamic> selectionList;
   Widget icon;
   String text;
   void Function()? onTap;
+  double? width;
+  double? height;
 
   @override
   Widget build(BuildContext context) {
     return Obx(() {
-      return Expanded(
-        flex: 1,
-        child: InkWell(
-          onTap: onTap,
-          child: Stack(
-            children: [
-              Container(
-                height: 92,
-                width: double.maxFinite,
-                decoration: BoxDecoration(
-                  color: IcoColors.white,
-                  borderRadius: BorderRadius.circular(10),
-                  border: Border.all(
-                    color: IcoColors.grey2,
-                    width: 1,
-                  ),
-                ),
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [
-                    icon,
-                    SizedBox(
-                      height: 5,
-                    ),
-                    Text(text, style: IcoTextStyle.mediumTextStyle16B)
-                  ],
+      return InkWell(
+        onTap: onTap,
+        child: Stack(
+          children: [
+            Container(
+              height: height ?? 92,
+              width: width ?? double.maxFinite,
+              decoration: BoxDecoration(
+                color: IcoColors.white,
+                borderRadius: BorderRadius.circular(10),
+                border: Border.all(
+                  color: IcoColors.grey2,
+                  width: 1,
                 ),
               ),
-              Visibility(
-                visible: (selectionList.contains(selectionType)) ? true : false,
-                child: Positioned.fill(
-                  child: Container(
-                    padding: EdgeInsets.all(26),
-                    child: SvgPicture.asset(
-                      "icons/${selectionList.indexOf(selectionType) + 1}.svg",
-                    ),
-                    decoration: BoxDecoration(
-                      color: Colors.black54,
-                      borderRadius: BorderRadius.circular(10),
-                    ),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  icon,
+                  SizedBox(
+                    height: 5,
+                  ),
+                  Text(text, style: IcoTextStyle.mediumTextStyle16B)
+                ],
+              ),
+            ),
+            Visibility(
+              visible: (selectionList.contains(selectionType)) ? true : false,
+              child: Positioned.fill(
+                child: Container(
+                  padding: EdgeInsets.all(26),
+                  child: SvgPicture.asset(
+                    "icons/${selectionList.indexOf(selectionType) + 1}.svg",
+                  ),
+                  decoration: BoxDecoration(
+                    color: Colors.black54,
+                    borderRadius: BorderRadius.circular(10),
                   ),
                 ),
-              )
-            ],
-          ),
+              ),
+            )
+          ],
         ),
       );
     });

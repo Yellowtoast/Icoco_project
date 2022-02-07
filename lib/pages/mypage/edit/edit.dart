@@ -25,8 +25,8 @@ class EditUserInfoPage extends StatelessWidget {
   MypageController mypageController = Get.find();
   @override
   Widget build(BuildContext context) {
-    List<String> address = authController.homeModel.value.address.split("/");
-
+    Rxn<String> fullAddress = Rxn<String>();
+    fullAddress.value = authController.homeModel.value.address;
     return GestureDetector(
       onTap: () {
         FocusScope.of(context).unfocus();
@@ -74,14 +74,18 @@ class EditUserInfoPage extends StatelessWidget {
                     height: 25,
                   ),
                   EditTextButton(
-                    title: '주소',
-                    value: address[0],
-                  ),
+                      title: '주소',
+                      value: fullAddress.value!.split("/")[0],
+                      onTap: () async {
+                        var address = await Get.toNamed(Routes.ADDRESS_1,
+                            arguments: '수정');
+                        fullAddress.value = address;
+                      }),
                   SizedBox(
                     height: 9,
                   ),
                   EditTextButton(
-                    value: address[1],
+                    value: fullAddress.value!.split("/")[1],
                     isEditable: false,
                   ),
                   SizedBox(

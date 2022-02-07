@@ -2,8 +2,8 @@
 
 import 'package:app/configs/colors.dart';
 import 'package:app/controllers/auth_controller.dart';
-import 'package:app/controllers/reservation_controller.dart';
-import 'package:app/helpers/format.dart';
+
+import 'package:app/helpers/formatter.dart';
 import 'package:app/configs/routes.dart';
 import 'package:app/configs/size.dart';
 import 'package:app/configs/text_styles.dart';

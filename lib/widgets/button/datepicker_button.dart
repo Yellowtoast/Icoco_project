@@ -1,7 +1,7 @@
 import 'package:app/configs/colors.dart';
 import 'package:app/configs/size.dart';
 import 'package:app/configs/text_styles.dart';
-import 'package:app/helpers/format.dart';
+import 'package:app/helpers/formatter.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';

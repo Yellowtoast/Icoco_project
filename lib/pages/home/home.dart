@@ -5,7 +5,7 @@ import 'package:app/configs/text_styles.dart';
 import 'package:app/controllers/auth_controller.dart';
 import 'package:app/controllers/calculator_controller.dart';
 import 'package:app/controllers/reservation/step1/address_controller.dart';
-import 'package:app/controllers/reservation_controller.dart';
+
 import 'package:app/pages/home/home_skeleton.dart';
 import 'package:app/widgets/bottom_tabbar.dart';
 import 'package:flutter/material.dart';
@@ -17,7 +17,7 @@ import 'package:scroll_to_index/scroll_to_index.dart';
 
 import '../calculator.dart';
 import '../event.dart';
-import '../mypage.dart';
+import '../mypage/mypage.dart';
 
 class HomePage extends StatelessWidget {
   HomePage({Key? key}) : super(key: key);

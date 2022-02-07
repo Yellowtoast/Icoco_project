@@ -377,6 +377,12 @@ class IcoTextStyle {
     color: IcoColors.white,
   );
 
+  static TextStyle regularTextStyle13Grey4 = GoogleFonts.notoSans(
+    fontSize: 13,
+    fontWeight: FontWeight.w400,
+    color: IcoColors.grey4,
+  );
+
   static TextStyle regularTextStyle13P = GoogleFonts.notoSans(
     fontSize: 13,
     fontWeight: FontWeight.w400,

@@ -4,7 +4,7 @@ import 'package:app/configs/size.dart';
 import 'package:app/configs/text_styles.dart';
 import 'package:app/controllers/auth_controller.dart';
 import 'package:app/controllers/reservation/step1/address_controller.dart';
-import 'package:app/controllers/reservation_controller.dart';
+
 import 'package:app/pages/reservation/step1/substep_address/address3.dart';
 import 'package:app/pages/reservation/step1/substep_voucher/voucher1.dart';
 import 'package:app/pages/reservation/step1/substep_address/address2.dart';
@@ -57,9 +57,9 @@ class AddressPage1 extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    DataModel? _daumPostcodeSearchDataModel;
     AddressController addressController = Get.find();
     AuthController authController = AuthController();
+    var command = Get.arguments;
     return Scaffold(
       backgroundColor: IcoColors.white,
       appBar: IcoAppbar(
@@ -179,7 +179,7 @@ class AddressPage1 extends StatelessWidget {
                             onPressed: () async {
                               addressController.setCompleteAddress();
                               if (addressController.sido.value == '대구') {
-                                if (Get.arguments != null) {
+                                if (command == '수정') {
                                   authController = Get.find();
                                   addressController.updateAddressToModel(
                                       authController.reservationModel);

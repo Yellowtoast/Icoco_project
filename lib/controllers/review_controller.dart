@@ -292,6 +292,8 @@ class ReviewController extends GetxController {
   RxList<firebase_storage.Reference?> storageRefList =
       RxList<firebase_storage.Reference?>();
   RxList<Rxn<ReviewModel>> reviewModelList = RxList<Rxn<ReviewModel>>();
+  RxList<Rxn<ReviewModel>>? middleReviewModelList = RxList<Rxn<ReviewModel>>();
+  RxList<Rxn<ReviewModel>>? finalReviewModelList = RxList<Rxn<ReviewModel>>();
   Rxn<ReviewModel> reviewModel = Rxn<ReviewModel>();
   TextEditingController contentsTextController = TextEditingController();
   RxList<String> checkedSpecialtiesList = RxList<String>();
@@ -331,12 +333,17 @@ class ReviewController extends GetxController {
   ];
   Rx<String> reviewContents = ''.obs;
 
+  @override
+  void onReady() {
+    super.onReady();
+  }
+
   Future<void> createMidtermReviewFirestore(
       ManagerModel managerModel, String userName) async {
     ReviewModel _newReviewModel = ReviewModel(
       contents: reviewContents.value,
       managerId: managerModel.uid,
-      name: managerModel.name,
+      userName: managerModel.name,
       specialtyItems: checkedSpecialtiesList,
       companyId: '',
       date: DateTime.now(),
@@ -362,7 +369,7 @@ class ReviewController extends GetxController {
       contents: reviewContents.value,
       managerId: managerModel.uid,
       thumbnails: [],
-      name: managerModel.name,
+      userName: managerModel.name,
       specialtyItems: checkedSpecialtiesList,
       companyId: '',
       date: DateTime.now(),
@@ -402,18 +409,15 @@ class ReviewController extends GetxController {
     update();
   }
 
-  getJsonReviews() async {
-    String uid = targetUid.value!;
-    String target = searchTarget.value!;
-    // DateTime? lastDatetime;
-    int limitNumber = 3;
-    String type = reviewType.value!;
-    String token;
-
+  Future<RxList<Rxn<ReviewModel>>?> getJsonReviews(
+      String uid, String target, int? reviewOffset, String reviewType) async {
+    reviewOffset ??= 1;
     Map<dynamic, dynamic> reviewObject;
     List<dynamic> list;
+    String token;
+    RxList<Rxn<ReviewModel>> modelList = RxList<Rxn<ReviewModel>>();
 
-    reviewModelList.clear();
+    // reviewModelList.clear();
 
     try {
       var url = Uri.parse(
@@ -423,9 +427,8 @@ class ReviewController extends GetxController {
         {
           "uid": uid,
           "target": target,
-          // "lastDatetime": lastDatetime,
-          "limitNumber": limitNumber,
-          "type": type
+          "limitNumber": reviewOffset,
+          "type": reviewType
         },
       );
       token = jwt.sign(SecretKey(JWT_KEY));
@@ -438,16 +441,18 @@ class ReviewController extends GetxController {
       reviewObject = json['data'].cast<String, dynamic>();
       totalReviews = reviewObject['total'];
       list = reviewObject['reviewList'];
-      list.forEach((reviewData) {
+      for (var reviewData in list) {
         var res = reviewData.cast<dynamic, dynamic>();
         Rxn<ReviewModel> model = Rxn<ReviewModel>();
         model.value = ReviewModel.fromJson(res);
-        reviewModelList.add(model);
-      });
-      allThumbnailsForReview.value = extractFirstIndexPictures(reviewModelList);
-      reviewModelList.refresh();
+        modelList.add(model);
+      }
+      allThumbnailsForReview.value = extractFirstIndexPictures(modelList);
+      //  reviewModelList.refresh();
+      return modelList;
     } catch (e) {
       print(e);
+      return null;
     }
   }
 

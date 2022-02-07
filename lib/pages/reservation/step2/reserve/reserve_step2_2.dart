@@ -5,7 +5,7 @@ import 'package:app/controllers/reservation/step1/address_controller.dart';
 import 'package:app/controllers/auth_controller.dart';
 import 'package:app/controllers/reservation/step1/voucher_controller.dart';
 import 'package:app/controllers/reservation/step2/substep_controllers/birth_info_controller.dart';
-import 'package:app/controllers/reservation_controller.dart';
+
 import 'package:app/pages/reservation/step1/substep_address/address1.dart';
 import 'package:app/pages/reservation/step1/substep_voucher/voucher_signed/voucher_signed1.dart';
 import 'package:app/pages/reservation/step1/substep_voucher/voucher_signed/voucher_signed3.dart';

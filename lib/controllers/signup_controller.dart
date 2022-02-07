@@ -1,6 +1,6 @@
 import 'dart:math';
 import 'package:app/configs/purplebook.dart';
-import 'package:app/helpers/format.dart';
+import 'package:app/helpers/formatter.dart';
 import 'package:app/models/user.dart';
 import 'package:dart_jsonwebtoken/dart_jsonwebtoken.dart';
 import 'package:extended_masked_text/extended_masked_text.dart';
@@ -23,8 +23,7 @@ class SignupController extends GetxController {
   TextEditingController nameController = TextEditingController();
   TextEditingController birthController = TextEditingController();
   TextEditingController genderController = TextEditingController();
-  // TextEditingController phoneController = TextEditingController();
-  var phoneController = MaskedTextController(mask: '000-0000-0000');
+  TextEditingController phoneController = TextEditingController();
   TextEditingController authCodeController = TextEditingController();
   Rxn<String> nameErrorText = Rxn<String>();
   Rxn<String> emailErrorText = Rxn<String>();
@@ -34,6 +33,7 @@ class SignupController extends GetxController {
   Rxn<String> confirmPasswordErrorText = Rxn<String>();
   Rxn<String> birthErrorText = Rxn<String>();
   Rxn<String> regNumErrorText = Rxn<String>();
+  late String phoneNumber;
   RxInt codeSentTimes = 0.obs;
   bool isMarketingAllowed = false;
   bool isDuplicateEmail = false;
@@ -181,7 +181,7 @@ class SignupController extends GetxController {
     try {
       await getNewCodeNum();
       print(authCode);
-      late String to = phoneController.text;
+      late String to = phoneNumber;
       late String text = '아이코코 인증번호 $authCode을 입력해주세요.';
       final jwt = JWT(
         {"to": to, "text": text},

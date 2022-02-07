@@ -6,7 +6,7 @@ import 'package:app/configs/size.dart';
 import 'package:app/configs/text_styles.dart';
 import 'package:app/controllers/auth_controller.dart';
 import 'package:app/controllers/signup_controller.dart';
-import 'package:app/helpers/format.dart';
+import 'package:app/helpers/formatter.dart';
 
 import 'package:app/helpers/validator.dart';
 import 'package:app/pages/signup/signup_step4.dart';
@@ -222,9 +222,19 @@ class SignupStep3Page extends StatelessWidget {
                                                           60)
                                                       .toString() +
                                                   ":" +
-                                                  (signupController
-                                                              .timeLeft.value %
-                                                          60)
+                                                  (((signupController.timeLeft.value %
+                                                                  60) <
+                                                              10)
+                                                          ? (signupController
+                                                                          .timeLeft
+                                                                          .value %
+                                                                      60)
+                                                                  .toString() +
+                                                              '0'
+                                                          : signupController
+                                                                  .timeLeft
+                                                                  .value %
+                                                              60)
                                                       .toString(),
                                           style:
                                               IcoTextStyle.mediumTextStyle14P))

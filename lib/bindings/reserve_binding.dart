@@ -5,7 +5,7 @@ import 'package:app/controllers/reservation/step2/substep_controllers/additional
 import 'package:app/controllers/reservation/step2/substep_controllers/birth_info_controller.dart';
 import 'package:app/controllers/reservation/step2/substep_controllers/company_controller.dart';
 import 'package:app/controllers/reservation/step2/substep_controllers/service_info_controller.dart';
-import 'package:app/controllers/reservation_controller.dart';
+
 import 'package:get/get.dart';
 
 class ReserveStep1Bindings implements Bindings {
