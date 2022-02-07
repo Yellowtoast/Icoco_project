@@ -1,0 +1,262 @@
+import 'package:app/helpers/database.dart';
+import 'package:app/configs/routes.dart';
+import 'package:app/helpers/format.dart';
+import 'package:app/models/reservation.dart';
+import 'package:app/models/user.dart';
+import 'package:app/pages/loading.dart';
+import 'package:flutter/foundation.dart';
+import 'package:hive/hive.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'dart:async';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:get/get.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+
+class AuthController extends GetxController {
+  final FirebaseAuth _auth = FirebaseAuth.instance;
+  final FirebaseFirestore db = FirebaseFirestore.instance;
+  final RxBool admin = false.obs;
+  TextEditingController emailController = TextEditingController();
+  TextEditingController passwordController = TextEditingController();
+  Rxn<String> reservationNumber = Rxn<String>();
+  late CollectionReference userDoc;
+  Rxn<User> firebaseAuthUser = Rxn<User>();
+  Rxn<UserModel> userModel = Rxn<UserModel>();
+  Rxn<ReservationModel> reservationModel = Rxn<ReservationModel>();
+  RxBool isJustLoaded = true.obs;
+  bool isMarketingAllowed = false;
+  late Rx<dynamic> homeModel;
+
+  Future<User> get getUser async => _auth.currentUser!;
+  Stream<User?> get user => _auth.authStateChanges();
+
+  @override
+  void onReady() async {
+    ever(firebaseAuthUser, handleAuthChanged);
+    firebaseAuthUser.bindStream(user);
+
+    super.onReady();
+  }
+
+  @override
+  void onClose() {
+    emailController.dispose();
+    passwordController.dispose();
+    super.onClose();
+  }
+
+  handleAuthChanged(_firebaseAuthUser) async {
+    if (_firebaseAuthUser != null &&
+        (reservationModel.value != null || userModel.value != null)) {
+      return;
+    }
+    startLoadingIndicator();
+    await setModelInfo();
+    if (_firebaseAuthUser == null) {
+      Get.offAllNamed(Routes.START);
+    } else {
+      finishLoadingIndicator();
+      Get.offAllNamed(Routes.HOME);
+    }
+  }
+
+  // Future<void> setHomeModel() async {
+  //   homeController = Get.find<HomeController>(tag: "HOME_CONTROL1");
+
+  //   if (userModel.value != null) {
+  //     homeController.homeInfoModel = userModel;
+  //   }
+  //   if (reservationModel.value != null) {
+  //     homeController.homeInfoModel = reservationModel;
+  //   }
+
+  // setModelInfo() async {
+  //   await setAuthModelInfo();
+
+  //   print("home model에 setting 하는 코드");
+  // }
+
+  setModelInfo() async {
+    userModel.value = await getFirestoreUser(await getUser);
+    reservationModel.value =
+        await getFirebaseReservationModel(userModel.value!.uid);
+    await storeModelInLocalStorage();
+  }
+
+  storeModelInLocalStorage() async {
+    userBox = await Hive.openBox<UserModel>('userModel');
+    reservationBox = await Hive.openBox<ReservationModel>('reservationModel');
+    await reservationBox.clear();
+    await userBox.clear();
+
+    if (reservationModel.value != null) {
+      userBox.put('userModel', userModel.value!);
+      reservationBox.put('reservationModel', reservationModel.value!);
+      homeModel = reservationModel;
+    } else {
+      userBox.put('userModel', userModel.value!);
+      homeModel = userModel;
+    }
+  }
+
+  //Streams the firestore user from the firestore collection
+  Stream<UserModel> streamFirestoreUser() {
+    if (kDebugMode) {
+      print(
+          '${firebaseAuthUser.value!.email} : auth컨트롤러에 있는 streamFireStore firebaseAuth 잘 실행됨');
+    }
+
+    if (kDebugMode) {
+      print("user stream init");
+    }
+    return db
+        .doc('/User/${firebaseAuthUser.value!.email}')
+        .snapshots()
+        .map((snapshot) => UserModel.fromJson(snapshot.data()!));
+  }
+
+  //get the firestore user from the firestore collection
+  Future<UserModel?> getFirestoreUser(User? authUser) {
+    return db.doc('/User/${authUser!.email}').get().then(
+        (documentSnapshot) => UserModel.fromJson(documentSnapshot.data()!));
+  }
+
+  Future<ReservationModel?> getFirebaseReservationModel(String uid) async {
+    ReservationModel? reservationModel;
+
+    try {
+      if (uid != "") {
+        var doc = await db
+            .collection('Reservation')
+            .where('uid', isEqualTo: uid)
+            .get();
+        reservationModel = ReservationModel.fromJson(doc.docs[0].data());
+        return reservationModel;
+      }
+    } catch (e) {
+      return null;
+    }
+  }
+
+  //Method to handle user sign in using email and password
+  signInWithEmailAndPassword(BuildContext context) async {
+    try {
+      await _auth.signInWithEmailAndPassword(
+          email: emailController.text.trim(),
+          password: passwordController.text.trim());
+      emailController.clear();
+      passwordController.clear();
+    } catch (error) {}
+  }
+
+  //handles updating the user when updating profile
+  Future<void> updateUser(BuildContext context, UserModel user, String oldEmail,
+      String password) async {
+    try {
+      try {
+        await _auth
+            .signInWithEmailAndPassword(email: oldEmail, password: password)
+            .then((_firebaseUser) {
+          _firebaseUser.user!
+              .updateEmail(user.email)
+              .then((value) => updateUserFirestore(user, _firebaseUser.user!));
+        });
+      } catch (err) {
+        print('Caught error: $err');
+
+        if (err ==
+            "Error: [firebase_auth/email-already-in-use] The email address is already in use by another account.") {
+        } else {}
+      }
+    } on PlatformException catch (error) {
+      print(error.code);
+      String authError;
+      switch (error.code) {
+        case 'ERROR_WRONG_PASSWORD':
+          authError = 'auth.wrongPasswordNotice'.tr;
+          break;
+        default:
+          authError = 'auth.unknownError'.tr;
+          break;
+      }
+    }
+  }
+
+  //유저정보를 firestore에 updqte
+  void updateUserFirestore(UserModel? user, User? _firebaseUser) {
+    db.doc('/User/${_firebaseUser!.email}').update(user!.toJson());
+    update();
+  }
+
+  Future<void> sendPasswordResetEmail(BuildContext context) async {
+    try {
+      await _auth.sendPasswordResetEmail(email: emailController.text);
+    } on FirebaseAuthException catch (error) {
+      // hideLoadingIndicator();
+
+    }
+  }
+
+  // isAdmin() async {
+  //   await getUser.then((user) async {
+  //     DocumentSnapshot adminRef =
+  //         await db.collection('admin').doc(user.uid).get();
+  //     if (adminRef.exists) {
+  //       admin.value = true;
+  //     } else {
+  //       admin.value = false;
+  //     }
+  //     update();
+  //   });
+  // }
+
+  Stream<ReservationModel> streamFirestoreReservation() {
+    print('streamFirestoreReservation()');
+    return db
+        .doc('/Reservation/${reservationNumber.value}')
+        .snapshots()
+        .map((snapshot) => ReservationModel.fromJson(snapshot.data()!));
+  }
+
+  Future<void> createReservationFirestore(dynamic model) async {
+    reservationNumber.value =
+        dateFormatForReservatioNumber.format(DateTime.now());
+    ReservationModel _newReservationModel = ReservationModel(
+      address: '',
+      email: model.email,
+      isMarketingAllowed: model.isMarketingAllowed,
+      userName: model.userName,
+      phone: model.phone,
+      fullRegNum: '',
+      uid: model.uid,
+      userStep: model.userStep,
+      date: DateTime.now().millisecondsSinceEpoch,
+      reservationNumber: reservationNumber.value!,
+      reservationRoute: '앱',
+      isFinishedBalance: '입금 전',
+      isFinishedDeposit: '입금 전',
+    );
+    reservationModel.value = _newReservationModel;
+
+    db
+        .doc('/Reservation/${reservationNumber.value}')
+        .set(_newReservationModel.toJson());
+    update();
+  }
+
+  setUserStep(int currentStep) {
+    reservationModel.value!.userStep = currentStep;
+  }
+
+  updateReservationFirestore(String reservationNumber) async {
+    db.doc('/Reservation/$reservationNumber').set(reservationModel.toJson());
+    update();
+  }
+
+  Future<void> signOut() {
+    userModel.value = null;
+    reservationModel.value = null;
+    return _auth.signOut();
+  }
+}
