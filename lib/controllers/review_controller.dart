@@ -340,15 +340,14 @@ class ReviewController extends GetxController {
     super.onReady();
   }
 
-  Future<void> createMidtermReviewFirestore(
-      ManagerModel managerModel, String userName) async {
+  createMidtermReviewFirestore(ManagerModel managerModel, String userName) {
     ReviewModel _newReviewModel = ReviewModel(
       userName: authController.reservationModel.value!.userName,
       userId: authController.reservationModel.value!.uid,
       contents: reviewContents.value,
       managerId: managerModel.uid,
       companyId: '',
-      specialtyItems: checkedSpecialtiesList,
+      specialtyItems: checkedSpecialtiesList.toList(),
       date: DateTime.now(),
       type: '중간',
     );
@@ -374,7 +373,7 @@ class ReviewController extends GetxController {
       managerId: managerModel.uid,
       thumbnails: [],
       userName: authController.reservationModel.value!.userName,
-      specialtyItems: checkedSpecialtiesList,
+      specialtyItems: checkedSpecialtiesList.toList(),
       companyId: '',
       date: DateTime.now(),
       type: '기말',

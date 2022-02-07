@@ -201,7 +201,7 @@ class MyReviewPage extends StatelessWidget {
                   leadingIconColor: IcoColors.purple3,
                   onTap: () {
                     Get.toNamed(Routes.MIDTERM_REVIEW, arguments: {
-                      "index": 0,
+                      "managerNum": 0,
                       "reviewModelList": mypageController.middleReviewModelList,
                     });
                   },

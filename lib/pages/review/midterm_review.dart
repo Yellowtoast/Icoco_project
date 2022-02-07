@@ -18,12 +18,27 @@ class MidtermReviewPage extends StatelessWidget {
   ReviewController reviewController = Get.find();
   ManagerController managerController = Get.find();
   AuthController authController = Get.find();
-  int managerNum = Get.arguments;
-  int? index = Get.arguments['index'];
-  RxList<Rxn<ReviewModel>>()
 
   @override
   Widget build(BuildContext context) {
+    int managerNum = Get.arguments['managerNum'];
+    var previousReviewModelList = Get.arguments['reviewModelList'];
+
+    if (previousReviewModelList != null) {
+      previousReviewModelList![managerNum]
+          .value!
+          .specialtyItems!
+          .forEach((element) {
+        reviewController.checkedSpecialtiesList.add(element);
+        reviewController.itemSelectStatus[
+            reviewController.specialtyTitle.indexOf(element)] = true.obs;
+      });
+      reviewController.contentsTextController.text =
+          previousReviewModelList![managerNum].value!.contents;
+      reviewController.reviewContents.value =
+          previousReviewModelList![managerNum].value!.contents;
+    }
+
     return GestureDetector(
       onTap: () {
         FocusScope.of(context).unfocus();
@@ -177,17 +192,26 @@ class MidtermReviewPage extends StatelessWidget {
                       if (managerNum !=
                           managerController.managerModelList.length - 1) {
                         managerNum++;
-                        Get.offNamed(Routes.MIDTERM_REVIEW,
-                            arguments: managerNum, preventDuplicates: false);
+                        if (previousReviewModelList != null) {
+                          Get.offNamed(Routes.MIDTERM_REVIEW,
+                              arguments: {
+                                'managerNum': managerNum,
+                                'reviewModelList': previousReviewModelList
+                              },
+                              preventDuplicates: false);
+                        } else {
+                          Get.offNamed(Routes.MIDTERM_REVIEW,
+                              arguments: {'managerNum': managerNum},
+                              preventDuplicates: false);
+                        }
                       } else {
-                        await reviewController.updateMidtermReviewFirestore(
+                        reviewController.updateMidtermReviewFirestore(
                             reviewController.reviewModelList);
                         authController.reservationModel.value!
                             .midtermReviewFinished = true;
                         authController.updateReservationFirestore(authController
                             .reservationModel.value!.reservationNumber);
 
-                        await authController.setModelInfo();
                         Get.offAllNamed(Routes.HOME);
                       }
                     },
@@ -197,9 +221,12 @@ class MidtermReviewPage extends StatelessWidget {
                         : false.obs,
                     textStyle: IcoTextStyle.buttonTextStyleW,
                     text: (managerNum !=
-                            managerController.managerModelList.length - 1)
+                                managerController.managerModelList.length - 1 &&
+                            previousReviewModelList == null)
                         ? '다음으로'
-                        : '중간평가 등록'),
+                        : (previousReviewModelList != null)
+                            ? '중간평가 수정'
+                            : '중간평가 등록'),
                 SizedBox(
                   height: 20,
                 )

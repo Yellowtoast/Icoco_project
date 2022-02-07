@@ -308,7 +308,7 @@ class HomeSkeletonPage extends StatelessWidget {
                               iconUrl: 'icons/register_paper.svg',
                               onTap: () {
                                 Get.toNamed(Routes.MIDTERM_REVIEW,
-                                    arguments: 0);
+                                    arguments: {"managerNum": 0});
                               },
                               title: '서비스 중간평가',
                               subtitle: '중간평가를 통해 후기를 남겨보세요',
