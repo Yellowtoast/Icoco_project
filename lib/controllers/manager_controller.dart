@@ -13,8 +13,10 @@ class ManagerController extends GetxController {
 
   @override
   onInit() async {
-    await getFirebaseManagerModel(
-        homeController.reservationModel.value!.reservationNumber);
+    if (homeController.reservationModel.value != null) {
+      await getFirebaseManagerModel(
+          homeController.reservationModel.value!.reservationNumber);
+    }
 
     super.onInit();
   }

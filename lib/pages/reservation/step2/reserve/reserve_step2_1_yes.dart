@@ -8,11 +8,10 @@ import 'package:app/controllers/reservation/step1/address_controller.dart';
 
 import 'package:app/controllers/reservation/step1/voucher_controller.dart';
 import 'package:app/controllers/reservation/step2/substep_controllers/company_controller.dart';
-import 'package:app/pages/loading.dart';
+import 'package:app/controllers/review_controller.dart';
+import 'package:app/pages/company/company_detail.dart';
 
 import 'package:app/pages/reservation/step1/substep_voucher/voucher_signed/voucher_signed1.dart';
-import 'package:app/pages/reservation/step2/reserve/reserve_step2_1_no.dart';
-import 'package:app/pages/reservation/step2/reserve/reserve_step2_1_yes.dart';
 
 import 'package:app/pages/reservation/step2/reserve/reserve_step2_2.dart';
 import 'package:app/widgets/button/button.dart';
@@ -22,12 +21,15 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 
-class ReserveStep2_1 extends StatelessWidget {
-  ReserveStep2_1({Key? key}) : super(key: key);
+import '../../../loading.dart';
+
+class ReserveStep2_1_Yes extends StatelessWidget {
+  ReserveStep2_1_Yes({Key? key}) : super(key: key);
   CompanyController companyController = Get.find();
   AddressController addressController = Get.find();
   VoucherController voucherController = Get.find();
   AuthController authController = Get.find();
+  ReviewController reviewController = Get.find();
 
   @override
   Widget build(BuildContext context) {
@@ -60,183 +62,74 @@ class ReserveStep2_1 extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      '예약 전 정보를 확인해주세요',
+                      '예약 중인 업체를 선택해주세요',
                       style: IcoTextStyle.boldTextStyle22B,
                     ),
                     SizedBox(
                       height: 6,
                     ),
                     Text(
-                      '바우처 등급은 이후 변경이 불가하니 신중하게 선택해주세요',
+                      '해당 업체 소속의 산후도우미를 요청할 수 있습니다',
                       style: IcoTextStyle.mediumTextStyle13P,
                     ),
                     SizedBox(
                       height: 20,
                     ),
-                    EditButtonBox(
-                      title: "주소",
-                      contents: authController.reservationModel.value!.address,
-                      onTap: () async {
-                        authController.reservationModel.value!.address =
-                            await Get.toNamed(Routes.ADDRESS_1,
-                                arguments: "from ReserveStep1");
-                      },
-                    ),
                     SizedBox(
-                      height: 10,
-                    ),
-                    EditButtonBox(
-                      title: "바우처 등급",
-                      contents: voucherController.voucherResult.value!,
-                      onTap: () async {
-                        await voucherController.getVoucherCostInfo(
-                            authController.reservationModel.value!.voucher!);
+                      height: (80 + 14) *
+                          companyController.companyModelList.length.toDouble(),
+                      child: ListView.builder(
+                        itemCount: companyController.companyModelList.length,
+                        shrinkWrap: true,
+                        physics: NeverScrollableScrollPhysics(),
+                        itemBuilder: (BuildContext context, int index) {
+                          return Column(
+                            children: [
+                              RadioButtonItem(
+                                height: 80,
+                                itemNum: index,
+                                selectedItem: companyController.companySelected,
+                                mainTitle: companyController
+                                    .companyModelList[index].value!.companyName,
+                                subTitle: companyController
+                                    .companyModelList[index].value!.address,
+                                onTapArrow: () async {
+                                  startLoadingIndicator();
 
-                        // voucherController.voucherResult.value =
-                        //     await Get.toNamed(Routes.VOUCHER_SIGNED1,
-                        //         arguments: {'command': '수정'});
-
-                        Get.toNamed(Routes.VOUCHER_SIGNED1,
-                            arguments: {'command': '수정'});
-                      },
-                    ),
-                  ],
-                ),
-              ),
-              SizedBox(
-                height: 30,
-              ),
-              DividerLineWidget(),
-              SizedBox(
-                height: 30,
-              ),
-              Container(
-                width: IcoSize.width,
-                padding: const EdgeInsets.symmetric(horizontal: 20),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      '이미 전화로 예약한\n산후도우미 업체가 있나요?',
-                      style: IcoTextStyle.boldTextStyle22B,
-                    ),
-                    SizedBox(
-                      height: 21,
-                    ),
-                    Row(
-                      children: [
-                        Expanded(
-                          child: InkWell(
-                            onTap: () async {
-                              startLoadingIndicator();
-                              await companyController
-                                  .getCompanyAllDocsFirebase();
-                              finishLoadingIndicator();
-                              Get.to(ReserveStep2_1_Yes());
-                            },
-                            child: Container(
-                              height: 174,
-                              decoration: BoxDecoration(
-                                color: IcoColors.white,
-                                border: Border.all(
-                                    color: IcoColors.grey2, width: 1),
-                                borderRadius: BorderRadius.circular(10),
+                                  reviewController.finalReviewModelList =
+                                      await reviewController.getJsonReviews(
+                                          companyController
+                                              .companyModelList[index]
+                                              .value!
+                                              .uid!,
+                                          'company',
+                                          1,
+                                          '기말');
+                                  finishLoadingIndicator();
+                                  print(index);
+                                  Get.to(CompanyDetailPage(), arguments: index);
+                                },
                               ),
-                              child: Column(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  SvgPicture.asset(
-                                    'icons/yes_girl.svg',
-                                    height: 71,
-                                  ),
-                                  SizedBox(
-                                    height: 10,
-                                  ),
-                                  Text(
-                                    '네! 있어요',
-                                    style: IcoTextStyle.boldTextStyle15P,
-                                  ),
-                                  SizedBox(
-                                    height: 4,
-                                  ),
-                                  Row(
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    children: [
-                                      Text(
-                                        '해당 업체 찾기',
-                                        style: IcoTextStyle.mediumTextStyle13B,
-                                      ),
-                                      SizedBox(
-                                        width: 5,
-                                      ),
-                                      SvgPicture.asset(
-                                        'icons/arrow_right_filled.svg',
-                                      ),
-                                    ],
-                                  ),
-                                ],
+                              SizedBox(
+                                height: 14,
                               ),
-                            ),
-                          ),
-                        ),
-                        SizedBox(
-                          width: 19,
-                        ),
-                        Expanded(
-                          child: InkWell(
-                            onTap: () async {
-                              startLoadingIndicator();
-                              await companyController
-                                  .getCompanyAllDocsFirebase();
-                              finishLoadingIndicator();
-                              Get.to(ReserveStep2_1_No());
-                            },
-                            child: Container(
-                              height: 174,
-                              decoration: BoxDecoration(
-                                color: IcoColors.white,
-                                border: Border.all(
-                                    color: IcoColors.grey2, width: 1),
-                                borderRadius: BorderRadius.circular(10),
-                              ),
-                              child: Column(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  SvgPicture.asset(
-                                    'icons/no_girl.svg',
-                                    height: 71,
-                                  ),
-                                  SizedBox(
-                                    height: 10,
-                                  ),
-                                  Text(
-                                    '아니요! 없어요',
-                                    style: IcoTextStyle.boldTextStyle15P,
-                                  ),
-                                  SizedBox(
-                                    height: 4,
-                                  ),
-                                  Row(
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    children: [
-                                      Text(
-                                        '파견업체 둘러보기',
-                                        style: IcoTextStyle.mediumTextStyle13B,
-                                      ),
-                                      SizedBox(
-                                        width: 5,
-                                      ),
-                                      SvgPicture.asset(
-                                        'icons/arrow_right_filled.svg',
-                                      ),
-                                    ],
-                                  ),
-                                ],
-                              ),
-                            ),
-                          ),
-                        ),
-                      ],
+                            ],
+                          );
+                          /*         : RadioButtonItem(
+                                  height: 80,
+                                  itemNum: index,
+                                  selectedItem:
+                                      companyController.companySelected,
+                                  mainTitle: companyController
+                                          .companyList[index]["title"] ??
+                                      "",
+                                  hasSubtitle: false,
+                                  hasIcon: false,
+                                  onTapArrow: () {},
+                                );
+                                */
+                        },
+                      ),
                     ),
                     SizedBox(
                       height: 30,
@@ -339,8 +232,10 @@ class RadioButtonItem extends StatelessWidget {
     this.hasSubtitle = true,
     this.hasIcon = true,
     this.subTitle = "",
+    this.height = 80,
     required this.itemNum,
     required this.selectedItem,
+    required this.onTapArrow,
   }) : super(key: key);
 
   bool hasSubtitle;
@@ -349,6 +244,8 @@ class RadioButtonItem extends StatelessWidget {
   bool hasIcon;
   int itemNum;
   Rxn<int> selectedItem;
+  double height;
+  void Function() onTapArrow;
 
   @override
   Widget build(BuildContext context) {
@@ -358,6 +255,7 @@ class RadioButtonItem extends StatelessWidget {
           selectedItem.value = itemNum;
         },
         child: Container(
+          height: height,
           padding: EdgeInsets.fromLTRB(17, 13, 17, 13),
           decoration: BoxDecoration(
               color: (selectedItem.value == itemNum)
@@ -411,7 +309,7 @@ class RadioButtonItem extends StatelessWidget {
                       flex: 1,
                       child: TextButton(
                         style: TextButton.styleFrom(padding: EdgeInsets.all(0)),
-                        onPressed: () {},
+                        onPressed: onTapArrow,
                         child: Container(
                             alignment: Alignment.centerRight,
                             child: SvgPicture.asset('icons/button_arrow.svg',

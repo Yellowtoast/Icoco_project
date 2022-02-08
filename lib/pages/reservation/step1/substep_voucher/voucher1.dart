@@ -92,7 +92,8 @@ class VoucherStep1 extends StatelessWidget {
                             icon: false,
                             iconColor: IcoColors.white,
                             onPressed: () {
-                              Get.to(VoucherSignedStep1());
+                              Get.toNamed(Routes.VOUCHER_SIGNED1,
+                                  arguments: {'command': ''});
                             },
                             active: true.obs,
                             buttonColor: IcoColors.primary,

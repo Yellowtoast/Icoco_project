@@ -67,11 +67,9 @@ class VoucherSignedStep3 extends StatelessWidget {
                         IcoButton(
                             icon: false,
                             onPressed: () async {
-                              // await authController.updateReservationFirestore(
-                              //     authController.reservationModel.value!
-                              //         .reservationNumber);
-                              await voucherController.updateRegnumToModel(
-                                  authController.reservationModel);
+                              startLoadingIndicator();
+                              await authController.createReservationFirestore(
+                                  authController.userModel.value!);
                               await voucherController.updateVoucherToModel(
                                   authController.reservationModel);
                               await addressController.updateAddressToModel(
@@ -80,8 +78,8 @@ class VoucherSignedStep3 extends StatelessWidget {
                               await authController.updateReservationFirestore(
                                   authController.reservationModel.value!
                                       .reservationNumber);
-
                               await authController.setModelInfo();
+                              finishLoadingIndicator();
                               Get.offAllNamed(Routes.HOME);
                             },
                             active: true.obs,

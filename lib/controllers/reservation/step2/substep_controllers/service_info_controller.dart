@@ -131,6 +131,7 @@ class ServiceInfoController extends GetxController {
     if (carePriorityList.isNotEmpty) {
       stringCarePriorityList.clear();
       carePriorityList.forEach((element) {
+        print(element.convertCarePriorityToString);
         stringCarePriorityList.add(element.convertCarePriorityToString);
       });
     }

@@ -27,6 +27,7 @@ class MyReviewPage extends StatelessWidget {
   ManagerController managerController = Get.find();
   ReviewController reviewController = Get.find();
   MypageController mypageController = Get.find();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -116,10 +117,16 @@ class MyReviewPage extends StatelessWidget {
                                             ),
                                             RatingBar(
                                               ignoreGestures: true,
-                                              initialRating: managerController
-                                                  .managerModelList[index]
-                                                  .value!
-                                                  .averageReviewRate!
+                                              initialRating: (managerController
+                                                          .managerModelList[
+                                                              index]
+                                                          .value!
+                                                          .totalReviewRate! ~/
+                                                      managerController
+                                                          .managerModelList[
+                                                              index]
+                                                          .value!
+                                                          .totalReview!)
                                                   .toDouble(),
                                               direction: Axis.horizontal,
                                               allowHalfRating: false,

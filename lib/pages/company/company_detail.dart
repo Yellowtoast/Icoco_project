@@ -4,6 +4,7 @@ import 'package:app/configs/size.dart';
 import 'package:app/configs/text_styles.dart';
 import 'package:app/controllers/auth_controller.dart';
 import 'package:app/controllers/manager_controller.dart';
+import 'package:app/controllers/reservation/step2/substep_controllers/company_controller.dart';
 
 import 'package:app/controllers/review_controller.dart';
 import 'package:app/helpers/formatter.dart';
@@ -19,20 +20,19 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 
-class ManagerDetailPage extends StatelessWidget {
-  int managerNum = Get.arguments;
-  ManagerController managerController = Get.find();
+class CompanyDetailPage extends StatelessWidget {
+  CompanyController companyController = Get.find();
   ReviewController reviewController = Get.find();
-
   AuthController authController = AuthController();
 
   @override
   Widget build(BuildContext context) {
+    var companyNum = Get.arguments;
     return Obx(() {
       return Scaffold(
         appBar: IcoAppbar(
           title:
-              "${managerController.managerModelList[managerNum].value!.name} 도우미님",
+              "${companyController.companyModelList[companyNum].value!.companyName}",
           usePop: true,
           backgroundColor: IcoColors.purple2,
         ),
@@ -47,7 +47,8 @@ class ManagerDetailPage extends StatelessWidget {
                     height: 18,
                   ),
                   Container(
-                    width: Get.width - 40,
+                    width: IcoSize.width - 40,
+                    height: 210,
                     padding: const EdgeInsets.all(20),
                     decoration: BoxDecoration(
                       color: IcoColors.white,
@@ -64,7 +65,11 @@ class ManagerDetailPage extends StatelessWidget {
                                 ClipRRect(
                                   borderRadius: BorderRadius.circular(100),
                                   child: Image.network(
-                                    "${managerController.managerModelList[managerNum].value!.profileImage}",
+                                    companyController
+                                            .companyModelList[companyNum]
+                                            .value!
+                                            .thumbnail ??
+                                        'https://t1.daumcdn.net/cfile/tistory/2446863653FC18972F',
                                     width: 89,
                                     height: 89,
                                     fit: BoxFit.cover,
@@ -79,52 +84,88 @@ class ManagerDetailPage extends StatelessWidget {
                                     Text.rich(
                                       TextSpan(
                                         text:
-                                            "${managerController.managerModelList[managerNum].value!.name}",
+                                            "${companyController.companyModelList[companyNum].value!.companyName}\n",
                                         style: IcoTextStyle.boldTextStyle19B,
                                         children: <TextSpan>[
                                           TextSpan(
-                                              text: ' 도우미',
+                                              text: companyController
+                                                  .companyModelList[companyNum]
+                                                  .value!
+                                                  .address
+                                                  .split("/")[0],
                                               style: IcoTextStyle
                                                   .mediumTextStyle12Grey4),
                                         ],
                                       ),
                                     ),
                                     const SizedBox(
-                                      height: 7,
+                                      height: 8,
                                     ),
-                                    RatingBar(
-                                      ignoreGestures: true,
-                                      initialRating: (managerController
-                                                  .managerModelList[managerNum]
-                                                  .value!
-                                                  .totalReviewRate! ~/
-                                              managerController
-                                                  .managerModelList[managerNum]
-                                                  .value!
-                                                  .totalReview!)
-                                          .toDouble(),
-                                      direction: Axis.horizontal,
-                                      allowHalfRating: false,
-                                      itemCount: 5,
-                                      ratingWidget: RatingWidget(
-                                        full: SvgPicture.asset(
-                                            'icons/star_full.svg'),
-                                        half: SvgPicture.asset(
-                                            'icons/star_full.svg'),
-                                        empty: SvgPicture.asset(
-                                            'icons/star_empty.svg'),
-                                      ),
-                                      itemSize: 15,
-                                      onRatingUpdate: (rating) {
-                                        print(rating);
-                                      },
-                                    ),
-                                    SizedBox(
-                                      height: 7,
-                                    ),
-                                    Text("대구 아이사랑 소속",
-                                        style: IcoTextStyle
-                                            .mediumTextStyle12Grey4),
+                                    Row(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.center,
+                                      children: [
+                                        Container(
+                                          width: 63,
+                                          height: 25,
+                                          decoration: BoxDecoration(
+                                              border: Border.all(
+                                                  width: 1,
+                                                  color: IcoColors.grey2),
+                                              borderRadius:
+                                                  BorderRadius.circular(50)),
+                                          child: Row(
+                                            crossAxisAlignment:
+                                                CrossAxisAlignment.center,
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.center,
+                                            children: [
+                                              SvgPicture.asset(
+                                                'icons/star_full.svg',
+                                                height: 15,
+                                              ),
+                                              SizedBox(
+                                                width: 5,
+                                              ),
+                                              Text(
+                                                "${(companyController.companyModelList[companyNum].value!.totalReviewRate! ~/ companyController.companyModelList[companyNum].value!.totalReview!).toDouble()}",
+                                                style: IcoTextStyle
+                                                    .regularTextStyle12B,
+                                              ),
+                                              SizedBox(
+                                                width: 2,
+                                              ),
+                                            ],
+                                          ),
+                                        ),
+                                        SizedBox(
+                                          width: 11,
+                                        ),
+                                        Container(
+                                          width: 63,
+                                          height: 25,
+                                          decoration: BoxDecoration(
+                                              border: Border.all(
+                                                  width: 1,
+                                                  color: IcoColors.grey2),
+                                              borderRadius:
+                                                  BorderRadius.circular(50)),
+                                          child: Row(
+                                            crossAxisAlignment:
+                                                CrossAxisAlignment.center,
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.center,
+                                            children: [
+                                              Text(
+                                                "리뷰 ${companyController.companyModelList[companyNum].value!.totalReview!}+",
+                                                style: IcoTextStyle
+                                                    .regularTextStyle12Grey4,
+                                              ),
+                                            ],
+                                          ),
+                                        ),
+                                      ],
+                                    )
                                   ],
                                 ),
                               ],
@@ -132,87 +173,25 @@ class ManagerDetailPage extends StatelessWidget {
                             const SizedBox(
                               height: 20,
                             ),
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceAround,
-                              children: [
-                                Column(
-                                  children: [
-                                    SvgPicture.asset(
-                                      "icons/helper_auth_self.svg",
-                                      color: IcoColors.primary,
-                                    ),
-                                    Text("본인인증 완료",
-                                        style: IcoTextStyle.mediumTextStyle13P)
-                                  ],
-                                ),
-                                Column(
-                                  children: [
-                                    SvgPicture.asset(
-                                      "icons/helper_auth_hospital.svg",
-                                      color: IcoColors.primary,
-                                    ),
-                                    Text("건강인증 완료",
-                                        style: IcoTextStyle.mediumTextStyle13P)
-                                  ],
-                                ),
-                                Column(
-                                  children: [
-                                    SvgPicture.asset(
-                                      "icons/helper_auth_crime.svg",
-                                      color: IcoColors.primary,
-                                    ),
-                                    Text("범죄이력 없음",
-                                        style: IcoTextStyle.mediumTextStyle13P)
-                                  ],
-                                ),
-                              ],
+                            Divider(
+                              height: 1,
+                              thickness: 1,
                             ),
                             const SizedBox(
                               height: 20,
                             ),
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceAround,
-                              children: [
-                                Container(
-                                  alignment: Alignment.center,
-                                  decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.circular(50),
-                                    color: IcoColors.purple1,
-                                  ),
-                                  width: 95,
-                                  height: 34,
-                                  child: Text(
-                                    "경력 3년이내",
-                                    style: IcoTextStyle.mediumTextStyle13P,
-                                  ),
-                                ),
-                                Container(
-                                  alignment: Alignment.center,
-                                  decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.circular(50),
-                                    color: IcoColors.purple1,
-                                  ),
-                                  width: 95,
-                                  height: 34,
-                                  child: Text(
-                                    "50대",
-                                    style: IcoTextStyle.mediumTextStyle13P,
-                                  ),
-                                ),
-                                Container(
-                                  alignment: Alignment.center,
-                                  decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.circular(50),
-                                    color: IcoColors.purple1,
-                                  ),
-                                  width: 95,
-                                  height: 34,
-                                  child: Text(
-                                    "리뷰 100+",
-                                    style: IcoTextStyle.mediumTextStyle13P,
-                                  ),
-                                ),
-                              ],
+                            Container(
+                              alignment: Alignment.center,
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(50),
+                                color: IcoColors.grey1,
+                              ),
+                              width: IcoSize.width - 80,
+                              height: 34,
+                              child: Text(
+                                "전화상담 바로가기",
+                                style: IcoTextStyle.mediumTextStyle13P,
+                              ),
                             ),
                           ],
                         ),
@@ -225,149 +204,116 @@ class ManagerDetailPage extends StatelessWidget {
                 height: 30,
               ),
               Container(
-                padding: EdgeInsets.fromLTRB(20, 30, 20, 35),
-                decoration: BoxDecoration(
-                  color: IcoColors.white,
-                ),
-                width: double.infinity,
+                padding: EdgeInsets.symmetric(horizontal: 30),
+                color: IcoColors.white,
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
+                    SizedBox(
+                      height: 25,
+                    ),
                     Text(
-                      "관리자 정보",
-                      style: IcoTextStyle.boldTextStyle14B,
+                      '업체정보',
+                      style: IcoTextStyle.boldTextStyle16B,
                     ),
-                    const SizedBox(
-                      height: 10,
-                    ),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Container(
-                          width: 106,
-                          height: 106,
-                          decoration: BoxDecoration(
-                              color: IcoColors.purple2,
-                              borderRadius: BorderRadius.circular(10)),
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            crossAxisAlignment: CrossAxisAlignment.center,
-                            children: [
-                              SvgPicture.asset("icons/helper_info_car.svg"),
-                              Text(
-                                "차량 ${managerController.managerModelList[managerNum].value!.isCar}",
-                                style: IcoTextStyle.boldTextStyle13P,
-                              )
-                            ],
-                          ),
-                        ),
-                        Container(
-                          width: 106,
-                          height: 106,
-                          decoration: BoxDecoration(
-                              color: IcoColors.purple2,
-                              borderRadius: BorderRadius.circular(10)),
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            crossAxisAlignment: CrossAxisAlignment.center,
-                            children: [
-                              SvgPicture.asset("icons/helper_info_home.svg"),
-                              Text(
-                                "입주 ${managerController.managerModelList[managerNum].value!.isResident}",
-                                style: IcoTextStyle.boldTextStyle13P,
-                              )
-                            ],
-                          ),
-                        ),
-                        Container(
-                          width: 106,
-                          height: 106,
-                          decoration: BoxDecoration(
-                              color: IcoColors.purple2,
-                              borderRadius: BorderRadius.circular(10)),
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            crossAxisAlignment: CrossAxisAlignment.center,
-                            children: [
-                              SvgPicture.asset("icons/helper_info_cctv.svg"),
-                              Text(
-                                "CCTV${managerController.managerModelList[managerNum].value!.isCCTV}",
-                                style: IcoTextStyle.boldTextStyle13P,
-                              )
-                            ],
-                          ),
-                        ),
-                      ],
-                    )
-                  ],
-                ),
-              ),
-              const Divider(
-                color: IcoColors.grey1,
-                height: 9,
-                thickness: 9,
-              ),
-              Container(
-                padding: const EdgeInsets.fromLTRB(20, 30, 20, 35),
-                decoration: const BoxDecoration(
-                  color: IcoColors.white,
-                ),
-                width: double.infinity,
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      "산모님들이 생각하는 특기",
-                      style: IcoTextStyle.boldTextStyle14B,
-                    ),
-                    const SizedBox(
-                      height: 10,
+                    SizedBox(
+                      height: 20,
                     ),
                     Row(
                       children: [
-                        Container(
-                          width: 106,
-                          height: 92,
-                          decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(10),
-                              border:
-                                  Border.all(width: 1, color: IcoColors.grey2)),
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            crossAxisAlignment: CrossAxisAlignment.center,
-                            children: [
-                              SvgPicture.asset(
-                                "icons/cleaning_icon.svg",
-                                color: IcoColors.primary,
-                              ),
-                              const SizedBox(
-                                height: 8,
-                              ),
-                              Text(
-                                "정리정돈",
-                                style: IcoTextStyle.mediumTextStyle16P,
-                              )
-                            ],
-                          ),
-                        ),
                         SizedBox(
-                          width: 14,
+                          width: 105,
+                          child: Text(
+                            '본명',
+                            style: IcoTextStyle.boldTextStyle13B,
+                          ),
                         ),
-                        Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text(
-                              "정리정돈",
-                              style: IcoTextStyle.boldTextStyle18B,
-                            ),
-                            Text(
-                              "청소를 깔끔하게 잘 하세요",
-                              style: IcoTextStyle.mediumTextStyle13Grey4,
-                            ),
-                          ],
-                        )
+                        Text(
+                          companyController
+                              .companyModelList[companyNum].value!.companyName,
+                          style: IcoTextStyle.regularTextStyle13Grey4,
+                        ),
                       ],
-                    )
+                    ),
+                    SizedBox(
+                      height: 9,
+                    ),
+                    Row(
+                      children: [
+                        SizedBox(
+                          width: 105,
+                          child: Text(
+                            '서비스 이용주소',
+                            style: IcoTextStyle.boldTextStyle13B,
+                          ),
+                        ),
+                        Text(
+                          companyController
+                              .companyModelList[companyNum].value!.phone,
+                          style: IcoTextStyle.regularTextStyle13Grey4,
+                        ),
+                      ],
+                    ),
+                    SizedBox(
+                      height: 9,
+                    ),
+                    Row(
+                      children: [
+                        SizedBox(
+                          width: 105,
+                          child: Text(
+                            '홈페이지',
+                            style: IcoTextStyle.boldTextStyle13B,
+                          ),
+                        ),
+                        Text(
+                          companyController
+                              .companyModelList[companyNum].value!.homepage!,
+                          style: IcoTextStyle.regularTextStyle13Grey4,
+                        ),
+                      ],
+                    ),
+                    SizedBox(
+                      height: 9,
+                    ),
+                    Row(
+                      children: [
+                        SizedBox(
+                          width: 105,
+                          child: Text(
+                            '블로그',
+                            style: IcoTextStyle.boldTextStyle13B,
+                          ),
+                        ),
+                        Text(
+                          companyController
+                              .companyModelList[companyNum].value!.blog!,
+                          style: IcoTextStyle.regularTextStyle13Grey4,
+                        ),
+                      ],
+                    ),
+                    SizedBox(
+                      height: 9,
+                    ),
+                    Row(
+                      children: [
+                        SizedBox(
+                          width: 105,
+                          child: Text(
+                            '맘카페제휴',
+                            style: IcoTextStyle.boldTextStyle13B,
+                          ),
+                        ),
+                        Text(
+                          companyController
+                              .companyModelList[companyNum].value!.momcafe!,
+                          style: IcoTextStyle.regularTextStyle13Grey4,
+                        ),
+                      ],
+                    ),
+                    SizedBox(
+                      height: 36,
+                    ),
                   ],
                 ),
               ),
@@ -734,63 +680,6 @@ class ManagerDetailPage extends StatelessWidget {
                   ],
                 ),
               ),
-              Container(
-                padding: EdgeInsets.symmetric(horizontal: 20),
-                color: IcoColors.white,
-                child: Column(
-                  children: [
-                    IcoButton(
-                        buttonColor: IcoColors.grey1,
-                        onPressed: () async {
-                          // BottomUpModal2();
-                          bool confirm = await IcoOptionModal(
-                              iconUrl: 'icons/loading.svg',
-                              title: "산후도우미 변경을\n요청하시겠습니까?",
-                              subtitle: '아이코코에서 변경 요청을 확인 후\n새로운 관리자를 배정해드립니다.',
-                              option1: '취소',
-                              option2: '변경');
-
-                          if (confirm) {
-                            authController
-                                .reservationModel.value!.changeManager = true;
-                            authController
-                                .reservationModel.value!.changeManagerList!
-                                .add(managerController
-                                    .managerModelList[managerNum].value!.uid);
-                            await authController.updateReservationFirestore(
-                                authController
-                                    .reservationModel.value!.reservationNumber);
-                            await authController.setModelInfo();
-                            Get.offAllNamed(Routes.HOME);
-                          } else {}
-                        },
-                        active: true.obs,
-                        textStyle: IcoTextStyle.mediumTextStyle15B,
-                        text: "산후도우미 변경 요청"),
-                    SizedBox(
-                      height: 14,
-                    ),
-                    IcoButton(
-                        buttonColor: IcoColors.grey1,
-                        onPressed: () {},
-                        active: true.obs,
-                        textStyle: IcoTextStyle.mediumTextStyle15B,
-                        text: "서비스 환불 요청"),
-                    SizedBox(
-                      height: 14,
-                    ),
-                    IcoButton(
-                        buttonColor: IcoColors.grey1,
-                        onPressed: () {},
-                        active: true.obs,
-                        textStyle: IcoTextStyle.mediumTextStyle15B,
-                        text: "문의하기"),
-                    SizedBox(
-                      height: 30,
-                    )
-                  ],
-                ),
-              )
             ],
           ),
         ),

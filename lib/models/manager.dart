@@ -5,6 +5,7 @@ class ManagerModel {
   final List<dynamic> dispatchableArea;
   final String? birthDate;
   int? totalReview;
+  int? totalReviewRate;
   String? status;
   String? careerStartedDate;
   String? isCar;
@@ -14,7 +15,7 @@ class ManagerModel {
   bool? certHealth;
   bool? certCrime;
   String? profileImage;
-  int? averageReviewRate;
+
   String? reservationNumber;
   String? specialty;
   Map<String, dynamic>? specialtyItems;
@@ -25,6 +26,7 @@ class ManagerModel {
     required this.company,
     required this.dispatchableArea,
     required this.birthDate,
+    this.totalReviewRate,
     this.totalReview,
     this.status,
     this.careerStartedDate,
@@ -35,7 +37,6 @@ class ManagerModel {
     this.certHealth,
     this.certCrime,
     this.profileImage,
-    this.averageReviewRate,
     this.reservationNumber,
     this.specialty,
     this.specialtyItems,
@@ -48,7 +49,8 @@ class ManagerModel {
       company: data['company'] ?? '',
       dispatchableArea: data['dispatchableArea'] ?? [],
       birthDate: data['birthDate'] ?? '',
-      totalReview: data['totalReview'],
+      totalReview: data['totalReview'] ?? 0,
+      totalReviewRate: data['totalReviewRate'] ?? 0,
       status: data['status'] ?? '',
       careerStartedDate: data['careerStartedDate'] ?? '',
       isCar: data['isCar'] ?? '',
@@ -58,7 +60,6 @@ class ManagerModel {
       certHealth: data['certHealth'],
       certCrime: data['certCrime'],
       profileImage: data['profileImage'] ?? '',
-      averageReviewRate: data['averageReviewRate'],
       reservationNumber: data['reservationNumber'] ?? '',
       specialty: data['specialty'] ?? '',
       specialtyItems: data['specialtyItems'].cast<String, dynamic>(),
@@ -72,6 +73,7 @@ class ManagerModel {
         "dispatchableArea": dispatchableArea,
         "birthDate": birthDate,
         "totalReview": totalReview,
+        "totalReviewRate": totalReviewRate,
         "status": status,
         "careerStartedDate": careerStartedDate,
         "isCar": isCar,
@@ -81,7 +83,6 @@ class ManagerModel {
         "certHealth": certHealth,
         "certCrime": certCrime,
         "profileImage": profileImage,
-        "averageReviewRate": averageReviewRate,
         "reservationNumber": reservationNumber,
         "specialty": specialty,
         "specialtyItems": specialtyItems,

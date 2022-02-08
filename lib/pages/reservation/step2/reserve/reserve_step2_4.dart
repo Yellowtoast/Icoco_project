@@ -320,6 +320,7 @@ class ReserveStep2_4 extends StatelessWidget {
                     Row(
                       children: [
                         OrderSelectionButton(
+                          width: IcoSize.width / 2 - 20 - 4,
                           onTap: () {
                             //  serviceController.carePriorityList();
                             serviceController.carePriorityButtonController(
@@ -334,6 +335,7 @@ class ReserveStep2_4 extends StatelessWidget {
                           width: 8,
                         ),
                         OrderSelectionButton(
+                          width: IcoSize.width / 2 - 20 - 4,
                           onTap: () {
                             serviceController.carePriorityButtonController(
                                 carePriority.COOKING);
@@ -351,6 +353,7 @@ class ReserveStep2_4 extends StatelessWidget {
                     Row(
                       children: [
                         OrderSelectionButton(
+                          width: IcoSize.width / 2 - 20 - 4,
                           onTap: () {
                             serviceController.carePriorityButtonController(
                                 carePriority.MOTHERCARE);
@@ -365,6 +368,7 @@ class ReserveStep2_4 extends StatelessWidget {
                           width: 8,
                         ),
                         OrderSelectionButton(
+                          width: IcoSize.width / 2 - 20 - 4,
                           onTap: () {
                             serviceController.carePriorityButtonController(
                                 carePriority.BABYCARE);

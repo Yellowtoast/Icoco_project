@@ -129,6 +129,7 @@ class DateInfoController extends GetxController {
     model.value!.serviceStartDate = (serviceStartDate.value != null)
         ? dateFormatWithDot.format(serviceStartDate.value!)
         : null;
+
     model.value!.careCenterDuration =
         (careCenterDuration.value != null) ? careCenterDuration.value : null;
   }

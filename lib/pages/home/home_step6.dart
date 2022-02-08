@@ -72,10 +72,14 @@ class HomeStep6Items extends StatelessWidget {
                                 ),
                                 RatingBar(
                                   ignoreGestures: true,
-                                  initialRating: managerController
-                                      .managerModelList[index]
-                                      .value!
-                                      .averageReviewRate!
+                                  initialRating: (managerController
+                                              .managerModelList[index]
+                                              .value!
+                                              .totalReviewRate! ~/
+                                          managerController
+                                              .managerModelList[index]
+                                              .value!
+                                              .totalReview!)
                                       .toDouble(),
                                   direction: Axis.horizontal,
                                   allowHalfRating: false,

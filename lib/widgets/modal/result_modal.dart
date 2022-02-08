@@ -209,7 +209,7 @@ class BottomResultModal extends StatelessWidget {
                 height: 50,
               ),
               IcoButton(
-                  onPressed: () async {
+                  onPressed: () {
                     extraChargeController.updateReservationModel();
                     if (authController.reservationModel.value!.isBirth ==
                         true) {

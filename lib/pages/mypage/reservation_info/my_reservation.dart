@@ -18,14 +18,17 @@ class MyReservationPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     var careRanking = authController.reservationModel.value!.careRanking;
+
+    print(careRanking);
     RxList<dynamic> careRankingEnumList = [
       carePriority.CLEANING,
       carePriority.CLEANING,
       carePriority.CLEANING,
       carePriority.CLEANING
     ].obs;
-    print('산모케어');
-    careRankingEnumList[0] = carePriority.MOTHERCARE;
+
+    // careRankingEnumList[0] = carePriority.MOTHERCARE;
+    print(careRanking);
     for (var element in careRanking!) {
       print(element);
       print(element.compareTo('산모케어'));

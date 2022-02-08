@@ -115,6 +115,7 @@ class AuthController extends GetxController {
             .collection('Reservation')
             .where('uid', isEqualTo: uid)
             .get();
+        print(doc.docs[0].data());
         reservationModel = ReservationModel.fromJson(doc.docs[0].data());
         return reservationModel;
       }
@@ -203,18 +204,18 @@ class AuthController extends GetxController {
         .map((snapshot) => ReservationModel.fromJson(snapshot.data()!));
   }
 
-  Future<void> createReservationFirestore(dynamic model) async {
+  Future<void> createReservationFirestore(UserModel userModel) async {
     reservationNumber.value =
         dateFormatForReservatioNumber.format(DateTime.now());
     ReservationModel _newReservationModel = ReservationModel(
       address: '',
-      email: model.email,
-      isMarketingAllowed: model.isMarketingAllowed,
-      userName: model.userName,
-      phone: model.phone,
+      email: userModel.email,
+      isMarketingAllowed: userModel.isMarketingAllowed,
+      userName: userModel.userName,
+      phone: userModel.phone,
       fullRegNum: '',
-      uid: model.uid,
-      userStep: model.userStep,
+      uid: userModel.uid,
+      userStep: userModel.userStep,
       date: DateTime.now().millisecondsSinceEpoch,
       reservationNumber: reservationNumber.value!,
       reservationRoute: '앱',

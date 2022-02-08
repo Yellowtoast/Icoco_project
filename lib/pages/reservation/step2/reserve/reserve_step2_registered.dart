@@ -113,9 +113,9 @@ class ReserveStep2_Registered extends StatelessWidget {
                               }
 
                               await authController.updateReservationFirestore(
-                                  authController.reservationNumber.value!);
+                                  authController.reservationModel.value!
+                                      .reservationNumber);
 
-                              await authController.setModelInfo();
                               Get.offAllNamed(Routes.HOME);
                             },
                             active: true.obs,

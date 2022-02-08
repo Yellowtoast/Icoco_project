@@ -4,6 +4,7 @@ import 'package:app/configs/size.dart';
 import 'package:app/configs/text_styles.dart';
 import 'package:app/controllers/auth_controller.dart';
 import 'package:app/controllers/reservation/step1/address_controller.dart';
+import 'package:app/pages/calculator.dart';
 import 'package:app/pages/loading.dart';
 import 'package:app/pages/reservation/step1/substep_address/address2.dart';
 import 'package:app/widgets/button/bigicon_textbutton.dart';
@@ -126,9 +127,7 @@ class BottomUpModal extends StatelessWidget {
                         icon: false,
                         iconColor: IcoColors.white,
                         onPressed: () async {
-                          AuthController authController = Get.find();
-                          await authController.setModelInfo();
-                          Get.offAllNamed(Routes.HOME);
+                          Get.to(CalculatorPage());
                         },
                         active: true.obs,
                         buttonColor: IcoColors.primary,
@@ -138,7 +137,9 @@ class BottomUpModal extends StatelessWidget {
                       style: TextButton.styleFrom(
                         padding: EdgeInsets.zero,
                       ),
-                      onPressed: () {},
+                      onPressed: () async {
+                        Get.offAllNamed(Routes.HOME);
+                      },
                       child: Text.rich(TextSpan(
                         text: "메인화면으로 이동",
                         style: IcoTextStyle.mediumLinedTextStyle14G,

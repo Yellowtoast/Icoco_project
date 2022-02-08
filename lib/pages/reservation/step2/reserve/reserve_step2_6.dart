@@ -28,8 +28,13 @@ class ReserveStep2_6 extends StatelessWidget {
     ServiceInfoController serviceInfoController = Get.find();
     AuthController authController = Get.find();
     Rxn<ReservationModel?> reservationModel = authController.reservationModel;
-    serviceInfoController.serviceDurationSelected.value =
-        reservationModel.value!.serviceDuration;
+    if (reservationModel.value!.serviceDuration != '') {
+      serviceInfoController.serviceDurationSelected.value =
+          reservationModel.value!.serviceDuration;
+    } else {
+      serviceInfoController.serviceDurationSelected.value = null;
+    }
+
     return Scaffold(
         backgroundColor: IcoColors.white,
         appBar: IcoAppbar(title: '예약하기'),
@@ -100,7 +105,7 @@ class ReserveStep2_6 extends StatelessWidget {
                       ),
                       IgnorePointer(
                         ignoring:
-                            (reservationModel.value!.serviceDuration == null)
+                            (reservationModel.value!.serviceDuration != null)
                                 ? false
                                 : true,
                         child: IcoDropDown(
@@ -110,7 +115,7 @@ class ReserveStep2_6 extends StatelessWidget {
                           selectedValue:
                               serviceInfoController.serviceDurationSelected,
                           selectedTextStyle:
-                              (reservationModel.value!.serviceDuration == null)
+                              (reservationModel.value!.serviceDuration!.isEmpty)
                                   ? IcoTextStyle.mediumTextStyle16B
                                   : IcoTextStyle.mediumTextStyle16Grey4,
                           stepFinished: step2,

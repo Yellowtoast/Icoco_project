@@ -6,6 +6,7 @@ import 'package:app/controllers/auth_controller.dart';
 import 'package:app/controllers/manager_controller.dart';
 import 'package:app/controllers/review_controller.dart';
 import 'package:app/models/review.dart';
+import 'package:app/pages/loading.dart';
 import 'package:app/widgets/appbar.dart';
 import 'package:app/widgets/button/button.dart';
 import 'package:flutter/material.dart';
@@ -18,32 +19,26 @@ class MidtermReviewPage extends StatelessWidget {
   ReviewController reviewController = Get.find();
   ManagerController managerController = Get.find();
   AuthController authController = Get.find();
-  int managerNum = Get.arguments['managerNum'];
-  var previousReviewModelList = Get.arguments['reviewModelList'];
+
   @override
   Widget build(BuildContext context) {
-    if (previousReviewModelList != null) {
-      reviewController.managerNum.value = managerNum;
-      reviewController.middleReviewModelList = previousReviewModelList;
+    int managerNum = Get.arguments['managerNum'];
+    var previousReviewModelList = Get.arguments['reviewModelList'];
 
-      // for (var element
-      //     in previousReviewModelList![managerNum].value!.specialtyItems!) {
-      //   print(element);
-      //   print(reviewController.checkedSpecialtiesList);
-      //   reviewController.checkedSpecialtiesList.add(element);
-      //   print('1');
-      //   reviewController.itemSelectStatus[
-      //       reviewController.specialtyTitle.indexOf(element)] = true.obs;
-      //   print('2');
-      //   reviewController.checkedSpecialtiesList.refresh();
-      //   print('3');
-      // }
-
-      // reviewController.contentsTextController.text =
-      //     previousReviewModelList![managerNum].value!.contents;
-      // reviewController.reviewContents.value =
-      //     previousReviewModelList![managerNum].value!.contents;
+    Future _setPreviousReview() async {
+      await Future.delayed(const Duration(milliseconds: 100));
+      await reviewController.setPreviousReview(
+          previousReviewModelList, managerNum);
     }
+
+    if (previousReviewModelList != null) {
+      if (managerNum == 1) {
+        _setPreviousReview();
+      } else {
+        reviewController.setPreviousReview(previousReviewModelList, managerNum);
+      }
+    }
+    reviewController.setPreviousReview(previousReviewModelList, managerNum);
 
     return GestureDetector(
       onTap: () {
