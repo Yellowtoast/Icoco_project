@@ -18,21 +18,27 @@ class MidtermReviewPage extends StatelessWidget {
   ReviewController reviewController = Get.find();
   ManagerController managerController = Get.find();
   AuthController authController = Get.find();
-
+  int managerNum = Get.arguments['managerNum'];
+  var previousReviewModelList = Get.arguments['reviewModelList'];
   @override
   Widget build(BuildContext context) {
-    int managerNum = Get.arguments['managerNum'];
-    var previousReviewModelList = Get.arguments['reviewModelList'];
-
     if (previousReviewModelList != null) {
-      previousReviewModelList![managerNum]
-          .value!
-          .specialtyItems!
-          .forEach((element) {
+      for (var element
+          in previousReviewModelList![managerNum].value!.specialtyItems!) {
         reviewController.checkedSpecialtiesList.add(element);
         reviewController.itemSelectStatus[
             reviewController.specialtyTitle.indexOf(element)] = true.obs;
-      });
+        reviewController.checkedSpecialtiesList.refresh();
+      }
+      // previousReviewModelList![managerNum]
+      //     .value!
+      //     .specialtyItems!
+      //     .forEach((element) {
+      //   reviewController.checkedSpecialtiesList.add(element);
+      //   reviewController.itemSelectStatus[
+      //       reviewController.specialtyTitle.indexOf(element)] = true.obs;
+      //   reviewController.checkedSpecialtiesList.refresh();
+      // });
       reviewController.contentsTextController.text =
           previousReviewModelList![managerNum].value!.contents;
       reviewController.reviewContents.value =
@@ -193,12 +199,12 @@ class MidtermReviewPage extends StatelessWidget {
                           managerController.managerModelList.length - 1) {
                         managerNum++;
                         if (previousReviewModelList != null) {
-                          Get.offNamed(Routes.MIDTERM_REVIEW,
+                          Get.to(() => MidtermReviewPage(),
                               arguments: {
                                 'managerNum': managerNum,
                                 'reviewModelList': previousReviewModelList
                               },
-                              preventDuplicates: false);
+                              preventDuplicates: true);
                         } else {
                           Get.offNamed(Routes.MIDTERM_REVIEW,
                               arguments: {'managerNum': managerNum},
