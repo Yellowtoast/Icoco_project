@@ -24,10 +24,13 @@ class MyReservationPage extends StatelessWidget {
       carePriority.CLEANING,
       carePriority.CLEANING
     ].obs;
-
+    print('산모케어');
     careRankingEnumList[0] = carePriority.MOTHERCARE;
     for (var element in careRanking!) {
-      switch (element) {
+      print(element);
+      print(element.compareTo('산모케어'));
+      print('');
+      switch (element.toString()) {
         case '정리정돈':
           careRankingEnumList[careRanking.indexOf('정리정돈')] =
               carePriority.CLEANING;

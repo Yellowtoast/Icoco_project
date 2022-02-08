@@ -23,26 +23,26 @@ class MidtermReviewPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     if (previousReviewModelList != null) {
-      for (var element
-          in previousReviewModelList![managerNum].value!.specialtyItems!) {
-        reviewController.checkedSpecialtiesList.add(element);
-        reviewController.itemSelectStatus[
-            reviewController.specialtyTitle.indexOf(element)] = true.obs;
-        reviewController.checkedSpecialtiesList.refresh();
-      }
-      // previousReviewModelList![managerNum]
-      //     .value!
-      //     .specialtyItems!
-      //     .forEach((element) {
+      reviewController.managerNum.value = managerNum;
+      reviewController.middleReviewModelList = previousReviewModelList;
+
+      // for (var element
+      //     in previousReviewModelList![managerNum].value!.specialtyItems!) {
+      //   print(element);
+      //   print(reviewController.checkedSpecialtiesList);
       //   reviewController.checkedSpecialtiesList.add(element);
+      //   print('1');
       //   reviewController.itemSelectStatus[
       //       reviewController.specialtyTitle.indexOf(element)] = true.obs;
+      //   print('2');
       //   reviewController.checkedSpecialtiesList.refresh();
-      // });
-      reviewController.contentsTextController.text =
-          previousReviewModelList![managerNum].value!.contents;
-      reviewController.reviewContents.value =
-          previousReviewModelList![managerNum].value!.contents;
+      //   print('3');
+      // }
+
+      // reviewController.contentsTextController.text =
+      //     previousReviewModelList![managerNum].value!.contents;
+      // reviewController.reviewContents.value =
+      //     previousReviewModelList![managerNum].value!.contents;
     }
 
     return GestureDetector(
@@ -204,7 +204,7 @@ class MidtermReviewPage extends StatelessWidget {
                                 'managerNum': managerNum,
                                 'reviewModelList': previousReviewModelList
                               },
-                              preventDuplicates: true);
+                              preventDuplicates: false);
                         } else {
                           Get.offNamed(Routes.MIDTERM_REVIEW,
                               arguments: {'managerNum': managerNum},

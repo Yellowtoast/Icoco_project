@@ -337,7 +337,23 @@ class ReviewController extends GetxController {
 
   @override
   void onReady() {
-    super.onReady();
+    ever(managerNum, setPreviousReview);
+  }
+
+  setPreviousReview(_managerNum) {
+    checkedSpecialtiesList.clear();
+    for (var element
+        in middleReviewModelList![_managerNum].value!.specialtyItems!) {
+      checkedSpecialtiesList.add(element);
+
+      itemSelectStatus[specialtyTitle.indexOf(element)] = true.obs;
+
+      checkedSpecialtiesList.refresh();
+    }
+
+    contentsTextController.text =
+        middleReviewModelList![_managerNum].value!.contents;
+    reviewContents.value = middleReviewModelList![_managerNum].value!.contents;
   }
 
   createMidtermReviewFirestore(ManagerModel managerModel, String userName) {
