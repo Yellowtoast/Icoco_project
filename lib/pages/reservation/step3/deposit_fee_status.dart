@@ -297,8 +297,11 @@ class DepositFeeStatus extends StatelessWidget {
                       onPressed: () async {
                         authController
                             .reservationModel.value!.notifyDepositCost = true;
-                        authController.updateReservationFirestore(
-                            reservationNumber.value!);
+                        authController
+                            .reservationModel.value!.isFinishedDeposit = '입금완료';
+                        await authController.updateReservationFirestore(
+                            authController
+                                .reservationModel.value!.reservationNumber);
 
                         await authController.setModelInfo();
                         Get.offAllNamed(Routes.HOME);

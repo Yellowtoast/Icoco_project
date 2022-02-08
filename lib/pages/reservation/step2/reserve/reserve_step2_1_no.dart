@@ -3,17 +3,13 @@ import 'package:app/configs/routes.dart';
 import 'package:app/configs/size.dart';
 import 'package:app/configs/text_styles.dart';
 import 'package:app/controllers/auth_controller.dart';
-import 'package:app/controllers/home_controller.dart';
+import 'package:app/controllers/company_controller.dart';
 import 'package:app/controllers/reservation/step1/address_controller.dart';
 
 import 'package:app/controllers/reservation/step1/voucher_controller.dart';
-import 'package:app/controllers/reservation/step2/substep_controllers/company_controller.dart';
 import 'package:app/controllers/review_controller.dart';
 import 'package:app/pages/company/company_detail.dart';
 
-import 'package:app/pages/reservation/step1/substep_voucher/voucher_signed/voucher_signed1.dart';
-
-import 'package:app/pages/reservation/step2/reserve/reserve_step2_2.dart';
 import 'package:app/widgets/button/button.dart';
 import 'package:app/widgets/appbar.dart';
 
@@ -25,11 +21,11 @@ import '../../../loading.dart';
 
 class ReserveStep2_1_No extends StatelessWidget {
   ReserveStep2_1_No({Key? key}) : super(key: key);
-  CompanyController companyController = Get.find();
   AddressController addressController = Get.find();
   VoucherController voucherController = Get.find();
   AuthController authController = Get.find();
   ReviewController reviewController = Get.find();
+  CompanyController companyController = Get.find();
 
   @override
   Widget build(BuildContext context) {
@@ -231,9 +227,23 @@ class ReserveStep2_1_No extends StatelessWidget {
                                       ],
                                     ),
                                     InkWell(
-                                      onTap: () {
+                                      onTap: () async {
+                                        startLoadingIndicator();
+
+                                        reviewController.finalReviewModelList =
+                                            await reviewController
+                                                .getJsonReviews(
+                                                    companyController
+                                                        .companyModelList[index]
+                                                        .value!
+                                                        .uid!,
+                                                    'company',
+                                                    2,
+                                                    '기말');
+                                        finishLoadingIndicator();
+
                                         Get.to(CompanyDetailPage(),
-                                            arguments: 0);
+                                            arguments: index);
                                       },
                                       child: SizedBox(
                                         width: 50,

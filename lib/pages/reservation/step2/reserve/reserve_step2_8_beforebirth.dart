@@ -67,8 +67,8 @@ class ReserveStep2_8_Before extends StatelessWidget {
                                   authController.reservationModel);
                               await authController.setUserStep(3);
                               await authController.updateReservationFirestore(
-                                  authController.reservationNumber.value!);
-
+                                  authController.reservationModel.value!
+                                      .reservationNumber);
                               await authController.setModelInfo();
                               Get.offAllNamed(Routes.HOME);
                             },

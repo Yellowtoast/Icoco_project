@@ -7,7 +7,7 @@ import 'package:app/controllers/home_controller.dart';
 import 'package:app/controllers/reservation/step1/address_controller.dart';
 
 import 'package:app/controllers/reservation/step1/voucher_controller.dart';
-import 'package:app/controllers/reservation/step2/substep_controllers/company_controller.dart';
+import 'package:app/controllers/company_controller.dart';
 import 'package:app/controllers/review_controller.dart';
 import 'package:app/pages/company/company_detail.dart';
 
@@ -103,7 +103,7 @@ class ReserveStep2_1_Yes extends StatelessWidget {
                                               .value!
                                               .uid!,
                                           'company',
-                                          1,
+                                          2,
                                           '기말');
                                   finishLoadingIndicator();
                                   print(index);

@@ -66,7 +66,8 @@ class ReserveStep2_Finished extends StatelessWidget {
                               authController.reservationModel.value!.status =
                                   '예약 (출산일 확정)';
                               await authController.updateReservationFirestore(
-                                  authController.reservationNumber.value!);
+                                  authController.reservationModel.value!
+                                      .reservationNumber);
 
                               await authController.setModelInfo();
                               Get.offAllNamed(Routes.HOME);

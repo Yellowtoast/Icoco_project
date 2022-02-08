@@ -30,14 +30,14 @@ class ReviewModel {
       userName: data['userName'] ?? '',
       contents: data['contents'] ?? '',
       thumbnails: data['thumbnails'] ?? [],
-      managerId: data['managerId'],
-      companyId: data['companyId'],
-      userId: data['userId'],
+      managerId: data['managerId'] ?? '',
+      companyId: data['companyId'] ?? '',
+      userId: data['userId'] ?? '',
       date: DateTime.fromMillisecondsSinceEpoch(data['date']),
       // date: DateTime.fromMillisecondsSinceEpoch(data['date']),
-      type: data['type'],
-      specialtyItems: data['specialtyItems'],
-      reviewRate: data['reviewRate'],
+      type: data['type'] ?? '',
+      specialtyItems: data['specialtyItems'] ?? [],
+      reviewRate: data['reviewRate'] ?? 0,
     );
   }
 

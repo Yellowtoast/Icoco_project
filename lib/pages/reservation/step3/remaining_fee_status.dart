@@ -433,8 +433,11 @@ class RemainingFeeStatus extends StatelessWidget {
                       onPressed: () async {
                         authController
                             .reservationModel.value!.notifyBalanceCost = true;
+                        authController
+                            .reservationModel.value!.isFinishedBalance = '입금완료';
                         await authController.updateReservationFirestore(
-                            reservationNumber.value!);
+                            authController
+                                .reservationModel.value!.reservationNumber);
 
                         await authController.setModelInfo();
                         Get.offAllNamed(Routes.HOME);

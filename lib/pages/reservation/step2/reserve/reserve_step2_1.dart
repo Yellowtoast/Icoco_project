@@ -3,18 +3,15 @@ import 'package:app/configs/routes.dart';
 import 'package:app/configs/size.dart';
 import 'package:app/configs/text_styles.dart';
 import 'package:app/controllers/auth_controller.dart';
-import 'package:app/controllers/home_controller.dart';
 import 'package:app/controllers/reservation/step1/address_controller.dart';
 
 import 'package:app/controllers/reservation/step1/voucher_controller.dart';
-import 'package:app/controllers/reservation/step2/substep_controllers/company_controller.dart';
+import 'package:app/controllers/company_controller.dart';
 import 'package:app/pages/loading.dart';
 
 import 'package:app/pages/reservation/step1/substep_voucher/voucher_signed/voucher_signed1.dart';
 import 'package:app/pages/reservation/step2/reserve/reserve_step2_1_no.dart';
 import 'package:app/pages/reservation/step2/reserve/reserve_step2_1_yes.dart';
-
-import 'package:app/pages/reservation/step2/reserve/reserve_step2_2.dart';
 import 'package:app/widgets/button/button.dart';
 import 'package:app/widgets/appbar.dart';
 

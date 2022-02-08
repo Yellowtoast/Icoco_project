@@ -156,8 +156,7 @@ class ServiceInfoController extends GetxController {
     await setServiceEndDate(serviceDurationSelected.value);
 
     model.value!.voucher = voucherController.voucherResult.value!;
-    model.value!.serviceDuration =
-        useDurationSelected.value!.convertDurationTypeToString;
+    model.value!.serviceDuration = serviceDurationSelected.value;
     model.value!.serviceStartDate = (serviceStartDate.value != null)
         ? dateFormatWithDot.format(serviceStartDate.value!)
         : null;

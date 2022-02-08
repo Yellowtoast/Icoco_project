@@ -4,7 +4,7 @@ import 'package:app/configs/size.dart';
 import 'package:app/configs/text_styles.dart';
 import 'package:app/controllers/auth_controller.dart';
 import 'package:app/controllers/manager_controller.dart';
-import 'package:app/controllers/reservation/step2/substep_controllers/company_controller.dart';
+import 'package:app/controllers/company_controller.dart';
 
 import 'package:app/controllers/review_controller.dart';
 import 'package:app/helpers/formatter.dart';
@@ -128,7 +128,14 @@ class CompanyDetailPage extends StatelessWidget {
                                                 width: 5,
                                               ),
                                               Text(
-                                                "${(companyController.companyModelList[companyNum].value!.totalReviewRate! ~/ companyController.companyModelList[companyNum].value!.totalReview!).toDouble()}",
+                                                (companyController
+                                                            .companyModelList[
+                                                                companyNum]
+                                                            .value!
+                                                            .totalReviewRate ==
+                                                        0)
+                                                    ? "0"
+                                                    : "${(companyController.companyModelList[companyNum].value!.totalReviewRate! ~/ companyController.companyModelList[companyNum].value!.totalReview!).toDouble()}",
                                                 style: IcoTextStyle
                                                     .regularTextStyle12B,
                                               ),
@@ -322,364 +329,352 @@ class CompanyDetailPage extends StatelessWidget {
                 height: 9,
                 thickness: 9,
               ),
-              Container(
-                color: IcoColors.white,
-                child: Column(
-                  children: [
-                    SizedBox(
-                      height: 25,
-                    ),
-                    Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      children: [
-                        Padding(
-                          padding: const EdgeInsets.symmetric(horizontal: 20),
-                          child: Row(
-                            children: [
-                              Text("리뷰", style: IcoTextStyle.boldTextStyle14B),
-                              SizedBox(
-                                width: 6,
-                              ),
-                              Text("${reviewController.totalReviews}개",
-                                  style: IcoTextStyle.boldTextStyle14P)
-                            ],
+              (reviewController.finalReviewModelList == null)
+                  ? SizedBox()
+                  : Container(
+                      color: IcoColors.white,
+                      child: Column(
+                        children: [
+                          SizedBox(
+                            height: 25,
                           ),
-                        ),
-                        (reviewController.allThumbnailsForReview.isEmpty)
-                            ? SizedBox()
-                            : Column(
-                                children: [
-                                  SizedBox(
-                                    height: 24,
-                                  ),
-                                  SizedBox(
-                                    height: 221,
-                                    child: Row(
+                          Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            mainAxisAlignment: MainAxisAlignment.start,
+                            children: [
+                              Padding(
+                                padding:
+                                    const EdgeInsets.symmetric(horizontal: 20),
+                                child: Row(
+                                  children: [
+                                    Text("리뷰",
+                                        style: IcoTextStyle.boldTextStyle14B),
+                                    SizedBox(
+                                      width: 6,
+                                    ),
+                                    Text("${reviewController.totalReviews}개",
+                                        style: IcoTextStyle.boldTextStyle14P)
+                                  ],
+                                ),
+                              ),
+                              (reviewController.reviewListWithPicture.isEmpty)
+                                  ? SizedBox()
+                                  : Column(
                                       children: [
-                                        Expanded(
-                                          child: ListView.builder(
-                                              scrollDirection: Axis.horizontal,
-                                              shrinkWrap: true,
-                                              itemCount: 1,
-                                              itemBuilder:
-                                                  (BuildContext context,
-                                                      int index) {
-                                                return Row(
-                                                  children: [
-                                                    (index == 0)
-                                                        ? SizedBox(
-                                                            width: 20,
-                                                          )
-                                                        : SizedBox(),
-                                                    (reviewController
-                                                            .finalReviewModelList![
-                                                                index]
-                                                            .value!
-                                                            .thumbnails!
-                                                            .isEmpty)
-                                                        ? SizedBox()
-                                                        : Container(
-                                                            height: 221,
-                                                            width: 221,
-                                                            child: ClipRRect(
-                                                              borderRadius:
-                                                                  BorderRadius
-                                                                      .circular(
-                                                                          10),
-                                                              child: Stack(
-                                                                  children: [
-                                                                    Positioned(
-                                                                      child:
-                                                                          Container(
-                                                                        width:
-                                                                            221,
-                                                                        height:
-                                                                            221,
-                                                                        decoration:
-                                                                            BoxDecoration(
-                                                                          color:
-                                                                              IcoColors.grey1,
-                                                                          borderRadius:
-                                                                              BorderRadius.circular(10),
-                                                                        ),
-                                                                        child: Image
-                                                                            .network(
-                                                                          reviewController
-                                                                              .finalReviewModelList![index]
-                                                                              .value!
-                                                                              .thumbnails![0],
-                                                                          fit: BoxFit
-                                                                              .cover,
-                                                                        ),
-                                                                      ),
-                                                                    ),
-                                                                    Container(
-                                                                      decoration:
-                                                                          BoxDecoration(
-                                                                              color: Colors.black38),
-                                                                    ),
-                                                                    Positioned(
-                                                                      left: 15,
-                                                                      top: 17,
-                                                                      child:
-                                                                          RatingBar(
-                                                                        ignoreGestures:
-                                                                            true,
-                                                                        initialRating: reviewController
-                                                                            .finalReviewModelList![index]
-                                                                            .value!
-                                                                            .reviewRate!
-                                                                            .toDouble(),
-                                                                        direction:
-                                                                            Axis.horizontal,
-                                                                        allowHalfRating:
-                                                                            false,
-                                                                        itemCount:
-                                                                            5,
-                                                                        ratingWidget:
-                                                                            RatingWidget(
-                                                                          full:
-                                                                              SvgPicture.asset('icons/star_full.svg'),
-                                                                          half:
-                                                                              SvgPicture.asset('icons/star_full.svg'),
-                                                                          empty:
-                                                                              SvgPicture.asset(
-                                                                            'icons/star_empty.svg',
-                                                                            color:
-                                                                                IcoColors.yellow2,
-                                                                          ),
-                                                                        ),
-                                                                        itemSize:
-                                                                            18,
-                                                                        onRatingUpdate:
-                                                                            (rating) {
-                                                                          print(
-                                                                              rating);
-                                                                        },
-                                                                      ),
-                                                                    ),
-                                                                    Positioned(
-                                                                      left: 15,
-                                                                      bottom:
-                                                                          17,
-                                                                      child:
-                                                                          Column(
-                                                                        crossAxisAlignment:
-                                                                            CrossAxisAlignment.start,
+                                        SizedBox(
+                                          height: 24,
+                                        ),
+                                        SizedBox(
+                                          height: 221,
+                                          child: Row(
+                                            children: [
+                                              Expanded(
+                                                child: ListView.builder(
+                                                    scrollDirection:
+                                                        Axis.horizontal,
+                                                    shrinkWrap: true,
+                                                    itemCount: reviewController
+                                                        .reviewListWithPicture
+                                                        .length,
+                                                    itemBuilder:
+                                                        (BuildContext context,
+                                                            int index) {
+                                                      return Row(
+                                                        children: [
+                                                          (index == 0)
+                                                              ? SizedBox(
+                                                                  width: 20,
+                                                                )
+                                                              : SizedBox(),
+                                                          (reviewController
+                                                                  .reviewListWithPicture
+                                                                  .isEmpty)
+                                                              ? SizedBox()
+                                                              : Container(
+                                                                  height: 221,
+                                                                  width: 221,
+                                                                  child:
+                                                                      ClipRRect(
+                                                                    borderRadius:
+                                                                        BorderRadius.circular(
+                                                                            10),
+                                                                    child: Stack(
                                                                         children: [
-                                                                          SizedBox(
-                                                                            width:
-                                                                                190,
+                                                                          Positioned(
                                                                             child:
-                                                                                Text(
-                                                                              (reviewController.finalReviewModelList![index].value!.contents.length <= 16) ? reviewController.finalReviewModelList![index].value!.contents : reviewController.finalReviewModelList![index].value!.contents.substring(0, 15) + "...",
-                                                                              style: IcoTextStyle.boldTextStyle16W,
-                                                                              overflow: TextOverflow.ellipsis,
+                                                                                Container(
+                                                                              width: 221,
+                                                                              height: 221,
+                                                                              decoration: BoxDecoration(
+                                                                                color: IcoColors.grey1,
+                                                                                borderRadius: BorderRadius.circular(10),
+                                                                              ),
+                                                                              child: Image.network(
+                                                                                reviewController.reviewListWithPicture[index].value!.thumbnails![0],
+                                                                                errorBuilder: (context, error, stackTrace) => Container(
+                                                                                  width: 221,
+                                                                                  height: 221,
+                                                                                  decoration: BoxDecoration(
+                                                                                    color: IcoColors.grey1,
+                                                                                    borderRadius: BorderRadius.circular(10),
+                                                                                  ),
+                                                                                ),
+                                                                              ),
                                                                             ),
                                                                           ),
-                                                                          SizedBox(
-                                                                            height:
-                                                                                7,
+                                                                          Container(
+                                                                            decoration:
+                                                                                BoxDecoration(color: Colors.black38),
                                                                           ),
-                                                                          Text(
-                                                                            dateFormatWithDot.format(reviewController.finalReviewModelList![index].value!.date),
-                                                                            style:
-                                                                                IcoTextStyle.mediumTextStyle13W,
+                                                                          Positioned(
+                                                                            left:
+                                                                                15,
+                                                                            top:
+                                                                                17,
+                                                                            child:
+                                                                                RatingBar(
+                                                                              ignoreGestures: true,
+                                                                              initialRating: reviewController.reviewListWithPicture[index].value!.reviewRate!.toDouble(),
+                                                                              direction: Axis.horizontal,
+                                                                              allowHalfRating: false,
+                                                                              itemCount: 5,
+                                                                              ratingWidget: RatingWidget(
+                                                                                full: SvgPicture.asset('icons/star_full.svg'),
+                                                                                half: SvgPicture.asset('icons/star_full.svg'),
+                                                                                empty: SvgPicture.asset(
+                                                                                  'icons/star_empty.svg',
+                                                                                  color: IcoColors.yellow2,
+                                                                                ),
+                                                                              ),
+                                                                              itemSize: 18,
+                                                                              onRatingUpdate: (rating) {
+                                                                                print(rating);
+                                                                              },
+                                                                            ),
                                                                           ),
-                                                                        ],
-                                                                      ),
-                                                                    ),
-                                                                  ]),
-                                                            ),
-                                                            decoration:
-                                                                BoxDecoration(
-                                                              borderRadius:
-                                                                  BorderRadius
-                                                                      .circular(
-                                                                          10),
-                                                            ),
-                                                          ),
-                                                    SizedBox(
-                                                      width: 8,
-                                                    )
-                                                  ],
-                                                );
-                                              }),
+                                                                          Positioned(
+                                                                            left:
+                                                                                15,
+                                                                            bottom:
+                                                                                17,
+                                                                            child:
+                                                                                Column(
+                                                                              crossAxisAlignment: CrossAxisAlignment.start,
+                                                                              children: [
+                                                                                SizedBox(
+                                                                                  width: 190,
+                                                                                  child: Text(
+                                                                                    (reviewController.reviewListWithPicture[index].value!.contents.length <= 16) ? reviewController.reviewListWithPicture[index].value!.contents : reviewController.reviewListWithPicture[index].value!.contents.substring(0, 15) + "...",
+                                                                                    style: IcoTextStyle.boldTextStyle16W,
+                                                                                    overflow: TextOverflow.ellipsis,
+                                                                                  ),
+                                                                                ),
+                                                                                SizedBox(
+                                                                                  height: 7,
+                                                                                ),
+                                                                                Text(
+                                                                                  dateFormatWithDot.format(reviewController.reviewListWithPicture[index].value!.date),
+                                                                                  style: IcoTextStyle.mediumTextStyle13W,
+                                                                                ),
+                                                                              ],
+                                                                            ),
+                                                                          ),
+                                                                        ]),
+                                                                  ),
+                                                                  decoration:
+                                                                      BoxDecoration(
+                                                                    borderRadius:
+                                                                        BorderRadius.circular(
+                                                                            10),
+                                                                  ),
+                                                                ),
+                                                          SizedBox(
+                                                            width: 8,
+                                                          )
+                                                        ],
+                                                      );
+                                                    }),
+                                              ),
+                                            ],
+                                          ),
                                         ),
                                       ],
                                     ),
-                                  ),
-                                ],
-                              ),
-                      ],
-                    ),
-                    SizedBox(
-                      height:
-                          reviewController.finalReviewModelList!.length * 165,
-                      child: Column(
-                        children: [
-                          Expanded(
-                            child: ListView.builder(
-                                scrollDirection: Axis.vertical,
-                                shrinkWrap: true,
-                                itemCount: reviewController
-                                    .finalReviewModelList!.length,
-                                physics: const NeverScrollableScrollPhysics(),
-                                itemBuilder: (BuildContext context, int index) {
-                                  return Column(
-                                    children: [
-                                      Container(
-                                        alignment: Alignment.center,
-                                        padding: const EdgeInsets.symmetric(
-                                            horizontal: 20),
-                                        color: Colors.white,
-                                        height: 165,
-                                        width: IcoSize.width,
-                                        child: Column(
-                                          crossAxisAlignment:
-                                              CrossAxisAlignment.start,
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.center,
+                            ],
+                          ),
+                          SizedBox(
+                            height:
+                                reviewController.finalReviewModelList!.length *
+                                    165,
+                            child: Column(
+                              children: [
+                                Expanded(
+                                  child: ListView.builder(
+                                      scrollDirection: Axis.vertical,
+                                      shrinkWrap: true,
+                                      itemCount: reviewController
+                                          .finalReviewModelList!.length,
+                                      physics:
+                                          const NeverScrollableScrollPhysics(),
+                                      itemBuilder:
+                                          (BuildContext context, int index) {
+                                        return Column(
                                           children: [
-                                            RatingBar(
-                                              ignoreGestures: true,
-                                              initialRating: reviewController
-                                                  .finalReviewModelList![index]
-                                                  .value!
-                                                  .reviewRate!
-                                                  .toDouble(),
-                                              direction: Axis.horizontal,
-                                              allowHalfRating: false,
-                                              itemCount: 5,
-                                              ratingWidget: RatingWidget(
-                                                full: SvgPicture.asset(
-                                                    'icons/star_full.svg'),
-                                                half: SvgPicture.asset(
-                                                    'icons/star_full.svg'),
-                                                empty: SvgPicture.asset(
-                                                    'icons/star_empty.svg'),
+                                            Container(
+                                              alignment: Alignment.center,
+                                              padding:
+                                                  const EdgeInsets.symmetric(
+                                                      horizontal: 20),
+                                              color: Colors.white,
+                                              height: 165,
+                                              width: IcoSize.width,
+                                              child: Column(
+                                                crossAxisAlignment:
+                                                    CrossAxisAlignment.start,
+                                                mainAxisAlignment:
+                                                    MainAxisAlignment.center,
+                                                children: [
+                                                  RatingBar(
+                                                    ignoreGestures: true,
+                                                    initialRating: reviewController
+                                                        .finalReviewModelList![
+                                                            index]
+                                                        .value!
+                                                        .reviewRate!
+                                                        .toDouble(),
+                                                    direction: Axis.horizontal,
+                                                    allowHalfRating: false,
+                                                    itemCount: 5,
+                                                    ratingWidget: RatingWidget(
+                                                      full: SvgPicture.asset(
+                                                          'icons/star_full.svg'),
+                                                      half: SvgPicture.asset(
+                                                          'icons/star_full.svg'),
+                                                      empty: SvgPicture.asset(
+                                                          'icons/star_empty.svg'),
+                                                    ),
+                                                    itemSize: 17,
+                                                    onRatingUpdate: (rating) {
+                                                      print(rating);
+                                                    },
+                                                  ),
+                                                  SizedBox(
+                                                    height: 11,
+                                                  ),
+                                                  Text(
+                                                    (reviewController
+                                                                .finalReviewModelList![
+                                                                    index]
+                                                                .value!
+                                                                .contents
+                                                                .length <=
+                                                            24)
+                                                        ? reviewController
+                                                            .finalReviewModelList![
+                                                                index]
+                                                            .value!
+                                                            .contents
+                                                        : reviewController
+                                                            .finalReviewModelList![
+                                                                index]
+                                                            .value!
+                                                            .contents
+                                                            .substring(0, 23),
+                                                    style: IcoTextStyle
+                                                        .boldTextStyle16B,
+                                                  ),
+                                                  SizedBox(
+                                                    height: 3,
+                                                  ),
+                                                  Text(
+                                                    reviewController
+                                                        .finalReviewModelList![
+                                                            index]
+                                                        .value!
+                                                        .contents,
+                                                    style: IcoTextStyle
+                                                        .mediumTextStyle14Grey4,
+                                                    overflow:
+                                                        TextOverflow.ellipsis,
+                                                  ),
+                                                  SizedBox(
+                                                    height: 15,
+                                                  ),
+                                                  Row(
+                                                    mainAxisAlignment:
+                                                        MainAxisAlignment
+                                                            .spaceBetween,
+                                                    children: [
+                                                      Text(
+                                                        reviewController
+                                                            .finalReviewModelList![
+                                                                index]
+                                                            .value!
+                                                            .userName
+                                                            .replaceRange(
+                                                                1,
+                                                                reviewController
+                                                                    .finalReviewModelList![
+                                                                        index]
+                                                                    .value!
+                                                                    .userName
+                                                                    .length,
+                                                                "**"),
+                                                        style: IcoTextStyle
+                                                            .mediumTextStyle13Grey4,
+                                                      ),
+                                                      Text(
+                                                        dateFormatWithDot.format(
+                                                            reviewController
+                                                                .finalReviewModelList![
+                                                                    index]
+                                                                .value!
+                                                                .date),
+                                                        style: IcoTextStyle
+                                                            .mediumTextStyle13Grey4,
+                                                      ),
+                                                    ],
+                                                  ),
+                                                ],
                                               ),
-                                              itemSize: 17,
-                                              onRatingUpdate: (rating) {
-                                                print(rating);
-                                              },
                                             ),
-                                            SizedBox(
-                                              height: 11,
-                                            ),
-                                            Text(
-                                              (reviewController
-                                                          .finalReviewModelList![
-                                                              index]
-                                                          .value!
-                                                          .contents
-                                                          .length <=
-                                                      24)
-                                                  ? reviewController
-                                                      .finalReviewModelList![
-                                                          index]
-                                                      .value!
-                                                      .contents
-                                                  : reviewController
-                                                      .finalReviewModelList![
-                                                          index]
-                                                      .value!
-                                                      .contents
-                                                      .substring(0, 23),
-                                              style:
-                                                  IcoTextStyle.boldTextStyle16B,
-                                            ),
-                                            SizedBox(
-                                              height: 3,
-                                            ),
-                                            Text(
-                                              reviewController
-                                                  .finalReviewModelList![index]
-                                                  .value!
-                                                  .contents,
-                                              style: IcoTextStyle
-                                                  .mediumTextStyle14Grey4,
-                                              overflow: TextOverflow.ellipsis,
-                                            ),
-                                            SizedBox(
-                                              height: 15,
-                                            ),
-                                            Row(
-                                              mainAxisAlignment:
-                                                  MainAxisAlignment
-                                                      .spaceBetween,
-                                              children: [
-                                                Text(
-                                                  reviewController
-                                                      .finalReviewModelList![
-                                                          index]
-                                                      .value!
-                                                      .userName
-                                                      .replaceRange(
-                                                          1,
-                                                          reviewController
-                                                              .finalReviewModelList![
-                                                                  index]
-                                                              .value!
-                                                              .userName
-                                                              .length,
-                                                          "**"),
-                                                  style: IcoTextStyle
-                                                      .mediumTextStyle13Grey4,
-                                                ),
-                                                Text(
-                                                  dateFormatWithDot.format(
-                                                      reviewController
-                                                          .finalReviewModelList![
-                                                              index]
-                                                          .value!
-                                                          .date),
-                                                  style: IcoTextStyle
-                                                      .mediumTextStyle13Grey4,
-                                                ),
-                                              ],
-                                            ),
+                                            Divider(
+                                              height: 1,
+                                              color: IcoColors.grey2,
+                                            )
                                           ],
-                                        ),
-                                      ),
-                                      Divider(
-                                        height: 1,
-                                        color: IcoColors.grey2,
-                                      )
-                                    ],
-                                  );
-                                }),
+                                        );
+                                      }),
+                                ),
+                              ],
+                            ),
+                          ),
+                          InkWell(
+                            onTap: () {},
+                            child: Container(
+                              alignment: Alignment.center,
+                              height: 52,
+                              width: IcoSize.width,
+                              decoration: BoxDecoration(
+                                color: IcoColors.white,
+                                border: Border.symmetric(
+                                  horizontal: BorderSide(
+                                      width: 1, color: IcoColors.grey2),
+                                ),
+                              ),
+                              child: Text(
+                                "리뷰 더보기",
+                                style: IcoTextStyle.mediumTextStyle15Grey4,
+                              ),
+                            ),
+                          ),
+                          Container(
+                            height: 53,
+                            color: Colors.white,
                           ),
                         ],
                       ),
                     ),
-                    InkWell(
-                      onTap: () {},
-                      child: Container(
-                        alignment: Alignment.center,
-                        height: 52,
-                        width: IcoSize.width,
-                        decoration: BoxDecoration(
-                          color: IcoColors.white,
-                          border: Border.symmetric(
-                            horizontal:
-                                BorderSide(width: 1, color: IcoColors.grey2),
-                          ),
-                        ),
-                        child: Text(
-                          "리뷰 더보기",
-                          style: IcoTextStyle.mediumTextStyle15Grey4,
-                        ),
-                      ),
-                    ),
-                    Container(
-                      height: 53,
-                      color: Colors.white,
-                    ),
-                  ],
-                ),
-              ),
             ],
           ),
         ),

@@ -22,7 +22,7 @@ class ReviewController extends GetxController {
   late String userName;
   RxList<File?> totalFileList = RxList<File?>();
   RxList<String?> fileNameList = RxList<String?>();
-  RxList<String?> allThumbnailsForReview = RxList<String?>();
+  RxList<Rxn<ReviewModel>> reviewListWithPicture = RxList<Rxn<ReviewModel>>();
   firebase_storage.FirebaseStorage storage =
       firebase_storage.FirebaseStorage.instance;
   RxList<firebase_storage.Reference?> storageRefList =
@@ -161,7 +161,6 @@ class ReviewController extends GetxController {
 
   Future<RxList<Rxn<ReviewModel>>?> getJsonReviews(
       String uid, String target, int? reviewOffset, String reviewType) async {
-    reviewOffset ??= 1;
     Map<dynamic, dynamic> reviewObject;
     List<dynamic> list;
     String token;
@@ -197,7 +196,7 @@ class ReviewController extends GetxController {
         model.value = ReviewModel.fromJson(res);
         modelList.add(model);
       }
-      allThumbnailsForReview.value = await extractFirstIndexPictures(modelList);
+      reviewListWithPicture.value = await extractFirstIndexPictures(modelList);
       //  reviewModelList.refresh();
       return modelList;
     } catch (e) {
@@ -207,14 +206,15 @@ class ReviewController extends GetxController {
   }
 
   extractFirstIndexPictures(RxList<Rxn<ReviewModel>> reviewModelList) {
-    RxList<String> allFirstIndexThumbnails = RxList<String>();
+    RxList<Rxn<ReviewModel>> reviewModelsWithThumbnails =
+        RxList<Rxn<ReviewModel>>();
     reviewModelList.forEach((element) {
-      if (element.value != null && element.value!.thumbnails!.isNotEmpty) {
-        allFirstIndexThumbnails.add(element.value!.thumbnails![0]);
+      if (element.value != null && element.value!.thumbnails != null) {
+        reviewModelsWithThumbnails.add(element);
       }
     });
 
-    return allFirstIndexThumbnails;
+    return reviewModelsWithThumbnails;
   }
 
   Future<String?> selectFile(
