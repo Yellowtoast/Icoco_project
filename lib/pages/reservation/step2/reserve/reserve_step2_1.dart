@@ -86,7 +86,7 @@ class ReserveStep2_1 extends StatelessWidget {
                       title: "바우처 등급",
                       contents: voucherController.voucherResult.value!,
                       onTap: () async {
-                        await voucherController.getVoucherCostInfo(
+                        await voucherController.setVoucherInfo(
                             authController.reservationModel.value!.voucher!);
 
                         // voucherController.voucherResult.value =
@@ -234,29 +234,6 @@ class ReserveStep2_1 extends StatelessWidget {
                           ),
                         ),
                       ],
-                    ),
-                    SizedBox(
-                      height: 30,
-                    ),
-                    Container(
-                      alignment: Alignment.bottomCenter,
-                      child: IcoButton(
-                          onPressed: () async {
-                            companyController.updateCompanyToModel(
-                                authController.reservationModel);
-
-                            Get.toNamed(Routes.RESERVE_STEP2_2);
-                          },
-                          active:
-                              (companyController.companySelected.value != null)
-                                  ? true.obs
-                                  : false.obs,
-                          buttonColor: IcoColors.primary,
-                          textStyle: IcoTextStyle.buttonTextStyleW,
-                          text: "다음으로"),
-                    ),
-                    SizedBox(
-                      height: 20,
                     ),
                   ],
                 ),

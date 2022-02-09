@@ -346,16 +346,9 @@ class ReserveStep2_5 extends StatelessWidget {
                       height: 59,
                     ),
                     IcoButton(
-                        onPressed: () async {
-                          await additionalFeeController.setExtraChargeOptions();
-                          showModalBottomSheet<void>(
-                            backgroundColor: Colors.transparent,
-                            context: context,
-                            barrierColor: Colors.transparent,
-                            builder: (BuildContext context) {
-                              return BottomResultModal();
-                            },
-                          );
+                        onPressed: () {
+                          additionalFeeController.setExtraChargeOptions();
+                          BottomResultModal();
                         },
                         active: additionalFeeController.isButtonValid,
                         textStyle: IcoTextStyle.buttonTextStyleW,

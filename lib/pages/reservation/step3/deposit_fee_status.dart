@@ -74,8 +74,9 @@ class DepositFeeStatus extends StatelessWidget {
                           width: 7,
                         ),
                         Text(
-                          "${homeController.reservationModel.value!.chosenCompany} 대구지사",
+                          "${homeController.reservationModel.value!.chosenCompany}",
                           style: IcoTextStyle.boldTextStyle18B,
+                          overflow: TextOverflow.ellipsis,
                         ),
                       ],
                     ),
@@ -297,8 +298,7 @@ class DepositFeeStatus extends StatelessWidget {
                       onPressed: () async {
                         authController
                             .reservationModel.value!.notifyDepositCost = true;
-                        authController
-                            .reservationModel.value!.isFinishedDeposit = '입금완료';
+
                         await authController.updateReservationFirestore(
                             authController
                                 .reservationModel.value!.reservationNumber);

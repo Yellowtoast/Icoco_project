@@ -27,7 +27,6 @@ class ReserveStep2_7 extends StatelessWidget {
   Widget build(BuildContext context) {
     VoucherController voucherController = Get.find();
     ServiceInfoController serviceInfoController = Get.find();
-
     DateInfoController dateInfoController = Get.find();
 
     return Obx(() {
@@ -141,6 +140,7 @@ class ReserveStep2_7 extends StatelessWidget {
                               dateInfoController.serviceDurationInt.value,
                           itemBuilder: (BuildContext context, int index) {
                             late serviceDurationType durationType;
+
                             switch (index) {
                               case 0:
                                 durationType = serviceDurationType.ONEWEEK;
@@ -159,6 +159,7 @@ class ReserveStep2_7 extends StatelessWidget {
                                 break;
                               default:
                             }
+                            print(durationType);
                             return Column(
                               children: [
                                 SizedBox(

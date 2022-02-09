@@ -40,12 +40,13 @@ class VoucherController extends GetxController {
   Rxn<String> regNumErrorText = Rxn<String>();
   @override
   void onReady() async {
-    await setVoucherInfo(voucherResult.value);
+    // await setVoucherInfo(voucherResult.value);
+
     super.onReady();
   }
 
   setVoucherInfo(String? voucher) {
-    voucherResult.value ??= voucher;
+    voucherResult.value = voucher;
 
     if (voucherResult.value == null) {
       print('no voucher info');
@@ -68,7 +69,7 @@ class VoucherController extends GetxController {
         default:
       }
     }
-    getVoucherCostInfo(voucherResult.value);
+    getVoucherCostInfo();
   }
 
   setDropDownList() {
@@ -98,14 +99,12 @@ class VoucherController extends GetxController {
     } else {
       voucherResult.value = '';
     }
-    getVoucherCostInfo(voucherResult.value);
+    getVoucherCostInfo();
   }
 
-  getVoucherCostInfo(_voucher) {
+  getVoucherCostInfo() {
     try {
-      if (_voucher != null) {
-        voucherResult.value = _voucher;
-
+      if (voucherResult.value != null) {
         depositFeeList.assignAll(depositFeePerWeek);
         totalFeeList.assignAll(totalFeeInfo[voucherResult.value]!);
         govermentFeeList.assignAll(govermentFeeInfo[voucherResult.value]!);

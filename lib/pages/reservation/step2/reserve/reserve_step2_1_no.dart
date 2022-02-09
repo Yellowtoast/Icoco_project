@@ -4,12 +4,16 @@ import 'package:app/configs/size.dart';
 import 'package:app/configs/text_styles.dart';
 import 'package:app/controllers/auth_controller.dart';
 import 'package:app/controllers/company_controller.dart';
+import 'package:app/controllers/home_controller.dart';
 import 'package:app/controllers/reservation/step1/address_controller.dart';
 
 import 'package:app/controllers/reservation/step1/voucher_controller.dart';
 import 'package:app/controllers/review_controller.dart';
 import 'package:app/pages/company/company_detail.dart';
 
+import 'package:app/pages/reservation/step1/substep_voucher/voucher_signed/voucher_signed1.dart';
+
+import 'package:app/pages/reservation/step2/reserve/reserve_step2_2.dart';
 import 'package:app/widgets/button/button.dart';
 import 'package:app/widgets/appbar.dart';
 
@@ -21,11 +25,11 @@ import '../../../loading.dart';
 
 class ReserveStep2_1_No extends StatelessWidget {
   ReserveStep2_1_No({Key? key}) : super(key: key);
+  CompanyController companyController = Get.find();
   AddressController addressController = Get.find();
   VoucherController voucherController = Get.find();
   AuthController authController = Get.find();
   ReviewController reviewController = Get.find();
-  CompanyController companyController = Get.find();
 
   @override
   Widget build(BuildContext context) {
@@ -81,184 +85,198 @@ class ReserveStep2_1_No extends StatelessWidget {
                         itemBuilder: (BuildContext context, int index) {
                           return Column(
                             children: [
-                              Container(
-                                height: 111,
-                                padding: EdgeInsets.fromLTRB(10, 0, 0, 0),
-                                decoration: BoxDecoration(
-                                    border: Border.all(
-                                        color: IcoColors.grey2, width: 1),
-                                    borderRadius: BorderRadius.circular(10)),
-                                child: Row(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
-                                  children: [
-                                    Row(
-                                      children: [
-                                        ClipRRect(
-                                          borderRadius:
-                                              BorderRadius.circular(100),
-                                          child: SizedBox(
-                                            width: 89,
-                                            height: 89,
-                                            child: Image.network(
-                                              companyController
-                                                      .companyModelList[index]
-                                                      .value!
-                                                      .thumbnail ??
-                                                  'https://t1.daumcdn.net/cfile/tistory/2446863653FC18972F',
-                                              fit: BoxFit.cover,
-                                            ),
-                                          ),
-                                        ),
-                                        const SizedBox(
-                                          width: 10,
-                                        ),
-                                        Column(
-                                          crossAxisAlignment:
-                                              CrossAxisAlignment.start,
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.center,
-                                          children: [
-                                            Text.rich(
-                                              TextSpan(
-                                                text:
-                                                    "${companyController.companyModelList[index].value!.companyName}\n",
-                                                style: IcoTextStyle
-                                                    .boldTextStyle19B,
-                                                children: <TextSpan>[
-                                                  TextSpan(
-                                                      text: companyController
-                                                          .companyModelList[
-                                                              index]
-                                                          .value!
-                                                          .address
-                                                          .split("/")[0],
-                                                      style: IcoTextStyle
-                                                          .mediumTextStyle12Grey4),
-                                                ],
-                                              ),
-                                              overflow: TextOverflow.ellipsis,
-                                            ),
-                                            const SizedBox(
-                                              height: 7,
-                                            ),
-                                            Row(
-                                              crossAxisAlignment:
-                                                  CrossAxisAlignment.center,
-                                              children: [
-                                                Container(
-                                                  width: 63,
-                                                  height: 25,
-                                                  decoration: BoxDecoration(
-                                                      border: Border.all(
-                                                          width: 1,
-                                                          color:
-                                                              IcoColors.grey2),
-                                                      borderRadius:
-                                                          BorderRadius.circular(
-                                                              50)),
-                                                  child: Row(
-                                                    crossAxisAlignment:
-                                                        CrossAxisAlignment
-                                                            .center,
-                                                    mainAxisAlignment:
-                                                        MainAxisAlignment
-                                                            .center,
-                                                    children: [
-                                                      SvgPicture.asset(
-                                                        'icons/star_full.svg',
-                                                        height: 15,
-                                                      ),
-                                                      SizedBox(
-                                                        width: 5,
-                                                      ),
-                                                      Text(
-                                                        (companyController
-                                                                    .companyModelList[
-                                                                        index]
-                                                                    .value!
-                                                                    .totalReviewRate ==
-                                                                0)
-                                                            ? "0"
-                                                            : "${(companyController.companyModelList[index].value!.totalReviewRate! ~/ companyController.companyModelList[index].value!.totalReview!).toDouble()}",
-                                                        style: IcoTextStyle
-                                                            .regularTextStyle12B,
-                                                      ),
-                                                      SizedBox(
-                                                        width: 2,
-                                                      ),
-                                                    ],
-                                                  ),
-                                                ),
-                                                SizedBox(
-                                                  width: 11,
-                                                ),
-                                                Container(
-                                                  width: 63,
-                                                  height: 25,
-                                                  decoration: BoxDecoration(
-                                                      border: Border.all(
-                                                          width: 1,
-                                                          color:
-                                                              IcoColors.grey2),
-                                                      borderRadius:
-                                                          BorderRadius.circular(
-                                                              50)),
-                                                  child: Row(
-                                                    crossAxisAlignment:
-                                                        CrossAxisAlignment
-                                                            .center,
-                                                    mainAxisAlignment:
-                                                        MainAxisAlignment
-                                                            .center,
-                                                    children: [
-                                                      Text(
-                                                        "리뷰 ${companyController.companyModelList[index].value!.totalReview!}+",
-                                                        style: IcoTextStyle
-                                                            .regularTextStyle12Grey4,
-                                                      ),
-                                                    ],
-                                                  ),
-                                                ),
-                                              ],
-                                            )
-                                          ],
-                                        ),
-                                      ],
-                                    ),
-                                    InkWell(
-                                      onTap: () async {
-                                        startLoadingIndicator();
-
-                                        reviewController.finalReviewModelList =
-                                            await reviewController
-                                                .getJsonReviews(
-                                                    companyController
+                              // RadioButtonItem(
+                              //   height: 80,
+                              //   itemNum: index,
+                              //   selectedItem: companyController.companySelected,
+                              //   mainTitle: companyController.companyList[index]
+                              //           ["title"] ??
+                              //       "",
+                              //   hasSubtitle: false,
+                              //   hasIcon: false,
+                              //   onTapArrow: () {},
+                              // ),
+                              InkWell(
+                                onTap: () {
+                                  companyController.companySelected.value =
+                                      index;
+                                },
+                                child: Container(
+                                  height: 111,
+                                  padding: EdgeInsets.fromLTRB(10, 0, 0, 0),
+                                  decoration: BoxDecoration(
+                                      color: (companyController
+                                                  .companySelected.value ==
+                                              index)
+                                          ? IcoColors.purple1
+                                          : IcoColors.white,
+                                      border: Border.all(
+                                        color: (companyController
+                                                    .companySelected.value ==
+                                                index)
+                                            ? IcoColors.primary
+                                            : IcoColors.grey2,
+                                        width: 1,
+                                      ),
+                                      borderRadius: BorderRadius.circular(10)),
+                                  child: Row(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
+                                    children: [
+                                      Row(
+                                        children: [
+                                          ClipRRect(
+                                            borderRadius:
+                                                BorderRadius.circular(100),
+                                            child: SizedBox(
+                                              width: 89,
+                                              height: 89,
+                                              child: Image.network(
+                                                companyController
                                                         .companyModelList[index]
                                                         .value!
-                                                        .uid!,
-                                                    'company',
-                                                    2,
-                                                    '기말');
-                                        finishLoadingIndicator();
-
-                                        Get.to(CompanyDetailPage(),
-                                            arguments: index);
-                                      },
-                                      child: SizedBox(
-                                        width: 50,
-                                        height: double.infinity,
+                                                        .thumbnail ??
+                                                    'https://t1.daumcdn.net/cfile/tistory/2446863653FC18972F',
+                                                fit: BoxFit.cover,
+                                              ),
+                                            ),
+                                          ),
+                                          const SizedBox(
+                                            width: 10,
+                                          ),
+                                          Column(
+                                            crossAxisAlignment:
+                                                CrossAxisAlignment.start,
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.center,
+                                            children: [
+                                              Text.rich(
+                                                TextSpan(
+                                                  text:
+                                                      "${companyController.companyModelList[index].value!.companyName}\n",
+                                                  style: IcoTextStyle
+                                                      .boldTextStyle19B,
+                                                  children: <TextSpan>[
+                                                    TextSpan(
+                                                        text: companyController
+                                                            .companyModelList[
+                                                                index]
+                                                            .value!
+                                                            .address
+                                                            .split("/")[0],
+                                                        style: IcoTextStyle
+                                                            .mediumTextStyle12Grey4),
+                                                  ],
+                                                ),
+                                                overflow: TextOverflow.ellipsis,
+                                              ),
+                                              const SizedBox(
+                                                height: 7,
+                                              ),
+                                              Row(
+                                                crossAxisAlignment:
+                                                    CrossAxisAlignment.center,
+                                                children: [
+                                                  Container(
+                                                    width: 63,
+                                                    height: 25,
+                                                    decoration: BoxDecoration(
+                                                        border: Border.all(
+                                                            width: 1,
+                                                            color: IcoColors
+                                                                .grey2),
+                                                        borderRadius:
+                                                            BorderRadius
+                                                                .circular(50)),
+                                                    child: Row(
+                                                      crossAxisAlignment:
+                                                          CrossAxisAlignment
+                                                              .center,
+                                                      mainAxisAlignment:
+                                                          MainAxisAlignment
+                                                              .center,
+                                                      children: [
+                                                        SvgPicture.asset(
+                                                          'icons/star_full.svg',
+                                                          height: 15,
+                                                        ),
+                                                        SizedBox(
+                                                          width: 5,
+                                                        ),
+                                                        Text(
+                                                          (companyController
+                                                                      .companyModelList[
+                                                                          index]
+                                                                      .value!
+                                                                      .totalReviewRate ==
+                                                                  0)
+                                                              ? "0"
+                                                              : "${(companyController.companyModelList[index].value!.totalReviewRate! ~/ companyController.companyModelList[index].value!.totalReview!).toDouble()}",
+                                                          style: IcoTextStyle
+                                                              .regularTextStyle12B,
+                                                        ),
+                                                        SizedBox(
+                                                          width: 2,
+                                                        ),
+                                                      ],
+                                                    ),
+                                                  ),
+                                                  SizedBox(
+                                                    width: 11,
+                                                  ),
+                                                  Container(
+                                                    width: 63,
+                                                    height: 25,
+                                                    decoration: BoxDecoration(
+                                                        border: Border.all(
+                                                            width: 1,
+                                                            color: IcoColors
+                                                                .grey2),
+                                                        borderRadius:
+                                                            BorderRadius
+                                                                .circular(50)),
+                                                    child: Row(
+                                                      crossAxisAlignment:
+                                                          CrossAxisAlignment
+                                                              .center,
+                                                      mainAxisAlignment:
+                                                          MainAxisAlignment
+                                                              .center,
+                                                      children: [
+                                                        Text(
+                                                          "리뷰 ${companyController.companyModelList[index].value!.totalReview!}+",
+                                                          style: IcoTextStyle
+                                                              .regularTextStyle12Grey4,
+                                                        ),
+                                                      ],
+                                                    ),
+                                                  ),
+                                                ],
+                                              )
+                                            ],
+                                          ),
+                                        ],
+                                      ),
+                                      InkWell(
+                                        onTap: () {
+                                          Get.to(CompanyDetailPage(),
+                                              arguments: 0);
+                                        },
                                         child: SizedBox(
-                                          child: SvgPicture.asset(
-                                            'icons/button_arrow.svg',
-                                            color: IcoColors.grey3,
-                                            width: 16,
-                                            fit: BoxFit.none,
+                                          width: 50,
+                                          height: double.infinity,
+                                          child: SizedBox(
+                                            child: SvgPicture.asset(
+                                              'icons/button_arrow.svg',
+                                              color: IcoColors.grey3,
+                                              width: 16,
+                                              fit: BoxFit.none,
+                                            ),
                                           ),
                                         ),
-                                      ),
-                                    )
-                                  ],
+                                      )
+                                    ],
+                                  ),
                                 ),
                               ),
                               SizedBox(
@@ -266,19 +284,6 @@ class ReserveStep2_1_No extends StatelessWidget {
                               ),
                             ],
                           );
-                          /*         : RadioButtonItem(
-                                  height: 80,
-                                  itemNum: index,
-                                  selectedItem:
-                                      companyController.companySelected,
-                                  mainTitle: companyController
-                                          .companyList[index]["title"] ??
-                                      "",
-                                  hasSubtitle: false,
-                                  hasIcon: false,
-                                  onTapArrow: () {},
-                                );
-                                */
                         },
                       ),
                     ),

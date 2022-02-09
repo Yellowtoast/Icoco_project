@@ -352,9 +352,6 @@ Future<dynamic> RemainingCostStatusPopup() {
                             authController.reservationModel.value!.openPopup =
                                 false;
 
-                            authController.reservationModel.value!
-                                .isFinishedDeposit = '입금완료';
-                            // authController.setUserStep(5);
                             await authController.updateReservationFirestore(
                                 reservationModel.value!.reservationNumber);
 

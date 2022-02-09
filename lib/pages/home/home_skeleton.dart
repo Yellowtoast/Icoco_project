@@ -25,11 +25,6 @@ class HomeSkeletonPage extends StatelessWidget {
   HomeSkeletonPage({Key? key}) : super(key: key);
   AuthController authController = Get.find();
   HomeController homeController = Get.find();
-  ManagerController managerController = Get.put(ManagerController());
-  ReviewController reviewController = Get.put(ReviewController());
-  AddressController addressController = Get.put(AddressController());
-  MypageController mypageController = Get.put(MypageController());
-  VoucherController voucherController = Get.put(VoucherController());
 
   Widget sizeWidthBox(double width) => SizedBox(
         width: width,
@@ -302,6 +297,8 @@ class HomeSkeletonPage extends StatelessWidget {
                       ? NotifyBirthButton(
                           iconUrl: 'icons/baby.svg',
                           onTap: () {
+                            authController.reservationModel.value!.isBirth =
+                                true;
                             Get.toNamed(Routes.RESERVE_STEP2_3AFTER);
                           },
                           title: '출산 통보하기',

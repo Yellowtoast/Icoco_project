@@ -22,6 +22,8 @@ import 'package:get/get.dart';
 
 class ReserveStep3_BeforeBirth extends StatelessWidget {
   ReserveStep3_BeforeBirth({Key? key}) : super(key: key);
+  DateInfoController dateInfoController = Get.find();
+  AuthController authController = Get.find();
 
   List<String> careCenterDurationList = [
     '1주',
@@ -39,10 +41,6 @@ class ReserveStep3_BeforeBirth extends StatelessWidget {
   Rx<bool> step4 = false.obs;
   @override
   Widget build(BuildContext context) {
-    DateInfoController dateInfoController = Get.find();
-    ServiceInfoController serviceInfoController = Get.find();
-    AuthController authController = Get.find();
-    Rxn<ReservationModel?> reservationModel = authController.reservationModel;
     return Scaffold(
       backgroundColor: IcoColors.white,
       appBar: IcoAppbar(title: '예약하기'),
@@ -226,14 +224,15 @@ class ReserveStep3_BeforeBirth extends StatelessWidget {
                             height: 9,
                           ),
                           IgnorePointer(
-                            ignoring: (reservationModel
-                                    .value!.serviceDuration!.isEmpty)
+                            ignoring: (authController.reservationModel.value!
+                                    .serviceDuration!.isEmpty)
                                 ? false
                                 : true,
                             child: IcoDropDown(
-                              onChanged: (String? newValue) async {
+                              onChanged: (String? newValue) {
                                 dateInfoController
                                     .serviceDurationSelected.value = newValue;
+
                                 step4.value = true;
                               },
                               hintText: "이용주수를 선택해주세요",
@@ -257,6 +256,8 @@ class ReserveStep3_BeforeBirth extends StatelessWidget {
                   child: IcoButton(
                       width: IcoSize.width - 40,
                       onPressed: () {
+                        dateInfoController.setServiceEndDate(
+                            dateInfoController.serviceDurationSelected.value);
                         Get.toNamed(Routes.RESERVE_STEP2_5);
                       },
                       active: (step1.value &&

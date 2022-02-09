@@ -1,3 +1,9 @@
+import 'package:app/controllers/auth_controller.dart';
+import 'package:app/controllers/manager_controller.dart';
+import 'package:app/controllers/mypage_controller.dart';
+import 'package:app/controllers/reservation/step1/address_controller.dart';
+import 'package:app/controllers/reservation/step1/voucher_controller.dart';
+import 'package:app/controllers/review_controller.dart';
 import 'package:app/helpers/database.dart';
 import 'package:app/configs/steps.dart';
 import 'package:app/models/reservation.dart';
@@ -78,7 +84,6 @@ class HomeController extends GetxController {
   }
 
   get setWidgetsForStep {
-    // setInfoFromModel();
     if (homeInfoModel.value.userStep == 1) {
       return HomeStep1Items();
     } else if (homeInfoModel.value.userStep == 2) {

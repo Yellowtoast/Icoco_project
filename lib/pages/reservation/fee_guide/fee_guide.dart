@@ -79,6 +79,7 @@ class FeeGuidePages extends StatelessWidget {
               authController.setModelInfo();
               Get.offAllNamed(Routes.HOME);
             },
+            usePop: false,
           ),
           // floatingActionButtonLocation: FloatingActionButtonLocation.centerTop,
           body: PageView(

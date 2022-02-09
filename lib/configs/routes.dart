@@ -1,8 +1,5 @@
 // ignore_for_file: constant_identifier_names
-
 import 'package:app/bindings/calculator_bindings.dart';
-import 'package:app/bindings/home_skeleton_bindings.dart';
-import 'package:app/bindings/loading_binding.dart';
 import 'package:app/bindings/reserve_binding.dart';
 import 'package:app/bindings/review_binding.dart';
 import 'package:app/bindings/splash_binding.dart';
@@ -12,10 +9,6 @@ import 'package:app/bindings/signup_binding.dart';
 import 'package:app/pages/calculator.dart';
 import 'package:app/pages/calculator_result.dart';
 import 'package:app/pages/home/home.dart';
-import 'package:app/pages/home/home_skeleton.dart';
-import 'package:app/pages/home/home_step1.dart';
-import 'package:app/pages/loading.dart';
-
 import 'package:app/pages/login.dart';
 import 'package:app/pages/manager/manager_detail.dart';
 import 'package:app/pages/reservation/step1/substep_address/address1.dart';
@@ -25,7 +18,6 @@ import 'package:app/pages/reservation/step1/substep_voucher/voucher1.dart';
 import 'package:app/pages/reservation/step1/substep_voucher/voucher_signed/voucher_signed1.dart';
 import 'package:app/pages/reservation/step1/substep_voucher/voucher_signed/voucher_signed2.dart';
 import 'package:app/pages/reservation/step1/substep_voucher/voucher_signed/voucher_signed3.dart';
-import 'package:app/pages/reservation/step2/reserve/reserve_step2_8_beforebirth.dart';
 import 'package:app/pages/reservation/step2/reserve/reserve_step2_finished.dart';
 import 'package:app/pages/reservation/step2/reserve/reserve_step2_1.dart';
 import 'package:app/pages/reservation/step2/reserve/reserve_step2_2.dart';
@@ -48,6 +40,7 @@ import 'package:app/pages/signup/signup_step5.dart';
 import 'package:app/pages/signup/signup_step6_intro.dart';
 import 'package:app/pages/splash.dart';
 import 'package:app/pages/start.dart';
+import 'package:app/widgets/modal/result_modal.dart';
 import 'package:get/get.dart';
 
 class Routes {
@@ -100,6 +93,7 @@ class Routes {
   static const FINAL_REVIEW = '/review/final';
   static const CALCULATOR = '/calculator';
   static const CALCULATOR_RESULT = '/calculator/result';
+  static const EXTRAFEE_RESULT = '/extrafee_result';
   static final pages = [
     GetPage(
         name: Routes.SPLASH,
@@ -111,16 +105,17 @@ class Routes {
     //     page: () => LoadingPage(),
     //     binding: LoadingBindings(),
     //     transition: Transition.fade),
+
     GetPage(
         name: Routes.HOME,
         page: () => HomePage(),
         binding: HomeBindings(),
         transition: Transition.noTransition),
-    GetPage(
-        name: Routes.HOME_SKELETON,
-        page: () => HomeSkeletonPage(),
-        binding: HomeSkeletonBindings(),
-        transition: Transition.noTransition),
+    // GetPage(
+    //     name: Routes.HOME_SKELETON,
+    //     page: () => HomeSkeletonPage(),
+    //     binding: HomeSkeletonBindings(),
+    //     transition: Transition.noTransition),
     GetPage(
         name: Routes.START,
         page: () => StartPage(),
