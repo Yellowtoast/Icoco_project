@@ -23,7 +23,6 @@ class ReserveStep2_6 extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     DateInfoController dateInfoController = Get.find();
-    // ServiceInfoController serviceInfoController = Get.find();
     AuthController authController = Get.find();
     Rxn<ReservationModel?> reservationModel = authController.reservationModel;
     dateInfoController.serviceDurationSelected.value =
