@@ -63,7 +63,7 @@ class HomeStep5Items_1 extends StatelessWidget {
                     Expanded(
                       flex: 7,
                       child: Text(
-                        "${homeController.reservationModel.value!.birthExpectedDate}",
+                        "${homeController.reservationModel.value!.birthDate}",
                         style: IcoTextStyle.mediumTextStyle15B,
                       ),
                     )
@@ -79,7 +79,7 @@ class HomeStep5Items_1 extends StatelessWidget {
                     Expanded(
                       flex: 3,
                       child: Text(
-                        "이용기간",
+                        "서비스 이용기간",
                         style: IcoTextStyle.mediumTextStyle12Grey4,
                       ),
                     ),

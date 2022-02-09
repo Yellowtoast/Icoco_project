@@ -11,7 +11,6 @@ class DateInfoController extends GetxController {
   Rxn<DateTime> hospitalCheckoutDate = Rxn<DateTime>();
   Rxn<DateTime> careCenterChekcoutDate = Rxn<DateTime>();
   Rxn<DateTime> initialDateTime = Rxn<DateTime>();
-  Rxn<DateTime> serviceStartDate = Rxn<DateTime>();
   Rxn<birthType> birthTypeSelected = Rxn<birthType>();
   Rxn<usageType> useCareCenterSelected = Rxn<usageType>();
   Rxn<usageType> useHospitalSelected = Rxn<usageType>();
@@ -24,6 +23,11 @@ class DateInfoController extends GetxController {
   Rx<bool> isCareCenterDateSelected = false.obs;
   Rx<bool> isServiceDateSelected = false.obs;
   Rxn<String> careCenterDuration = Rxn<String>();
+  List<String> serviceDurationTypeList = ['1주', '2주', '3주', '4주', '5주'];
+  Rxn<String> serviceDurationSelected = Rxn<String>();
+  Rxn<DateTime> serviceStartDate = Rxn<DateTime>();
+  Rxn<DateTime> serviceEndDate = Rxn<DateTime>();
+  Rxn<int> serviceDurationInt = Rxn<int>();
 
   setInitialDateTime(datePickerType dateType) {
     switch (dateType) {
@@ -109,28 +113,64 @@ class DateInfoController extends GetxController {
   }
 
   updateDateInfoToModel(Rxn<ReservationModel?> model) {
-    model.value!.birthExpectedDate = (birthDate.value != null)
+    model.value!.birthDate = (birthDate.value != null)
         ? dateFormatWithDot.format(birthDate.value!)
         : null;
 
-    model.value!.hospitalEndDate = (hospitalCheckoutDate.value != null)
-        ? dateFormatWithDot.format(hospitalCheckoutDate.value!)
-        : null;
-
-    model.value!.careCenterEndDate = (careCenterChekcoutDate.value != null)
-        ? dateFormatWithDot.format(careCenterChekcoutDate.value!)
-        : null;
-
-    if (careCenterChekcoutDate.value != null) {
-      model.value!.careCenterEndDate = dateFormatWithDot
-          .format(careCenterChekcoutDate.value!.subtract(Duration(days: 21)));
+    //출산 후 : 병원 이용, 병원 퇴원일 선택
+    if (hospitalCheckoutDate.value != null) {
+      //병원 입원일은 출산일 다음날(임의지정)
+      model.value!.hospitalStartDate = dateFormatWithDot
+          .format(birthDate.value!.add(const Duration(days: 1)));
+      model.value!.hospitalEndDate = (hospitalCheckoutDate.value != null)
+          ? dateFormatWithDot.format(hospitalCheckoutDate.value!)
+          : null;
+    } else {
+      model.value!.hospitalEndDate = null;
     }
 
-    model.value!.serviceStartDate = (serviceStartDate.value != null)
-        ? dateFormatWithDot.format(serviceStartDate.value!)
-        : null;
+    //출산 후 : 조리원 이용, 조리원 퇴원일 선택(조리원 예상이용주수 받지X)
+    if (careCenterChekcoutDate.value != null) {
+      //조리원 입원일 = 병원입원시 : 병원 퇴원일 다음날 / 병원입원 안할시 : 출산일 다음날
+      model.value!.careCenterStartDate = (hospitalCheckoutDate.value == null)
+          ? dateFormatWithDot
+              .format(birthDate.value!.add(const Duration(days: 1)))
+          : dateFormatWithDot
+              .format(hospitalCheckoutDate.value!.add(const Duration(days: 1)));
+      model.value!.careCenterEndDate =
+          dateFormatWithDot.format(careCenterChekcoutDate.value!);
+    }
 
-    model.value!.careCenterDuration =
-        (careCenterDuration.value != null) ? careCenterDuration.value : null;
+    //출산 전 : 조리원 이용, 조리원 예상이용주수 선택(조리원 퇴원일 받지X)
+    if (careCenterDuration.value != null &&
+        careCenterChekcoutDate.value == null) {
+      model.value!.careCenterDuration = careCenterDuration.value;
+    } else {
+      model.value!.careCenterDuration = null;
+    }
+    //출산 전 : 서비스 시작일 받지 않음, 서비스 이용기간(주수)데이터만 받음
+    //출산 후 : 서비스 시작일 + 서비스 이용기간(주수)데이터 받음
+    model.value!.serviceDuration = serviceDurationSelected.value;
+    if (serviceStartDate.value != null) {
+      setServiceEndDate(serviceDurationSelected.value);
+      model.value!.serviceStartDate = (serviceStartDate.value != null)
+          ? dateFormatWithDot.format(serviceStartDate.value!)
+          : null;
+      model.value!.serviceEndDate = (serviceEndDate.value != null)
+          ? dateFormatWithDot.format(serviceEndDate.value!)
+          : null;
+    }
+  }
+
+  setServiceEndDate(String? serviceDuration) {
+    var weekString = serviceDuration!.replaceAll('주', '');
+
+    if (serviceStartDate.value != null) {
+      serviceDurationInt.value = int.parse(weekString);
+      serviceEndDate.value = serviceStartDate.value!
+          .add(Duration(days: serviceDurationInt.value! * 7));
+    } else {
+      serviceEndDate.value = null;
+    }
   }
 }

@@ -4,7 +4,7 @@ import 'package:app/configs/text_styles.dart';
 import 'package:app/controllers/reservation/step1/address_controller.dart';
 import 'package:app/controllers/auth_controller.dart';
 import 'package:app/controllers/reservation/step1/voucher_controller.dart';
-import 'package:app/controllers/reservation/step2/substep_controllers/birth_info_controller.dart';
+import 'package:app/controllers/reservation/step2/substep_controllers/date_info_controller.dart';
 
 import 'package:app/pages/reservation/step1/substep_address/address1.dart';
 import 'package:app/pages/reservation/step1/substep_voucher/voucher_signed/voucher_signed1.dart';
@@ -61,7 +61,7 @@ class ReserveStep2_2 extends StatelessWidget {
                     onPressed: () {
                       authController.reservationModel.value!.isBirth = true;
                       authController.reservationModel.value!.status =
-                          '예약 (출산일 확정)';
+                          '예약출산일미확정';
                       Get.toNamed(Routes.RESERVE_STEP2_3AFTER);
                     },
                     active: true.obs,
@@ -74,8 +74,7 @@ class ReserveStep2_2 extends StatelessWidget {
                 IcoButton(
                     onPressed: () {
                       authController.reservationModel.value!.isBirth = false;
-                      authController.reservationModel.value!.status =
-                          '예약 (출산일 미확정)';
+                      authController.reservationModel.value!.status = '예약출산일확정';
                       Get.toNamed(Routes.RESERVE_STEP2_3BEFORE);
                     },
                     active: true.obs,

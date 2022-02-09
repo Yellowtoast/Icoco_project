@@ -14,7 +14,6 @@ class HomeBindings implements Bindings {
   @override
   void dependencies() {
     Get.put(HomeController());
-
     Get.lazyPut(() => ManagerController());
     Get.lazyPut(() => ReviewController());
     Get.lazyPut(() => AddressController());

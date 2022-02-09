@@ -1,6 +1,6 @@
 import 'package:app/configs/colors.dart';
 import 'package:app/configs/enum.dart';
-import 'package:app/controllers/reservation/step2/substep_controllers/birth_info_controller.dart';
+import 'package:app/controllers/reservation/step2/substep_controllers/date_info_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
@@ -8,15 +8,12 @@ import 'package:intl/intl.dart';
 showDatePickerPop(
   BuildContext context,
   datePickerType pickerType,
-  Rxn<DateTime> dateTime,
+  Rxn<DateTime> dateToBeSet,
   Rx<bool> dateSelected,
   DateTime? initialDate,
   Rx<bool> stepFinished,
 ) {
-  var dateFormatForApp = DateFormat('yyyy-MM-dd');
-  var dateFormatForDB = DateFormat('yyyy.MM.dd');
-
-  DateInfoController birthInfoController = Get.put(DateInfoController());
+  DateInfoController birthInfoController = Get.find();
   Future<DateTime?> selectedDate = showDatePicker(
     locale: const Locale('ko', 'KR'),
     context: context,
@@ -35,11 +32,11 @@ showDatePickerPop(
   );
   selectedDate.then((date) {
     if (date == null) {
-      dateTime.value = null;
+      dateToBeSet.value = null;
       dateSelected.value = false;
       stepFinished.value = false;
     } else {
-      dateTime.value = date;
+      dateToBeSet.value = date;
       dateSelected.value = true;
       stepFinished.value = true;
     }

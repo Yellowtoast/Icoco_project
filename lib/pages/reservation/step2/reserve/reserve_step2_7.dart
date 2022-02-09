@@ -3,7 +3,7 @@ import 'package:app/configs/routes.dart';
 import 'package:app/configs/size.dart';
 import 'package:app/configs/text_styles.dart';
 import 'package:app/controllers/reservation/step1/voucher_controller.dart';
-import 'package:app/controllers/reservation/step2/substep_controllers/birth_info_controller.dart';
+import 'package:app/controllers/reservation/step2/substep_controllers/date_info_controller.dart';
 import 'package:app/controllers/reservation/step2/substep_controllers/service_info_controller.dart';
 
 import 'package:app/models/reservation.dart';
@@ -137,9 +137,8 @@ class ReserveStep2_7 extends StatelessWidget {
                   : Expanded(
                       child: ListView.builder(
                           shrinkWrap: true,
-                          itemCount: int.parse(serviceInfoController
-                              .serviceDurationSelected.value!
-                              .replaceAll('주', '')),
+                          itemCount:
+                              dateInfoController.serviceDurationInt.value,
                           itemBuilder: (BuildContext context, int index) {
                             late serviceDurationType durationType;
                             switch (index) {
@@ -167,7 +166,8 @@ class ReserveStep2_7 extends StatelessWidget {
                                 ),
                                 InkWell(
                                   onTap: () {
-                                    serviceInfoController.useDurationSelected
+                                    serviceInfoController
+                                        .voucherUseDurationSelected
                                         .value = durationType;
                                   },
                                   child: CostInfoSelectionBox(
@@ -189,7 +189,7 @@ class ReserveStep2_7 extends StatelessWidget {
                                     titleStyle: IcoTextStyle.boldTextStyle18B,
                                     dateType: durationType.obs,
                                     useDateSelected: serviceInfoController
-                                        .useDurationSelected,
+                                        .voucherUseDurationSelected,
                                   ),
                                 ),
                               ],

@@ -3,6 +3,11 @@ import 'package:app/configs/routes.dart';
 import 'package:app/configs/size.dart';
 import 'package:app/configs/text_styles.dart';
 import 'package:app/controllers/auth_controller.dart';
+import 'package:app/controllers/manager_controller.dart';
+import 'package:app/controllers/mypage_controller.dart';
+import 'package:app/controllers/reservation/step1/address_controller.dart';
+import 'package:app/controllers/reservation/step1/voucher_controller.dart';
+import 'package:app/controllers/review_controller.dart';
 
 import 'package:app/models/reservation.dart';
 import 'package:app/pages/review/midterm_review.dart';
@@ -18,10 +23,14 @@ import 'package:scroll_to_index/scroll_to_index.dart';
 
 class HomeSkeletonPage extends StatelessWidget {
   HomeSkeletonPage({Key? key}) : super(key: key);
-
+  AuthController authController = Get.find();
   HomeController homeController = Get.find();
-  // AuthController authController = AuthController();
-  AuthController authController = AuthController();
+  ManagerController managerController = Get.put(ManagerController());
+  ReviewController reviewController = Get.put(ReviewController());
+  AddressController addressController = Get.put(AddressController());
+  MypageController mypageController = Get.put(MypageController());
+  VoucherController voucherController = Get.put(VoucherController());
+
   Widget sizeWidthBox(double width) => SizedBox(
         width: width,
       );

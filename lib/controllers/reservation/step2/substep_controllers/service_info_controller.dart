@@ -16,15 +16,16 @@ class ServiceInfoController extends GetxController {
   VoucherController voucherController = Get.find();
   Rxn<lactationType> lactationTypeSelected = Rxn<lactationType>();
   Rxn<carePlaceType> carePlaceTypeSelected = Rxn<carePlaceType>();
-  Rxn<serviceDurationType> useDurationSelected = Rxn<serviceDurationType>();
+  Rxn<serviceDurationType> voucherUseDurationSelected =
+      Rxn<serviceDurationType>();
   TextEditingController extraRequestsController = TextEditingController();
   Rxn<petType> petTypeSelected = Rxn<petType>();
   Rx<bool> isButtonValid = false.obs;
   Rx<int> priorityNum = 0.obs;
-  List<String> serviceDurationTypeList = ['1주', '2주', '3주', '4주', '5주'];
-  Rxn<String> serviceDurationSelected = Rxn<String>();
-  Rxn<DateTime> serviceStartDate = Rxn<DateTime>();
-  Rxn<DateTime> serviceEndDate = Rxn<DateTime>();
+  // List<String> serviceDurationTypeList = ['1주', '2주', '3주', '4주', '5주'];
+  // Rxn<String> serviceDurationSelected = Rxn<String>();
+  // Rxn<DateTime> serviceStartDate = Rxn<DateTime>();
+  // Rxn<DateTime> serviceEndDate = Rxn<DateTime>();
   Map<stepType, RxBool> allStepState = {
     stepType.STEP1: false.obs,
     stepType.STEP2: false.obs,
@@ -60,7 +61,7 @@ class ServiceInfoController extends GetxController {
 
   setServiceCost() {
     late int listIndex;
-    switch (useDurationSelected.value) {
+    switch (voucherUseDurationSelected.value) {
       case serviceDurationType.ONEWEEK:
         listIndex = 0;
         break;
@@ -137,32 +138,11 @@ class ServiceInfoController extends GetxController {
     }
   }
 
-  setServiceEndDate(String? serviceDuration) {
-    int serviceDurationInt;
-    var weekString = serviceDuration!.replaceAll('주', '');
-
-    if (serviceStartDate.value != null) {
-      serviceDurationInt = int.parse(weekString);
-      serviceEndDate.value =
-          serviceStartDate.value!.add(Duration(days: serviceDurationInt * 7));
-    } else {
-      serviceEndDate.value = null;
-    }
-  }
-
-  updateServiceInfoToModel(Rxn<ReservationModel?> model) async {
-    await setServiceCost();
-    await setCarePriorityList();
-    await setServiceEndDate(serviceDurationSelected.value);
+  updateServiceInfoToModel(Rxn<ReservationModel?> model) {
+    setServiceCost();
+    setCarePriorityList();
 
     model.value!.voucher = voucherController.voucherResult.value!;
-    model.value!.serviceDuration = serviceDurationSelected.value;
-    model.value!.serviceStartDate = (serviceStartDate.value != null)
-        ? dateFormatWithDot.format(serviceStartDate.value!)
-        : null;
-    model.value!.serviceEndDate = (serviceEndDate.value != null)
-        ? dateFormatWithDot.format(serviceEndDate.value!)
-        : null;
     model.value!.careRanking =
         (stringCarePriorityList.isNotEmpty) ? stringCarePriorityList : null;
     model.value!.placeToBeServiced = (carePlaceTypeSelected.value != null)

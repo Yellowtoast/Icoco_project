@@ -12,11 +12,13 @@ class ReservationModel {
   int userStep;
   String? chosenCompany;
   bool? isBirth;
-  String? birthExpectedDate;
+  String? birthDate;
   String? birthType;
   bool? useHospital;
   bool? useCareCenter;
+
   String? hospitalEndDate;
+  String? hospitalStartDate;
   String? careCenterEndDate;
   String? careCenterStartDate;
   String? serviceStartDate;
@@ -68,10 +70,11 @@ class ReservationModel {
     this.voucher,
     this.chosenCompany,
     this.isBirth,
-    this.birthExpectedDate,
+    this.birthDate,
     this.birthType,
     this.useHospital,
     this.useCareCenter,
+    this.hospitalStartDate,
     this.hospitalEndDate,
     this.careCenterEndDate,
     this.careCenterStartDate,
@@ -125,10 +128,11 @@ class ReservationModel {
         isMarketingAllowed: data['isMarketingAllowed'] ?? false,
         chosenCompany: data['chosenCompany'] ?? '',
         isBirth: data['isBirth'] ?? false,
-        birthExpectedDate: data['birthExpectedDate'] ?? '',
+        birthDate: data['birthExpectedDate'] ?? '',
         birthType: data['birthType'] ?? '',
         useHospital: data['useHospital'] ?? false,
         useCareCenter: data['useCareCenter'] ?? false,
+        hospitalStartDate: data['hospitalStartDate'] ?? '',
         hospitalEndDate: data['hospitalEndDate'] ?? '',
         careCenterEndDate: data['careCenterEndDate'] ?? '',
         careCenterStartDate: data['careCenterStartDate'] ?? '',
@@ -182,10 +186,11 @@ class ReservationModel {
         "isMarketingAllowed": isMarketingAllowed,
         "chosenCompany": chosenCompany,
         "isBirth": isBirth,
-        "birthExpectedDate": birthExpectedDate,
+        "birthExpectedDate": birthDate,
         "birthType": birthType,
         "useHospital": useHospital,
         "useCareCenter": useCareCenter,
+        "hospitalStartDate": hospitalStartDate,
         "hospitalEndDate": hospitalEndDate,
         "careCenterEndDate": careCenterEndDate,
         "careCenterStartDate": careCenterStartDate,

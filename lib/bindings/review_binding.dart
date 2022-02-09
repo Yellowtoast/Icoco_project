@@ -1,4 +1,4 @@
-import 'package:app/bindings/manager_detail_binding.dart';
+import 'package:app/bindings/manager_binding.dart';
 import 'package:app/controllers/auth_controller.dart';
 import 'package:app/controllers/review_controller.dart';
 

@@ -6,6 +6,7 @@ import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:get/get_rx/src/rx_types/rx_types.dart';
 
+//     setServiceEndDate(serviceDurationSelected.value);
 class IcoDropDown extends StatelessWidget {
   IcoDropDown({
     Key? key,
@@ -14,6 +15,7 @@ class IcoDropDown extends StatelessWidget {
     required this.stepFinished,
     this.selectedTextStyle,
     this.hintText,
+    this.onChanged,
   }) : super(key: key);
 
   Rxn<String> selectedValue;
@@ -21,6 +23,7 @@ class IcoDropDown extends StatelessWidget {
   TextStyle? selectedTextStyle;
   String? hintText;
   Rx<bool> stepFinished;
+  void Function(String?)? onChanged;
 
   @override
   Widget build(BuildContext context) {
@@ -43,10 +46,7 @@ class IcoDropDown extends StatelessWidget {
           icon: SvgPicture.asset("icons/dropdown_arrow.svg"),
           style: const TextStyle(color: Colors.deepPurple),
           underline: Container(height: 0),
-          onChanged: (String? newValue) async {
-            selectedValue.value = newValue;
-            stepFinished.value = true;
-          },
+          onChanged: onChanged,
           items: dropDownList.map<DropdownMenuItem<String>>((String value) {
             return DropdownMenuItem<String>(
               alignment: Alignment.centerLeft,

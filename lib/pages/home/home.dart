@@ -4,6 +4,7 @@ import 'package:app/configs/colors.dart';
 import 'package:app/configs/text_styles.dart';
 import 'package:app/controllers/auth_controller.dart';
 import 'package:app/controllers/calculator_controller.dart';
+import 'package:app/controllers/mypage_controller.dart';
 import 'package:app/controllers/reservation/step1/address_controller.dart';
 
 import 'package:app/pages/home/home_skeleton.dart';
@@ -25,6 +26,23 @@ class HomePage extends StatelessWidget {
   AuthController authController = Get.find();
   AddressController addressController = Get.find();
 
+  // @override
+  // Widget build(BuildContext context) {
+  //   return Obx(() {
+  //     return Scaffold(
+  //       bottomNavigationBar: IcoBottomBar(
+  //           selectedIndex: navBarIndex,
+  //           onTap: (value) async {
+  //             navBarIndex.value = value;
+  //             if (value == 0) {}
+  //           }),
+  //       body: Getbuilder<HomeController>(builder: (controller) {
+  //         return Text('${controller.count}');
+  //       }),
+  //     );
+  //   });
+  // }
+
   @override
   Widget build(BuildContext context) {
     return Obx(() {
@@ -40,10 +58,17 @@ class HomePage extends StatelessWidget {
   }
 
   Rx<int> navBarIndex = 0.obs;
-  final List<Widget> _homePagechildren = [
-    HomeSkeletonPage(),
-    CalculatorPage(),
-    EventPage(),
-    MyPage()
+  final List<GetBuilder> _homePagechildren = [
+    GetBuilder<HomeController>(
+      init: HomeController(),
+      builder: (_) => HomeSkeletonPage(),
+    ),
+    GetBuilder<CalculatorController>(
+      builder: (_) => CalculatorPage(),
+    ),
+    GetBuilder<HomeController>(
+      builder: (_) => EventPage(),
+    ),
+    GetBuilder<MypageController>(builder: (_) => MyPage()),
   ];
 }

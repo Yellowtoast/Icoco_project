@@ -138,8 +138,7 @@ class MyReservationPage extends StatelessWidget {
                           ),
                         ),
                         Text(
-                          authController
-                              .reservationModel.value!.birthExpectedDate!,
+                          authController.reservationModel.value!.birthDate!,
                           style: IcoTextStyle.regularTextStyle13Grey4,
                         ),
                       ],

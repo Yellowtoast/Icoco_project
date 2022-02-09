@@ -3,7 +3,7 @@ import 'package:app/configs/routes.dart';
 import 'package:app/configs/size.dart';
 import 'package:app/configs/text_styles.dart';
 import 'package:app/controllers/auth_controller.dart';
-import 'package:app/controllers/reservation/step2/substep_controllers/birth_info_controller.dart';
+import 'package:app/controllers/reservation/step2/substep_controllers/date_info_controller.dart';
 import 'package:app/configs/enum.dart';
 import 'package:app/controllers/reservation/step2/substep_controllers/service_info_controller.dart';
 
@@ -93,14 +93,14 @@ class ReserveStep3_BeforeBirth extends StatelessWidget {
                                   dateInfoController.isBirthDateSelected,
                                   DateTime.now(),
                                   step1);
-                              dateInfoController.clearSelectedInfo(
-                                  dateInfoController.hospitalCheckoutDate,
-                                  dateInfoController.useHospitalSelected);
-                              dateInfoController.clearSelectedInfo(
-                                  dateInfoController.careCenterChekcoutDate,
-                                  step1);
-                              dateInfoController.careCenterDuration.value =
-                                  null;
+                              // dateInfoController.clearSelectedInfo(
+                              //     dateInfoController.hospitalCheckoutDate,
+                              //     dateInfoController.useHospitalSelected);
+                              // dateInfoController.clearSelectedInfo(
+                              //     dateInfoController.careCenterChekcoutDate,
+                              //     step1);
+                              // dateInfoController.careCenterDuration.value =
+                              //     null;
                             },
                           ),
                         ],
@@ -231,11 +231,16 @@ class ReserveStep3_BeforeBirth extends StatelessWidget {
                                 ? false
                                 : true,
                             child: IcoDropDown(
+                              onChanged: (String? newValue) async {
+                                dateInfoController
+                                    .serviceDurationSelected.value = newValue;
+                                step4.value = true;
+                              },
                               hintText: "이용주수를 선택해주세요",
                               dropDownList:
-                                  serviceInfoController.serviceDurationTypeList,
+                                  dateInfoController.serviceDurationTypeList,
                               selectedValue:
-                                  serviceInfoController.serviceDurationSelected,
+                                  dateInfoController.serviceDurationSelected,
                               selectedTextStyle:
                                   IcoTextStyle.mediumTextStyle16B,
                               stepFinished: step4,
@@ -248,7 +253,7 @@ class ReserveStep3_BeforeBirth extends StatelessWidget {
                 ),
                 Container(
                   alignment: Alignment.center,
-                  height: 100,
+                  height: IcoSize.height - (IcoSize.height - 210) - 160,
                   child: IcoButton(
                       width: IcoSize.width - 40,
                       onPressed: () {
