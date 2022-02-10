@@ -78,9 +78,9 @@ class SignupController extends GetxController {
 //auth를 생성하기 전에 중복유저가 있는지 없는지 확인해야 하기 때문에(이메일 하나씩 실시간으로 입력할때마다 확인이 필요함)
 //auth가 아닌 store uid를 통해 검색할 수 밖에 없음
   checkDuplicateUser() async {
-    print("validateDuplicateEmail start");
-
-    print("value.text: $emailController.value.text");
+    if (emailController.value.text.isEmpty) {
+      return;
+    }
 
     await db
         .collection('User')
