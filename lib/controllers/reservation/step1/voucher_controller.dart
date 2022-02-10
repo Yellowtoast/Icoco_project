@@ -12,7 +12,6 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 class VoucherController extends GetxController {
-  RxBool show = false.obs;
   Rxn<String> voucherType1 = Rxn<String>();
   Rxn<String> voucherType2 = Rxn<String>();
   Rxn<String> voucherType3 = Rxn<String>();
@@ -23,7 +22,7 @@ class VoucherController extends GetxController {
   Rxn<bool> isVoucherValid = Rxn<bool>();
   RxList<String> voucherType1List = ['A', 'B', 'C'].obs;
   RxList<String> voucherType2List = ['가', '통합', '라'].obs;
-  RxList<String>? voucherType3List = ['1', '2', '3'].obs;
+  RxList<String> voucherType3List = ['1', '2', '3'].obs;
   RxBool showResult = false.obs;
   RxList<int> userFeeList = [0, 0, 0, 0, 0].obs;
   RxList<int> govermentFeeList = [0, 0, 0, 0, 0].obs;
@@ -40,28 +39,34 @@ class VoucherController extends GetxController {
   Rxn<String> regNumErrorText = Rxn<String>();
 
   @override
-  void onInit() async {
-    await setVoucherInfo(voucherResult.value);
+  void onInit() {
+    if (voucherResult.value != null) {
+      setVoucherInfo(voucherResult.value!);
+    }
 
     super.onInit();
   }
 
   @override
-  void onReady() async {
-    ever(voucherResult, setVoucherInfo);
+  void onReady() {
+    // ever(voucherResult, setVoucherInfo);
 
     super.onReady();
   }
 
-  setVoucherInfo(voucher) {
-    if (voucher == null) {
+  setVoucherInfo(String? _voucher) {
+    if (_voucher == null || _voucher == '') {
       print('no voucher info');
       return;
+    } else {
+      splitVoucherResult(_voucher);
+      getVoucherCostInfo(_voucher);
     }
+  }
 
-    List<String>? voucherList = voucher.split('-');
-
-    for (var element in voucherList!) {
+  splitVoucherResult(String _voucher) {
+    List<String>? voucherList = _voucher.split('-');
+    for (var element in voucherList) {
       switch (voucherList.indexOf(element)) {
         case 0:
           voucherType1.value = element;
@@ -75,56 +80,96 @@ class VoucherController extends GetxController {
         default:
       }
     }
-    getVoucherCostInfo();
   }
 
-  setDropDownList() {
-    if (voucherType1.value == 'A') {
-      voucherType3List!.value = ['1', '2', '3'];
-    } else if (voucherType1.value == 'B') {
-      voucherType3List!.value = ['1', '2'];
+  setDropDownList(Rxn<String>? voucherItem) {
+    if (voucherItem == null) {
+      //바우처 선택 액션이 취해지지 않은 상태에서 해당 함수가 실행된다면
+      //기존에 있던 바우처 정보를 불러와야 함 -> 드롭다운도 세팅되어 있는 상태여야 함
+      splitVoucherResult(voucherResult.value!);
+      if (voucherType1.value == 'A') {
+        voucherType3List.value = ['1', '2', '3'];
+      } else if (voucherType1.value == 'B') {
+        voucherType3List.value = ['1', '2'];
+      } else if (voucherType1.value == 'C') {
+        voucherType3List.value = [''];
+      }
     } else {
-      voucherType3List!.value = [''];
+      if (voucherItem.value == 'A' ||
+          voucherItem.value == 'B' ||
+          voucherItem.value == 'C') {
+        if (voucherType1.value == 'A') {
+          voucherType3List.value = ['1', '2', '3'];
+        } else if (voucherType1.value == 'B') {
+          voucherType3List.value = ['1', '2'];
+        } else if (voucherType1.value == 'C') {
+          voucherType3List.value = [''];
+        }
+        showResult.value = false;
+        voucherType2.value = null;
+        voucherType3.value = null;
+      } else {
+        return;
+      }
     }
   }
 
-  checkVoucherValid() {
+  // Rxn<String>? checkVoucherValid() {
+  //   Rxn<String> fullVoucher = Rxn<String>();
+  //   if ((voucherType1.value != null &&
+  //           voucherType2.value != null &&
+  //           voucherType3.value != null) ||
+  //       (voucherType1.value == 'C' && voucherType2.value != null)) {
+  //     if (voucherType1.value == 'C') {
+  //       fullVoucher.value = voucherType1.value! + '-' + voucherType2.value!;
+  //     } else {
+  //       fullVoucher.value = voucherType1.value! +
+  //           '-' +
+  //           voucherType2.value! +
+  //           '-' +
+  //           voucherType3.value!;
+  //       return fullVoucher;
+  //     }
+  //   } else {
+  //     return fullVoucher;
+  //   }
+  // }
+
+  makeFullVoucherResult() {
+    late String fullVoucher;
+    if (voucherType1.value == 'C') {
+      fullVoucher = voucherType1.value! + '-' + voucherType2.value!;
+    } else {
+      fullVoucher = voucherType1.value! +
+          '-' +
+          voucherType2.value! +
+          '-' +
+          voucherType3.value!;
+    }
+
+    return fullVoucher;
+  }
+
+  bool checkVoucherValid() {
     if ((voucherType1.value != null &&
             voucherType2.value != null &&
             voucherType3.value != null) ||
         (voucherType1.value == 'C' && voucherType2.value != null)) {
-      if (voucherType1.value == 'C') {
-        voucherResult.value = voucherType1.value! + '-' + voucherType2.value!;
-      } else {
-        voucherResult.value = voucherType1.value! +
-            '-' +
-            voucherType2.value! +
-            '-' +
-            voucherType3.value!;
-      }
+      return true;
     } else {
-      voucherResult.value = '';
+      return false;
     }
-    getVoucherCostInfo();
   }
 
-  getVoucherCostInfo() {
-    try {
-      if (voucherResult.value != null) {
-        depositFeeList.assignAll(depositFeePerWeek);
-        totalFeeList.assignAll(totalFeeInfo[voucherResult.value]!);
-        govermentFeeList.assignAll(govermentFeeInfo[voucherResult.value]!);
+  getVoucherCostInfo(String voucher) {
+    depositFeeList.assignAll(depositFeePerWeek);
+    totalFeeList.assignAll(totalFeeInfo[voucher]!);
+    govermentFeeList.assignAll(govermentFeeInfo[voucher]!);
 
-        calculateUserFee();
-        calculateRemainingFee();
+    calculateUserFee();
+    calculateRemainingFee();
 
-        showResult.value = true;
-      } else {
-        showResult.value = false;
-      }
-    } catch (e) {
-      showResult.value = false;
-    }
+    showResult.value = true;
   }
 
   calculateUserFee() {
@@ -150,11 +195,11 @@ class VoucherController extends GetxController {
     return fullRegNum;
   }
 
-  updateRegnumToModel(Rxn<ReservationModel?> model) async {
-    model.value!.fullRegNum = await getFullRegNum();
+  updateRegnumToModel(Rxn<ReservationModel?> model) {
+    model.value!.fullRegNum = getFullRegNum();
   }
 
-  updateVoucherToModel(Rxn<ReservationModel?> model) async {
+  updateVoucherToModel(Rxn<ReservationModel?> model) {
     model.value!.voucher = voucherResult.value;
   }
 

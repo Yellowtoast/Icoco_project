@@ -396,7 +396,10 @@ class HomeSkeletonPage extends StatelessWidget {
                   noticeRow('이벤트', '추석 연휴 고객센터 휴무 안내'),
                 ],
               ),
-            )
+            ),
+            SizedBox(
+              height: 200,
+            ),
           ],
         ),
       ),

@@ -200,7 +200,6 @@ class Routes {
     GetPage(
         name: Routes.RESERVE_STEP2_2,
         page: () => ReserveStep2_2(),
-        binding: ReserveStep2Bindings(),
         transition: Transition.noTransition),
     GetPage(
         name: Routes.RESERVE_STEP2_3AFTER,
@@ -210,17 +209,14 @@ class Routes {
     GetPage(
         name: Routes.RESERVE_STEP2_3BEFORE,
         page: () => ReserveStep3_BeforeBirth(),
-        binding: ReserveStep2Bindings(),
         transition: Transition.noTransition),
     GetPage(
         name: Routes.RESERVE_STEP2_4,
         page: () => ReserveStep2_4(),
-        binding: ReserveStep2Bindings(),
         transition: Transition.noTransition),
     GetPage(
         name: Routes.RESERVE_STEP2_5,
         page: () => ReserveStep2_5(),
-        binding: ReserveStep2Bindings(),
         transition: Transition.noTransition),
     GetPage(
         name: Routes.RESERVE_STEP2_6,

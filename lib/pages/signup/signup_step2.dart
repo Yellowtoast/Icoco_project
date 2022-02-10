@@ -46,7 +46,7 @@ class SignupStep2Page extends StatelessWidget {
             padding: const EdgeInsets.symmetric(horizontal: 20),
             child: Column(
               children: [
-                Container(
+                SizedBox(
                   height: IcoSize.height - 330,
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.start,
@@ -137,7 +137,7 @@ class SignupStep2Page extends StatelessWidget {
                   ),
                 ),
                 Container(
-                  height: 250,
+                  height: IcoSize.height - 330 - IcoSize.appbarHeight,
                   alignment: Alignment.bottomCenter,
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.end,

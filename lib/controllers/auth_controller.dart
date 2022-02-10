@@ -1,9 +1,13 @@
+import 'dart:convert';
+
+import 'package:app/configs/purplebook.dart';
 import 'package:app/helpers/database.dart';
 import 'package:app/configs/routes.dart';
 import 'package:app/helpers/formatter.dart';
 import 'package:app/models/reservation.dart';
 import 'package:app/models/user.dart';
 import 'package:app/pages/loading.dart';
+import 'package:dart_jsonwebtoken/dart_jsonwebtoken.dart';
 import 'package:flutter/foundation.dart';
 import 'package:hive/hive.dart';
 import 'package:flutter/material.dart';
@@ -12,6 +16,7 @@ import 'dart:async';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:get/get.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:http/http.dart' as http;
 
 class AuthController extends GetxController {
   final FirebaseAuth _auth = FirebaseAuth.instance;
@@ -238,6 +243,37 @@ class AuthController extends GetxController {
   updateReservationFirestore(String reservationNumber) async {
     db.doc('/Reservation/$reservationNumber').set(reservationModel.toJson());
     update();
+  }
+
+  Future<void> deleteUser(String uid) async {
+    String token;
+    try {
+      var url = Uri.parse(
+        'http://172.30.1.22:3000/api/deleteUser',
+      );
+      final jwt = JWT(
+        {
+          "uid": uid,
+        },
+      );
+      token = jwt.sign(SecretKey(JWT_KEY));
+
+      var response = await http.delete(
+        url,
+        headers: {'x-access-token': token},
+      );
+
+      print(response);
+      var res = jsonDecode(response.body);
+      var code = response.statusCode;
+      print(res);
+
+      if (res['success'] == false) {
+        print('회원 탈퇴 실패 : $code/${res['message']}');
+      }
+    } catch (e) {
+      print('회원 탈퇴 실패 : 클라이언트 오류');
+    }
   }
 
   Future<void> signOut() {

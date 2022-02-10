@@ -20,7 +20,7 @@ class CalculatorResultPage extends StatelessWidget {
   // late String voucher = voucherMap['voucher'];
   var voucher = Get.arguments;
   VoucherController voucherController = Get.put(VoucherController());
-  AuthController authController = Get.put(AuthController());
+  AuthController authController = Get.find();
   @override
   Widget build(BuildContext context) {
     voucherController.setVoucherInfo(voucher);

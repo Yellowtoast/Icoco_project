@@ -9,23 +9,22 @@ import 'package:get/get_rx/src/rx_types/rx_types.dart';
 class VoucherDropdown extends StatelessWidget {
   VoucherDropdown({
     Key? key,
-    required this.selectedValue,
+    required this.selectedVoucherType,
     required this.dropDownList,
     this.selectedTextStyle,
     this.hintText,
     this.icon = true,
   }) : super(key: key);
 
-  Rxn<String> selectedValue;
+  Rxn<String> selectedVoucherType;
   RxList<String>? dropDownList = RxList<String>();
-  VoucherController controller = Get.put(VoucherController());
+  VoucherController voucherController = Get.find();
   TextStyle? selectedTextStyle;
   String? hintText;
   bool icon;
 
   @override
   Widget build(BuildContext context) {
-    Get.put(controller);
     return Obx(() {
       return Container(
         padding: EdgeInsets.symmetric(horizontal: 10),
@@ -36,31 +35,39 @@ class VoucherDropdown extends StatelessWidget {
         ),
         child: DropdownButton<String>(
           hint: Text(
-            (hintText != null) ? hintText! : dropDownList!.value[0],
+            (hintText != null) ? hintText! : dropDownList![0],
             style: IcoTextStyle.mediumTextStyle16G,
           ),
-          value: selectedValue.value,
+          value: selectedVoucherType.value,
           iconSize: 0,
           isExpanded: true,
           icon: (icon) ? SvgPicture.asset("icons/dropdown_arrow.svg") : null,
           style: const TextStyle(color: Colors.deepPurple),
           underline: Container(height: 0),
-          onChanged: (String? newValue) async {
-            if (newValue == 'A' || newValue == 'B' || newValue == 'C') {
-              controller.voucherType1.value = null;
-              controller.voucherType2.value = null;
-              controller.voucherType3.value = null;
+          onChanged: (String? newValue) {
+            selectedVoucherType.value = newValue!;
+            voucherController.setDropDownList(selectedVoucherType);
+            if (voucherController.checkVoucherValid()) {
+              voucherController.voucherResult.value =
+                  voucherController.makeFullVoucherResult();
+              voucherController
+                  .setVoucherInfo(voucherController.voucherResult.value);
             }
 
-            selectedValue.value = newValue!;
-            controller.setDropDownList();
-            await controller.checkVoucherValid();
+            // if (selectedVoucherType.value == 'A' ||
+            //     selectedVoucherType.value == 'B' ||
+            //     selectedVoucherType.value == 'C') {
+            //   voucherController.voucherType2.value = null;
+            //   voucherController.voucherType3.value = null;
+            // }
+
+            // voucherController
+            //     .getVoucherCostInfo(voucherController.voucherResult.value!);
           },
-          items: (controller.voucherType1.value == 'C' &&
-                  dropDownList!.value[0] == '')
+          items: (voucherController.voucherType1.value == 'C' &&
+                  dropDownList![0] == '')
               ? null
-              : dropDownList!.value
-                  .map<DropdownMenuItem<String>>((String value) {
+              : dropDownList!.map<DropdownMenuItem<String>>((String value) {
                   return DropdownMenuItem<String>(
                     alignment: Alignment.centerLeft,
                     value: value,

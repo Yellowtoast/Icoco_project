@@ -24,8 +24,6 @@ class ServiceFeeInfoPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    VoucherController voucherController = Get.put(VoucherController());
-
     return Scaffold(
         backgroundColor: IcoColors.white,
         appBar: IcoAppbar(

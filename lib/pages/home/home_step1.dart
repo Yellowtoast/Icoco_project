@@ -1,6 +1,8 @@
 import 'package:app/configs/colors.dart';
 import 'package:app/configs/routes.dart';
 import 'package:app/configs/text_styles.dart';
+import 'package:app/controllers/reservation/step1/address_controller.dart';
+import 'package:app/controllers/reservation/step1/voucher_controller.dart';
 import 'package:app/pages/reservation/step1/substep_address/address1.dart';
 import 'package:app/widgets/button/button.dart';
 import 'package:flutter/material.dart';
@@ -12,6 +14,8 @@ import 'package:scroll_to_index/scroll_to_index.dart';
 
 class HomeStep1Items extends StatelessWidget {
   HomeStep1Items({Key? key}) : super(key: key);
+  VoucherController voucherController = Get.find();
+  AddressController addressController = Get.find();
   @override
   Widget build(BuildContext context) {
     return IcoButton(

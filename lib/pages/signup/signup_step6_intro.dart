@@ -264,15 +264,18 @@ class SignupStep6Page extends StatelessWidget {
                                 IcoButton(
                                     icon: false,
                                     onPressed: () async {
-                                      signupController.createNewUserModel();
-                                      signupController
+                                      String? reservationNumber;
+
+                                      await signupController
+                                          .createNewUserModel();
+                                      await signupController
                                           .registerWithEmailAndPassword(
                                               signupController.userModel.value!,
                                               signupController
                                                   .passwordController
                                                   .value
                                                   .text);
-                                      String? reservationNumber;
+
                                       bool wantExistingReservation = false;
                                       reservationNumber = await signupController
                                           .getExistingReservationNumber(

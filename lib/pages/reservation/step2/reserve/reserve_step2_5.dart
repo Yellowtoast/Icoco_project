@@ -13,8 +13,7 @@ import 'package:get/get.dart';
 
 class ReserveStep2_5 extends StatelessWidget {
   ReserveStep2_5({Key? key}) : super(key: key);
-  AdditionalFeeController additionalFeeController =
-      Get.put(AdditionalFeeController());
+  AdditionalFeeController additionalFeeController = Get.find();
 
   @override
   Widget build(BuildContext context) {

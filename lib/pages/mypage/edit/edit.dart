@@ -8,6 +8,7 @@ import 'package:app/controllers/signup_controller.dart';
 import 'package:app/helpers/validator.dart';
 import 'package:app/widgets/button/button.dart';
 import 'package:app/widgets/appbar.dart';
+import 'package:app/widgets/modal/bottomup_modal2.dart';
 import 'package:app/widgets/modal/option_modal.dart';
 import 'package:app/widgets/textfield/textfield.dart';
 import 'package:flutter/cupertino.dart';
@@ -142,6 +143,19 @@ class EditUserInfoPage extends StatelessWidget {
                     height: 1,
                   ),
                   InkWell(
+                    onTap: () async {
+                      bool confirm = await IcoOptionModal(
+                          title: '계정을 탈퇴하시겠습니까?',
+                          subtitle: '탈퇴 시 회원님의 정보는\n모두 영구 삭제됩니다',
+                          option1: '닫기',
+                          option2: '탈퇴',
+                          iconUrl: 'icons/failed_human.svg');
+                      if (confirm) {
+                        await authController
+                            .deleteUser(authController.homeModel.value.uid);
+                        authController.signOut();
+                      }
+                    },
                     child: SizedBox(
                       height: 55,
                       width: IcoSize.width - 40,
@@ -161,6 +175,15 @@ class EditUserInfoPage extends StatelessWidget {
                     height: 1,
                   ),
                   InkWell(
+                    onTap: () {
+                      BottomUpModal2(
+                          title: "로그아웃 되었습니다",
+                          subtitle: "서비스를 이용해주셔서 감사합니다\n다음에 또 이용해주시기바랍니다.",
+                          buttonText: "확인",
+                          onTap: () {
+                            authController.signOut();
+                          });
+                    },
                     child: Container(
                       padding: EdgeInsets.symmetric(horizontal: 20),
                       height: 55,

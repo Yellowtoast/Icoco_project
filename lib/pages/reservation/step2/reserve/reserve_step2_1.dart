@@ -23,7 +23,7 @@ class ReserveStep2_1 extends StatelessWidget {
   ReserveStep2_1({Key? key}) : super(key: key);
   CompanyController companyController = Get.find();
   AddressController addressController = Get.find();
-  VoucherController voucherController = Get.find();
+  VoucherController voucherController = Get.put(VoucherController());
   AuthController authController = Get.find();
 
   @override
@@ -85,14 +85,10 @@ class ReserveStep2_1 extends StatelessWidget {
                     EditButtonBox(
                       title: "바우처 등급",
                       contents: voucherController.voucherResult.value!,
-                      onTap: () async {
-                        await voucherController.setVoucherInfo(
-                            authController.reservationModel.value!.voucher!);
-
-                        // voucherController.voucherResult.value =
-                        //     await Get.toNamed(Routes.VOUCHER_SIGNED1,
-                        //         arguments: {'command': '수정'});
-
+                      onTap: () {
+                        voucherController.setDropDownList(null);
+                        voucherController.setVoucherInfo(
+                            voucherController.voucherResult.value);
                         Get.toNamed(Routes.VOUCHER_SIGNED1,
                             arguments: {'command': '수정'});
                       },

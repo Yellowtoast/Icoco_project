@@ -30,19 +30,20 @@ Future<dynamic> BottomUpModal2({
         child: Column(
           children: [
             SizedBox(
-              height: 10,
+              height: 5,
             ),
-            Container(
-              alignment: Alignment.topRight,
-              child: IconButton(
-                iconSize: 26,
-                padding: EdgeInsets.only(right: 10),
-                icon: SvgPicture.asset(
-                  "icons/exit_icon.svg",
+            InkWell(
+              onTap: () {
+                Get.back();
+              },
+              child: Padding(
+                padding: EdgeInsets.only(right: 20, top: 15),
+                child: Container(
+                  alignment: Alignment.centerRight,
+                  child: SvgPicture.asset(
+                    "icons/exit_icon.svg",
+                  ),
                 ),
-                onPressed: () {
-                  Get.back();
-                },
               ),
             ),
             Text(
@@ -53,7 +54,7 @@ Future<dynamic> BottomUpModal2({
               height: 8,
             ),
             Text(
-              "산후도우미 변경 요청으로\n다른 도우미님으로 변경되었습니다\n메인페이지에서 확인바랍니다.",
+              subtitle,
               style: IcoTextStyle.mediumTextStyle14B,
               textAlign: TextAlign.center,
             ),

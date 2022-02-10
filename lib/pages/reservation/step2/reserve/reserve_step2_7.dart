@@ -29,7 +29,6 @@ class ReserveStep2_7 extends StatelessWidget {
     VoucherController voucherController = Get.find();
     ServiceInfoController serviceInfoController = Get.find();
     DateInfoController dateInfoController = Get.find();
-    AuthController authController = Get.find();
 
     return Obx(() {
       return Scaffold(
@@ -70,7 +69,8 @@ class ReserveStep2_7 extends StatelessWidget {
                           Expanded(
                             child: VoucherDropdown(
                               dropDownList: voucherController.voucherType1List,
-                              selectedValue: voucherController.voucherType1,
+                              selectedVoucherType:
+                                  voucherController.voucherType1,
                               selectedTextStyle:
                                   IcoTextStyle.mediumTextStyle16B,
                             ),
@@ -81,7 +81,8 @@ class ReserveStep2_7 extends StatelessWidget {
                           Expanded(
                             child: VoucherDropdown(
                               dropDownList: voucherController.voucherType2List,
-                              selectedValue: voucherController.voucherType2,
+                              selectedVoucherType:
+                                  voucherController.voucherType2,
                               selectedTextStyle:
                                   IcoTextStyle.mediumTextStyle16B,
                             ),
@@ -92,7 +93,8 @@ class ReserveStep2_7 extends StatelessWidget {
                           Expanded(
                             child: VoucherDropdown(
                               dropDownList: voucherController.voucherType3List,
-                              selectedValue: voucherController.voucherType3,
+                              selectedVoucherType:
+                                  voucherController.voucherType3,
                               selectedTextStyle:
                                   IcoTextStyle.mediumTextStyle16B,
                             ),
