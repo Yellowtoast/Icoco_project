@@ -166,6 +166,8 @@ class SignupStep3Page extends StatelessWidget {
                                       value,
                                       signupController.codeSendButtonValid,
                                       signupController.phoneErrorText);
+
+                                  signupController.phoneNumber = value;
                                 },
                               ),
                               SizedBox(
