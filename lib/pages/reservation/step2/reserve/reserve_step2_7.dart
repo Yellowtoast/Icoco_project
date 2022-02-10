@@ -2,6 +2,7 @@ import 'package:app/configs/colors.dart';
 import 'package:app/configs/routes.dart';
 import 'package:app/configs/size.dart';
 import 'package:app/configs/text_styles.dart';
+import 'package:app/controllers/auth_controller.dart';
 import 'package:app/controllers/reservation/step1/voucher_controller.dart';
 import 'package:app/controllers/reservation/step2/substep_controllers/date_info_controller.dart';
 import 'package:app/controllers/reservation/step2/substep_controllers/service_info_controller.dart';
@@ -28,6 +29,7 @@ class ReserveStep2_7 extends StatelessWidget {
     VoucherController voucherController = Get.find();
     ServiceInfoController serviceInfoController = Get.find();
     DateInfoController dateInfoController = Get.find();
+    AuthController authController = Get.find();
 
     return Obx(() {
       return Scaffold(

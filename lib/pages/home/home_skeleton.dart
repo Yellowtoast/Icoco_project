@@ -48,7 +48,9 @@ class HomeSkeletonPage extends StatelessWidget {
           constraints: BoxConstraints.tightFor(width: boxSize, height: boxSize),
           child: ElevatedButton(
             child: SvgPicture.asset("icons/$iconName.svg"),
-            onPressed: () {},
+            onPressed: () {
+              authController.signOut();
+            },
             style: TextButton.styleFrom(
               backgroundColor: IcoColors.white,
               shape: const CircleBorder(),

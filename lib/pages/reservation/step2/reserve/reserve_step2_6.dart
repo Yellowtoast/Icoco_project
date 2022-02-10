@@ -2,6 +2,7 @@ import 'package:app/configs/colors.dart';
 import 'package:app/configs/routes.dart';
 import 'package:app/configs/text_styles.dart';
 import 'package:app/controllers/auth_controller.dart';
+import 'package:app/controllers/reservation/step1/voucher_controller.dart';
 import 'package:app/controllers/reservation/step2/substep_controllers/date_info_controller.dart';
 import 'package:app/configs/enum.dart';
 
@@ -25,6 +26,7 @@ class ReserveStep2_6 extends StatelessWidget {
     DateInfoController dateInfoController = Get.find();
     AuthController authController = Get.find();
     Rxn<ReservationModel?> reservationModel = authController.reservationModel;
+    VoucherController voucherController = Get.find();
     dateInfoController.serviceDurationSelected.value =
         authController.reservationModel.value!.serviceDuration;
 
@@ -142,6 +144,22 @@ class ReserveStep2_6 extends StatelessWidget {
                     children: [
                       IcoButton(
                           onPressed: () {
+                            if (authController.reservationModel.value != null &&
+                                authController
+                                        .reservationModel.value!.voucher !=
+                                    null &&
+                                authController.reservationModel.value!
+                                        .serviceDuration !=
+                                    null) {
+                              dateInfoController.serviceDurationInt.value =
+                                  dateInfoController.serviceDurationToInt(
+                                      authController.reservationModel.value!
+                                          .serviceDuration!);
+                              voucherController.voucherResult.value =
+                                  authController
+                                      .reservationModel.value!.serviceDuration;
+                            }
+
                             if (reservationModel.value!.isBirth != true) {
                               Get.toNamed(Routes.RESERVE_STEP2_REGISTERED);
                             } else {

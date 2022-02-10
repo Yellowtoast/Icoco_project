@@ -38,22 +38,28 @@ class VoucherController extends GetxController {
   RxBool isButtonValid = false.obs;
   HomeController homeController = HomeController();
   Rxn<String> regNumErrorText = Rxn<String>();
+
+  @override
+  void onInit() async {
+    await setVoucherInfo(voucherResult.value);
+
+    super.onInit();
+  }
+
   @override
   void onReady() async {
-    // await setVoucherInfo(voucherResult.value);
+    ever(voucherResult, setVoucherInfo);
 
     super.onReady();
   }
 
-  setVoucherInfo(String? voucher) {
-    voucherResult.value = voucher;
-
-    if (voucherResult.value == null) {
+  setVoucherInfo(voucher) {
+    if (voucher == null) {
       print('no voucher info');
       return;
     }
 
-    List<String>? voucherList = voucherResult.split('-');
+    List<String>? voucherList = voucher.split('-');
 
     for (var element in voucherList!) {
       switch (voucherList.indexOf(element)) {

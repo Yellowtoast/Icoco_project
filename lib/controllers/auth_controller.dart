@@ -47,15 +47,16 @@ class AuthController extends GetxController {
   }
 
   handleAuthChanged(_firebaseAuthUser) async {
+    startLoadingIndicator();
     if (_firebaseAuthUser != null &&
         (reservationModel.value != null || userModel.value != null)) {
       return;
     }
-    startLoadingIndicator();
-    await setModelInfo();
+
     if (_firebaseAuthUser == null) {
       Get.offAllNamed(Routes.START);
     } else {
+      await setModelInfo();
       finishLoadingIndicator();
       Get.offAllNamed(Routes.HOME);
     }

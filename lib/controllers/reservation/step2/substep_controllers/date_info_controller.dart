@@ -29,6 +29,13 @@ class DateInfoController extends GetxController {
   Rxn<DateTime> serviceEndDate = Rxn<DateTime>();
   Rxn<int> serviceDurationInt = Rxn<int>();
 
+  @override
+  void onReady() {
+    ever(serviceDurationSelected, serviceDurationToInt);
+
+    super.onReady();
+  }
+
   setInitialDateTime(datePickerType dateType) {
     switch (dateType) {
       case datePickerType.BIRTH:
@@ -163,13 +170,18 @@ class DateInfoController extends GetxController {
   }
 
   setServiceEndDate(String? serviceDuration) {
-    var weekString = serviceDuration!.replaceAll('주', '');
-    serviceDurationInt.value = int.parse(weekString);
+    serviceDurationInt.value = serviceDurationToInt(serviceDuration!);
+
     if (serviceStartDate.value != null) {
       serviceEndDate.value = serviceStartDate.value!
           .add(Duration(days: serviceDurationInt.value! * 7));
     } else {
       serviceEndDate.value = null;
     }
+  }
+
+  serviceDurationToInt(serviceDurationString) {
+    var weekString = serviceDurationString.replaceAll('주', '');
+    return int.parse(weekString);
   }
 }
