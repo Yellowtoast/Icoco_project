@@ -29,7 +29,7 @@ class VoucherController extends GetxController {
   RxList<int> depositFeeList = [0, 0, 0, 0, 0].obs;
   RxList<int> remainingFeeList = [0, 0, 0, 0, 0].obs;
   RxList<int> totalFeeList = [0, 0, 0, 0, 0].obs;
-  RxInt additionalFee = 0.obs;
+  // RxInt additionalFee = 0.obs;
   TextEditingController frontRegNumController = TextEditingController();
   TextEditingController backRegNumController = TextEditingController();
   Rxn<User?> firebaseAuthUser = Rxn<User?>();

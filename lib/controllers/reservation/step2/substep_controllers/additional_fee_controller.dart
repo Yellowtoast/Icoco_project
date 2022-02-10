@@ -7,13 +7,14 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 class AdditionalFeeController extends GetxController {
-  AuthController authController = Get.find();
-  VoucherController voucherController = Get.find();
+  // AuthController authController = Get.find();
+  // VoucherController voucherController = Get.find();
   Rxn<ReservationModel> reservationModel = Rxn<ReservationModel>();
   TextEditingController preschoolerController = TextEditingController();
   TextEditingController kindergartenController = TextEditingController();
   TextEditingController schoolerController = TextEditingController();
   TextEditingController extraFamilyController = TextEditingController();
+  RxInt additionalFee = 0.obs;
   Rx<bool> isButtonValid = false.obs;
   int? preschoolerFee;
   int? kindergartenFee;
@@ -48,16 +49,16 @@ class AdditionalFeeController extends GetxController {
         preschoolerFee! + kindergartenFee! + schoolerFee! + extraFamilyFee!;
   }
 
-  updateReservationModel() {
-    authController.reservationModel.value!.allAdditionalFamily = {
+  updateReservationModel(dynamic model) {
+    model.value!.allAdditionalFamily = {
       "preschooler": preschooler,
       "kindergartener": kindergartener,
       "schooler": schooler,
       "extraFamily": extraFamily,
     };
 
-    authController.reservationModel.value!.extraCost = totalAdditionalFee;
-    voucherController.additionalFee.value = totalAdditionalFee!;
+    model.value!.extraCost = totalAdditionalFee;
+    // voucherController.additionalFee.value = totalAdditionalFee!;
   }
 
   validateButton(_info) {

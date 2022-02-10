@@ -1,5 +1,7 @@
 import 'package:app/configs/colors.dart';
 import 'package:app/configs/text_styles.dart';
+import 'package:app/controllers/auth_controller.dart';
+import 'package:app/controllers/reservation/step1/voucher_controller.dart';
 import 'package:app/controllers/reservation/step2/substep_controllers/additional_fee_controller.dart';
 import 'package:app/configs/enum.dart';
 import 'package:app/pages/reservation/step1/substep_voucher/voucher_signed/voucher_signed1.dart';
@@ -14,6 +16,8 @@ import 'package:get/get.dart';
 class ReserveStep2_5 extends StatelessWidget {
   ReserveStep2_5({Key? key}) : super(key: key);
   AdditionalFeeController additionalFeeController = Get.find();
+  AuthController authController = Get.find();
+  VoucherController voucherController = Get.find();
 
   @override
   Widget build(BuildContext context) {
@@ -347,7 +351,7 @@ class ReserveStep2_5 extends StatelessWidget {
                     IcoButton(
                         onPressed: () {
                           additionalFeeController.setExtraChargeOptions();
-                          BottomResultModal();
+                          Get.to(BottomResultModal());
                         },
                         active: additionalFeeController.isButtonValid,
                         textStyle: IcoTextStyle.buttonTextStyleW,

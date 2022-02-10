@@ -23,29 +23,27 @@ import 'package:app/configs/enum.dart';
 
 class ReserveStep2_7 extends StatelessWidget {
   ReserveStep2_7({Key? key}) : super(key: key);
-
+  VoucherController voucherController = Get.find();
+  ServiceInfoController serviceInfoController = Get.find();
+  DateInfoController dateInfoController = Get.find();
   @override
   Widget build(BuildContext context) {
-    VoucherController voucherController = Get.find();
-    ServiceInfoController serviceInfoController = Get.find();
-    DateInfoController dateInfoController = Get.find();
-
-    return Obx(() {
-      return Scaffold(
-          floatingActionButton: IcoButton(
-              width: IcoSize.width - 40,
-              onPressed: () async {
-                Get.toNamed(Routes.RESERVE_STEP2_REGISTERED);
-              },
-              active: true.obs,
-              textStyle: IcoTextStyle.buttonTextStyleW,
-              text: "다음으로"),
-          backgroundColor: IcoColors.white,
-          appBar: IcoAppbar(
-            title: "예약하기",
-            usePop: true,
-          ),
-          body: Column(
+    return Scaffold(
+        floatingActionButton: IcoButton(
+            width: IcoSize.width - 40,
+            onPressed: () async {
+              Get.toNamed(Routes.RESERVE_STEP2_REGISTERED);
+            },
+            active: true.obs,
+            textStyle: IcoTextStyle.buttonTextStyleW,
+            text: "다음으로"),
+        backgroundColor: IcoColors.white,
+        appBar: IcoAppbar(
+          title: "예약하기",
+          usePop: true,
+        ),
+        body: Obx(() {
+          return Column(
             children: [
               Container(
                 margin: const EdgeInsets.symmetric(horizontal: 20),
@@ -214,8 +212,8 @@ class ReserveStep2_7 extends StatelessWidget {
                 height: 80,
               )
             ],
-          ));
-    });
+          );
+        }));
   }
 }
 

@@ -16,8 +16,9 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 BottomResultModal() {
-  AdditionalFeeController extraChargeController = Get.find();
+  AdditionalFeeController additionalFeeController = Get.find();
   AuthController authController = Get.find();
+  VoucherController voucherController = Get.put(VoucherController());
   return Get.bottomSheet(
       Container(
         height: 380,
@@ -46,7 +47,7 @@ BottomResultModal() {
               textBaseline: TextBaseline.ideographic,
               children: [
                 Text(
-                    "${numFormat.format(extraChargeController.totalAdditionalFee)}원",
+                    "${numFormat.format(additionalFeeController.totalAdditionalFee)}원",
                     style: IcoTextStyle.boldTextStyle24B),
                 Text(" / 일", style: IcoTextStyle.boldTextStyle14B)
               ],
@@ -61,7 +62,7 @@ BottomResultModal() {
             SizedBox(
               height: 16,
             ),
-            (extraChargeController.preschooler != null)
+            (additionalFeeController.preschooler != null)
                 ? Column(
                     children: [
                       SizedBox(
@@ -77,13 +78,14 @@ BottomResultModal() {
                             ),
                             Expanded(
                               child: Text(
-                                  extraChargeController.preschooler.toString() +
+                                  additionalFeeController.preschooler
+                                          .toString() +
                                       "명",
                                   style: IcoTextStyle.mediumTextStyle15P),
                             ),
                             Expanded(
                               child: Text(
-                                  "${numFormat.format(extraChargeController.preschoolerFee)}원 / 일",
+                                  "${numFormat.format(additionalFeeController.preschoolerFee)}원 / 일",
                                   textAlign: TextAlign.right,
                                   style: IcoTextStyle.boldTextStyle15B),
                             ),
@@ -96,7 +98,7 @@ BottomResultModal() {
                     ],
                   )
                 : SizedBox(),
-            (extraChargeController.kindergartener != null)
+            (additionalFeeController.kindergartener != null)
                 ? Column(
                     children: [
                       SizedBox(
@@ -112,14 +114,14 @@ BottomResultModal() {
                             ),
                             Expanded(
                               child: Text(
-                                  extraChargeController.kindergartener
+                                  additionalFeeController.kindergartener
                                           .toString() +
                                       "명",
                                   style: IcoTextStyle.mediumTextStyle15P),
                             ),
                             Expanded(
                               child: Text(
-                                  "${numFormat.format(extraChargeController.kindergartenFee)}원 / 일",
+                                  "${numFormat.format(additionalFeeController.kindergartenFee)}원 / 일",
                                   textAlign: TextAlign.right,
                                   style: IcoTextStyle.boldTextStyle15B),
                             ),
@@ -132,7 +134,7 @@ BottomResultModal() {
                     ],
                   )
                 : SizedBox(),
-            (extraChargeController.schooler != null)
+            (additionalFeeController.schooler != null)
                 ? Column(
                     children: [
                       SizedBox(
@@ -148,13 +150,13 @@ BottomResultModal() {
                             ),
                             Expanded(
                               child: Text(
-                                  extraChargeController.schooler.toString() +
+                                  additionalFeeController.schooler.toString() +
                                       "명",
                                   style: IcoTextStyle.mediumTextStyle15P),
                             ),
                             Expanded(
                               child: Text(
-                                  "${numFormat.format(extraChargeController.schoolerFee)}원 / 일",
+                                  "${numFormat.format(additionalFeeController.schoolerFee)}원 / 일",
                                   textAlign: TextAlign.right,
                                   style: IcoTextStyle.boldTextStyle15B),
                             ),
@@ -167,7 +169,7 @@ BottomResultModal() {
                     ],
                   )
                 : SizedBox(),
-            (extraChargeController.extraFamily != null)
+            (additionalFeeController.extraFamily != null)
                 ? SizedBox(
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -181,13 +183,13 @@ BottomResultModal() {
                         ),
                         Expanded(
                           child: Text(
-                              extraChargeController.extraFamily.toString() +
+                              additionalFeeController.extraFamily.toString() +
                                   "명",
                               style: IcoTextStyle.mediumTextStyle15P),
                         ),
                         Expanded(
                           child: Text(
-                              "${numFormat.format(extraChargeController.extraFamilyFee)}원 / 일",
+                              "${numFormat.format(additionalFeeController.extraFamilyFee)}원 / 일",
                               textAlign: TextAlign.right,
                               style: IcoTextStyle.boldTextStyle15B),
                         ),
@@ -200,15 +202,15 @@ BottomResultModal() {
             ),
             IcoButton(
                 onPressed: () {
-                  extraChargeController.updateReservationModel();
+                  additionalFeeController
+                      .updateReservationModel(authController.reservationModel);
                   if (authController.reservationModel.value!.isBirth == true) {
-                    Get.toNamed(Routes.RESERVE_STEP2_6,
-                        preventDuplicates: false);
+                    Get.toNamed(Routes.RESERVE_STEP2_6);
                   } else {
-                    // voucherController.setVoucherInfo(
-                    //     authController.reservationModel.value!.voucher);
-                    Get.toNamed(Routes.RESERVE_STEP2_7,
-                        preventDuplicates: false);
+                    voucherController.setDropDownList(null);
+                    voucherController
+                        .setVoucherInfo(voucherController.voucherResult.value);
+                    Get.toNamed(Routes.RESERVE_STEP2_7);
                   }
                 },
                 active: true.obs,
