@@ -155,19 +155,24 @@ class SignupStep3Page extends StatelessWidget {
                             children: [
                               IcoTextField(
                                 width: IcoSize.width - 40 - 106 - 8,
-                                maxLength: 11,
+                                maxLength: 13,
                                 hintText: "-없이 입력해주세요",
                                 textFieldLabel: "전화번호",
                                 errorText: signupController.phoneErrorText,
                                 myTextController:
                                     signupController.phoneController,
+                                textInputFormatter: [
+                                  PhoneNumberTextInputFormatter()
+                                ],
                                 onChanged: (value) {
                                   validatePhoneNumber(
                                       value,
                                       signupController.codeSendButtonValid,
                                       signupController.phoneErrorText);
-
-                                  signupController.phoneNumber = value;
+                                  if (value != '') {
+                                    signupController.phoneNumber =
+                                        value.replaceAll('-', '');
+                                  }
                                 },
                               ),
                               SizedBox(
@@ -255,7 +260,7 @@ class SignupStep3Page extends StatelessWidget {
                         mainAxisAlignment: MainAxisAlignment.end,
                         children: [
                           IcoButton(
-                              onPressed: () async {
+                              onPressed: () {
                                 if (signupController
                                             .genderController.value.text ==
                                         "2" ||

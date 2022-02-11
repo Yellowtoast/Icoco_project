@@ -13,7 +13,6 @@ import 'package:app/helpers/validator.dart';
 
 import 'package:app/widgets/button/button.dart';
 import 'package:app/widgets/appbar.dart';
-import 'package:app/widgets/modal/warning_modal.dart';
 import 'package:app/widgets/textfield/regnum_textfield.dart';
 import 'package:app/widgets/textfield/textfield.dart';
 
@@ -233,7 +232,7 @@ class EditNamePage extends StatelessWidget {
                       mainAxisAlignment: MainAxisAlignment.end,
                       children: [
                         IcoButton(
-                            onPressed: () {
+                            onPressed: () async {
                               if (authController.reservationModel.value ==
                                   null) {
                                 authController.userModel.value!.userName =
@@ -252,6 +251,7 @@ class EditNamePage extends StatelessWidget {
                                     authController.reservationModel.value!
                                         .reservationNumber);
                               }
+                              await authController.setModelInfo();
 
                               Get.back();
                             },

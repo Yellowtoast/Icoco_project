@@ -101,7 +101,8 @@ class ReserveStep2_1_Yes extends StatelessWidget {
                                               .value!
                                               .uid!,
                                           'company',
-                                          2,
+                                          0,
+                                          3,
                                           '기말');
                                   finishLoadingIndicator();
                                   print(index);

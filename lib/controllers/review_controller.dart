@@ -159,32 +159,40 @@ class ReviewController extends GetxController {
     update();
   }
 
-  Future<RxList<Rxn<ReviewModel>>?> getJsonReviews(
-      String uid, String target, int? reviewOffset, String reviewType) async {
+  Future<RxList<Rxn<ReviewModel>>?> getJsonReviews(String uid, String target,
+      int offset, int limitNumber, String reviewType) async {
     Map<dynamic, dynamic> reviewObject;
     List<dynamic> list;
-    String token;
     RxList<Rxn<ReviewModel>> modelList = RxList<Rxn<ReviewModel>>();
+    var currentUser = await authController.getUser;
+    String userToken = await currentUser.getIdToken();
 
     // reviewModelList.clear();
+    var queryParameters = {
+      "uid": uid,
+      "target": target,
+      "offset": offset.toString(),
+      "limitNumber": limitNumber.toString(),
+      "type": reviewType
+    };
 
     try {
-      var url = Uri.parse(
-        'https://icoco2022-erpweb.vercel.app/api/getReviews',
-      );
-      final jwt = JWT(
-        {
-          "uid": uid,
-          "target": target,
-          "limitNumber": reviewOffset,
-          "type": reviewType
-        },
-      );
-      token = jwt.sign(SecretKey(JWT_KEY));
+      var uri =
+          Uri.http('172.30.1.22:3000', '/api/getReviews', queryParameters);
+      // final jwt = JWT(
+      //   {
+      //     "uid": uid,
+      //     "target": target,
+      //     "offset": offset,
+      //     "limitNumber": limitNumber,
+      //     "type": reviewType
+      //   },
+      // );
+      // token = jwt.sign(SecretKey(JWT_KEY));
 
       var response = await http.get(
-        url,
-        headers: {'x-access-token': token},
+        uri,
+        headers: {'x-access-token': userToken},
       );
       var json = jsonDecode(response.body);
       reviewObject = json['data'].cast<String, dynamic>();

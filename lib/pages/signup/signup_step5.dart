@@ -58,7 +58,7 @@ class SignupStep5Page extends StatelessWidget {
                 alignment: Alignment.bottomCenter,
                 child: IcoButton(
                     icon: false,
-                    onPressed: () async {
+                    onPressed: () {
                       Get.toNamed(Routes.SIGNUP_STEP6);
                     },
                     active: true.obs,

@@ -120,6 +120,7 @@ class HomeStep7Items extends StatelessWidget {
                                               .value!
                                               .uid,
                                           'manager',
+                                          0,
                                           3,
                                           '기말');
                                   finishLoadingIndicator();

@@ -6,6 +6,7 @@ import 'package:app/controllers/auth_controller.dart';
 import 'package:app/controllers/mypage_controller.dart';
 import 'package:app/controllers/signup_controller.dart';
 import 'package:app/helpers/validator.dart';
+import 'package:app/pages/mypage/edit/edit_phone.dart';
 import 'package:app/widgets/button/button.dart';
 import 'package:app/widgets/appbar.dart';
 import 'package:app/widgets/modal/bottomup_modal2.dart';
@@ -61,9 +62,11 @@ class EditUserInfoPage extends StatelessWidget {
                     height: 25,
                   ),
                   EditTextButton(
-                    title: '휴대폰 번호',
-                    value: '${authController.homeModel.value.phone}',
-                  ),
+                      title: '휴대폰 번호',
+                      value: '${authController.homeModel.value.phone}',
+                      onTap: () {
+                        Get.to(EditPhonePage());
+                      }),
                   SizedBox(
                     height: 25,
                   ),

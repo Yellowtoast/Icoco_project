@@ -3,7 +3,7 @@ class ReservationModel {
   final String uid;
   final String email;
 
-  final String phone;
+  String phone;
   final bool isMarketingAllowed;
   final String reservationNumber;
   String? status;

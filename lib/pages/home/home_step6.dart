@@ -42,14 +42,8 @@ class HomeStep6Items extends StatelessWidget {
                             ClipRRect(
                               borderRadius: BorderRadius.circular(100),
                               child: Image.network(
-                                  (managerController.managerModelList[index]
-                                              .value!.profileImage ==
-                                          null)
-                                      ? 'https://www.analogouscolors.com/image/1080x1920/dcdcdc.png'
-                                      : managerController
-                                          .managerModelList[index]
-                                          .value!
-                                          .profileImage!,
+                                  managerController.managerModelList[index]
+                                      .value!.profileImage!,
                                   width: 89,
                                   height: 89,
                                   fit: BoxFit.cover, errorBuilder:
@@ -145,6 +139,7 @@ class HomeStep6Items extends StatelessWidget {
                                               .value!
                                               .uid,
                                           'manager',
+                                          0,
                                           3,
                                           '기말');
                                   finishLoadingIndicator();

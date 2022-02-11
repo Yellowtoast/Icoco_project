@@ -137,14 +137,16 @@ class MyPage extends StatelessWidget {
                     await reviewController.getJsonReviews(
                         authController.reservationModel.value!.uid,
                         'user',
-                        managerController.managerModelList.length,
+                        0,
+                        3,
                         '중간');
 
                 mypageController.finalReviewModelList =
                     await reviewController.getJsonReviews(
                         authController.reservationModel.value!.uid,
                         'user',
-                        managerController.managerModelList.length,
+                        0,
+                        3,
                         '기말');
                 await finishLoadingIndicator();
                 Get.to(MyReviewPage());
