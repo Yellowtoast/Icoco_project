@@ -2,7 +2,7 @@ class ReservationModel {
   final int date;
   final String uid;
   final String email;
-  final String userName;
+
   final String phone;
   final bool isMarketingAllowed;
   final String reservationNumber;
@@ -16,7 +16,7 @@ class ReservationModel {
   String? birthType;
   bool? useHospital;
   bool? useCareCenter;
-
+  String userName;
   String? hospitalEndDate;
   String? hospitalStartDate;
   String? careCenterEndDate;

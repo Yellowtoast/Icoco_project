@@ -1,7 +1,7 @@
 class UserModel {
   String uid;
   final String email;
-  final String userName;
+  String userName;
   final String phone;
   final String regNum;
   late String fullRegNum;

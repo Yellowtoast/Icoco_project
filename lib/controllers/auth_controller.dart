@@ -143,42 +143,42 @@ class AuthController extends GetxController {
     } catch (error) {}
   }
 
-  //handles updating the user when updating profile
-  Future<void> updateUser(BuildContext context, UserModel user, String oldEmail,
-      String password) async {
-    try {
-      try {
-        await _auth
-            .signInWithEmailAndPassword(email: oldEmail, password: password)
-            .then((_firebaseUser) {
-          _firebaseUser.user!
-              .updateEmail(user.email)
-              .then((value) => updateUserFirestore(user, _firebaseUser.user!));
-        });
-      } catch (err) {
-        print('Caught error: $err');
+  // //handles updating the user when updating profile
+  // Future<void> updateUser(BuildContext context, UserModel user, String oldEmail,
+  //     String password) async {
+  //   try {
+  //     try {
+  //       await _auth
+  //           .signInWithEmailAndPassword(email: oldEmail, password: password)
+  //           .then((_firebaseUser) {
+  //         _firebaseUser.user!
+  //             .updateEmail(user.email)
+  //             .then((value) => updateUserFirestore(user, _firebaseUser.user!));
+  //       });
+  //     } catch (err) {
+  //       print('Caught error: $err');
 
-        if (err ==
-            "Error: [firebase_auth/email-already-in-use] The email address is already in use by another account.") {
-        } else {}
-      }
-    } on PlatformException catch (error) {
-      print(error.code);
-      String authError;
-      switch (error.code) {
-        case 'ERROR_WRONG_PASSWORD':
-          authError = 'auth.wrongPasswordNotice'.tr;
-          break;
-        default:
-          authError = 'auth.unknownError'.tr;
-          break;
-      }
-    }
-  }
+  //       if (err ==
+  //           "Error: [firebase_auth/email-already-in-use] The email address is already in use by another account.") {
+  //       } else {}
+  //     }
+  //   } on PlatformException catch (error) {
+  //     print(error.code);
+  //     String authError;
+  //     switch (error.code) {
+  //       case 'ERROR_WRONG_PASSWORD':
+  //         authError = 'auth.wrongPasswordNotice'.tr;
+  //         break;
+  //       default:
+  //         authError = 'auth.unknownError'.tr;
+  //         break;
+  //     }
+  //   }
+  // }
 
   //유저정보를 firestore에 updqte
-  void updateUserFirestore(UserModel? user, User? _firebaseUser) {
-    db.doc('/User/${_firebaseUser!.email}').update(user!.toJson());
+  void updateUserFirestore(UserModel? user) {
+    db.doc('/User/${user!.email}').update(user.toJson());
     update();
   }
 

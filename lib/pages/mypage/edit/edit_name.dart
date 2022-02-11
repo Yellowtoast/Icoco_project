@@ -4,6 +4,7 @@ import 'package:app/configs/colors.dart';
 import 'package:app/configs/routes.dart';
 import 'package:app/configs/size.dart';
 import 'package:app/configs/text_styles.dart';
+import 'package:app/controllers/auth_controller.dart';
 
 import 'package:app/controllers/signup_controller.dart';
 import 'package:app/helpers/formatter.dart';
@@ -22,6 +23,7 @@ import 'package:get/get.dart';
 class EditNamePage extends StatelessWidget {
   EditNamePage({Key? key}) : super(key: key);
   SignupController signupController = Get.put(SignupController());
+  AuthController authController = Get.find();
 
   @override
   Widget build(BuildContext context) {
@@ -156,8 +158,8 @@ class EditNamePage extends StatelessWidget {
                                 onPressed: () {
                                   signupController.codeSendButtonValid.value =
                                       false;
-                                  signupController.startAuthCodeTimer(12);
-                                  // signupController.sendAuthCodeMessage();
+                                  signupController.startAuthCodeTimer(180);
+                                  signupController.sendAuthCodeMessage();
                                 },
                                 active: signupController.codeSendButtonValid,
                                 textStyle: IcoTextStyle.boldTextStyle14W,
@@ -231,7 +233,28 @@ class EditNamePage extends StatelessWidget {
                       mainAxisAlignment: MainAxisAlignment.end,
                       children: [
                         IcoButton(
-                            onPressed: () async {},
+                            onPressed: () {
+                              if (authController.reservationModel.value ==
+                                  null) {
+                                authController.userModel.value!.userName =
+                                    signupController.nameController.text;
+                                authController.updateUserFirestore(
+                                    authController.userModel.value);
+                              } else {
+                                authController
+                                        .reservationModel.value!.userName =
+                                    signupController.nameController.text;
+                                authController.userModel.value!.userName =
+                                    signupController.nameController.text;
+                                authController.updateUserFirestore(
+                                    authController.userModel.value);
+                                authController.updateReservationFirestore(
+                                    authController.reservationModel.value!
+                                        .reservationNumber);
+                              }
+
+                              Get.back();
+                            },
                             active: signupController.isButtonValid,
                             buttonColor: IcoColors.primary,
                             textStyle: IcoTextStyle.buttonTextStyleW,
