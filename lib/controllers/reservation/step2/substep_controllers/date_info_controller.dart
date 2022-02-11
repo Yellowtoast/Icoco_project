@@ -30,6 +30,12 @@ class DateInfoController extends GetxController {
   Rxn<int> serviceDurationInt = Rxn<int>();
 
   @override
+  void onInit() {
+    print('date info controller init');
+    super.onInit();
+  }
+
+  @override
   void onReady() {
     ever(serviceDurationSelected, serviceDurationToInt);
 

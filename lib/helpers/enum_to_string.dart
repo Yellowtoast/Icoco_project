@@ -82,3 +82,16 @@ extension Extention5 on petType {
     }
   }
 }
+
+extension Extention6 on careType {
+  String get convertCareTypeToString {
+    switch (this) {
+      case careType.COMMUTER:
+        return "출퇴근형";
+      case careType.RESIDENT:
+        return "입주형";
+      default:
+        return "";
+    }
+  }
+}

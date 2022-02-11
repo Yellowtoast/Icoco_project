@@ -68,11 +68,20 @@ class ManagerDetailPage extends StatelessWidget {
                                 ClipRRect(
                                   borderRadius: BorderRadius.circular(100),
                                   child: Image.network(
-                                    "${managerController.managerModelList[managerNum].value!.profileImage}",
-                                    width: 89,
-                                    height: 89,
-                                    fit: BoxFit.cover,
-                                  ),
+                                      "${managerController.managerModelList[managerNum].value!.profileImage}",
+                                      width: 89,
+                                      height: 89,
+                                      fit: BoxFit.cover, errorBuilder:
+                                          (BuildContext context,
+                                              Object exception,
+                                              StackTrace? stackTrace) {
+                                    return Image.asset(
+                                      'images/failed_human_grey.png',
+                                      width: 89,
+                                      height: 89,
+                                      fit: BoxFit.cover,
+                                    );
+                                  }),
                                 ),
                                 const SizedBox(
                                   width: 10,
@@ -98,15 +107,20 @@ class ManagerDetailPage extends StatelessWidget {
                                     ),
                                     RatingBar(
                                       ignoreGestures: true,
-                                      initialRating: (managerController
-                                                  .managerModelList[managerNum]
-                                                  .value!
-                                                  .totalReviewRate! ~/
-                                              managerController
-                                                  .managerModelList[managerNum]
-                                                  .value!
-                                                  .totalReview!)
-                                          .toDouble(),
+                                      initialRating:
+                                          (reviewController.totalReviews == 0)
+                                              ? 0
+                                              : (managerController
+                                                          .managerModelList[
+                                                              managerNum]
+                                                          .value!
+                                                          .totalReviewRate! ~/
+                                                      managerController
+                                                          .managerModelList[
+                                                              managerNum]
+                                                          .value!
+                                                          .totalReview!)
+                                                  .toDouble(),
                                       direction: Axis.horizontal,
                                       allowHalfRating: false,
                                       itemCount: 5,

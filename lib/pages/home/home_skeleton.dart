@@ -121,20 +121,20 @@ class HomeSkeletonPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     Future.delayed(Duration.zero, () {
-      if (homeController.reservationModel.value != null &&
-          homeController.openPopup.value == true) {
+      if (authController.reservationModel.value != null &&
+          authController.openPopup.value == true) {
         showPopup(
             context,
-            homeController.reservationModel.value!.userStep,
-            homeController.reservationModel.value!.isFinishedDeposit,
-            homeController.reservationModel.value!.isFinishedBalance);
+            authController.reservationModel.value!.userStep,
+            authController.reservationModel.value!.isFinishedDeposit,
+            authController.reservationModel.value!.isFinishedBalance);
       }
     });
 
     Future.delayed(Duration.zero, () {
-      if (homeController.reservationModel.value != null &&
-          homeController.reservationModel.value!.changeManager == true &&
-          homeController.reservationModel.value!.changeManagerList!.isEmpty) {
+      if (authController.reservationModel.value != null &&
+          authController.reservationModel.value!.changeManager == true &&
+          authController.reservationModel.value!.changeManagerList!.isEmpty) {
         BottomUpModal2(
             title: "산후도우미 변경 완료",
             subtitle: "산후도우미 변경 요청으로\n다른 도우미님으로 변경되었습니다\n메인페이지에서 확인바랍니다.",
@@ -157,8 +157,10 @@ class HomeSkeletonPage extends StatelessWidget {
     }
 
     Future.delayed(Duration.zero, () {
-      startStepScroll(homeController.homeInfoModel.value.userStep - 1);
+      startStepScroll(authController.homeModel.value.userStep - 1);
     });
+
+    homeController.setInfoFromModel();
 
     return RefreshIndicator(
       color: IcoColors.primary,
@@ -212,8 +214,8 @@ class HomeSkeletonPage extends StatelessWidget {
                                 if (index == 8) {
                                   Future.delayed(Duration(milliseconds: 300),
                                       () {
-                                    startStepScroll(homeController
-                                            .homeInfoModel.value.userStep -
+                                    startStepScroll(authController
+                                            .homeModel.value.userStep -
                                         1);
                                   });
                                 }
@@ -226,10 +228,8 @@ class HomeSkeletonPage extends StatelessWidget {
                                       SizedBox(
                                         width: (index == 0) ? 20 : 8,
                                       ),
-                                      SvgPicture.asset((homeController
-                                                      .homeInfoModel
-                                                      .value
-                                                      .userStep -
+                                      SvgPicture.asset((authController.homeModel
+                                                      .value.userStep -
                                                   1 ==
                                               index)
                                           ? "icons/active_step${index + 1}.svg"
@@ -267,7 +267,7 @@ class HomeSkeletonPage extends StatelessWidget {
                               width: 66,
                               height: 28,
                               child: Text(
-                                  "STEP ${homeController.homeInfoModel.value.userStep}",
+                                  "STEP ${authController.homeModel.value.userStep}",
                                   style: GoogleFonts.notoSans(
                                       fontSize: 13,
                                       color: IcoColors.primary,
@@ -301,7 +301,7 @@ class HomeSkeletonPage extends StatelessWidget {
                           onTap: () {
                             authController.reservationModel.value!.isBirth =
                                 true;
-                            Get.toNamed(Routes.RESERVE_STEP2_3AFTER);
+                            Get.toNamed(Routes.RESERVE_STEP2_3_AFTER);
                           },
                           title: '출산 통보하기',
                           subtitle: '출산하셨나요? 출산일을 알려주세요!\n출산 후에 모든 일정이 확정됩니다.',
@@ -399,7 +399,7 @@ class HomeSkeletonPage extends StatelessWidget {
             ),
             SizedBox(
               height: 200,
-            ),
+            )
           ],
         ),
       ),

@@ -26,7 +26,6 @@ import '../../../loading.dart';
 class ReserveStep2_1_Yes extends StatelessWidget {
   ReserveStep2_1_Yes({Key? key}) : super(key: key);
   CompanyController companyController = Get.find();
-  AddressController addressController = Get.find();
   VoucherController voucherController = Get.find();
   AuthController authController = Get.find();
   ReviewController reviewController = Get.find();
@@ -39,9 +38,8 @@ class ReserveStep2_1_Yes extends StatelessWidget {
       backgroundColor: IcoColors.white,
       appBar: IcoAppbar(
         title: '예약하기',
-        tapFunction: () async {
-          await authController.setModelInfo();
-          Get.offAllNamed(Routes.HOME);
+        tapFunction: () {
+          Get.back();
         },
       ),
       body: SingleChildScrollView(

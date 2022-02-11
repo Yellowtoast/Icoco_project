@@ -17,17 +17,17 @@ import 'package:app/widgets/datepicker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
-import 'package:intl/intl.dart';
 
-class ReserveStep3_AfterBirth extends StatelessWidget {
-  ReserveStep3_AfterBirth({Key? key}) : super(key: key);
-  DateInfoController dateInfoController = Get.find();
+class ReserveStep2_3_AfterBirth extends StatelessWidget {
+  ReserveStep2_3_AfterBirth({Key? key}) : super(key: key);
+  DateInfoController dateInfoController = Get.put(DateInfoController());
   AuthController authController = Get.find();
-  Rx<bool> step1 = false.obs;
-  Rx<bool> step2 = false.obs;
-  Rx<bool> step3 = false.obs;
+
   @override
   Widget build(BuildContext context) {
+    Rx<bool> step1 = false.obs;
+    Rx<bool> step2 = false.obs;
+    Rx<bool> step3 = false.obs;
     return GestureDetector(
       onTap: () {
         FocusScope.of(context).unfocus();
@@ -36,14 +36,8 @@ class ReserveStep3_AfterBirth extends StatelessWidget {
           backgroundColor: IcoColors.white,
           appBar: IcoAppbar(
             title: '예약하기',
-            tapFunction: () async {
-              if (authController.reservationModel.value!.isBirth != true) {
-                AuthController authController = Get.find();
-                await authController.setModelInfo();
-                Get.offAllNamed(Routes.HOME);
-              } else {
-                Get.back();
-              }
+            tapFunction: () {
+              Get.back();
             },
           ),
           body: SingleChildScrollView(
@@ -63,7 +57,7 @@ class ReserveStep3_AfterBirth extends StatelessWidget {
                         children: [
                           SvgPicture.asset("icons/mother_human.svg"),
                           Text(
-                            '김코코 산모님의\n출산정보를 입력해주세요',
+                            '${authController.reservationModel.value!.userName} 산모님의\n출산정보를 입력해주세요',
                             style: IcoTextStyle.boldTextStyle24B,
                           ),
                           SizedBox(

@@ -351,7 +351,7 @@ Future<dynamic> RemainingCostStatusPopup() {
                           onPressed: () async {
                             authController.reservationModel.value!.openPopup =
                                 false;
-
+                            authController.setUserStep(5);
                             await authController.updateReservationFirestore(
                                 reservationModel.value!.reservationNumber);
 
@@ -371,13 +371,10 @@ Future<dynamic> RemainingCostStatusPopup() {
             right: 7,
             top: 0,
             child: IconButton(
-                onPressed: () async {
-                  authController.setUserStep(5);
+                onPressed: () {
                   authController.updateReservationFirestore(
                       reservationModel.value!.reservationNumber);
-
-                  await authController.setModelInfo();
-                  await authController.setModelInfo();
+                  authController.setModelInfo();
                   Get.offAllNamed(Routes.HOME);
                 },
                 icon: SvgPicture.asset(

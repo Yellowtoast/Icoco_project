@@ -3,6 +3,9 @@ class CompanyModel {
   final String companyName;
   final String address;
   final String phone;
+  final String bankName;
+  final String accountNumber;
+  final String accountHolderName;
 
   int? totalReviewRate;
   int? totalReview;
@@ -16,6 +19,9 @@ class CompanyModel {
     required this.companyName,
     required this.address,
     required this.phone,
+    required this.bankName,
+    required this.accountNumber,
+    required this.accountHolderName,
     this.totalReviewRate,
     this.totalReview,
     this.homepage,
@@ -36,6 +42,9 @@ class CompanyModel {
       blog: data['blog'] ?? '',
       momcafe: data['momcafe'] ?? '',
       thumbnail: data['thumbnail'],
+      accountNumber: data['accountNumber'] ?? '',
+      bankName: data['bankName'] ?? '',
+      accountHolderName: data['accountHolderName'] ?? '',
     );
   }
 
@@ -50,5 +59,8 @@ class CompanyModel {
         "blog": blog,
         "momcafe": momcafe,
         "thumbnail": thumbnail,
+        "accountNumber": accountNumber,
+        "bankName": bankName,
+        "accountHolderName": accountHolderName,
       };
 }

@@ -23,7 +23,7 @@ class CalculatorPage extends StatelessWidget {
   CalculatorPage({Key? key}) : super(key: key);
   CalculatorController calculatorController = Get.put(CalculatorController());
   HomeController homeController = Get.find();
-  AddressController addressController = Get.find();
+  AddressController addressController = Get.put(AddressController());
 
   String numberWithComma(int param) {
     return NumberFormat('###,###,###,###,###,###,###,###,###').format(param);

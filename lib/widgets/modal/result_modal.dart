@@ -18,7 +18,7 @@ import 'package:get/get.dart';
 BottomResultModal() {
   AdditionalFeeController additionalFeeController = Get.find();
   AuthController authController = Get.find();
-  VoucherController voucherController = Get.put(VoucherController());
+  VoucherController voucherController = Get.find();
   return Get.bottomSheet(
       Container(
         height: 380,
@@ -205,12 +205,14 @@ BottomResultModal() {
                   additionalFeeController
                       .updateReservationModel(authController.reservationModel);
                   if (authController.reservationModel.value!.isBirth == true) {
-                    Get.toNamed(Routes.RESERVE_STEP2_6);
+                    Get.toNamed(Routes.RESERVE_STEP2_6,
+                        preventDuplicates: false);
                   } else {
                     voucherController.setDropDownList(null);
                     voucherController
                         .setVoucherInfo(voucherController.voucherResult.value);
-                    Get.toNamed(Routes.RESERVE_STEP2_7);
+                    Get.toNamed(Routes.RESERVE_STEP2_7,
+                        preventDuplicates: false);
                   }
                 },
                 active: true.obs,

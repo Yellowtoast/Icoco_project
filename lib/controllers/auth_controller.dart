@@ -32,6 +32,7 @@ class AuthController extends GetxController {
   RxBool isJustLoaded = true.obs;
   bool isMarketingAllowed = false;
   late Rxn<dynamic> homeModel;
+  Rx<bool> openPopup = false.obs;
 
   Future<User> get getUser async => _auth.currentUser!;
   Stream<User?> get user => _auth.authStateChanges();
@@ -84,6 +85,7 @@ class AuthController extends GetxController {
       userBox.put('userModel', userModel.value!);
       reservationBox.put('reservationModel', reservationModel.value!);
       homeModel = reservationModel;
+      openPopup.value = reservationModel.value!.openPopup!;
     } else {
       userBox.put('userModel', userModel.value!);
       homeModel = userModel;

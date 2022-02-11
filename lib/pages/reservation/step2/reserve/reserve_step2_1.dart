@@ -7,11 +7,14 @@ import 'package:app/controllers/reservation/step1/address_controller.dart';
 
 import 'package:app/controllers/reservation/step1/voucher_controller.dart';
 import 'package:app/controllers/company_controller.dart';
+import 'package:app/controllers/reservation/step2/substep_controllers/additional_fee_controller.dart';
+import 'package:app/controllers/reservation/step2/substep_controllers/date_info_controller.dart';
+import 'package:app/controllers/reservation/step2/substep_controllers/service_info_controller.dart';
 import 'package:app/pages/loading.dart';
 
 import 'package:app/pages/reservation/step1/substep_voucher/voucher_signed/voucher_signed1.dart';
-import 'package:app/pages/reservation/step2/reserve/reserve_step2_1_no.dart';
-import 'package:app/pages/reservation/step2/reserve/reserve_step2_1_yes.dart';
+import 'package:app/pages/reservation/step2/reserve/reserve_step2_1_company_no.dart';
+import 'package:app/pages/reservation/step2/reserve/reserve_step2_1_company_yes.dart';
 import 'package:app/widgets/button/button.dart';
 import 'package:app/widgets/appbar.dart';
 
@@ -23,8 +26,11 @@ class ReserveStep2_1 extends StatelessWidget {
   ReserveStep2_1({Key? key}) : super(key: key);
   CompanyController companyController = Get.find();
   AddressController addressController = Get.find();
-  VoucherController voucherController = Get.put(VoucherController());
+  VoucherController voucherController = Get.find();
   AuthController authController = Get.find();
+  AdditionalFeeController additionalFeeController = Get.find();
+  ServiceInfoController serviceInfoController = Get.find();
+  // DateInfoController dateInfoController = Get.find();
 
   @override
   Widget build(BuildContext context) {
@@ -125,7 +131,7 @@ class ReserveStep2_1 extends StatelessWidget {
                               await companyController
                                   .getCompanyAllDocsFirebase();
                               finishLoadingIndicator();
-                              Get.to(ReserveStep2_1_Yes());
+                              Get.toNamed(Routes.RESERVE_STEP2_COMPANY_YES);
                             },
                             child: Container(
                               height: 174,
@@ -182,7 +188,7 @@ class ReserveStep2_1 extends StatelessWidget {
                               await companyController
                                   .getCompanyAllDocsFirebase();
                               finishLoadingIndicator();
-                              Get.to(ReserveStep2_1_No());
+                              Get.toNamed(Routes.RESERVE_STEP2_COMPANY_NO);
                             },
                             child: Container(
                               height: 174,

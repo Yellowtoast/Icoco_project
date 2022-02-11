@@ -14,7 +14,6 @@ import 'package:scroll_to_index/scroll_to_index.dart';
 
 class HomeStep1Items extends StatelessWidget {
   HomeStep1Items({Key? key}) : super(key: key);
-  VoucherController voucherController = Get.find();
   AddressController addressController = Get.find();
   @override
   Widget build(BuildContext context) {

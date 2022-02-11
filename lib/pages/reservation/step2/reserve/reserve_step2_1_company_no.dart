@@ -26,7 +26,6 @@ import '../../../loading.dart';
 class ReserveStep2_1_No extends StatelessWidget {
   ReserveStep2_1_No({Key? key}) : super(key: key);
   CompanyController companyController = Get.find();
-  AddressController addressController = Get.find();
   VoucherController voucherController = Get.find();
   AuthController authController = Get.find();
   ReviewController reviewController = Get.find();
@@ -39,9 +38,8 @@ class ReserveStep2_1_No extends StatelessWidget {
       backgroundColor: IcoColors.white,
       appBar: IcoAppbar(
         title: '예약하기',
-        tapFunction: () async {
-          await authController.setModelInfo();
-          Get.offAllNamed(Routes.HOME);
+        tapFunction: () {
+          Get.back();
         },
       ),
       body: SingleChildScrollView(
@@ -85,17 +83,6 @@ class ReserveStep2_1_No extends StatelessWidget {
                         itemBuilder: (BuildContext context, int index) {
                           return Column(
                             children: [
-                              // RadioButtonItem(
-                              //   height: 80,
-                              //   itemNum: index,
-                              //   selectedItem: companyController.companySelected,
-                              //   mainTitle: companyController.companyList[index]
-                              //           ["title"] ??
-                              //       "",
-                              //   hasSubtitle: false,
-                              //   hasIcon: false,
-                              //   onTapArrow: () {},
-                              // ),
                               InkWell(
                                 onTap: () {
                                   companyController.companySelected.value =
@@ -260,7 +247,7 @@ class ReserveStep2_1_No extends StatelessWidget {
                                       InkWell(
                                         onTap: () {
                                           Get.to(CompanyDetailPage(),
-                                              arguments: 0);
+                                              arguments: index);
                                         },
                                         child: SizedBox(
                                           width: 50,

@@ -20,7 +20,7 @@ class ReserveStep2_Finished extends StatelessWidget {
     return Scaffold(
         appBar: IcoAppbar(
           title: "서비스 예약 완료",
-          usePop: true,
+          usePop: false,
         ),
         body: SafeArea(
           child: Center(
@@ -29,11 +29,6 @@ class ReserveStep2_Finished extends StatelessWidget {
                 SizedBox(
                   height: 31,
                 ),
-                // SvgPicture.asset(
-                //   "icons/failed_human.svg",
-                //   width: 166,
-                //   height: 162,
-                // ),
                 SvgPicture.asset(
                   "icons/two_humans.svg",
                   width: 255,

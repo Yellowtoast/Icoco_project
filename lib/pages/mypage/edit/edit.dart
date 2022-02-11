@@ -70,6 +70,7 @@ class EditUserInfoPage extends StatelessWidget {
                   EditTextButton(
                     title: '메일',
                     value: '${authController.homeModel.value.email}',
+                    isEditable: false,
                   ),
                   SizedBox(
                     height: 25,

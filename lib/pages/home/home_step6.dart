@@ -42,11 +42,26 @@ class HomeStep6Items extends StatelessWidget {
                             ClipRRect(
                               borderRadius: BorderRadius.circular(100),
                               child: Image.network(
-                                "${managerController.managerModelList[index].value!.profileImage}",
-                                width: 89,
-                                height: 89,
-                                fit: BoxFit.cover,
-                              ),
+                                  (managerController.managerModelList[index]
+                                              .value!.profileImage ==
+                                          null)
+                                      ? 'https://www.analogouscolors.com/image/1080x1920/dcdcdc.png'
+                                      : managerController
+                                          .managerModelList[index]
+                                          .value!
+                                          .profileImage!,
+                                  width: 89,
+                                  height: 89,
+                                  fit: BoxFit.cover, errorBuilder:
+                                      (BuildContext context, Object exception,
+                                          StackTrace? stackTrace) {
+                                return Image.asset(
+                                  "images/empty_profile.png",
+                                  width: 89,
+                                  height: 89,
+                                  fit: BoxFit.cover,
+                                );
+                              }),
                             ),
                             SizedBox(
                               width: 10,
@@ -73,14 +88,25 @@ class HomeStep6Items extends StatelessWidget {
                                 RatingBar(
                                   ignoreGestures: true,
                                   initialRating: (managerController
-                                              .managerModelList[index]
-                                              .value!
-                                              .totalReviewRate! ~/
+                                                  .managerModelList[index]
+                                                  .value!
+                                                  .totalReview ==
+                                              null ||
                                           managerController
-                                              .managerModelList[index]
-                                              .value!
-                                              .totalReview!)
-                                      .toDouble(),
+                                                  .managerModelList[index]
+                                                  .value!
+                                                  .totalReview ==
+                                              0)
+                                      ? 0
+                                      : (managerController
+                                                  .managerModelList[index]
+                                                  .value!
+                                                  .totalReviewRate! ~/
+                                              managerController
+                                                  .managerModelList[index]
+                                                  .value!
+                                                  .totalReview!)
+                                          .toDouble(),
                                   direction: Axis.horizontal,
                                   allowHalfRating: false,
                                   itemCount: 5,

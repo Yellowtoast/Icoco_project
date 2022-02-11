@@ -3,7 +3,6 @@ import 'package:app/configs/enum.dart';
 import 'package:app/controllers/reservation/step2/substep_controllers/date_info_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:intl/intl.dart';
 
 showDatePickerPop(
   BuildContext context,

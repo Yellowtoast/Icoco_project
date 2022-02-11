@@ -31,7 +31,7 @@ class ReservationModel {
   String? extraRequests;
   String? careType;
   Map<String, dynamic>? allAdditionalFamily;
-  String? managerName;
+  List<dynamic>? managersName;
   bool? isbirthConfirmed;
   String? fullRegNum;
   int? userCost;
@@ -41,8 +41,8 @@ class ReservationModel {
   int? totalCost;
   int? balanceCost;
   String? isFinishedReservation;
-  String? isFinishedBalance = '입금 전';
-  String? isFinishedDeposit = '입금 전';
+  String? isFinishedBalance;
+  String? isFinishedDeposit;
   bool? isManagerDispatched;
   List<dynamic>? managersId;
   String reservationRoute;
@@ -92,7 +92,7 @@ class ReservationModel {
     this.isFinishedDeposit,
     this.isFinishedBalance,
     this.allAdditionalFamily,
-    this.managerName,
+    this.managersName,
     this.isbirthConfirmed,
     this.fullRegNum,
     this.userCost,
@@ -149,7 +149,7 @@ class ReservationModel {
         allAdditionalFamily: (data['allAdditionalFamily'] == null)
             ? null
             : data['allAdditionalFamily'].cast<String, dynamic>(),
-        managerName: data['managerName'] ?? '',
+        managersName: data['managersName'] ?? [],
         managersId: data['managersId'] ?? [],
         isbirthConfirmed: data['isbirthConfirmed'] ?? true,
         isFinishedBalance: data['isFinishedBalance'] ?? '',
@@ -164,7 +164,7 @@ class ReservationModel {
         isManagerDispatched: data['isManagerDispatched'],
         notifyDepositCost: data['notifyDepositCost'],
         notifyBalanceCost: data['notifyBalanceCost'],
-        openPopup: data['openPopup'],
+        openPopup: data['openPopup'] ?? false,
         midtermReviewFinished: data['midtermReviewFinished'],
         finalReviewFinished: data['finalReviewFinished'],
         changeManager: data['changeManager'] ?? false,
@@ -205,7 +205,8 @@ class ReservationModel {
         "extraRequests": extraRequests,
         "careType": careType,
         "allAdditionalFamily": allAdditionalFamily,
-        "managerName": managerName,
+        "managersName": managersName,
+        "managersId": managersId,
         "isbirthConfirmed": isbirthConfirmed,
         "fullRegNum": fullRegNum,
         "userCost": userCost,
@@ -215,12 +216,11 @@ class ReservationModel {
         "totalCost": totalCost,
         "balanceCost": balanceCost,
         "isManagerDispatched": isManagerDispatched,
-        "managersId": managersId,
-        "isFinishedBalance": isFinishedBalance,
-        "isFinishedDeposit": isFinishedDeposit,
+        "isFinishedBalance": isFinishedBalance ?? '입금 전',
+        "isFinishedDeposit": isFinishedDeposit ?? '입금 전',
         "notifyDepositCost": notifyDepositCost,
         "notifyBalanceCost": notifyBalanceCost,
-        "openPopup": openPopup,
+        "openPopup": openPopup ?? false,
         "midtermReviewFinished": midtermReviewFinished,
         "finalReviewFinished": finalReviewFinished,
         "changeManager": changeManager,

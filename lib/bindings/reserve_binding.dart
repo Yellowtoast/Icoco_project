@@ -19,10 +19,8 @@ class ReserveStep1Bindings implements Bindings {
 class ReserveStep2Bindings implements Bindings {
   @override
   void dependencies() {
-    Get.lazyPut(() => AddressController());
-    Get.lazyPut(() => VoucherController());
     Get.lazyPut(() => CompanyController());
-    Get.lazyPut(() => DateInfoController());
+    Get.lazyPut(() => VoucherController());
     Get.lazyPut(() => ServiceInfoController());
     Get.lazyPut(() => AdditionalFeeController());
   }

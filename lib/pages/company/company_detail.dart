@@ -36,181 +36,186 @@ class CompanyDetailPage extends StatelessWidget {
           usePop: true,
           backgroundColor: IcoColors.purple2,
         ),
-        backgroundColor: IcoColors.purple2,
+        backgroundColor: IcoColors.white,
         body: SingleChildScrollView(
           scrollDirection: Axis.vertical,
           child: Column(
             children: [
-              Column(
-                children: [
-                  const SizedBox(
-                    height: 18,
-                  ),
-                  Container(
-                    width: IcoSize.width - 40,
-                    height: 210,
-                    padding: const EdgeInsets.all(20),
-                    decoration: BoxDecoration(
-                      color: IcoColors.white,
-                      borderRadius: BorderRadius.circular(10),
+              Container(
+                color: IcoColors.purple2,
+                width: IcoSize.width,
+                height: 245,
+                child: Column(
+                  children: [
+                    const SizedBox(
+                      height: 18,
                     ),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Row(
-                              children: [
-                                ClipRRect(
-                                  borderRadius: BorderRadius.circular(100),
-                                  child: Image.network(
-                                    companyController
-                                            .companyModelList[companyNum]
-                                            .value!
-                                            .thumbnail ??
-                                        'https://t1.daumcdn.net/cfile/tistory/2446863653FC18972F',
-                                    width: 89,
-                                    height: 89,
-                                    fit: BoxFit.cover,
+                    Container(
+                      width: IcoSize.width - 40,
+                      height: 200,
+                      padding: const EdgeInsets.all(20),
+                      decoration: BoxDecoration(
+                        color: IcoColors.white,
+                        borderRadius: BorderRadius.circular(10),
+                      ),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Row(
+                                children: [
+                                  ClipRRect(
+                                    borderRadius: BorderRadius.circular(100),
+                                    child: Image.network(
+                                      companyController
+                                              .companyModelList[companyNum]
+                                              .value!
+                                              .thumbnail ??
+                                          'https://t1.daumcdn.net/cfile/tistory/2446863653FC18972F',
+                                      width: 89,
+                                      height: 89,
+                                      fit: BoxFit.cover,
+                                    ),
                                   ),
-                                ),
-                                const SizedBox(
-                                  width: 10,
-                                ),
-                                Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    Text.rich(
-                                      TextSpan(
-                                        text:
-                                            "${companyController.companyModelList[companyNum].value!.companyName}\n",
-                                        style: IcoTextStyle.boldTextStyle19B,
-                                        children: <TextSpan>[
-                                          TextSpan(
-                                              text: companyController
-                                                  .companyModelList[companyNum]
-                                                  .value!
-                                                  .address
-                                                  .split("/")[0],
-                                              style: IcoTextStyle
-                                                  .mediumTextStyle12Grey4),
-                                        ],
+                                  const SizedBox(
+                                    width: 10,
+                                  ),
+                                  Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [
+                                      Text.rich(
+                                        TextSpan(
+                                          text:
+                                              "${companyController.companyModelList[companyNum].value!.companyName}\n",
+                                          style: IcoTextStyle.boldTextStyle19B,
+                                          children: <TextSpan>[
+                                            TextSpan(
+                                                text: companyController
+                                                    .companyModelList[
+                                                        companyNum]
+                                                    .value!
+                                                    .address
+                                                    .split("/")[0],
+                                                style: IcoTextStyle
+                                                    .mediumTextStyle12Grey4),
+                                          ],
+                                        ),
                                       ),
-                                    ),
-                                    const SizedBox(
-                                      height: 8,
-                                    ),
-                                    Row(
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.center,
-                                      children: [
-                                        Container(
-                                          width: 63,
-                                          height: 25,
-                                          decoration: BoxDecoration(
-                                              border: Border.all(
-                                                  width: 1,
-                                                  color: IcoColors.grey2),
-                                              borderRadius:
-                                                  BorderRadius.circular(50)),
-                                          child: Row(
-                                            crossAxisAlignment:
-                                                CrossAxisAlignment.center,
-                                            mainAxisAlignment:
-                                                MainAxisAlignment.center,
-                                            children: [
-                                              SvgPicture.asset(
-                                                'icons/star_full.svg',
-                                                height: 15,
-                                              ),
-                                              SizedBox(
-                                                width: 5,
-                                              ),
-                                              Text(
-                                                (companyController
-                                                            .companyModelList[
-                                                                companyNum]
-                                                            .value!
-                                                            .totalReviewRate ==
-                                                        0)
-                                                    ? "0"
-                                                    : "${(companyController.companyModelList[companyNum].value!.totalReviewRate! ~/ companyController.companyModelList[companyNum].value!.totalReview!).toDouble()}",
-                                                style: IcoTextStyle
-                                                    .regularTextStyle12B,
-                                              ),
-                                              SizedBox(
-                                                width: 2,
-                                              ),
-                                            ],
+                                      const SizedBox(
+                                        height: 8,
+                                      ),
+                                      Row(
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.center,
+                                        children: [
+                                          Container(
+                                            width: 63,
+                                            height: 25,
+                                            decoration: BoxDecoration(
+                                                border: Border.all(
+                                                    width: 1,
+                                                    color: IcoColors.grey2),
+                                                borderRadius:
+                                                    BorderRadius.circular(50)),
+                                            child: Row(
+                                              crossAxisAlignment:
+                                                  CrossAxisAlignment.center,
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment.center,
+                                              children: [
+                                                SvgPicture.asset(
+                                                  'icons/star_full.svg',
+                                                  height: 15,
+                                                ),
+                                                SizedBox(
+                                                  width: 5,
+                                                ),
+                                                Text(
+                                                  (companyController
+                                                              .companyModelList[
+                                                                  companyNum]
+                                                              .value!
+                                                              .totalReviewRate ==
+                                                          0)
+                                                      ? "0"
+                                                      : "${(companyController.companyModelList[companyNum].value!.totalReviewRate! ~/ companyController.companyModelList[companyNum].value!.totalReview!).toDouble()}",
+                                                  style: IcoTextStyle
+                                                      .regularTextStyle12B,
+                                                ),
+                                                SizedBox(
+                                                  width: 2,
+                                                ),
+                                              ],
+                                            ),
                                           ),
-                                        ),
-                                        SizedBox(
-                                          width: 11,
-                                        ),
-                                        Container(
-                                          width: 63,
-                                          height: 25,
-                                          decoration: BoxDecoration(
-                                              border: Border.all(
-                                                  width: 1,
-                                                  color: IcoColors.grey2),
-                                              borderRadius:
-                                                  BorderRadius.circular(50)),
-                                          child: Row(
-                                            crossAxisAlignment:
-                                                CrossAxisAlignment.center,
-                                            mainAxisAlignment:
-                                                MainAxisAlignment.center,
-                                            children: [
-                                              Text(
-                                                "리뷰 ${companyController.companyModelList[companyNum].value!.totalReview!}+",
-                                                style: IcoTextStyle
-                                                    .regularTextStyle12Grey4,
-                                              ),
-                                            ],
+                                          SizedBox(
+                                            width: 11,
                                           ),
-                                        ),
-                                      ],
-                                    )
-                                  ],
+                                          Container(
+                                            width: 63,
+                                            height: 25,
+                                            decoration: BoxDecoration(
+                                                border: Border.all(
+                                                    width: 1,
+                                                    color: IcoColors.grey2),
+                                                borderRadius:
+                                                    BorderRadius.circular(50)),
+                                            child: Row(
+                                              crossAxisAlignment:
+                                                  CrossAxisAlignment.center,
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment.center,
+                                              children: [
+                                                Text(
+                                                  "리뷰 ${companyController.companyModelList[companyNum].value!.totalReview!}+",
+                                                  style: IcoTextStyle
+                                                      .regularTextStyle12Grey4,
+                                                ),
+                                              ],
+                                            ),
+                                          ),
+                                        ],
+                                      )
+                                    ],
+                                  ),
+                                ],
+                              ),
+                              const SizedBox(
+                                height: 15,
+                              ),
+                              Divider(
+                                height: 1,
+                                thickness: 1,
+                              ),
+                              const SizedBox(
+                                height: 20,
+                              ),
+                              Container(
+                                alignment: Alignment.center,
+                                decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(50),
+                                  color: IcoColors.grey1,
                                 ),
-                              ],
-                            ),
-                            const SizedBox(
-                              height: 20,
-                            ),
-                            Divider(
-                              height: 1,
-                              thickness: 1,
-                            ),
-                            const SizedBox(
-                              height: 20,
-                            ),
-                            Container(
-                              alignment: Alignment.center,
-                              decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(50),
-                                color: IcoColors.grey1,
+                                width: IcoSize.width - 80,
+                                height: 34,
+                                child: Text(
+                                  "전화상담 바로가기",
+                                  style: IcoTextStyle.mediumTextStyle13P,
+                                ),
                               ),
-                              width: IcoSize.width - 80,
-                              height: 34,
-                              child: Text(
-                                "전화상담 바로가기",
-                                style: IcoTextStyle.mediumTextStyle13P,
-                              ),
-                            ),
-                          ],
-                        ),
-                      ],
-                    ),
-                  )
-                ],
-              ),
-              SizedBox(
-                height: 30,
+                            ],
+                          ),
+                        ],
+                      ),
+                    )
+                  ],
+                ),
               ),
               Container(
+                height: 215,
                 padding: EdgeInsets.symmetric(horizontal: 30),
                 color: IcoColors.white,
                 child: Column(
@@ -318,9 +323,6 @@ class CompanyDetailPage extends StatelessWidget {
                         ),
                       ],
                     ),
-                    SizedBox(
-                      height: 36,
-                    ),
                   ],
                 ),
               ),
@@ -329,8 +331,27 @@ class CompanyDetailPage extends StatelessWidget {
                 height: 9,
                 thickness: 9,
               ),
-              (reviewController.finalReviewModelList == null)
-                  ? SizedBox()
+              (reviewController.finalReviewModelList!.isEmpty)
+                  ? Container(
+                      alignment: Alignment.center,
+                      child: Column(
+                        children: [
+                          SizedBox(
+                            height: 45,
+                          ),
+                          Image.asset(
+                            'images/failed_human_grey.png',
+                            width: 120,
+                          ),
+                          SizedBox(
+                            height: 12,
+                          ),
+                          Text(
+                            '아직 등록된 리뷰가 없습니다.',
+                            style: IcoTextStyle.boldTextStyle16Grey3,
+                          )
+                        ],
+                      ))
                   : Container(
                       color: IcoColors.white,
                       child: Column(

@@ -5,11 +5,6 @@ import 'package:app/configs/text_styles.dart';
 import 'package:app/controllers/auth_controller.dart';
 import 'package:app/controllers/reservation/step2/substep_controllers/date_info_controller.dart';
 import 'package:app/configs/enum.dart';
-import 'package:app/controllers/reservation/step2/substep_controllers/service_info_controller.dart';
-
-import 'package:app/models/reservation.dart';
-import 'package:app/pages/reservation/step1/substep_voucher/voucher_signed/voucher_signed1.dart';
-import 'package:app/pages/reservation/step2/reserve/reserve_step2_4.dart';
 import 'package:app/widgets/appbar.dart';
 import 'package:app/widgets/button/button.dart';
 import 'package:app/widgets/button/datepicker_button.dart';
@@ -20,9 +15,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 
-class ReserveStep3_BeforeBirth extends StatelessWidget {
-  ReserveStep3_BeforeBirth({Key? key}) : super(key: key);
-  DateInfoController dateInfoController = Get.find();
+class ReserveStep2_3_BeforeBirth extends StatelessWidget {
+  ReserveStep2_3_BeforeBirth({Key? key}) : super(key: key);
+  DateInfoController dateInfoController = Get.put(DateInfoController());
   AuthController authController = Get.find();
 
   List<String> careCenterDurationList = [
@@ -43,7 +38,10 @@ class ReserveStep3_BeforeBirth extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: IcoColors.white,
-      appBar: IcoAppbar(title: '예약하기'),
+      appBar: IcoAppbar(
+        title: '예약하기',
+        usePop: true,
+      ),
       body: SingleChildScrollView(
         scrollDirection: Axis.vertical,
         child: Obx(
@@ -63,7 +61,7 @@ class ReserveStep3_BeforeBirth extends StatelessWidget {
                     children: [
                       SvgPicture.asset("icons/mother_human.svg"),
                       Text(
-                        '김코코 산모님의\n출산정보를 입력해주세요',
+                        '${authController.reservationModel.value!.userName} 산모님의\n출산정보를 입력해주세요',
                         style: IcoTextStyle.boldTextStyle24B,
                       ),
                       SizedBox(
@@ -91,14 +89,6 @@ class ReserveStep3_BeforeBirth extends StatelessWidget {
                                   dateInfoController.isBirthDateSelected,
                                   DateTime.now(),
                                   step1);
-                              // dateInfoController.clearSelectedInfo(
-                              //     dateInfoController.hospitalCheckoutDate,
-                              //     dateInfoController.useHospitalSelected);
-                              // dateInfoController.clearSelectedInfo(
-                              //     dateInfoController.careCenterChekcoutDate,
-                              //     step1);
-                              // dateInfoController.careCenterDuration.value =
-                              //     null;
                             },
                           ),
                         ],
@@ -258,6 +248,7 @@ class ReserveStep3_BeforeBirth extends StatelessWidget {
                       onPressed: () {
                         dateInfoController.setServiceEndDate(
                             dateInfoController.serviceDurationSelected.value);
+
                         Get.toNamed(Routes.RESERVE_STEP2_5);
                       },
                       active: (step1.value &&

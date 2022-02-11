@@ -12,6 +12,7 @@ class HomeStep2Items extends StatelessWidget {
   HomeStep2Items({Key? key}) : super(key: key);
 
   AuthController authController = Get.find();
+
   @override
   Widget build(BuildContext context) {
     return IcoButton(
@@ -20,12 +21,6 @@ class HomeStep2Items extends StatelessWidget {
       textStyle: IcoTextStyle.buttonTextStyleW,
       text: "예약 신청하기",
       onPressed: () {
-        // if (authController.reservationModel.value!.voucher != null) {
-        //   voucherController.voucherResult.value =
-        //       authController.reservationModel.value!.voucher!;
-
-        // }
-
         Get.toNamed(Routes.RESERVE_STEP2_1);
       },
     );

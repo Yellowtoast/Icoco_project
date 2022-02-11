@@ -17,9 +17,6 @@ class MyReservationPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var careRanking = authController.reservationModel.value!.careRanking;
-
-    print(careRanking);
     RxList<dynamic> careRankingEnumList = [
       carePriority.CLEANING,
       carePriority.CLEANING,
@@ -27,31 +24,40 @@ class MyReservationPage extends StatelessWidget {
       carePriority.CLEANING
     ].obs;
 
-    // careRankingEnumList[0] = carePriority.MOTHERCARE;
-    print(careRanking);
-    for (var element in careRanking!) {
-      print(element);
-      print(element.compareTo('산모케어'));
-      print('');
-      switch (element.toString()) {
-        case '정리정돈':
-          careRankingEnumList[careRanking.indexOf('정리정돈')] =
-              carePriority.CLEANING;
-          break;
-        case '요리':
-          careRankingEnumList[careRanking.indexOf('요리')] = carePriority.COOKING;
-          break;
-        case '산모케어':
-          print('산모케어 리스트에 있음');
-          careRankingEnumList[careRanking.indexOf('산모케어')] =
-              carePriority.MOTHERCARE;
-          break;
-        case '신생아케어':
-          careRankingEnumList[careRanking.indexOf('신생아케어')] =
-              carePriority.BABYCARE;
-          break;
-        default:
+    if (authController.reservationModel.value!.careRanking != null &&
+        authController.reservationModel.value!.careRanking!.isNotEmpty) {
+      var careRanking = authController.reservationModel.value!.careRanking;
+      print(careRanking);
+
+      // careRankingEnumList[0] = carePriority.MOTHERCARE;
+      print(careRanking);
+      for (var element in careRanking!) {
+        print(element);
+        print(element.compareTo('산모케어'));
+        print('');
+        switch (element.toString()) {
+          case '정리정돈':
+            careRankingEnumList[careRanking.indexOf('정리정돈')] =
+                carePriority.CLEANING;
+            break;
+          case '요리':
+            careRankingEnumList[careRanking.indexOf('요리')] =
+                carePriority.COOKING;
+            break;
+          case '산모케어':
+            print('산모케어 리스트에 있음');
+            careRankingEnumList[careRanking.indexOf('산모케어')] =
+                carePriority.MOTHERCARE;
+            break;
+          case '신생아케어':
+            careRankingEnumList[careRanking.indexOf('신생아케어')] =
+                carePriority.BABYCARE;
+            break;
+          default:
+        }
       }
+    } else {
+      careRankingEnumList = [].obs;
     }
 
     return Scaffold(
@@ -138,7 +144,11 @@ class MyReservationPage extends StatelessWidget {
                           ),
                         ),
                         Text(
-                          authController.reservationModel.value!.birthDate!,
+                          (authController.reservationModel.value!.birthDate ==
+                                  '')
+                              ? '입력안함'
+                              : authController
+                                  .reservationModel.value!.birthDate!,
                           style: IcoTextStyle.regularTextStyle13Grey4,
                         ),
                       ],
@@ -156,8 +166,11 @@ class MyReservationPage extends StatelessWidget {
                           ),
                         ),
                         Text(
-                          authController.reservationModel.value!.birthType ??
-                              '입력안함',
+                          (authController.reservationModel.value!.birthType ==
+                                  '')
+                              ? '입력안함'
+                              : authController
+                                  .reservationModel.value!.birthType!,
                           style: IcoTextStyle.regularTextStyle13Grey4,
                         ),
                       ],
@@ -200,9 +213,12 @@ class MyReservationPage extends StatelessWidget {
                           ),
                         ),
                         Text(
-                          authController
-                                  .reservationModel.value!.hospitalEndDate ??
-                              '입력안함',
+                          (authController.reservationModel.value!
+                                      .hospitalEndDate ==
+                                  '')
+                              ? '입력안함'
+                              : authController
+                                  .reservationModel.value!.hospitalEndDate!,
                           style: IcoTextStyle.regularTextStyle13Grey4,
                         ),
                       ],
@@ -248,7 +264,7 @@ class MyReservationPage extends StatelessWidget {
                         Text(
                           (authController.reservationModel.value!
                                       .careCenterEndDate ==
-                                  null)
+                                  '')
                               ? '입력안함'
                               : "${authController.reservationModel.value!.careCenterStartDate} ~ ${authController.reservationModel.value!.careCenterEndDate}",
                           style: IcoTextStyle.regularTextStyle13Grey4,
@@ -285,9 +301,12 @@ class MyReservationPage extends StatelessWidget {
                           ),
                         ),
                         Text(
-                          authController
-                                  .reservationModel.value!.serviceStartDate ??
-                              '입력안함',
+                          (authController.reservationModel.value!
+                                      .serviceStartDate ==
+                                  '')
+                              ? '입력안함'
+                              : authController
+                                  .reservationModel.value!.serviceStartDate!,
                           style: IcoTextStyle.regularTextStyle13Grey4,
                         ),
                       ],
@@ -307,7 +326,7 @@ class MyReservationPage extends StatelessWidget {
                         Text(
                           (authController.reservationModel.value!
                                       .serviceStartDate ==
-                                  null)
+                                  '')
                               ? '입력안함'
                               : "${authController.reservationModel.value!.serviceStartDate} ~ ${authController.reservationModel.value!.serviceEndDate}",
                           style: IcoTextStyle.regularTextStyle13Grey4,
@@ -327,9 +346,12 @@ class MyReservationPage extends StatelessWidget {
                           ),
                         ),
                         Text(
-                          authController
-                                  .reservationModel.value!.lactationType ??
-                              '입력안함',
+                          (authController
+                                      .reservationModel.value!.lactationType ==
+                                  '')
+                              ? '입력안함'
+                              : authController
+                                  .reservationModel.value!.lactationType!,
                           style: IcoTextStyle.regularTextStyle13Grey4,
                         ),
                       ],
@@ -347,9 +369,12 @@ class MyReservationPage extends StatelessWidget {
                           ),
                         ),
                         Text(
-                          authController
-                                  .reservationModel.value!.placeToBeServiced ??
-                              '입력안함',
+                          (authController.reservationModel.value!
+                                      .placeToBeServiced ==
+                                  '')
+                              ? '입력안함'
+                              : authController
+                                  .reservationModel.value!.placeToBeServiced!,
                           style: IcoTextStyle.regularTextStyle13Grey4,
                         ),
                       ],
@@ -367,8 +392,11 @@ class MyReservationPage extends StatelessWidget {
                           ),
                         ),
                         Text(
-                          authController.reservationModel.value!.animalType ??
-                              '입력안함',
+                          (authController.reservationModel.value!.animalType ==
+                                  '')
+                              ? '입력안함'
+                              : authController
+                                  .reservationModel.value!.animalType!,
                           style: IcoTextStyle.regularTextStyle13Grey4,
                         ),
                       ],
@@ -468,7 +496,12 @@ class MyReservationPage extends StatelessWidget {
                           ),
                         ),
                         Text(
-                          authController.reservationModel.value!.extraRequests!,
+                          (authController
+                                      .reservationModel.value!.extraRequests ==
+                                  '')
+                              ? '입력안함'
+                              : authController
+                                  .reservationModel.value!.extraRequests!,
                           style: IcoTextStyle.regularTextStyle13Grey4,
                         ),
                       ],
@@ -520,7 +553,11 @@ class MyReservationPage extends StatelessWidget {
                           ),
                         ),
                         Text(
-                          authController.reservationModel.value!.careType!,
+                          (authController.reservationModel.value!.careType ==
+                                  '')
+                              ? '입력안함'
+                              : authController
+                                  .reservationModel.value!.careType!,
                           style: IcoTextStyle.regularTextStyle13Grey4,
                         ),
                       ],

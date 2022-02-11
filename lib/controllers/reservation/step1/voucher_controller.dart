@@ -54,12 +54,13 @@ class VoucherController extends GetxController {
     super.onReady();
   }
 
-  setVoucherInfo(String? _voucher) {
+  setVoucherInfo(String? _voucher) async {
     if (_voucher == null || _voucher == '') {
       print('no voucher info');
       return;
     } else {
-      splitVoucherResult(_voucher);
+      await splitVoucherResult(_voucher);
+      await setDropDownList(null);
       getVoucherCostInfo(_voucher);
     }
   }
@@ -86,7 +87,7 @@ class VoucherController extends GetxController {
     if (voucherItem == null) {
       //바우처 선택 액션이 취해지지 않은 상태에서 해당 함수가 실행된다면
       //기존에 있던 바우처 정보를 불러와야 함 -> 드롭다운도 세팅되어 있는 상태여야 함
-      splitVoucherResult(voucherResult.value!);
+
       if (voucherType1.value == 'A') {
         voucherType3List.value = ['1', '2', '3'];
       } else if (voucherType1.value == 'B') {

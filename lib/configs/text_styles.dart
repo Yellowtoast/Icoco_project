@@ -126,6 +126,17 @@ class IcoTextStyle {
     fontWeight: FontWeight.bold,
     color: IcoColors.grey4,
   );
+
+  static TextStyle boldTextStyle20Grey4 = GoogleFonts.notoSans(
+    fontSize: 20,
+    fontWeight: FontWeight.bold,
+    color: IcoColors.grey4,
+  );
+  static TextStyle boldTextStyle16Grey3 = GoogleFonts.notoSans(
+    fontSize: 16,
+    fontWeight: FontWeight.bold,
+    color: IcoColors.grey3,
+  );
   static TextStyle lineBoldTextStyle15Grey4 = GoogleFonts.notoSans(
       fontSize: 15,
       fontWeight: FontWeight.bold,

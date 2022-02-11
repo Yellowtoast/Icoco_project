@@ -28,7 +28,7 @@ class HomeController extends GetxController {
   Rxn<dynamic> homeInfoModel = Rxn<dynamic>();
   Rxn<ReservationModel?> reservationModel = Rxn<ReservationModel?>();
   Rxn<UserModel?> userModel = Rxn<UserModel?>();
-  Rxn<bool> openPopup = Rxn<bool>();
+  // Rxn<bool> openPopup = Rxn<bool>();
 
   @override
   void onInit() {
@@ -51,7 +51,7 @@ class HomeController extends GetxController {
     } else {
       reservationModel.value = reservationBox.get('reservationModel');
       reservationNumber.value = reservationModel.value!.reservationNumber;
-      openPopup.value = reservationModel.value!.openPopup;
+
       homeInfoModel = reservationModel;
     }
 

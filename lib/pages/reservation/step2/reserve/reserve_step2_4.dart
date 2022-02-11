@@ -20,9 +20,11 @@ import 'package:get/get.dart';
 
 class ReserveStep2_4 extends StatelessWidget {
   ReserveStep2_4({Key? key}) : super(key: key);
-  ServiceInfoController serviceController = Get.find();
+  ServiceInfoController serviceInfoController =
+      Get.put(ServiceInfoController());
   AuthController authController = Get.find();
   String orderNum = "two";
+
   @override
   Widget build(BuildContext context) {
     Rxn<ReservationModel?> reservationModel = authController.reservationModel;
@@ -75,12 +77,12 @@ class ReserveStep2_4 extends StatelessWidget {
                                 item: lactationType.BREAST_FEEDING,
                                 itemTitle: "모유",
                                 selectedItem:
-                                    serviceController.lactationTypeSelected,
+                                    serviceInfoController.lactationTypeSelected,
                                 radiusTopRight: false,
                                 radiusBottomRight: false,
                                 hasBorder: false,
                                 onTap: () {
-                                  serviceController.lactationTypeSelected
+                                  serviceInfoController.lactationTypeSelected
                                       .value = lactationType.BREAST_FEEDING;
                                 },
                               ),
@@ -89,14 +91,14 @@ class ReserveStep2_4 extends StatelessWidget {
                                 item: lactationType.BOTTLE_FEEDING,
                                 itemTitle: "분유",
                                 selectedItem:
-                                    serviceController.lactationTypeSelected,
+                                    serviceInfoController.lactationTypeSelected,
                                 radiusTopRight: false,
                                 radiusBottomRight: false,
                                 radiusTopLeft: false,
                                 radiusBottomLeft: false,
                                 hasBorder: false,
                                 onTap: () {
-                                  serviceController.lactationTypeSelected
+                                  serviceInfoController.lactationTypeSelected
                                       .value = lactationType.BOTTLE_FEEDING;
                                 },
                               ),
@@ -108,9 +110,9 @@ class ReserveStep2_4 extends StatelessWidget {
                                 radiusBottomLeft: false,
                                 hasBorder: false,
                                 selectedItem:
-                                    serviceController.lactationTypeSelected,
+                                    serviceInfoController.lactationTypeSelected,
                                 onTap: () {
-                                  serviceController.lactationTypeSelected
+                                  serviceInfoController.lactationTypeSelected
                                       .value = lactationType.MIX_FEEDING;
                                 },
                               ),
@@ -153,12 +155,12 @@ class ReserveStep2_4 extends StatelessWidget {
                                 item: carePlaceType.OWN_HOUSE,
                                 itemTitle: "자가",
                                 selectedItem:
-                                    serviceController.carePlaceTypeSelected,
+                                    serviceInfoController.carePlaceTypeSelected,
                                 radiusTopRight: false,
                                 radiusBottomRight: false,
                                 hasBorder: false,
                                 onTap: () {
-                                  serviceController.carePlaceTypeSelected
+                                  serviceInfoController.carePlaceTypeSelected
                                       .value = carePlaceType.OWN_HOUSE;
                                 },
                               ),
@@ -167,14 +169,14 @@ class ReserveStep2_4 extends StatelessWidget {
                                 item: carePlaceType.PARENTS_HOUSE,
                                 itemTitle: "친정댁",
                                 selectedItem:
-                                    serviceController.carePlaceTypeSelected,
+                                    serviceInfoController.carePlaceTypeSelected,
                                 radiusTopRight: false,
                                 radiusBottomRight: false,
                                 radiusTopLeft: false,
                                 radiusBottomLeft: false,
                                 hasBorder: false,
                                 onTap: () {
-                                  serviceController.carePlaceTypeSelected
+                                  serviceInfoController.carePlaceTypeSelected
                                       .value = carePlaceType.PARENTS_HOUSE;
                                 },
                               ),
@@ -186,9 +188,9 @@ class ReserveStep2_4 extends StatelessWidget {
                                 radiusBottomLeft: false,
                                 hasBorder: false,
                                 selectedItem:
-                                    serviceController.carePlaceTypeSelected,
+                                    serviceInfoController.carePlaceTypeSelected,
                                 onTap: () {
-                                  serviceController.carePlaceTypeSelected
+                                  serviceInfoController.carePlaceTypeSelected
                                       .value = carePlaceType.IN_LAW_HOUSE;
                                 },
                               ),
@@ -230,30 +232,32 @@ class ReserveStep2_4 extends StatelessWidget {
                               TextRadioButton(
                                 item: petType.DOG,
                                 itemTitle: "강아지",
-                                selectedItem: serviceController.petTypeSelected,
+                                selectedItem:
+                                    serviceInfoController.petTypeSelected,
                                 radiusTopRight: false,
                                 radiusBottomRight: false,
                                 hasBorder: false,
                                 onTap: () {
-                                  serviceController.petTypeSelected.value =
+                                  serviceInfoController.petTypeSelected.value =
                                       petType.DOG;
-                                  serviceController.setPetType();
+                                  serviceInfoController.setPetType();
                                 },
                               ),
                               OptionDividerLine(),
                               TextRadioButton(
                                 item: petType.CAT,
                                 itemTitle: "고양이",
-                                selectedItem: serviceController.petTypeSelected,
+                                selectedItem:
+                                    serviceInfoController.petTypeSelected,
                                 radiusTopRight: false,
                                 radiusBottomRight: false,
                                 radiusTopLeft: false,
                                 radiusBottomLeft: false,
                                 hasBorder: false,
                                 onTap: () {
-                                  serviceController.petTypeSelected.value =
+                                  serviceInfoController.petTypeSelected.value =
                                       petType.CAT;
-                                  serviceController.setPetType();
+                                  serviceInfoController.setPetType();
                                 },
                               ),
                               OptionDividerLine(),
@@ -265,11 +269,12 @@ class ReserveStep2_4 extends StatelessWidget {
                                 radiusTopLeft: false,
                                 radiusBottomLeft: false,
                                 hasBorder: false,
-                                selectedItem: serviceController.petTypeSelected,
+                                selectedItem:
+                                    serviceInfoController.petTypeSelected,
                                 onTap: () {
-                                  serviceController.petTypeSelected.value =
+                                  serviceInfoController.petTypeSelected.value =
                                       petType.ETC;
-                                  serviceController.setPetType();
+                                  serviceInfoController.setPetType();
                                 },
                               ),
                               OptionDividerLine(),
@@ -279,11 +284,12 @@ class ReserveStep2_4 extends StatelessWidget {
                                 radiusTopLeft: false,
                                 radiusBottomLeft: false,
                                 hasBorder: false,
-                                selectedItem: serviceController.petTypeSelected,
+                                selectedItem:
+                                    serviceInfoController.petTypeSelected,
                                 onTap: () {
-                                  serviceController.petTypeSelected.value =
+                                  serviceInfoController.petTypeSelected.value =
                                       petType.NONE;
-                                  serviceController.setPetType();
+                                  serviceInfoController.setPetType();
                                 },
                               ),
                             ],
@@ -323,11 +329,11 @@ class ReserveStep2_4 extends StatelessWidget {
                           width: IcoSize.width / 2 - 20 - 4,
                           onTap: () {
                             //  serviceController.carePriorityList();
-                            serviceController.carePriorityButtonController(
+                            serviceInfoController.carePriorityButtonController(
                                 carePriority.CLEANING);
                           },
                           icon: SvgPicture.asset("icons/cleaning_icon.svg"),
-                          selectionList: serviceController.carePriorityList,
+                          selectionList: serviceInfoController.carePriorityList,
                           selectionType: carePriority.CLEANING,
                           text: '정리정돈',
                         ),
@@ -337,11 +343,11 @@ class ReserveStep2_4 extends StatelessWidget {
                         OrderSelectionButton(
                           width: IcoSize.width / 2 - 20 - 4,
                           onTap: () {
-                            serviceController.carePriorityButtonController(
+                            serviceInfoController.carePriorityButtonController(
                                 carePriority.COOKING);
                           },
                           icon: SvgPicture.asset("icons/cooking_icon.svg"),
-                          selectionList: serviceController.carePriorityList,
+                          selectionList: serviceInfoController.carePriorityList,
                           selectionType: carePriority.COOKING,
                           text: '요리',
                         ),
@@ -355,12 +361,12 @@ class ReserveStep2_4 extends StatelessWidget {
                         OrderSelectionButton(
                           width: IcoSize.width / 2 - 20 - 4,
                           onTap: () {
-                            serviceController.carePriorityButtonController(
+                            serviceInfoController.carePriorityButtonController(
                                 carePriority.MOTHERCARE);
                           },
                           icon:
                               SvgPicture.asset("icons/mother_caring_icon.svg"),
-                          selectionList: serviceController.carePriorityList,
+                          selectionList: serviceInfoController.carePriorityList,
                           selectionType: carePriority.MOTHERCARE,
                           text: '산모케어',
                         ),
@@ -370,11 +376,11 @@ class ReserveStep2_4 extends StatelessWidget {
                         OrderSelectionButton(
                           width: IcoSize.width / 2 - 20 - 4,
                           onTap: () {
-                            serviceController.carePriorityButtonController(
+                            serviceInfoController.carePriorityButtonController(
                                 carePriority.BABYCARE);
                           },
                           icon: SvgPicture.asset("icons/baby_caring_icon.svg"),
-                          selectionList: serviceController.carePriorityList,
+                          selectionList: serviceInfoController.carePriorityList,
                           selectionType: carePriority.BABYCARE,
                           text: '신생아케어',
                         ),
@@ -412,7 +418,8 @@ class ReserveStep2_4 extends StatelessWidget {
                               width: 1,
                             )),
                         child: TextField(
-                          controller: serviceController.extraRequestsController,
+                          controller:
+                              serviceInfoController.extraRequestsController,
                           keyboardType: TextInputType.multiline,
                           style: IcoTextStyle.mediumTextStyle13B,
                           minLines: 10,
@@ -435,7 +442,7 @@ class ReserveStep2_4 extends StatelessWidget {
                               Get.toNamed(Routes.RESERVE_STEP2_5);
                             }
                           },
-                          active: serviceController.isButtonValid,
+                          active: serviceInfoController.isButtonValid,
                           textStyle: IcoTextStyle.buttonTextStyleW,
                           text: "제출하기"),
                       SizedBox(

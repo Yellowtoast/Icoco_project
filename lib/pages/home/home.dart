@@ -5,6 +5,7 @@ import 'package:app/configs/text_styles.dart';
 import 'package:app/controllers/auth_controller.dart';
 import 'package:app/controllers/calculator_controller.dart';
 import 'package:app/controllers/reservation/step1/address_controller.dart';
+import 'package:app/controllers/reservation/step1/voucher_controller.dart';
 
 import 'package:app/pages/home/home_skeleton.dart';
 import 'package:app/widgets/bottom_tabbar.dart';
@@ -23,7 +24,7 @@ class HomePage extends StatelessWidget {
   HomePage({Key? key}) : super(key: key);
   HomeController homeController = Get.find();
   AuthController authController = Get.find();
-  // AddressController addressController = Get.find();
+  VoucherController voucherController = Get.find();
 
   @override
   Widget build(BuildContext context) {

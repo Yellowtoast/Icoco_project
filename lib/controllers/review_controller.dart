@@ -200,7 +200,7 @@ class ReviewController extends GetxController {
       //  reviewModelList.refresh();
       return modelList;
     } catch (e) {
-      print(e);
+      totalReviews = 0;
       return null;
     }
   }

@@ -18,6 +18,8 @@ import 'package:app/pages/reservation/step1/substep_voucher/voucher1.dart';
 import 'package:app/pages/reservation/step1/substep_voucher/voucher_signed/voucher_signed1.dart';
 import 'package:app/pages/reservation/step1/substep_voucher/voucher_signed/voucher_signed2.dart';
 import 'package:app/pages/reservation/step1/substep_voucher/voucher_signed/voucher_signed3.dart';
+import 'package:app/pages/reservation/step2/reserve/reserve_step2_1_company_no.dart';
+import 'package:app/pages/reservation/step2/reserve/reserve_step2_1_company_yes.dart';
 import 'package:app/pages/reservation/step2/reserve/reserve_step2_finished.dart';
 import 'package:app/pages/reservation/step2/reserve/reserve_step2_1.dart';
 import 'package:app/pages/reservation/step2/reserve/reserve_step2_2.dart';
@@ -58,8 +60,8 @@ class Routes {
   static const HOME_STEP7 = '/home/8';
   static const RESERVE_STEP2_1 = '/reserve/step2/1';
   static const RESERVE_STEP2_2 = '/reserve/step2/2';
-  static const RESERVE_STEP2_3AFTER = '/reserve/step2/3';
-  static const RESERVE_STEP2_3BEFORE = '/reserve/step2/3/beforebirth';
+  static const RESERVE_STEP2_3_AFTER = '/reserve/step2/afterbirth';
+  static const RESERVE_STEP2_3_BEFORE = '/reserve/step2/beforebirth';
   static const RESERVE_STEP2_4 = '/reserve/step2/4';
   static const RESERVE_STEP2_5 = '/reserve/step2/5';
   static const RESERVE_STEP2_6 = '/reserve/step2/6';
@@ -94,6 +96,9 @@ class Routes {
   static const CALCULATOR = '/calculator';
   static const CALCULATOR_RESULT = '/calculator/result';
   static const EXTRAFEE_RESULT = '/extrafee_result';
+  static const RESERVE_STEP2_COMPANY_NO = '/reserve/step2/company/no';
+  static const RESERVE_STEP2_COMPANY_YES = '/reserve/step2/company/yes';
+
   static final pages = [
     GetPage(
         name: Routes.SPLASH,
@@ -202,13 +207,12 @@ class Routes {
         page: () => ReserveStep2_2(),
         transition: Transition.noTransition),
     GetPage(
-        name: Routes.RESERVE_STEP2_3AFTER,
-        page: () => ReserveStep3_AfterBirth(),
-        binding: ReserveStep2Bindings(),
+        name: Routes.RESERVE_STEP2_3_AFTER,
+        page: () => ReserveStep2_3_AfterBirth(),
         transition: Transition.noTransition),
     GetPage(
-        name: Routes.RESERVE_STEP2_3BEFORE,
-        page: () => ReserveStep3_BeforeBirth(),
+        name: Routes.RESERVE_STEP2_3_BEFORE,
+        page: () => ReserveStep2_3_BeforeBirth(),
         transition: Transition.noTransition),
     GetPage(
         name: Routes.RESERVE_STEP2_4,
@@ -233,6 +237,14 @@ class Routes {
     GetPage(
         name: Routes.RESERVE_STEP2_FINISHED,
         page: () => ReserveStep2_Finished(),
+        transition: Transition.noTransition),
+    GetPage(
+        name: Routes.RESERVE_STEP2_COMPANY_NO,
+        page: () => ReserveStep2_1_No(),
+        transition: Transition.noTransition),
+    GetPage(
+        name: Routes.RESERVE_STEP2_COMPANY_YES,
+        page: () => ReserveStep2_1_Yes(),
         transition: Transition.noTransition),
     GetPage(
         name: Routes.MANAGER,

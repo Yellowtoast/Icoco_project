@@ -14,12 +14,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 
+import '../empty_page.dart';
 import 'edit/edit.dart';
 
 class MyPage extends StatelessWidget {
   MyPage({Key? key}) : super(key: key);
   AuthController authController = Get.find();
-  ReviewController reviewController = Get.find();
+  ReviewController reviewController = Get.put(ReviewController());
   ManagerController managerController = Get.find();
   MypageController mypageController = Get.find();
   @override
@@ -91,7 +92,14 @@ class MyPage extends StatelessWidget {
           ),
           InkWell(
             onTap: () {
-              Get.to(MyReservationPage());
+              if (authController.reservationModel.value == null ||
+                  authController.reservationModel.value!.userStep <= 2) {
+                Get.to(EmptyInfoPage(
+                  appbarText: '나의 예약정보',
+                ));
+              } else {
+                Get.to(MyReservationPage());
+              }
             },
             child: SizedBox(
               height: 55,
@@ -114,22 +122,33 @@ class MyPage extends StatelessWidget {
           ),
           InkWell(
             onTap: () async {
-              startLoadingIndicator();
-              mypageController.middleReviewModelList =
-                  await reviewController.getJsonReviews(
-                      authController.reservationModel.value!.uid,
-                      'user',
-                      managerController.managerModelList.length,
-                      '중간');
+              if (authController.reservationModel.value == null ||
+                  authController.reservationModel.value!.managersId!.isEmpty ||
+                  authController.reservationModel.value!.finalReviewFinished !=
+                      true) {
+                Get.to(EmptyInfoPage(
+                  appbarText: '평가/후기관리',
+                  title: '아직 평가나 후기가 없습니다',
+                  subtitle: '서비스 이용을 시작한 후에\n평가나 후기를 작성할 수 있습니다.',
+                ));
+              } else {
+                startLoadingIndicator();
+                mypageController.middleReviewModelList =
+                    await reviewController.getJsonReviews(
+                        authController.reservationModel.value!.uid,
+                        'user',
+                        managerController.managerModelList.length,
+                        '중간');
 
-              mypageController.finalReviewModelList =
-                  await reviewController.getJsonReviews(
-                      authController.reservationModel.value!.uid,
-                      'user',
-                      managerController.managerModelList.length,
-                      '기말');
-              await finishLoadingIndicator();
-              Get.to(MyReviewPage());
+                mypageController.finalReviewModelList =
+                    await reviewController.getJsonReviews(
+                        authController.reservationModel.value!.uid,
+                        'user',
+                        managerController.managerModelList.length,
+                        '기말');
+                await finishLoadingIndicator();
+                Get.to(MyReviewPage());
+              }
             },
             child: SizedBox(
               height: 55,

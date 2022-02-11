@@ -19,16 +19,9 @@ class VoucherSignedStep1 extends StatelessWidget {
   VoucherSignedStep1({Key? key}) : super(key: key);
   VoucherController voucherController = Get.find();
   AuthController authController = Get.find();
+
   @override
   Widget build(BuildContext context) {
-    // if (authController.reservationModel.value != null) {
-    //   voucherController
-    //       .setVoucherInfo(authController.reservationModel.value!.voucher);
-    // }
-
-    // voucherController.setVoucherInfo(voucherController.voucherResult);
-    // print(voucherController.voucherResult.value);
-
     return Scaffold(
         backgroundColor: IcoColors.white,
         appBar: IcoAppbar(
