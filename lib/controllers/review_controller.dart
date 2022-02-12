@@ -177,8 +177,8 @@ class ReviewController extends GetxController {
     };
 
     try {
-      var uri =
-          Uri.http('172.30.1.22:3000', '/api/getReviews', queryParameters);
+      var uri = Uri.http(
+          'icoco2022-erpweb.vercel.app', '/api/getReviews', queryParameters);
       // final jwt = JWT(
       //   {
       //     "uid": uid,
@@ -216,11 +216,12 @@ class ReviewController extends GetxController {
   extractFirstIndexPictures(RxList<Rxn<ReviewModel>> reviewModelList) {
     RxList<Rxn<ReviewModel>> reviewModelsWithThumbnails =
         RxList<Rxn<ReviewModel>>();
-    reviewModelList.forEach((element) {
-      if (element.value != null && element.value!.thumbnails != null) {
+    for (var element in reviewModelList) {
+      if (element.value!.thumbnails != null &&
+          element.value!.thumbnails!.isNotEmpty) {
         reviewModelsWithThumbnails.add(element);
       }
-    });
+    }
 
     return reviewModelsWithThumbnails;
   }

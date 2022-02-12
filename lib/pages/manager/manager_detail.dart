@@ -512,9 +512,9 @@ class ManagerDetailPage extends StatelessWidget {
                                                                                   errorBuilder: (BuildContext context, Object exception, StackTrace? stackTrace) {
                                                                                     return Image.asset(
                                                                                       "images/empty_profile.png",
-                                                                                      width: 89,
-                                                                                      height: 89,
-                                                                                      fit: BoxFit.cover,
+                                                                                      width: 30,
+                                                                                      height: 30,
+                                                                                      fit: BoxFit.contain,
                                                                                     );
                                                                                   },
                                                                                 ),
@@ -745,28 +745,11 @@ class ManagerDetailPage extends StatelessWidget {
                             ),
                             InkWell(
                               onTap: () async {
-                                // if (reviewCount.value! <
-                                //     reviewController.totalReviews!) {
-                                //   if (reviewCount.value! + 3 >
-                                //       reviewController.totalReviews!) {
-                                //     reviewCount.value = reviewCount.value! +
-                                //         (reviewController.totalReviews! -
-                                //             reviewCount.value!);
-                                //   } else {
-                                //     reviewCount.value = reviewCount.value! + 3;
-                                //   }
-                                //   await reviewController.getJsonReviews(
-                                //       managerController
-                                //           .managerModelList[managerNum]
-                                //           .value!
-                                //           .uid,
-                                //       'manager',
-                                //       reviewCount.value,
-                                //       '기말');
-                                // }
-                                reviewOffset += 3;
                                 if (reviewOffset >
-                                    reviewController.totalReviews!) {
+                                        reviewController.totalReviews! &&
+                                    (reviewOffset + 3) >
+                                        reviewController.totalReviews!) {
+                                  reviewOffset += 3;
                                   await reviewController.getJsonReviews(
                                       managerController
                                           .managerModelList[managerNum]
