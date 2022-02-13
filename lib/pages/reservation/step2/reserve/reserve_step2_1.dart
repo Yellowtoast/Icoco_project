@@ -94,7 +94,7 @@ class ReserveStep2_1 extends StatelessWidget {
                       onTap: () {
                         voucherController.setDropDownList(null);
                         voucherController.setVoucherInfo(
-                            voucherController.voucherResult.value);
+                            voucherController.voucherResult.value, 0);
                         Get.toNamed(Routes.VOUCHER_SIGNED1,
                             arguments: {'command': '수정'});
                       },

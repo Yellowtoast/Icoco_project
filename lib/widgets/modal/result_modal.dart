@@ -209,8 +209,9 @@ BottomResultModal() {
                         preventDuplicates: false);
                   } else {
                     voucherController.setDropDownList(null);
-                    voucherController
-                        .setVoucherInfo(voucherController.voucherResult.value);
+                    voucherController.setVoucherInfo(
+                        voucherController.voucherResult.value,
+                        additionalFeeController.totalAdditionalFee!);
                     Get.toNamed(Routes.RESERVE_STEP2_7,
                         preventDuplicates: false);
                   }

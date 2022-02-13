@@ -71,7 +71,7 @@ class _VoucherSignedStep2State extends State<VoucherSignedStep2> {
                         crossAxisAlignment: CrossAxisAlignment.center,
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
-                          IcoTextField(
+                          IcoTextFormField(
                             width: (IcoSize.width - 40 - 28) / 2,
                             hintText: "앞자리 6자리",
                             maxLength: 6,
@@ -99,7 +99,7 @@ class _VoucherSignedStep2State extends State<VoucherSignedStep2> {
                             width: 28,
                             child: SvgPicture.asset("icons/line.svg"),
                           ),
-                          IcoTextField(
+                          IcoTextFormField(
                             width: (IcoSize.width - 40 - 28) / 2,
                             hintText: "뒷자리 7자리",
                             keyboardType: TextInputType.number,

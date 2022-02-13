@@ -17,10 +17,11 @@ import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 
-import '../loading.dart';
+import 'loading.dart';
 
 class InquiryPage extends StatelessWidget {
   InquiryPage({Key? key}) : super(key: key);
+  int managerNum = Get.arguments;
   AuthController authController = Get.find();
   ManagerController managerController = Get.find();
   CompanyController companyController = Get.find();
@@ -54,147 +55,133 @@ class InquiryPage extends StatelessWidget {
                       SizedBox(
                         height: 11,
                       ),
-                      SizedBox(
-                        height: managerController.managerModelList.length * 134,
-                        child: ListView.builder(
-                          physics: NeverScrollableScrollPhysics(),
-                          padding: EdgeInsets.all(0),
-                          scrollDirection: Axis.vertical,
-                          itemCount: managerController.managerModelList.length,
-                          itemBuilder: (BuildContext context, int index) {
-                            return Column(children: [
-                              Container(
-                                height: 124,
-                                width: IcoSize.width - 40,
-                                padding: EdgeInsets.all(15),
-                                decoration: BoxDecoration(
-                                    color: IcoColors.white,
-                                    borderRadius: BorderRadius.circular(10),
-                                    border: Border.all(color: IcoColors.grey2)),
-                                child: Column(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children: [
-                                    Row(
-                                      children: [
-                                        ClipRRect(
-                                          borderRadius:
-                                              BorderRadius.circular(100),
-                                          child: Image.network(
-                                            "${managerController.managerModelList[index].value!.profileImage}",
-                                            width: 89,
-                                            height: 89,
-                                            fit: BoxFit.cover,
-                                          ),
-                                        ),
-                                        SizedBox(
-                                          width: 10,
-                                        ),
-                                        Column(
-                                          crossAxisAlignment:
-                                              CrossAxisAlignment.start,
-                                          children: [
-                                            Text.rich(
-                                              TextSpan(
-                                                text: managerController
-                                                    .managerModelList[index]
-                                                    .value!
-                                                    .name,
-                                                style: IcoTextStyle
-                                                    .boldTextStyle19B,
-                                                children: <TextSpan>[
-                                                  TextSpan(
-                                                      text: ' 도우미',
-                                                      style: IcoTextStyle
-                                                          .mediumTextStyle12Grey4),
-                                                ],
-                                              ),
-                                            ),
-                                            SizedBox(
-                                              height: 7,
-                                            ),
-                                            RatingBar(
-                                              ignoreGestures: true,
-                                              initialRating: (managerController
-                                                          .managerModelList[
-                                                              index]
-                                                          .value!
-                                                          .totalReviewRate! ~/
-                                                      managerController
-                                                          .managerModelList[
-                                                              index]
-                                                          .value!
-                                                          .totalReview!)
-                                                  .toDouble(),
-                                              direction: Axis.horizontal,
-                                              allowHalfRating: false,
-                                              itemCount: 5,
-                                              ratingWidget: RatingWidget(
-                                                full: SvgPicture.asset(
-                                                    'icons/star_full.svg'),
-                                                half: SvgPicture.asset(
-                                                    'icons/star_full.svg'),
-                                                empty: SvgPicture.asset(
-                                                    'icons/star_empty.svg'),
-                                              ),
-                                              itemSize: 14,
-                                              onRatingUpdate: (rating) {
-                                                print(rating);
-                                              },
-                                            ),
-                                            SizedBox(
-                                              height: 7,
-                                            ),
-                                            Text("대구 아이사랑 소속",
+                      Column(children: [
+                        Container(
+                          height: 124,
+                          width: IcoSize.width - 40,
+                          padding: EdgeInsets.all(15),
+                          decoration: BoxDecoration(
+                              color: IcoColors.white,
+                              borderRadius: BorderRadius.circular(10),
+                              border: Border.all(color: IcoColors.grey2)),
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Row(
+                                children: [
+                                  ClipRRect(
+                                    borderRadius: BorderRadius.circular(100),
+                                    child: Image.network(
+                                      "${managerController.managerModelList[managerNum].value!.profileImage}",
+                                      width: 89,
+                                      height: 89,
+                                      fit: BoxFit.cover,
+                                    ),
+                                  ),
+                                  SizedBox(
+                                    width: 10,
+                                  ),
+                                  Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [
+                                      Text.rich(
+                                        TextSpan(
+                                          text: managerController
+                                              .managerModelList[managerNum]
+                                              .value!
+                                              .name,
+                                          style: IcoTextStyle.boldTextStyle19B,
+                                          children: <TextSpan>[
+                                            TextSpan(
+                                                text: ' 도우미',
                                                 style: IcoTextStyle
                                                     .mediumTextStyle12Grey4),
                                           ],
                                         ),
-                                        SizedBox(
-                                          width: 40,
+                                      ),
+                                      SizedBox(
+                                        height: 7,
+                                      ),
+                                      RatingBar(
+                                        ignoreGestures: true,
+                                        initialRating: (managerController
+                                                    .managerModelList[
+                                                        managerNum]
+                                                    .value!
+                                                    .totalReviewRate! ~/
+                                                managerController
+                                                    .managerModelList[
+                                                        managerNum]
+                                                    .value!
+                                                    .totalReview!)
+                                            .toDouble(),
+                                        direction: Axis.horizontal,
+                                        allowHalfRating: false,
+                                        itemCount: 5,
+                                        ratingWidget: RatingWidget(
+                                          full: SvgPicture.asset(
+                                              'icons/star_full.svg'),
+                                          half: SvgPicture.asset(
+                                              'icons/star_full.svg'),
+                                          empty: SvgPicture.asset(
+                                              'icons/star_empty.svg'),
                                         ),
-                                        Expanded(
-                                          child: InkWell(
-                                            onTap: () async {
-                                              startLoadingIndicator();
-                                              reviewController
-                                                      .finalReviewModelList =
-                                                  await reviewController
-                                                      .getJsonReviews(
-                                                          managerController
-                                                              .managerModelList[
-                                                                  index]
-                                                              .value!
-                                                              .uid,
-                                                          'manager',
-                                                          0,
-                                                          3,
-                                                          '기말');
-                                              finishLoadingIndicator();
-                                              Get.toNamed(Routes.MANAGER,
-                                                  arguments: index);
-                                            },
-                                            child: Container(
-                                              height: 89,
-                                              alignment: Alignment.centerRight,
-                                              child: SvgPicture.asset(
-                                                'icons/arrow_wide.svg',
-                                                color: IcoColors.grey3,
-                                              ),
-                                            ),
-                                          ),
+                                        itemSize: 14,
+                                        onRatingUpdate: (rating) {
+                                          print(rating);
+                                        },
+                                      ),
+                                      SizedBox(
+                                        height: 7,
+                                      ),
+                                      Text("대구 아이사랑 소속",
+                                          style: IcoTextStyle
+                                              .mediumTextStyle12Grey4),
+                                    ],
+                                  ),
+                                  SizedBox(
+                                    width: 40,
+                                  ),
+                                  Expanded(
+                                    child: InkWell(
+                                      onTap: () async {
+                                        startLoadingIndicator();
+                                        reviewController.finalReviewModelList =
+                                            await reviewController
+                                                .getJsonReviews(
+                                                    managerController
+                                                        .managerModelList[
+                                                            managerNum]
+                                                        .value!
+                                                        .uid,
+                                                    'manager',
+                                                    0,
+                                                    3,
+                                                    '기말');
+                                        finishLoadingIndicator();
+                                        Get.toNamed(Routes.MANAGER,
+                                            arguments: managerNum);
+                                      },
+                                      child: Container(
+                                        height: 89,
+                                        alignment: Alignment.centerRight,
+                                        child: SvgPicture.asset(
+                                          'icons/arrow_wide.svg',
+                                          color: IcoColors.grey3,
                                         ),
-                                      ],
+                                      ),
                                     ),
-                                  ],
-                                ),
+                                  ),
+                                ],
                               ),
-                              SizedBox(
-                                height: 10,
-                              )
-                            ]);
-                          },
+                            ],
+                          ),
                         ),
-                      ),
+                        SizedBox(
+                          height: 10,
+                        )
+                      ]),
                     ],
                   ),
                 ),

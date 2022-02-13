@@ -94,7 +94,7 @@ class EditPhonePage extends StatelessWidget {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        IcoTextField(
+                        IcoTextFormField(
                           width: IcoSize.width,
                           hintText: "본인 명의 이름을 입력해주세요",
                           textFieldLabel: "본명",
@@ -126,7 +126,7 @@ class EditPhonePage extends StatelessWidget {
                         ),
                         Row(
                           children: [
-                            IcoTextField(
+                            IcoTextFormField(
                               width: IcoSize.width - 40 - 106 - 8,
                               maxLength: 13,
                               hintText: "-없이 입력해주세요",
@@ -172,7 +172,7 @@ class EditPhonePage extends StatelessWidget {
                         ),
                         Stack(
                           children: [
-                            IcoTextField(
+                            IcoTextFormField(
                               width: IcoSize.width,
                               maxLength: 5,
                               hintText: "메시지로 전송된 번호를 입력해주세요",

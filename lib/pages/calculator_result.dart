@@ -23,7 +23,7 @@ class CalculatorResultPage extends StatelessWidget {
   AuthController authController = Get.find();
   @override
   Widget build(BuildContext context) {
-    voucherController.setVoucherInfo(voucher);
+    voucherController.setVoucherInfo(voucher, 0);
     return Scaffold(
         backgroundColor: IcoColors.white,
         appBar: IcoAppbar(

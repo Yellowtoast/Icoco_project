@@ -37,11 +37,13 @@ class VoucherController extends GetxController {
   RxBool isButtonValid = false.obs;
   HomeController homeController = HomeController();
   Rxn<String> regNumErrorText = Rxn<String>();
+  AuthController authController = Get.find();
 
   @override
   void onInit() {
     if (voucherResult.value != null) {
-      setVoucherInfo(voucherResult.value!);
+      setVoucherInfo(voucherResult.value!,
+          authController.reservationModel.value!.extraCost!);
     }
 
     super.onInit();
@@ -54,14 +56,14 @@ class VoucherController extends GetxController {
     super.onReady();
   }
 
-  setVoucherInfo(String? _voucher) async {
+  setVoucherInfo(String? _voucher, int additionalFee) async {
     if (_voucher == null || _voucher == '') {
       print('no voucher info');
       return;
     } else {
       await splitVoucherResult(_voucher);
       await setDropDownList(null);
-      getVoucherCostInfo(_voucher);
+      getVoucherCostInfo(_voucher, additionalFee);
     }
   }
 
@@ -162,27 +164,26 @@ class VoucherController extends GetxController {
     }
   }
 
-  getVoucherCostInfo(String voucher) {
+  getVoucherCostInfo(String voucher, int additionalFee) {
     depositFeeList.assignAll(depositFeePerWeek);
     totalFeeList.assignAll(totalFeeInfo[voucher]!);
     govermentFeeList.assignAll(govermentFeeInfo[voucher]!);
 
-    calculateUserFee();
+    calculateUserFee(additionalFee);
     calculateRemainingFee();
 
     showResult.value = true;
   }
 
-  calculateUserFee() {
+  calculateUserFee(int additionalFee) {
     for (int i = 0; i < 5; i++) {
-      userFeeList[i] = totalFeeList[i] - govermentFeeList[i];
+      userFeeList[i] = (totalFeeList[i] - govermentFeeList[i]) + additionalFee;
     }
   }
 
   calculateRemainingFee() {
     for (int i = 0; i < 5; i++) {
-      remainingFeeList.value[i] =
-          userFeeList[i].toInt() - depositFeeList[i].toInt();
+      remainingFeeList[i] = userFeeList[i].toInt() - depositFeeList[i].toInt();
     }
   }
 

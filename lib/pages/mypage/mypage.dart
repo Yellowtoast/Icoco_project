@@ -8,9 +8,9 @@ import 'package:app/controllers/mypage_controller.dart';
 import 'package:app/controllers/review_controller.dart';
 import 'package:app/helpers/loading.dart';
 import 'package:app/pages/loading.dart';
-import 'package:app/pages/mypage/inquiry_page.dart';
+import 'package:app/pages/inquiry_page.dart';
 import 'package:app/pages/mypage/my_review.dart';
-import 'package:app/pages/mypage/reservation_info/my_reservation.dart';
+import 'package:app/pages/mypage/my_reservation.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
@@ -25,7 +25,7 @@ class MyPage extends StatelessWidget {
   ReviewController reviewController = Get.put(ReviewController());
   ManagerController managerController = Get.find();
   MypageController mypageController = Get.find();
-  CompanyController companyController = Get.put(CompanyController());
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -175,21 +175,21 @@ class MyPage extends StatelessWidget {
             height: 1,
           ),
           InkWell(
-            onTap: () async {
-              if (authController.reservationModel.value == null ||
-                  authController.reservationModel.value!.managersId == null ||
-                  authController.reservationModel.value!.managersId!.isEmpty) {
-                companyController.companyModel.value =
-                    await companyController.getFirebaseCompanyByUid(
-                        authController.reservationModel.value!.chosenCompany);
-                Get.to(InquiryPage());
-              } else {
-                Get.to(EmptyInfoPage(
-                  appbarText: '문의하기',
-                  title: '아직 문의를 작성할 수 없습니다',
-                  subtitle: '산후조리사를 배정받은 후에\n문의를 작성할 수 있습니다.',
-                ));
-              }
+            onTap: () {
+              // if (authController.reservationModel.value == null ||
+              //     authController.reservationModel.value!.managersId == null ||
+              //     authController.reservationModel.value!.managersId!.isEmpty) {
+              //   companyController.companyModel.value =
+              //       await companyController.getFirebaseCompanyByUid(
+              //           authController.reservationModel.value!.chosenCompany);
+              //   Get.to(InquiryPage());
+              // } else {
+              //   Get.to(EmptyInfoPage(
+              //     appbarText: '문의하기',
+              //     title: '아직 문의를 작성할 수 없습니다',
+              //     subtitle: '산후조리사를 배정받은 후에\n문의를 작성할 수 있습니다.',
+              //   ));
+              // }
             },
             child: SizedBox(
               height: 55,

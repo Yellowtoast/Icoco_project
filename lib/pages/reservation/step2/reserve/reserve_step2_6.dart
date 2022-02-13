@@ -5,6 +5,7 @@ import 'package:app/configs/routes.dart';
 import 'package:app/configs/text_styles.dart';
 import 'package:app/controllers/auth_controller.dart';
 import 'package:app/controllers/reservation/step1/voucher_controller.dart';
+import 'package:app/controllers/reservation/step2/substep_controllers/additional_fee_controller.dart';
 import 'package:app/controllers/reservation/step2/substep_controllers/date_info_controller.dart';
 import 'package:app/configs/enum.dart';
 
@@ -27,6 +28,8 @@ class ReserveStep2_6 extends StatelessWidget {
   Rx<bool> step2 = false.obs;
 
   DateInfoController dateInfoController = Get.find();
+
+  AdditionalFeeController additionalFeeController = Get.find();
   AuthController authController = Get.find();
   VoucherController voucherController = Get.find();
   WebViewController? webViewController;
@@ -189,7 +192,8 @@ class ReserveStep2_6 extends StatelessWidget {
                                       .reservationModel.value!.voucher;
 
                               voucherController.setVoucherInfo(
-                                  voucherController.voucherResult.value);
+                                  voucherController.voucherResult.value,
+                                  additionalFeeController.totalAdditionalFee!);
                             }
 
                             if (reservationModel.value!.isBirth != true) {

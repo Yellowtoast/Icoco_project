@@ -28,6 +28,12 @@ class CompanyDetailPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     var companyNum = Get.arguments;
+
+    if (reviewController.totalReviews.value! >= 3) {
+      reviewController.reviewCount.value = 3;
+    } else {
+      reviewController.reviewCount.value = reviewController.totalReviews.value;
+    }
     return Obx(() {
       return Scaffold(
         appBar: IcoAppbar(
@@ -373,7 +379,8 @@ class CompanyDetailPage extends StatelessWidget {
                                     SizedBox(
                                       width: 6,
                                     ),
-                                    Text("${reviewController.totalReviews}개",
+                                    Text(
+                                        "${reviewController.totalReviews.value}개",
                                         style: IcoTextStyle.boldTextStyle14P)
                                   ],
                                 ),
@@ -524,17 +531,15 @@ class CompanyDetailPage extends StatelessWidget {
                             ],
                           ),
                           SizedBox(
-                            height:
-                                reviewController.finalReviewModelList!.length *
-                                    165,
+                            height: reviewController.reviewCount.value! * 165,
                             child: Column(
                               children: [
                                 Expanded(
                                   child: ListView.builder(
                                       scrollDirection: Axis.vertical,
                                       shrinkWrap: true,
-                                      itemCount: reviewController
-                                          .finalReviewModelList!.length,
+                                      itemCount:
+                                          reviewController.reviewCount.value!,
                                       physics:
                                           const NeverScrollableScrollPhysics(),
                                       itemBuilder:
@@ -670,25 +675,45 @@ class CompanyDetailPage extends StatelessWidget {
                               ],
                             ),
                           ),
-                          InkWell(
-                            onTap: () {},
-                            child: Container(
-                              alignment: Alignment.center,
-                              height: 52,
-                              width: IcoSize.width,
-                              decoration: BoxDecoration(
-                                color: IcoColors.white,
-                                border: Border.symmetric(
-                                  horizontal: BorderSide(
-                                      width: 1, color: IcoColors.grey2),
+                          (reviewController.reviewCount.value ==
+                                  reviewController.totalReviews.value)
+                              ? SizedBox()
+                              : InkWell(
+                                  onTap: () async {
+                                    int reviewAdded =
+                                        await reviewController.getMoreReviews(
+                                            reviewController
+                                                .finalReviewModelList!,
+                                            companyController
+                                                .companyModelList[companyNum]
+                                                .value!
+                                                .uid!,
+                                            '기말',
+                                            'company',
+                                            reviewController.reviewCount.value!,
+                                            3);
+                                    reviewController.reviewCount.value =
+                                        reviewController.reviewCount.value! +
+                                            reviewAdded;
+                                  },
+                                  child: Container(
+                                    alignment: Alignment.center,
+                                    height: 52,
+                                    width: IcoSize.width,
+                                    decoration: BoxDecoration(
+                                      color: IcoColors.white,
+                                      border: Border.symmetric(
+                                        horizontal: BorderSide(
+                                            width: 1, color: IcoColors.grey2),
+                                      ),
+                                    ),
+                                    child: Text(
+                                      "리뷰 더보기",
+                                      style:
+                                          IcoTextStyle.mediumTextStyle15Grey4,
+                                    ),
+                                  ),
                                 ),
-                              ),
-                              child: Text(
-                                "리뷰 더보기",
-                                style: IcoTextStyle.mediumTextStyle15Grey4,
-                              ),
-                            ),
-                          ),
                           Container(
                             height: 53,
                             color: Colors.white,

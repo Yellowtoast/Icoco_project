@@ -3,10 +3,12 @@ import 'package:app/configs/routes.dart';
 import 'package:app/configs/size.dart';
 import 'package:app/configs/text_styles.dart';
 import 'package:app/controllers/auth_controller.dart';
+import 'package:app/controllers/company_controller.dart';
 import 'package:app/controllers/manager_controller.dart';
 
 import 'package:app/controllers/review_controller.dart';
 import 'package:app/helpers/formatter.dart';
+import 'package:app/pages/inquiry_page.dart';
 import 'package:app/widgets/appbar.dart';
 import 'package:app/widgets/button/button.dart';
 import 'package:app/widgets/modal/bottomup_modal2.dart';
@@ -19,20 +21,24 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 
+import '../empty_page.dart';
+import '../refund.dart';
+
 class ManagerDetailPage extends StatelessWidget {
   int managerNum = Get.arguments;
   ManagerController managerController = Get.find();
   ReviewController reviewController = Get.find();
-  AuthController authController = AuthController();
-  Rxn<int> reviewCount = Rxn<int>();
+  AuthController authController = Get.find();
+  CompanyController companyController = Get.put(CompanyController());
+
   @override
   Widget build(BuildContext context) {
-    if (reviewController.totalReviews! > 3) {
-      reviewCount.value = 3;
+    if (reviewController.totalReviews.value! >= 3) {
+      reviewController.reviewCount.value = 3;
     } else {
-      reviewCount.value = reviewController.totalReviews;
+      reviewController.reviewCount.value = reviewController.totalReviews.value;
     }
-    int reviewOffset = 0;
+
     return Obx(() {
       return Scaffold(
         appBar: IcoAppbar(
@@ -96,8 +102,10 @@ class ManagerDetailPage extends StatelessWidget {
                                     children: [
                                       Text.rich(
                                         TextSpan(
-                                          text:
-                                              "${managerController.managerModelList[managerNum].value!.name}",
+                                          text: managerController
+                                              .managerModelList[managerNum]
+                                              .value!
+                                              .name,
                                           style: IcoTextStyle.boldTextStyle19B,
                                           children: <TextSpan>[
                                             TextSpan(
@@ -112,20 +120,21 @@ class ManagerDetailPage extends StatelessWidget {
                                       ),
                                       RatingBar(
                                         ignoreGestures: true,
-                                        initialRating:
-                                            (reviewController.totalReviews == 0)
-                                                ? 0
-                                                : (managerController
-                                                            .managerModelList[
-                                                                managerNum]
-                                                            .value!
-                                                            .totalReviewRate! ~/
-                                                        managerController
-                                                            .managerModelList[
-                                                                managerNum]
-                                                            .value!
-                                                            .totalReview!)
-                                                    .toDouble(),
+                                        initialRating: (reviewController
+                                                    .totalReviews.value ==
+                                                0)
+                                            ? 0
+                                            : (managerController
+                                                        .managerModelList[
+                                                            managerNum]
+                                                        .value!
+                                                        .totalReviewRate! ~/
+                                                    managerController
+                                                        .managerModelList[
+                                                            managerNum]
+                                                        .value!
+                                                        .totalReview!)
+                                                .toDouble(),
                                         direction: Axis.horizontal,
                                         allowHalfRating: false,
                                         itemCount: 5,
@@ -404,7 +413,7 @@ class ManagerDetailPage extends StatelessWidget {
                   height: 9,
                   thickness: 9,
                 ),
-                (reviewController.totalReviews == 0)
+                (reviewController.totalReviews.value == 0)
                     ? Container(
                         color: IcoColors.white,
                         alignment: Alignment.center,
@@ -450,7 +459,8 @@ class ManagerDetailPage extends StatelessWidget {
                                       SizedBox(
                                         width: 6,
                                       ),
-                                      Text("${reviewController.totalReviews}개",
+                                      Text(
+                                          "${reviewController.totalReviews.value}개",
                                           style: IcoTextStyle.boldTextStyle14P)
                                     ],
                                   ),
@@ -594,7 +604,7 @@ class ManagerDetailPage extends StatelessWidget {
                               ],
                             ),
                             SizedBox(
-                              height: reviewCount.value! * 165,
+                              height: reviewController.reviewCount.value! * 165,
                               child: Column(
                                 children: [
                                   Expanded(
@@ -602,9 +612,7 @@ class ManagerDetailPage extends StatelessWidget {
                                         scrollDirection: Axis.vertical,
                                         shrinkWrap: true,
                                         itemCount:
-                                            (reviewController.totalReviews! > 3)
-                                                ? 3
-                                                : reviewController.totalReviews,
+                                            reviewController.reviewCount.value,
                                         physics:
                                             const NeverScrollableScrollPhysics(),
                                         itemBuilder:
@@ -743,41 +751,46 @@ class ManagerDetailPage extends StatelessWidget {
                                 ],
                               ),
                             ),
-                            InkWell(
-                              onTap: () async {
-                                if (reviewOffset >
-                                        reviewController.totalReviews! &&
-                                    (reviewOffset + 3) >
-                                        reviewController.totalReviews!) {
-                                  reviewOffset += 3;
-                                  await reviewController.getJsonReviews(
-                                      managerController
-                                          .managerModelList[managerNum]
-                                          .value!
-                                          .uid,
-                                      'manager',
-                                      reviewOffset,
-                                      3,
-                                      '기말');
-                                }
-                              },
-                              child: Container(
-                                alignment: Alignment.center,
-                                height: 52,
-                                width: IcoSize.width,
-                                decoration: BoxDecoration(
-                                  color: IcoColors.white,
-                                  border: Border.symmetric(
-                                    horizontal: BorderSide(
-                                        width: 1, color: IcoColors.grey2),
+                            (reviewController.reviewCount.value ==
+                                    reviewController.totalReviews.value)
+                                ? SizedBox()
+                                : InkWell(
+                                    onTap: () async {
+                                      int reviewAdded =
+                                          await reviewController.getMoreReviews(
+                                              reviewController
+                                                  .finalReviewModelList!,
+                                              managerController
+                                                  .managerModelList[managerNum]
+                                                  .value!
+                                                  .uid,
+                                              '기말',
+                                              'manager',
+                                              reviewController
+                                                  .reviewCount.value!,
+                                              3);
+                                      reviewController.reviewCount.value =
+                                          reviewController.reviewCount.value! +
+                                              reviewAdded;
+                                    },
+                                    child: Container(
+                                      alignment: Alignment.center,
+                                      height: 52,
+                                      width: IcoSize.width,
+                                      decoration: BoxDecoration(
+                                        color: IcoColors.white,
+                                        border: Border.symmetric(
+                                          horizontal: BorderSide(
+                                              width: 1, color: IcoColors.grey2),
+                                        ),
+                                      ),
+                                      child: Text(
+                                        "리뷰 더보기",
+                                        style:
+                                            IcoTextStyle.mediumTextStyle15Grey4,
+                                      ),
+                                    ),
                                   ),
-                                ),
-                                child: Text(
-                                  "리뷰 더보기",
-                                  style: IcoTextStyle.mediumTextStyle15Grey4,
-                                ),
-                              ),
-                            ),
                             Container(
                               height: 53,
                               color: Colors.white,
@@ -814,7 +827,7 @@ class ManagerDetailPage extends StatelessWidget {
                                       .reservationNumber);
                               await authController.setModelInfo();
                               Get.offAllNamed(Routes.HOME);
-                            } else {}
+                            }
                           },
                           active: true.obs,
                           textStyle: IcoTextStyle.mediumTextStyle15B,
@@ -824,7 +837,9 @@ class ManagerDetailPage extends StatelessWidget {
                       ),
                       IcoButton(
                           buttonColor: IcoColors.grey1,
-                          onPressed: () {},
+                          onPressed: () {
+                            Get.to(RefundPage());
+                          },
                           active: true.obs,
                           textStyle: IcoTextStyle.mediumTextStyle15B,
                           text: "서비스 환불 요청"),
@@ -833,7 +848,13 @@ class ManagerDetailPage extends StatelessWidget {
                       ),
                       IcoButton(
                           buttonColor: IcoColors.grey1,
-                          onPressed: () {},
+                          onPressed: () async {
+                            companyController.companyModel.value =
+                                await companyController.getFirebaseCompanyByUid(
+                                    authController
+                                        .reservationModel.value!.chosenCompany);
+                            Get.to(InquiryPage(), arguments: managerNum);
+                          },
                           active: true.obs,
                           textStyle: IcoTextStyle.mediumTextStyle15B,
                           text: "문의하기"),

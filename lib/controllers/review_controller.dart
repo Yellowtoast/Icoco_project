@@ -38,7 +38,8 @@ class ReviewController extends GetxController {
   Rxn<String> reviewType = Rxn<String>();
   Rxn<String> targetUid = Rxn<String>();
   Rxn<int> reviewRate = Rxn<int>();
-  int? totalReviews;
+  Rxn<int> totalReviews = Rxn<int>();
+  Rxn<int> reviewCount = Rxn<int>();
   List<RxBool> itemSelectStatus = [
     false.obs,
     false.obs,
@@ -159,6 +160,20 @@ class ReviewController extends GetxController {
     update();
   }
 
+  getMoreReviews(RxList<Rxn<ReviewModel>> reviewList, String uid,
+      String reviewType, String target, int offset, int limitNumber) async {
+    int addedReviewCount;
+    RxList<Rxn<ReviewModel>>? addedReviewList =
+        await getJsonReviews(uid, reviewType, offset, limitNumber, '기말');
+    addedReviewCount = addedReviewList!.length;
+    if (addedReviewList.isNotEmpty) {
+      reviewList.value = [...reviewList, ...addedReviewList].toList();
+      reviewList.refresh();
+    }
+
+    return addedReviewCount;
+  }
+
   Future<RxList<Rxn<ReviewModel>>?> getJsonReviews(String uid, String target,
       int offset, int limitNumber, String reviewType) async {
     Map<dynamic, dynamic> reviewObject;
@@ -179,16 +194,6 @@ class ReviewController extends GetxController {
     try {
       var uri = Uri.http(
           'icoco2022-erpweb.vercel.app', '/api/getReviews', queryParameters);
-      // final jwt = JWT(
-      //   {
-      //     "uid": uid,
-      //     "target": target,
-      //     "offset": offset,
-      //     "limitNumber": limitNumber,
-      //     "type": reviewType
-      //   },
-      // );
-      // token = jwt.sign(SecretKey(JWT_KEY));
 
       var response = await http.get(
         uri,
@@ -196,7 +201,7 @@ class ReviewController extends GetxController {
       );
       var json = jsonDecode(response.body);
       reviewObject = json['data'].cast<String, dynamic>();
-      totalReviews = reviewObject['total'];
+      totalReviews.value = reviewObject['total'];
       list = reviewObject['reviewList'];
       for (var reviewData in list) {
         var res = reviewData.cast<dynamic, dynamic>();
@@ -205,10 +210,9 @@ class ReviewController extends GetxController {
         modelList.add(model);
       }
       reviewListWithPicture.value = await extractFirstIndexPictures(modelList);
-      //  reviewModelList.refresh();
       return modelList;
     } catch (e) {
-      totalReviews = 0;
+      // totalReviews.value = 0;
       return null;
     }
   }
@@ -233,10 +237,10 @@ class ReviewController extends GetxController {
     try {
       pickedImages = await picker.pickMultiImage(imageQuality: 70);
 
-      pickedImages!.forEach((image) {
+      for (var image in pickedImages!) {
         totalFileList.add(File(image.path));
         fileNameList.add(path.basename(image.path));
-      });
+      }
 
       totalFileList.refresh();
 

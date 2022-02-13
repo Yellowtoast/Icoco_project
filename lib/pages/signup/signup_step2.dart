@@ -85,7 +85,7 @@ class SignupStep2Page extends StatelessWidget {
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            IcoTextField(
+                            IcoTextFormField(
                               width: double.infinity,
                               hintText: "이메일을 입력하세요",
                               textFieldLabel: "이메일",
@@ -100,7 +100,7 @@ class SignupStep2Page extends StatelessWidget {
                                     signupController.isDuplicateEmail);
                               },
                             ),
-                            IcoTextField(
+                            IcoTextFormField(
                               width: double.infinity,
                               obscureText: true,
                               hintText: "8~12자 / 영문숫자조합",
@@ -113,7 +113,7 @@ class SignupStep2Page extends StatelessWidget {
                                     value, signupController.passwordErrorText);
                               },
                             ),
-                            IcoTextField(
+                            IcoTextFormField(
                               width: double.infinity,
                               obscureText: true,
                               hintText: "8~12자 / 영문숫자조합",

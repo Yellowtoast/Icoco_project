@@ -96,7 +96,7 @@ Future<dynamic> DepositCostStatusPopup() {
                                   width: 11,
                                 ),
                                 Text(
-                                  "${numFormat.format(reservationModel.value!.depositCost)} 원 입금",
+                                  "${decimalFormat.format(reservationModel.value!.depositCost)} 원 입금",
                                   style: IcoTextStyle.boldTextStyle16P,
                                 )
                               ],
@@ -112,7 +112,7 @@ Future<dynamic> DepositCostStatusPopup() {
                                   width: 11,
                                 ),
                                 Text(
-                                  "+ ${numFormat.format(reservationModel.value!.balanceCost)} 원 입금",
+                                  "+ ${decimalFormat.format(reservationModel.value!.balanceCost)} 원 입금",
                                   style: IcoTextStyle.mediumTextStyle16Grey4,
                                 )
                               ],
@@ -132,7 +132,7 @@ Future<dynamic> DepositCostStatusPopup() {
                                   width: 11,
                                 ),
                                 Text(
-                                  "${numFormat.format(reservationModel.value!.userCost)} 원",
+                                  "${decimalFormat.format(reservationModel.value!.userCost)} 원",
                                   style: IcoTextStyle.boldTextStyle16P,
                                 )
                               ],
@@ -287,7 +287,7 @@ Future<dynamic> RemainingCostStatusPopup() {
                                   width: 11,
                                 ),
                                 Text(
-                                  "${numFormat.format(reservationModel.value!.depositCost)} 원 입금",
+                                  "${decimalFormat.format(reservationModel.value!.depositCost)} 원 입금",
                                   style: IcoTextStyle.lineBoldTextStyle15Grey4,
                                 )
                               ],
@@ -303,7 +303,7 @@ Future<dynamic> RemainingCostStatusPopup() {
                                   width: 11,
                                 ),
                                 Text(
-                                  "+ ${numFormat.format(reservationModel.value!.balanceCost)} 원 입금",
+                                  "+ ${decimalFormat.format(reservationModel.value!.balanceCost)} 원 입금",
                                   style: IcoTextStyle.boldTextStyle16P,
                                 )
                               ],
@@ -323,7 +323,7 @@ Future<dynamic> RemainingCostStatusPopup() {
                                   width: 11,
                                 ),
                                 Text(
-                                  "${numFormat.format(reservationModel.value!.userCost)} 원",
+                                  "${decimalFormat.format(reservationModel.value!.userCost)} 원",
                                   style: IcoTextStyle.mediumTextStyle16P,
                                 )
                               ],
@@ -477,7 +477,7 @@ Future<dynamic> UserCostStatusPopup() {
                                   width: 11,
                                 ),
                                 Text(
-                                  "${numFormat.format(reservationModel.value!.depositCost)} 원 입금",
+                                  "${decimalFormat.format(reservationModel.value!.depositCost)} 원 입금",
                                   style: IcoTextStyle.lineBoldTextStyle15Grey4,
                                 )
                               ],
@@ -493,7 +493,7 @@ Future<dynamic> UserCostStatusPopup() {
                                   width: 11,
                                 ),
                                 Text(
-                                  "+ ${numFormat.format(reservationModel.value!.balanceCost)} 원 입금",
+                                  "+ ${decimalFormat.format(reservationModel.value!.balanceCost)} 원 입금",
                                   style: IcoTextStyle.lineBoldTextStyle15Grey4,
                                 )
                               ],
@@ -513,7 +513,7 @@ Future<dynamic> UserCostStatusPopup() {
                                   width: 11,
                                 ),
                                 Text(
-                                  "${numFormat.format(reservationModel.value!.userCost)} 원",
+                                  "${decimalFormat.format(reservationModel.value!.userCost)} 원",
                                   style: IcoTextStyle.boldTextStyle16P,
                                 )
                               ],

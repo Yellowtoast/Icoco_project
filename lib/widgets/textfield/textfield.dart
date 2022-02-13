@@ -6,8 +6,8 @@ import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 // import 'package:get/get_state_manager/src/simple/get_controllers.dart';
 
-class IcoTextField extends StatelessWidget {
-  IcoTextField({
+class IcoTextFormField extends StatelessWidget {
+  IcoTextFormField({
     Key? key,
     required this.width,
     this.onChanged,
