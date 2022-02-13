@@ -4,9 +4,10 @@ import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 
-class NotificationController extends GetxController {
-  static NotificationController get to => Get.find();
+class FCMController extends GetxController {
+  static FCMController get to => Get.find();
   FirebaseMessaging _messaging = FirebaseMessaging.instance;
+  late final String fcmToken;
   RxMap<String, dynamic> message = Map<String, dynamic>().obs;
 
   @override
@@ -16,12 +17,12 @@ class NotificationController extends GetxController {
     super.onInit();
   }
 
-  Future<void> _getToken() async {
+  Future<String?> _getToken() async {
     try {
       String? token = await _messaging.getToken(
         vapidKey: 'KEY',
       );
-      print(token);
+      fcmToken = token!;
     } catch (e) {
       print(e);
     }
@@ -31,13 +32,16 @@ class NotificationController extends GetxController {
     // NotificationSettings settings = await _messaging.requestPermission(
     //     sound: true, badge: true, alert: true, provisional: true);
 
-    // _messaging.configure(
-    //   onMessage: _onMessage,
-    //   onLaunch: _onLaunch,
-    //   onResume: _onResume,
-    // );
+    FirebaseMessaging.onMessage.listen((RemoteMessage message) async {
+      onMessage:
+      _onMessage;
+      onLaunch:
+      _onLaunch;
+      onResume:
+      _onResume;
+    });
 
-    await _messaging.requestPermission(
+    NotificationSettings _settings = await _messaging.requestPermission(
       alert: true,
       announcement: false,
       badge: true,

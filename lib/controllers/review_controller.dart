@@ -91,7 +91,7 @@ class ReviewController extends GetxController {
   createMidtermReviewFirestore(ManagerModel managerModel, String userName) {
     ReviewModel _newReviewModel = ReviewModel(
       userName: authController.reservationModel.value!.userName,
-      userId: authController.reservationModel.value!.uid,
+      userId: authController.reservationModel.value!.uid!,
       contents: reviewContents.value,
       managerId: managerModel.uid,
       companyId: '',
@@ -117,7 +117,7 @@ class ReviewController extends GetxController {
   Future<void> createFinalReviewModel(ManagerModel managerModel) async {
     ReviewModel _newReviewModel = ReviewModel(
       contents: reviewContents.value,
-      userId: authController.reservationModel.value!.uid,
+      userId: authController.reservationModel.value!.uid!,
       managerId: managerModel.uid,
       thumbnails: [],
       userName: authController.reservationModel.value!.userName,

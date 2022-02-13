@@ -1,6 +1,8 @@
 import 'dart:math';
 import 'package:app/configs/purplebook.dart';
+import 'package:app/controllers/fcm_controller.dart';
 import 'package:app/helpers/formatter.dart';
+import 'package:app/models/reservation.dart';
 import 'package:app/models/user.dart';
 import 'package:dart_jsonwebtoken/dart_jsonwebtoken.dart';
 import 'package:extended_masked_text/extended_masked_text.dart';
@@ -15,7 +17,8 @@ class SignupController extends GetxController {
   // ignore: unused_field
   final FirebaseAuth _auth = FirebaseAuth.instance;
   final FirebaseFirestore db = FirebaseFirestore.instance;
-  late final String regNum;
+  String regNum = '';
+  FCMController fcmController = Get.find();
   Rxn<UserModel> userModel = Rxn<UserModel>();
   TextEditingController emailController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
@@ -35,7 +38,7 @@ class SignupController extends GetxController {
   Rxn<String> regNumErrorText = Rxn<String>();
   late String phoneNumber;
   RxInt codeSentTimes = 0.obs;
-  bool isMarketingAllowed = false;
+  bool eventAlarm = false;
   bool isDuplicateEmail = false;
   RxBool isButtonValid = false.obs;
   Rxn<bool> isTimeOut = Rxn<bool>();
@@ -99,20 +102,16 @@ class SignupController extends GetxController {
   Future<String?> getExistingReservationNumber(
       String name, String phone) async {
     String? reservationNumber = null;
-    await db
-        .collection('Reservation')
-        .where('userName', arrayContains: name)
-        .get()
-        .then((QuerySnapshot querySnapshot) {
-      querySnapshot.docs.forEach((snapshot) {
-        String phone = snapshot['phone'];
-        phone.replaceAll(new RegExp(r'-'), '');
-        if (snapshot['phone'] == phone && snapshot['status'] != "서비스종료") {
-          print(snapshot.id);
-          reservationNumber = snapshot.id;
-        }
-      });
-    });
+
+    if (phone != "") {
+      var doc = await db
+          .collection('Reservation')
+          .where('phone', isEqualTo: phone)
+          .get();
+      print(doc.docs[0].data());
+      reservationNumber = doc.docs[0].data()['reservationNumber'];
+    }
+
     return reservationNumber;
   }
 
@@ -124,9 +123,9 @@ class SignupController extends GetxController {
       userName: nameController.value.text,
       phone: phoneController.value.text,
       regNum: regNum,
-      voucher: "",
-      address: "",
-      isMarketingAllowed: isMarketingAllowed,
+      eventAlarm: eventAlarm,
+      pushAlarm: true,
+      fcm: fcmController.fcmToken,
     );
     userModel.value = _newUser;
   }

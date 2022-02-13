@@ -80,7 +80,9 @@ class EditUserInfoPage extends StatelessWidget {
                   ),
                   EditTextButton(
                       title: '주소',
-                      value: fullAddress.value!.split("/")[0],
+                      value: (fullAddress.value == '')
+                          ? '주소 없음'
+                          : fullAddress.value!.split("/")[0],
                       onTap: () async {
                         var address = await Get.toNamed(Routes.ADDRESS_1,
                             arguments: '수정');
@@ -90,7 +92,9 @@ class EditUserInfoPage extends StatelessWidget {
                     height: 9,
                   ),
                   EditTextButton(
-                    value: fullAddress.value!.split("/")[1],
+                    value: (fullAddress.value == '')
+                        ? ''
+                        : fullAddress.value!.split("/")[1],
                     isEditable: false,
                   ),
                   SizedBox(

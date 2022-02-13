@@ -97,6 +97,7 @@ Future<dynamic> IcoOptionModal2() {
 
   return Get.dialog(
     Dialog(
+      backgroundColor: Colors.transparent,
       child: Column(
         mainAxisSize: MainAxisSize.min,
         children: [

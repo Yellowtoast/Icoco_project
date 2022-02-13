@@ -19,6 +19,7 @@ class SignupStep6Page extends StatelessWidget {
   SignupStep6Page({Key? key}) : super(key: key);
   Rx<int> pageIndex = 0.obs;
   SignupController signupController = Get.find();
+  AuthController authController = Get.find();
   PageController pageController = PageController(
     initialPage: 0,
   );
@@ -276,7 +277,7 @@ class SignupStep6Page extends StatelessWidget {
                                                   .value
                                                   .text);
 
-                                      bool wantExistingReservation = false;
+                                      bool getExistingReservation = false;
                                       reservationNumber = await signupController
                                           .getExistingReservationNumber(
                                         signupController
@@ -285,10 +286,16 @@ class SignupStep6Page extends StatelessWidget {
                                       );
 
                                       if (reservationNumber != null) {
-                                        wantExistingReservation =
+                                        getExistingReservation =
                                             await IcoOptionModal2();
                                       }
-                                      if (wantExistingReservation == true) {}
+                                      if (getExistingReservation == true) {
+                                        await authController
+                                            .setPreviousReservation(
+                                                reservationNumber!,
+                                                signupController
+                                                    .userModel.value!.uid);
+                                      }
                                     },
                                     active: true.obs,
                                     buttonColor: IcoColors.primary,

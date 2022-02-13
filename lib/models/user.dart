@@ -4,12 +4,11 @@ class UserModel {
   String userName;
   String phone;
   final String regNum;
-  late String fullRegNum;
-  late String address;
-  late String voucher;
-  final bool isMarketingAllowed;
   int userStep;
   String? reservationNumber;
+  String fcm;
+  bool eventAlarm;
+  bool pushAlarm;
 
   UserModel({
     required this.uid,
@@ -17,10 +16,9 @@ class UserModel {
     required this.userName,
     required this.phone,
     required this.regNum,
-    required this.voucher,
-    required this.isMarketingAllowed,
-    required this.address,
-    this.fullRegNum = '',
+    required this.fcm,
+    required this.eventAlarm,
+    this.pushAlarm = true,
     this.userStep = 1,
     this.reservationNumber,
   });
@@ -32,12 +30,11 @@ class UserModel {
       userName: data['name'] ?? '',
       phone: data['phone'] ?? '',
       regNum: data['regNum'] ?? '',
-      fullRegNum: data['fullRegNum'] ?? '',
-      address: data['address'] ?? '',
       userStep: data['userStep'] ?? 1,
-      voucher: data['voucher'] ?? '',
-      isMarketingAllowed: data['isMarketingAllowed'] ?? false,
       reservationNumber: data['reservationNumber'] ?? '',
+      fcm: '',
+      eventAlarm: data['eventAlarm'],
+      pushAlarm: data['pushAlarm'],
     );
   }
 
@@ -47,10 +44,10 @@ class UserModel {
         "name": userName,
         "phone": phone,
         "regNum": regNum,
-        "fullRegNum": fullRegNum,
         "userStep": userStep,
-        "voucher": voucher,
-        "isMarketingAllowed": isMarketingAllowed,
-        "reservationNumber": reservationNumber
+        "reservationNumber": reservationNumber,
+        'fcm': fcm,
+        'eventAlarm': eventAlarm,
+        'pushAlarm': pushAlarm,
       };
 }

@@ -103,7 +103,7 @@ class Routes {
     GetPage(
         name: Routes.SPLASH,
         page: () => SplashPage(),
-        binding: AuthBindings(),
+        binding: InitialBindings(),
         transition: Transition.fadeIn),
     // GetPage(
     //     name: Routes.LOADING,

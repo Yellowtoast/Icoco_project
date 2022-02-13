@@ -39,7 +39,7 @@ class IcocoApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       getPages: Routes.pages,
       initialRoute: Routes.SPLASH,
-      initialBinding: AuthBindings(),
+      initialBinding: InitialBindings(),
     );
   }
 }

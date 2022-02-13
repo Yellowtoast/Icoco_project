@@ -53,6 +53,7 @@ class AuthController extends GetxController {
   }
 
   handleAuthChanged(_firebaseAuthUser) async {
+    signOut();
     startLoadingIndicator();
     if (_firebaseAuthUser != null &&
         (reservationModel.value != null || userModel.value != null)) {
@@ -71,7 +72,7 @@ class AuthController extends GetxController {
   setModelInfo() async {
     userModel.value = await getFirestoreUser(await getUser);
     reservationModel.value =
-        await getFirebaseReservationModel(userModel.value!.uid);
+        await getFirebaseReservationByUid(userModel.value!.uid);
     await storeModelInLocalStorage();
   }
 
@@ -114,7 +115,7 @@ class AuthController extends GetxController {
         (documentSnapshot) => UserModel.fromJson(documentSnapshot.data()!));
   }
 
-  Future<ReservationModel?> getFirebaseReservationModel(String uid) async {
+  Future<ReservationModel?> getFirebaseReservationByUid(String uid) async {
     ReservationModel? reservationModel;
 
     try {
@@ -126,6 +127,23 @@ class AuthController extends GetxController {
         print(doc.docs[0].data());
         reservationModel = ReservationModel.fromJson(doc.docs[0].data());
         return reservationModel;
+      }
+    } catch (e) {
+      return null;
+    }
+  }
+
+  Future<ReservationModel?> setPreviousReservation(
+      String reservationNumber, String userUid) async {
+    ReservationModel? _previousModel;
+
+    try {
+      if (reservationNumber != "") {
+        var doc = await db.doc('/Reservation/$reservationNumber').get();
+
+        _previousModel = ReservationModel.fromJson(doc.data()!);
+        _previousModel.uid = userUid;
+        db.doc('/Reservation/$reservationNumber').set(_previousModel.toJson());
       }
     } catch (e) {
       return null;
@@ -218,7 +236,7 @@ class AuthController extends GetxController {
     ReservationModel _newReservationModel = ReservationModel(
       address: '',
       email: userModel.email,
-      isMarketingAllowed: userModel.isMarketingAllowed,
+      isMarketingAllowed: userModel.eventAlarm,
       userName: userModel.userName,
       phone: userModel.phone,
       fullRegNum: '',

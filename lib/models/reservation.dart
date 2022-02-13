@@ -1,6 +1,6 @@
 class ReservationModel {
   final int date;
-  final String uid;
+  String uid;
   final String email;
 
   String phone;
@@ -121,7 +121,7 @@ class ReservationModel {
   factory ReservationModel.fromJson(Map data) {
     return ReservationModel(
       date: data['date'],
-      uid: data['uid'],
+      uid: data['uid'] ?? '',
       email: data['email'] ?? '',
       userName: data['userName'] ?? '',
       phone: data['phone'] ?? '',
