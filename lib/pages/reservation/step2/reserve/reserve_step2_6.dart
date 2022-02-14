@@ -29,7 +29,8 @@ class ReserveStep2_6 extends StatelessWidget {
 
   DateInfoController dateInfoController = Get.find();
 
-  AdditionalFeeController additionalFeeController = Get.find();
+  AdditionalFeeController additionalFeeController =
+      Get.put(AdditionalFeeController());
   AuthController authController = Get.find();
   VoucherController voucherController = Get.find();
   WebViewController? webViewController;
@@ -193,7 +194,7 @@ class ReserveStep2_6 extends StatelessWidget {
 
                               voucherController.setVoucherInfo(
                                   voucherController.voucherResult.value,
-                                  additionalFeeController.totalAdditionalFee!);
+                                  additionalFeeController.totalAdditionalFee);
                             }
 
                             if (reservationModel.value!.isBirth != true) {

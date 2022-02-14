@@ -3,22 +3,15 @@ import 'package:app/configs/routes.dart';
 import 'package:app/configs/size.dart';
 import 'package:app/configs/text_styles.dart';
 import 'package:app/controllers/auth_controller.dart';
-import 'package:app/controllers/manager_controller.dart';
 import 'package:app/controllers/company_controller.dart';
-
 import 'package:app/controllers/review_controller.dart';
 import 'package:app/helpers/formatter.dart';
 import 'package:app/widgets/appbar.dart';
-import 'package:app/widgets/button/button.dart';
-import 'package:app/widgets/modal/bottomup_modal2.dart';
-import 'package:app/widgets/modal/option_modal.dart';
-import 'package:app/widgets/modal/result_modal.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
-import 'package:image_picker/image_picker.dart';
 
 class CompanyDetailPage extends StatelessWidget {
   CompanyController companyController = Get.find();

@@ -185,6 +185,7 @@ class ReserveStep2_1 extends StatelessWidget {
                           child: InkWell(
                             onTap: () async {
                               startLoadingIndicator();
+
                               await companyController
                                   .getCompanyAllDocsFirebase();
                               finishLoadingIndicator();

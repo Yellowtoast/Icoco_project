@@ -116,6 +116,9 @@ class EditUserInfoPage extends StatelessWidget {
                           value: mypageController.allowEvent.value,
                           onChanged: (value) {
                             mypageController.allowEvent.value = value;
+                            authController.userModel.value!.eventAlarm = value;
+                            authController.updateUserFirestore(
+                                authController.userModel.value);
                           },
                         ),
                       ],
@@ -141,6 +144,9 @@ class EditUserInfoPage extends StatelessWidget {
                           value: mypageController.allowPushAlarm.value,
                           onChanged: (value) {
                             mypageController.allowPushAlarm.value = value;
+                            authController.userModel.value!.pushAlarm = value;
+                            authController.updateUserFirestore(
+                                authController.userModel.value);
                           },
                         ),
                       ],
@@ -188,8 +194,8 @@ class EditUserInfoPage extends StatelessWidget {
                           title: "로그아웃 되었습니다",
                           subtitle: "서비스를 이용해주셔서 감사합니다\n다음에 또 이용해주시기바랍니다.",
                           buttonText: "확인",
-                          onTap: () {
-                            authController.signOut();
+                          onTap: () async {
+                            await authController.signOut();
                           });
                     },
                     child: Container(

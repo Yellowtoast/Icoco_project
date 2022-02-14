@@ -25,7 +25,7 @@ class AdditionalFeeController extends GetxController {
   int? kindergartener;
   int? schooler;
   int? extraFamily;
-  int? totalAdditionalFee;
+  int totalAdditionalFee = 0;
 
   Rxn<careType> careTypeSelected = Rxn<careType>();
 
@@ -57,7 +57,7 @@ class AdditionalFeeController extends GetxController {
       "schooler": schooler,
       "extraFamily": extraFamily,
     };
-    model.value.careType = careTypeSelected..value!.convertCareTypeToString;
+    model.value.careType = careTypeSelected.value!.convertCareTypeToString;
     model.value!.extraCost = totalAdditionalFee;
     // voucherController.additionalFee.value = totalAdditionalFee!;
   }

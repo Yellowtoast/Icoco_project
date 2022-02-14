@@ -1,4 +1,6 @@
 import 'package:app/configs/colors.dart';
+import 'package:app/controllers/auth_controller.dart';
+import 'package:app/controllers/company_controller.dart';
 import 'package:app/helpers/formatter.dart';
 import 'package:app/configs/routes.dart';
 import 'package:app/configs/text_styles.dart';
@@ -11,12 +13,12 @@ import 'package:get/get.dart';
 import '../../widgets/cost_info_selection_box.dart';
 
 class HomeStep4Items extends StatelessWidget {
-  const HomeStep4Items({Key? key}) : super(key: key);
-
+  HomeStep4Items({Key? key}) : super(key: key);
+  HomeController homeController = Get.find();
+  CompanyController companyController = Get.find();
+  AuthController authController = Get.find();
   @override
   Widget build(BuildContext context) {
-    HomeController homeController = Get.find();
-
     return Obx(() {
       return Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -110,7 +112,7 @@ class HomeStep4Items extends StatelessWidget {
                       width: 11,
                     ),
                     Text(
-                      "${numFormat.format(homeController.reservationModel.value!.balanceCost)} 원 미입금",
+                      "${numFormat.format(homeController.reservationModel.value!.balanceCost! - homeController.reservationModel.value!.completedBalanceCost!)} 원 미입금",
                       style: IcoTextStyle.boldTextStyle15P,
                     )
                   ],
@@ -140,6 +142,10 @@ class HomeStep4Items extends StatelessWidget {
               Expanded(
                 child: IcoButton(
                     onPressed: () async {
+                      companyController.companyModel.value =
+                          await companyController.getFirebaseCompanyByUid(
+                              authController
+                                  .reservationModel.value!.chosenCompany!);
                       Get.toNamed(Routes.REMAINING_STATUS);
                     },
                     height: 50,

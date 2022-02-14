@@ -40,131 +40,134 @@ class SignupStep2Page extends StatelessWidget {
       },
       child: Scaffold(
         appBar: IcoAppbar(title: '회원가입'),
-        body: SingleChildScrollView(
-          scrollDirection: Axis.vertical,
-          child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 20),
-            child: Column(
-              children: [
-                SizedBox(
-                  height: IcoSize.height - 330,
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      SizedBox(
-                        height: 27,
-                      ),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Text(
-                            '기본정보입력',
-                            style: IcoTextStyle.boldTextStyle24B,
-                          ),
-                          Container(
-                            alignment: Alignment.center,
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(50),
-                              color: IcoColors.purple1,
-                            ),
-                            width: 57,
-                            height: 31,
-                            child: Text("2/3",
-                                style: GoogleFonts.notoSans(
-                                    fontSize: 13,
-                                    color: IcoColors.primary,
-                                    fontWeight: FontWeight.bold)),
-                          ),
-                        ],
-                      ),
-                      SizedBox(
-                        height: 27,
-                      ),
-                      Form(
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
+        body: SafeArea(
+          child: SingleChildScrollView(
+            scrollDirection: Axis.vertical,
+            child: Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 20),
+              child: Column(
+                children: [
+                  SizedBox(
+                    height: IcoSize.height - 330,
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        SizedBox(
+                          height: 27,
+                        ),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
-                            IcoTextFormField(
-                              width: double.infinity,
-                              hintText: "이메일을 입력하세요",
-                              textFieldLabel: "이메일",
-                              errorText: signupController.emailErrorText,
-                              myTextController:
-                                  signupController.emailController,
-                              onChanged: (value) async {
-                                await signupController.checkDuplicateUser();
-                                validateEmail(
-                                    value,
-                                    signupController.emailErrorText,
-                                    signupController.isDuplicateEmail);
-                              },
+                            Text(
+                              '기본정보입력',
+                              style: IcoTextStyle.boldTextStyle24B,
                             ),
-                            IcoTextFormField(
-                              width: double.infinity,
-                              obscureText: true,
-                              hintText: "8~12자 / 영문숫자조합",
-                              textFieldLabel: "비밀번호",
-                              errorText: signupController.passwordErrorText,
-                              myTextController:
-                                  signupController.passwordController,
-                              onChanged: (value) async {
-                                validatePassword(
-                                    value, signupController.passwordErrorText);
-                              },
-                            ),
-                            IcoTextFormField(
-                              width: double.infinity,
-                              obscureText: true,
-                              hintText: "8~12자 / 영문숫자조합",
-                              textFieldLabel: "비밀번호 확인",
-                              errorText:
-                                  signupController.confirmPasswordErrorText,
-                              myTextController:
-                                  signupController.confirmPasswordController,
-                              onChanged: (value) {
-                                validateConfirmPassword(
-                                    signupController
-                                        .passwordController.value.text,
-                                    value,
-                                    signupController.confirmPasswordErrorText);
-                              },
+                            Container(
+                              alignment: Alignment.center,
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(50),
+                                color: IcoColors.purple1,
+                              ),
+                              width: 57,
+                              height: 31,
+                              child: Text("2/3",
+                                  style: GoogleFonts.notoSans(
+                                      fontSize: 13,
+                                      color: IcoColors.primary,
+                                      fontWeight: FontWeight.bold)),
                             ),
                           ],
                         ),
-                      ),
-                    ],
+                        SizedBox(
+                          height: 27,
+                        ),
+                        Form(
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              IcoTextFormField(
+                                width: double.infinity,
+                                hintText: "이메일을 입력하세요",
+                                textFieldLabel: "이메일",
+                                errorText: signupController.emailErrorText,
+                                myTextController:
+                                    signupController.emailController,
+                                onChanged: (value) async {
+                                  await signupController.checkDuplicateUser();
+                                  validateEmail(
+                                      value,
+                                      signupController.emailErrorText,
+                                      signupController.isDuplicateEmail);
+                                },
+                              ),
+                              IcoTextFormField(
+                                width: double.infinity,
+                                obscureText: true,
+                                hintText: "8~12자 / 영문숫자조합",
+                                textFieldLabel: "비밀번호",
+                                errorText: signupController.passwordErrorText,
+                                myTextController:
+                                    signupController.passwordController,
+                                onChanged: (value) async {
+                                  validatePassword(value,
+                                      signupController.passwordErrorText);
+                                },
+                              ),
+                              IcoTextFormField(
+                                width: double.infinity,
+                                obscureText: true,
+                                hintText: "8~12자 / 영문숫자조합",
+                                textFieldLabel: "비밀번호 확인",
+                                errorText:
+                                    signupController.confirmPasswordErrorText,
+                                myTextController:
+                                    signupController.confirmPasswordController,
+                                onChanged: (value) {
+                                  validateConfirmPassword(
+                                      signupController
+                                          .passwordController.value.text,
+                                      value,
+                                      signupController
+                                          .confirmPasswordErrorText);
+                                },
+                              ),
+                            ],
+                          ),
+                        ),
+                      ],
+                    ),
                   ),
-                ),
-                Container(
-                  height: IcoSize.height - 330 - IcoSize.appbarHeight,
-                  alignment: Alignment.bottomCenter,
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.end,
-                    children: [
-                      SizedBox(
-                        height: 20,
-                      ),
-                      IcoButton(
-                          onPressed: () async {
-                            signupController.eventAlarm =
-                                await IcoOptionModal();
-                            signupController.isButtonValid.value = false;
-                            Get.toNamed(
-                              Routes.SIGNUP_STEP3,
-                            );
-                          },
-                          active: signupController.isButtonValid,
-                          buttonColor: IcoColors.primary,
-                          textStyle: IcoTextStyle.buttonTextStyleW,
-                          text: "다음으로"),
-                      SizedBox(
-                        height: 20,
-                      ),
-                    ],
+                  Container(
+                    height: IcoSize.height / 4.5,
+                    alignment: Alignment.bottomCenter,
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.end,
+                      children: [
+                        SizedBox(
+                          height: 20,
+                        ),
+                        IcoButton(
+                            onPressed: () async {
+                              signupController.eventAlarm =
+                                  await IcoOptionModal();
+                              signupController.isButtonValid.value = false;
+                              Get.toNamed(
+                                Routes.SIGNUP_STEP3,
+                              );
+                            },
+                            active: signupController.isButtonValid,
+                            buttonColor: IcoColors.primary,
+                            textStyle: IcoTextStyle.buttonTextStyleW,
+                            text: "다음으로"),
+                        SizedBox(
+                          height: 20,
+                        ),
+                      ],
+                    ),
                   ),
-                ),
-              ],
+                ],
+              ),
             ),
           ),
         ),

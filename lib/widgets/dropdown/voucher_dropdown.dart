@@ -23,7 +23,8 @@ class VoucherDropdown extends StatelessWidget {
   TextStyle? selectedTextStyle;
   String? hintText;
   bool icon;
-  AdditionalFeeController additionalFeeController = Get.find();
+  AdditionalFeeController additionalFeeController =
+      Get.put(AdditionalFeeController());
 
   @override
   Widget build(BuildContext context) {
@@ -54,7 +55,7 @@ class VoucherDropdown extends StatelessWidget {
                   voucherController.makeFullVoucherResult();
               voucherController.setVoucherInfo(
                   voucherController.voucherResult.value,
-                  additionalFeeController.totalAdditionalFee!);
+                  additionalFeeController.totalAdditionalFee);
             }
 
             // if (selectedVoucherType.value == 'A' ||

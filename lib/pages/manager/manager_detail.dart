@@ -756,7 +756,7 @@ class ManagerDetailPage extends StatelessWidget {
                                 ? SizedBox()
                                 : InkWell(
                                     onTap: () async {
-                                      int reviewAdded =
+                                      reviewController.reviewCount.value =
                                           await reviewController.getMoreReviews(
                                               reviewController
                                                   .finalReviewModelList!,
@@ -769,9 +769,6 @@ class ManagerDetailPage extends StatelessWidget {
                                               reviewController
                                                   .reviewCount.value!,
                                               3);
-                                      reviewController.reviewCount.value =
-                                          reviewController.reviewCount.value! +
-                                              reviewAdded;
                                     },
                                     child: Container(
                                       alignment: Alignment.center,

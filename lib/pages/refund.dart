@@ -293,7 +293,7 @@ class RefundPage extends StatelessWidget {
                     active: refundController.isButtonValid,
                     buttonColor: IcoColors.primary,
                     textStyle: IcoTextStyle.buttonTextStyleW,
-                    text: '버튼'),
+                    text: '환불 신청하기'),
                 SizedBox(
                   height: 20,
                 )

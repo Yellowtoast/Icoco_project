@@ -5,6 +5,7 @@ import 'package:app/controllers/auth_controller.dart';
 import 'package:app/controllers/login_controller.dart';
 import 'package:app/controllers/signup_controller.dart';
 import 'package:app/helpers/validator.dart';
+import 'package:app/pages/find_password1.dart';
 import 'package:app/widgets/button/button.dart';
 import 'package:app/widgets/appbar.dart';
 import 'package:app/widgets/modal/option_modal.dart';
@@ -100,8 +101,16 @@ class LoginPage extends StatelessWidget {
                             buttonColor: IcoColors.primary,
                             textStyle: IcoTextStyle.buttonTextStyleW,
                             text: "다음으로"),
-                        SizedBox(
-                          height: 20,
+                        TextButton(
+                          onPressed: () {
+                            Get.to(FindPasswordPage1());
+                          },
+                          child: Text.rich(
+                            TextSpan(
+                              text: "메인화면으로 이동",
+                              style: IcoTextStyle.mediumLinedTextStyle14G,
+                            ),
+                          ),
                         ),
                       ],
                     ),

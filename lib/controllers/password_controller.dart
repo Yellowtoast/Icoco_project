@@ -13,14 +13,13 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:get/get.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
-class SignupController extends GetxController {
+class PasswordController extends GetxController {
   // ignore: unused_field
   final FirebaseAuth _auth = FirebaseAuth.instance;
   final FirebaseFirestore db = FirebaseFirestore.instance;
   String regNum = '';
   FCMController fcmController = Get.find();
   Rxn<UserModel> userModel = Rxn<UserModel>();
-  TextEditingController emailController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
   TextEditingController confirmPasswordController = TextEditingController();
   TextEditingController nameController = TextEditingController();
@@ -29,7 +28,6 @@ class SignupController extends GetxController {
   TextEditingController phoneController = TextEditingController();
   TextEditingController authCodeController = TextEditingController();
   Rxn<String> nameErrorText = Rxn<String>();
-  Rxn<String> emailErrorText = Rxn<String>();
   Rxn<String> phoneErrorText = Rxn<String>();
   Rxn<String> authCodeErrorText = Rxn<String>();
   Rxn<String> passwordErrorText = Rxn<String>();
@@ -38,8 +36,6 @@ class SignupController extends GetxController {
   Rxn<String> regNumErrorText = Rxn<String>();
   late String phoneNumber;
   RxInt codeSentTimes = 0.obs;
-  bool eventAlarm = false;
-  bool isDuplicateEmail = false;
   RxBool isButtonValid = false.obs;
   Rxn<bool> isTimeOut = Rxn<bool>();
   Rxn<String> authCode = Rxn<String>();
@@ -52,10 +48,10 @@ class SignupController extends GetxController {
       RxList<TextEditingController>();
   RxBool codeSendButtonValid = false.obs;
   RxBool showTimer = false.obs;
+  String? uid;
+
   @override
   void onReady() async {
-    //run every time auth state changes
-    ever(emailErrorText, validateButton);
     ever(passwordErrorText, validateButton);
     ever(confirmPasswordErrorText, validateButton);
     ever(nameErrorText, validateButton);
@@ -76,96 +72,6 @@ class SignupController extends GetxController {
     birthController.clear();
     genderController.clear();
     super.onClose();
-  }
-
-//auth를 생성하기 전에 중복유저가 있는지 없는지 확인해야 하기 때문에(이메일 하나씩 실시간으로 입력할때마다 확인이 필요함)
-//auth가 아닌 store uid를 통해 검색할 수 밖에 없음
-  checkDuplicateUser() async {
-    if (emailController.value.text.isEmpty) {
-      return;
-    }
-
-    await db
-        .collection('User')
-        .doc(emailController.value.text)
-        .get()
-        .then((DocumentSnapshot documentSnapshot) {
-      print("This is document Snpshot:  $documentSnapshot");
-      print("Is DS exists? $documentSnapshot.exists");
-
-      isDuplicateEmail = documentSnapshot.exists;
-      print("컨트롤러 내 이메일 중복 검사 결과 : $isDuplicateEmail");
-      refresh();
-    });
-  }
-
-  Future<String?> getExistingReservationNumber(
-      String name, String phone, String regNum) async {
-    String? reservationNumber;
-
-    try {
-      var querySnapshot = await db
-          .collection('Reservation')
-          .where('phone', isEqualTo: phone)
-          .get();
-
-      querySnapshot.docs.forEach((doc) {
-        if (doc.data()['name'] == name &&
-            doc.data()['phone'] == phone &&
-            doc.data()[regNum]) {
-          reservationNumber = doc.data()['reservationNumber'];
-        }
-      });
-      return reservationNumber;
-    } catch (e) {
-      print(e);
-    }
-  }
-
-  createNewUserModel() {
-    regNum = birthController.text + genderController.text;
-    UserModel _newUser = UserModel(
-      uid: '',
-      email: emailController.value.text,
-      userName: nameController.value.text,
-      phone: phoneController.value.text,
-      regNum: regNum,
-      eventAlarm: eventAlarm,
-      pushAlarm: true,
-      fcm: fcmController.fcmToken,
-    );
-    userModel.value = _newUser;
-  }
-
-  // User registration using email and password
-  Future<void> registerWithEmailAndPassword(
-      UserModel _newUser, String _password) async {
-    try {
-      await _auth
-          .createUserWithEmailAndPassword(
-              email: _newUser.email, password: _password)
-          .then((result) async {
-        print('uID: ' + result.user!.uid.toString());
-        print('email: ' + result.user!.email.toString());
-
-        //auth에 계정을 생성함과 동시에 authController내에 있는 userModel에 값을 할당한다.
-        userModel.value = _newUser;
-        userModel.value!.uid = result.user!.uid;
-        await createUserFirestore(userModel.value);
-      });
-    } on FirebaseAuthException catch (error) {
-      print(error);
-    }
-  }
-
-  Future<void> createUserFirestore(UserModel? userModel) async {
-    await db.doc('/User/${userModel!.email}').set(userModel.toJson());
-    update();
-  }
-
-  void updateUserFirestore(UserModel? userModel) async {
-    db.doc('/User/${userModel!.email}').set(userModel.toJson());
-    update();
   }
 
 //verify code sent to user
@@ -257,5 +163,29 @@ class SignupController extends GetxController {
     } else {
       isButtonValid.value = false;
     }
+  }
+
+  checkUserFirestore(String name, String phone, String regNum) async {
+    String? uid;
+
+    try {
+      var querySnapshot =
+          await db.collection('User').where('phone', isEqualTo: phone).get();
+
+      querySnapshot.docs.forEach((doc) {
+        if (doc.data()['name'] == name &&
+            doc.data()['phone'] == phone &&
+            doc.data()[regNum]) {
+          uid = doc.data()['uid'];
+        }
+      });
+      return uid;
+    } catch (e) {
+      print(e);
+    }
+  }
+
+  getRegnum() {
+    return birthController.text + genderController.text;
   }
 }

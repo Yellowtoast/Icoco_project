@@ -392,10 +392,14 @@ class InquiryPage extends StatelessWidget {
                       IcoButton(
                           onPressed: () async {
                             inquiryController.createInquiryFirestore(
-                                companyController.companyModel.value!.uid!,
-                                authController.reservationModel.value!.uid,
-                                authController
-                                    .reservationModel.value!.managersId!);
+                              companyController.companyModel.value!.uid!,
+                              authController.reservationModel.value!.uid,
+                              managerController
+                                  .managerModelList[managerNum].value!.uid,
+                              authController.reservationModel.value!.email,
+                              managerController
+                                  .managerModelList[managerNum].value!.name,
+                            );
                             Get.back();
                           },
                           active: (inquiryController.reviewContents.value != '')

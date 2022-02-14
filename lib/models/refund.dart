@@ -32,6 +32,6 @@ class RefundModel {
         "refundBank": refundBank,
         "refundAccountNumber": refundAccountNumber,
         "refundAccountHolder": refundAccountHolder,
-        "serviceRemainingDays": refundAccountNumber,
+        "serviceRemainingDays": serviceRemainingDays,
       };
 }

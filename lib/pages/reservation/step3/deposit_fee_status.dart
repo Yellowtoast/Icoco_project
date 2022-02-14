@@ -163,7 +163,8 @@ class DepositFeeStatus extends StatelessWidget {
                                     Expanded(
                                       flex: 7,
                                       child: Text(
-                                        "${companyController.companyModel.value!.companyName}",
+                                        companyController
+                                            .companyModel.value!.accountNumber,
                                         style:
                                             IcoTextStyle.mediumTextStyle14Grey4,
                                       ),

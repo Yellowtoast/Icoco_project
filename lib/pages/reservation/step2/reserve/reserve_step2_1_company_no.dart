@@ -245,7 +245,24 @@ class ReserveStep2_1_No extends StatelessWidget {
                                         ],
                                       ),
                                       InkWell(
-                                        onTap: () {
+                                        onTap: () async {
+                                          startLoadingIndicator();
+
+                                          reviewController
+                                                  .finalReviewModelList =
+                                              await reviewController
+                                                  .getJsonReviews(
+                                                      companyController
+                                                          .companyModelList[
+                                                              index]
+                                                          .value!
+                                                          .uid!,
+                                                      'company',
+                                                      0,
+                                                      3,
+                                                      '기말');
+                                          finishLoadingIndicator();
+                                          print(index);
                                           Get.to(CompanyDetailPage(),
                                               arguments: index);
                                         },

@@ -35,6 +35,7 @@ class CompanyController extends GetxController {
   Future<CompanyModel?> getCompanyAllDocsFirebase() async {
     List<dynamic> queryDocumentList = [];
     RxList<Rxn<CompanyModel>> allCompanyList = RxList<Rxn<CompanyModel>>();
+    companyModelList.clear();
     try {
       var doc = await db
           .collection('Company')

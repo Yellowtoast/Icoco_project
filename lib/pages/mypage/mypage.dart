@@ -125,10 +125,11 @@ class MyPage extends StatelessWidget {
           ),
           InkWell(
             onTap: () async {
-              if (authController.reservationModel.value == null ||
-                  authController.reservationModel.value!.managersId!.isEmpty ||
-                  authController.reservationModel.value!.finalReviewFinished !=
-                      true) {
+              if (authController.reservationModel.value!.finalReviewFinished ==
+                      false &&
+                  authController
+                          .reservationModel.value!.midtermReviewFinished ==
+                      false) {
                 Get.to(EmptyInfoPage(
                   appbarText: '평가/후기관리',
                   title: '아직 평가나 후기가 없습니다',
@@ -136,22 +137,30 @@ class MyPage extends StatelessWidget {
                 ));
               } else {
                 startLoadingIndicator();
-                mypageController.middleReviewModelList =
-                    await reviewController.getJsonReviews(
-                        authController.reservationModel.value!.uid,
-                        'user',
-                        0,
-                        3,
-                        '중간');
+                if (authController
+                        .reservationModel.value!.finalReviewFinished ==
+                    true) {
+                  mypageController.finalReviewModelList =
+                      await reviewController.getJsonReviews(
+                          authController.reservationModel.value!.uid,
+                          'user',
+                          0,
+                          3,
+                          '기말');
+                }
+                if (authController
+                        .reservationModel.value!.midtermReviewFinished ==
+                    true) {
+                  mypageController.middleReviewModelList =
+                      await reviewController.getJsonReviews(
+                          authController.reservationModel.value!.uid,
+                          'user',
+                          0,
+                          3,
+                          '중간');
+                }
 
-                mypageController.finalReviewModelList =
-                    await reviewController.getJsonReviews(
-                        authController.reservationModel.value!.uid,
-                        'user',
-                        0,
-                        3,
-                        '기말');
-                await finishLoadingIndicator();
+                finishLoadingIndicator();
                 Get.to(MyReviewPage());
               }
             },

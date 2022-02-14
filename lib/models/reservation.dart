@@ -60,6 +60,8 @@ class ReservationModel {
   String? refundAccountNumber;
   String? refundAccountHolder;
   int? serviceRemainingDays;
+  int? completedBalanceCost;
+  bool isFirstDispatchManager;
 
   ReservationModel({
     required this.date,
@@ -112,10 +114,12 @@ class ReservationModel {
     this.notifyDepositCost,
     this.notifyBalanceCost,
     this.openPopup,
-    this.midtermReviewFinished,
-    this.finalReviewFinished,
+    this.midtermReviewFinished = false,
+    this.finalReviewFinished = false,
     this.changeManager,
     this.changeManagerList,
+    this.completedBalanceCost,
+    this.isFirstDispatchManager = true,
   });
 
   factory ReservationModel.fromJson(Map data) {
@@ -174,7 +178,8 @@ class ReservationModel {
       midtermReviewFinished: data['midtermReviewFinished'],
       finalReviewFinished: data['finalReviewFinished'],
       changeManager: data['changeManager'] ?? false,
-      changeManagerList: data['changeManagerList'],
+      changeManagerList: data['changeManagerList'] ?? [],
+      completedBalanceCost: data['completedBalanceCost'] ?? 0,
     );
   }
 
@@ -232,5 +237,7 @@ class ReservationModel {
         "finalReviewFinished": finalReviewFinished,
         "changeManager": changeManager,
         "changeManagerList": changeManagerList,
+        "completedBalanceCost": completedBalanceCost,
+        "isFirstDispatchManager": isFirstDispatchManager,
       };
 }

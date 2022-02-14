@@ -6,6 +6,7 @@ import 'package:app/controllers/auth_controller.dart';
 import 'package:app/controllers/manager_controller.dart';
 
 import 'package:app/controllers/review_controller.dart';
+import 'package:app/pages/loading.dart';
 import 'package:app/widgets/appbar.dart';
 import 'package:app/widgets/button/button.dart';
 import 'package:app/widgets/modal/exit_icon_modal.dart';
@@ -385,23 +386,37 @@ class FinalReviewPage extends StatelessWidget {
                             option2: '저장',
                             iconUrl: 'icons/checked.svg');
                         if (goNext) {
+                          startLoadingIndicator();
                           await reviewController.createFinalReviewModel(
                               managerController
                                   .managerModelList[managerNum].value!);
-                          reviewController.updateFinalReviewFirestore(
+                          await reviewController.updateFinalReviewFirestore(
                             reviewController.reviewModel,
                           );
+                          managerController.applyReviewsToManagerModel(
+                              reviewController
+                                  .reviewModel.value!.specialtyItems!,
+                              reviewController.reviewModel.value!.reviewRate!,
+                              managerNum);
                           managerNum++;
                           Get.toNamed(Routes.FINAL_REVIEW,
                               arguments: managerNum, preventDuplicates: false);
+                          finishLoadingIndicator();
                         }
                       } else {
+                        startLoadingIndicator();
                         await reviewController.createFinalReviewModel(
                             managerController
                                 .managerModelList[managerNum].value!);
-                        reviewController.updateFinalReviewFirestore(
+                        await reviewController.updateFinalReviewFirestore(
                           reviewController.reviewModel,
                         );
+                        managerController.applyReviewsToManagerModel(
+                            reviewController.finalReviewModelList![managerNum]
+                                .value!.specialtyItems!,
+                            reviewController.finalReviewModelList![managerNum]
+                                .value!.reviewRate!,
+                            managerNum);
                         authController
                             .reservationModel.value!.finalReviewFinished = true;
                         await authController.updateReservationFirestore(
@@ -409,6 +424,7 @@ class FinalReviewPage extends StatelessWidget {
                                 .reservationModel.value!.reservationNumber);
 
                         await authController.setModelInfo();
+                        finishLoadingIndicator();
                         Get.offAllNamed(Routes.HOME);
                       }
                     },

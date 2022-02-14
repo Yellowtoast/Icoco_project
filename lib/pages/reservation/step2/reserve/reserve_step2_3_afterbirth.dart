@@ -37,6 +37,7 @@ class ReserveStep2_3_AfterBirth extends StatelessWidget {
           appBar: IcoAppbar(
             title: '예약하기',
             tapFunction: () {
+              authController.setModelInfo();
               Get.back();
             },
           ),

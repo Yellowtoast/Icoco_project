@@ -280,10 +280,12 @@ class SignupStep6Page extends StatelessWidget {
                                       bool getExistingReservation = false;
                                       reservationNumber = await signupController
                                           .getExistingReservationNumber(
-                                        signupController
-                                            .userModel.value!.userName,
-                                        signupController.userModel.value!.phone,
-                                      );
+                                              signupController
+                                                  .userModel.value!.userName,
+                                              signupController
+                                                  .userModel.value!.phone,
+                                              signupController
+                                                  .userModel.value!.regNum);
 
                                       if (reservationNumber != null) {
                                         getExistingReservation =

@@ -5,7 +5,6 @@ class UserModel {
   String phone;
   final String regNum;
   int userStep;
-  String? reservationNumber;
   String fcm;
   bool eventAlarm;
   bool pushAlarm;
@@ -20,7 +19,6 @@ class UserModel {
     required this.eventAlarm,
     this.pushAlarm = true,
     this.userStep = 1,
-    this.reservationNumber,
   });
 
   factory UserModel.fromJson(Map data) {
@@ -31,10 +29,9 @@ class UserModel {
       phone: data['phone'] ?? '',
       regNum: data['regNum'] ?? '',
       userStep: data['userStep'] ?? 1,
-      reservationNumber: data['reservationNumber'] ?? '',
-      fcm: '',
-      eventAlarm: data['eventAlarm'],
-      pushAlarm: data['pushAlarm'],
+      fcm: data['fcm'] ?? '',
+      eventAlarm: data['eventAlarm'] ?? true,
+      pushAlarm: data['pushAlarm'] ?? true,
     );
   }
 
@@ -45,7 +42,6 @@ class UserModel {
         "phone": phone,
         "regNum": regNum,
         "userStep": userStep,
-        "reservationNumber": reservationNumber,
         'fcm': fcm,
         'eventAlarm': eventAlarm,
         'pushAlarm': pushAlarm,

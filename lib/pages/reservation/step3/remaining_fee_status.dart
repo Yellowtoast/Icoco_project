@@ -1,5 +1,6 @@
 import 'package:app/configs/colors.dart';
 import 'package:app/controllers/auth_controller.dart';
+import 'package:app/controllers/company_controller.dart';
 import 'package:app/helpers/formatter.dart';
 import 'package:app/configs/routes.dart';
 import 'package:app/configs/text_styles.dart';
@@ -15,11 +16,10 @@ import 'package:get/get.dart';
 
 class RemainingFeeStatus extends StatelessWidget {
   RemainingFeeStatus({Key? key}) : super(key: key);
-  HomeController homeController = Get.find();
   AuthController authController = Get.find();
+  CompanyController companyController = Get.find();
   @override
   Widget build(BuildContext context) {
-    Rxn<String?> reservationNumber = homeController.reservationNumber;
     return Scaffold(
       backgroundColor: IcoColors.white,
       appBar: IcoAppbar(
@@ -76,7 +76,7 @@ class RemainingFeeStatus extends StatelessWidget {
                           width: 7,
                         ),
                         Text(
-                          "${homeController.reservationModel.value!.chosenCompany} 대구지사",
+                          "${companyController.companyModel.value!.companyName}",
                           style: IcoTextStyle.boldTextStyle18B,
                         ),
                       ],
@@ -109,7 +109,8 @@ class RemainingFeeStatus extends StatelessWidget {
                               Expanded(
                                 flex: 7,
                                 child: Text(
-                                  "대구은행",
+                                  companyController
+                                      .companyModel.value!.bankName,
                                   style: IcoTextStyle.mediumTextStyle14Grey4,
                                 ),
                               )
@@ -133,7 +134,8 @@ class RemainingFeeStatus extends StatelessWidget {
                               Expanded(
                                 flex: 7,
                                 child: Text(
-                                  "${homeController.reservationModel.value!.chosenCompany} 대구지사",
+                                  companyController
+                                      .companyModel.value!.accountHolderName,
                                   style: IcoTextStyle.mediumTextStyle14Grey4,
                                 ),
                               )
@@ -195,7 +197,7 @@ class RemainingFeeStatus extends StatelessWidget {
                           style: IcoTextStyle.mediumTextStyle13Grey4,
                         ),
                         Text(
-                            "${numFormat.format(homeController.reservationModel.value!.depositCost)} 원 입금",
+                            "${numFormat.format(authController.reservationModel.value!.depositCost)} 원 입금",
                             style: IcoTextStyle.lineBoldTextStyle15Grey4),
                       ],
                     ),
@@ -210,7 +212,7 @@ class RemainingFeeStatus extends StatelessWidget {
                           style: IcoTextStyle.boldTextStyle13P,
                         ),
                         Text(
-                          "+ ${numFormat.format(homeController.reservationModel.value!.balanceCost)} 원 미입금",
+                          "+ ${numFormat.format(authController.reservationModel.value!.balanceCost)} 원 미입금",
                           style: IcoTextStyle.boldTextStyle16P,
                         ),
                       ],
@@ -232,7 +234,7 @@ class RemainingFeeStatus extends StatelessWidget {
                           style: IcoTextStyle.mediumTextStyle13Grey4,
                         ),
                         Text(
-                          "${numFormat.format(homeController.reservationModel.value!.userCost)} 원 미입금",
+                          "${numFormat.format(authController.reservationModel.value!.userCost)} 원 미입금",
                           style: IcoTextStyle.mediumTextStyle16Grey4,
                         ),
                       ],
@@ -240,7 +242,7 @@ class RemainingFeeStatus extends StatelessWidget {
                   ],
                 ),
               ),
-              (homeController.reservationModel.value!.extraCost != 0)
+              (authController.reservationModel.value!.extraCost != 0)
                   ? Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
@@ -270,7 +272,7 @@ class RemainingFeeStatus extends StatelessWidget {
                                       style: IcoTextStyle.boldTextStyle13B,
                                     ),
                                     Text(
-                                      "${numFormat.format(homeController.reservationModel.value!.balanceCost)} 원",
+                                      "${numFormat.format(authController.reservationModel.value!.balanceCost)} 원",
                                       style:
                                           IcoTextStyle.mediumTextStyle16Grey4,
                                     )
@@ -284,11 +286,11 @@ class RemainingFeeStatus extends StatelessWidget {
                                     padding: EdgeInsets.all(0),
                                     physics: NeverScrollableScrollPhysics(),
                                     shrinkWrap: true,
-                                    itemCount: homeController.reservationModel
+                                    itemCount: authController.reservationModel
                                         .value!.allAdditionalFamily!.length,
                                     itemBuilder:
                                         (BuildContext context, int index) {
-                                      String key = homeController
+                                      String key = authController
                                           .reservationModel
                                           .value!
                                           .allAdditionalFamily!
@@ -296,7 +298,7 @@ class RemainingFeeStatus extends StatelessWidget {
                                           .elementAt(index);
                                       print(key);
                                       print(index);
-                                      if (homeController.reservationModel.value!
+                                      if (authController.reservationModel.value!
                                               .allAdditionalFamily![key] !=
                                           0) {
                                         return Column(
@@ -319,14 +321,14 @@ class RemainingFeeStatus extends StatelessWidget {
                                                       width: 10,
                                                     ),
                                                     Text(
-                                                      "${homeController.reservationModel.value!.allAdditionalFamily![key]}명",
+                                                      "${authController.reservationModel.value!.allAdditionalFamily![key]}명",
                                                       style: IcoTextStyle
                                                           .mediumTextStyle13P,
                                                     ),
                                                   ],
                                                 ),
                                                 Text(
-                                                  "${numFormat.format(homeController.reservationModel.value!.allAdditionalFamily![key] * addtionalFeeCalc[key])} 원",
+                                                  "${numFormat.format(authController.reservationModel.value!.allAdditionalFamily![key] * addtionalFeeCalc[key])} 원",
                                                   style: IcoTextStyle
                                                       .mediumTextStyle16Grey4,
                                                 )
@@ -364,7 +366,7 @@ class RemainingFeeStatus extends StatelessWidget {
                                       style: IcoTextStyle.boldTextStyle13Grey4,
                                     ),
                                     Text(
-                                      "${numFormat.format(homeController.reservationModel.value!.balanceCost!.toInt() + homeController.reservationModel.value!.extraCost!.toInt())} 원",
+                                      "${numFormat.format(authController.reservationModel.value!.balanceCost!.toInt() + authController.reservationModel.value!.extraCost!.toInt())} 원",
                                       style: IcoTextStyle.boldTextStyle16B,
                                     )
                                   ],

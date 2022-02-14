@@ -299,6 +299,8 @@ class HomeSkeletonPage extends StatelessWidget {
                           onTap: () {
                             authController.reservationModel.value!.isBirth =
                                 true;
+                            authController.reservationModel.value!.status =
+                                '예약출산일확정';
                             Get.toNamed(Routes.RESERVE_STEP2_3_AFTER);
                           },
                           title: '출산 통보하기',

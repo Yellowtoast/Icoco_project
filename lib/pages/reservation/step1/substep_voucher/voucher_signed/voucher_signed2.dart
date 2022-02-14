@@ -25,6 +25,8 @@ class VoucherSignedStep2 extends StatefulWidget {
 class _VoucherSignedStep2State extends State<VoucherSignedStep2> {
   VoucherController voucherController = Get.find();
 
+  AuthController authController = Get.find();
+
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
@@ -134,6 +136,8 @@ class _VoucherSignedStep2State extends State<VoucherSignedStep2> {
                         children: [
                           IcoButton(
                               onPressed: () {
+                                voucherController.updateRegnumToModel(
+                                    authController.reservationModel);
                                 Get.toNamed(Routes.VOUCHER_SIGNED3);
                               },
                               active: voucherController.isButtonValid,
@@ -142,7 +146,8 @@ class _VoucherSignedStep2State extends State<VoucherSignedStep2> {
                               text: "다음으로"),
                           TextButton(
                             onPressed: () async {
-                              AuthController authController = Get.find();
+                              voucherController.updateRegnumToModel(
+                                  authController.reservationModel);
                               await authController.setModelInfo();
                               Get.offAllNamed(Routes.HOME);
                             },

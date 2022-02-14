@@ -91,10 +91,10 @@ class ReviewController extends GetxController {
   createMidtermReviewFirestore(ManagerModel managerModel, String userName) {
     ReviewModel _newReviewModel = ReviewModel(
       userName: authController.reservationModel.value!.userName,
-      userId: authController.reservationModel.value!.uid!,
+      userId: authController.reservationModel.value!.uid,
       contents: reviewContents.value,
       managerId: managerModel.uid,
-      companyId: '',
+      companyId: authController.reservationModel.value!.chosenCompany!,
       specialtyItems: checkedSpecialtiesList.toList(),
       date: DateTime.now(),
       type: '중간',
@@ -117,16 +117,17 @@ class ReviewController extends GetxController {
   Future<void> createFinalReviewModel(ManagerModel managerModel) async {
     ReviewModel _newReviewModel = ReviewModel(
       contents: reviewContents.value,
-      userId: authController.reservationModel.value!.uid!,
+      userId: authController.reservationModel.value!.uid,
       managerId: managerModel.uid,
       thumbnails: [],
       userName: authController.reservationModel.value!.userName,
       specialtyItems: checkedSpecialtiesList.toList(),
-      companyId: '',
+      companyId: authController.reservationModel.value!.chosenCompany!,
       date: DateTime.now(),
       type: '기말',
       reviewRate: reviewRate.value,
     );
+
     reviewModel.value = _newReviewModel;
     reviewType.value = null;
     targetUid.value = null;
@@ -162,16 +163,18 @@ class ReviewController extends GetxController {
 
   getMoreReviews(RxList<Rxn<ReviewModel>> reviewList, String uid,
       String reviewType, String target, int offset, int limitNumber) async {
-    int addedReviewCount;
+    int reviewCount = 0;
     RxList<Rxn<ReviewModel>>? addedReviewList =
-        await getJsonReviews(uid, reviewType, offset, limitNumber, '기말');
-    addedReviewCount = addedReviewList!.length;
-    if (addedReviewList.isNotEmpty) {
+        await getJsonReviews(uid, target, offset, limitNumber, reviewType);
+
+    if (addedReviewList != null) {
       reviewList.value = [...reviewList, ...addedReviewList].toList();
-      reviewList.refresh();
+      reviewCount = reviewList.length;
     }
 
-    return addedReviewCount;
+    reviewList.refresh();
+    reviewListWithPicture.refresh();
+    return reviewCount;
   }
 
   Future<RxList<Rxn<ReviewModel>>?> getJsonReviews(String uid, String target,
@@ -209,25 +212,34 @@ class ReviewController extends GetxController {
         model.value = ReviewModel.fromJson(res);
         modelList.add(model);
       }
-      reviewListWithPicture.value = await extractFirstIndexPictures(modelList);
+
       return modelList;
     } catch (e) {
-      // totalReviews.value = 0;
+      print('리뷰 불러오기 실패, null 배열 리턴');
       return null;
     }
   }
 
-  extractFirstIndexPictures(RxList<Rxn<ReviewModel>> reviewModelList) {
-    RxList<Rxn<ReviewModel>> reviewModelsWithThumbnails =
-        RxList<Rxn<ReviewModel>>();
-    for (var element in reviewModelList) {
-      if (element.value!.thumbnails != null &&
-          element.value!.thumbnails!.isNotEmpty) {
-        reviewModelsWithThumbnails.add(element);
+  extractFirstIndexPictures(
+      int totalReview,
+      String uid,
+      String target,
+      int offset,
+      int limitNumber,
+      String reviewType,
+      RxList<Rxn<ReviewModel>>? reviewListWithPicture) async {
+    var modelList =
+        await getJsonReviews(uid, target, 0, totalReview, reviewType);
+    if (modelList != null && modelList.isNotEmpty) {
+      for (var model in modelList) {
+        if (model.value!.thumbnails != null &&
+            model.value!.thumbnails!.isNotEmpty &&
+            reviewListWithPicture!.length <= 5) {
+          reviewListWithPicture.add(model);
+        }
       }
     }
-
-    return reviewModelsWithThumbnails;
+    reviewListWithPicture!.refresh();
   }
 
   Future<String?> selectFile(

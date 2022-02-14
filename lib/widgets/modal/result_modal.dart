@@ -211,7 +211,7 @@ BottomResultModal() {
                     voucherController.setDropDownList(null);
                     voucherController.setVoucherInfo(
                         voucherController.voucherResult.value,
-                        additionalFeeController.totalAdditionalFee!);
+                        additionalFeeController.totalAdditionalFee);
                     Get.toNamed(Routes.RESERVE_STEP2_7,
                         preventDuplicates: false);
                   }

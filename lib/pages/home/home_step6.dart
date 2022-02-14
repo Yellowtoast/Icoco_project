@@ -142,6 +142,20 @@ class HomeStep6Items extends StatelessWidget {
                                           0,
                                           3,
                                           '기말');
+
+                                  await reviewController
+                                      .extractFirstIndexPictures(
+                                          reviewController.totalReviews.value!,
+                                          managerController
+                                              .managerModelList[index]
+                                              .value!
+                                              .uid,
+                                          'manager',
+                                          0,
+                                          3,
+                                          '기말',
+                                          reviewController
+                                              .reviewListWithPicture);
                                   finishLoadingIndicator();
                                   Get.toNamed(Routes.MANAGER, arguments: index);
                                 },

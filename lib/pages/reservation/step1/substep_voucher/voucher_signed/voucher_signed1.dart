@@ -4,8 +4,6 @@ import 'package:app/configs/size.dart';
 import 'package:app/configs/text_styles.dart';
 import 'package:app/controllers/auth_controller.dart';
 import 'package:app/controllers/reservation/step1/voucher_controller.dart';
-
-import 'package:app/pages/reservation/step1/substep_voucher/voucher_signed/voucher_signed2.dart';
 import 'package:app/widgets/button/button.dart';
 import 'package:app/widgets/cost_info_box.dart';
 import 'package:app/widgets/dropdown/voucher_dropdown.dart';
@@ -19,7 +17,6 @@ class VoucherSignedStep1 extends StatelessWidget {
   VoucherSignedStep1({Key? key}) : super(key: key);
   VoucherController voucherController = Get.find();
   AuthController authController = Get.find();
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(

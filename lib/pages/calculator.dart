@@ -7,6 +7,7 @@ import 'package:app/controllers/home_controller.dart';
 import 'package:app/controllers/reservation/step1/address_controller.dart';
 
 import 'package:app/pages/calculator_result.dart';
+import 'package:app/pages/reservation/step1/substep_address/address1.dart';
 import 'package:app/pages/reservation/step1/substep_address/address2.dart';
 import 'package:app/pages/reservation/step1/substep_voucher/voucher_signed/voucher_signed1.dart';
 import 'package:app/widgets/appbar.dart';
@@ -327,7 +328,8 @@ class CalculatorPage extends StatelessWidget {
                       onPressed: () async {
                         var addressModel = await Get.to(AddressPage2(),
                             preventDuplicates: false);
-                        addressController.trimAddressDataModel(addressModel);
+                        await addressController
+                            .trimAddressDataModel(addressModel);
                       },
                       active: true.obs,
                       buttonColor: (addressController.address.value == null)

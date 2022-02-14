@@ -56,13 +56,14 @@ class VoucherController extends GetxController {
     super.onReady();
   }
 
-  setVoucherInfo(String? _voucher, int additionalFee) async {
+  setVoucherInfo(String? _voucher, int additionalFee) {
     if (_voucher == null || _voucher == '') {
       print('no voucher info');
       return;
     } else {
-      await splitVoucherResult(_voucher);
-      await setDropDownList(null);
+      voucherResult.value = _voucher;
+      splitVoucherResult(_voucher);
+      setDropDownList(null);
       getVoucherCostInfo(_voucher, additionalFee);
     }
   }

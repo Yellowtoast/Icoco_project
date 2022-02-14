@@ -39,23 +39,28 @@ class ManagerController extends GetxController {
           managerModelList.add(model);
           managerModelList.refresh();
         }
-
-        // var doc = await db
-        //     .collection('Manager')
-        //     .where('reservationNumber', isEqualTo: reservationNumber)
-        //     .get();
-        // doc.docs.forEach((element) {
-        //   queryDocumentList.add(element);
-        // });
-        // queryDocumentList.forEach((element) {
-        //   Rxn<ManagerModel> model = Rxn<ManagerModel>();
-        //   model.value = ManagerModel.fromJson(element.data());
-        //   managerModelList.add(model);
-        // });
-        // managerModelList.refresh();
       }
     } catch (e) {
       print(e);
     }
+  }
+
+  applyReviewsToManagerModel(
+      List<dynamic> specialites, int reviewRate, int managerNum) {
+    int currentTotalRate = managerModelList[managerNum].value!.totalReviewRate!;
+    managerModelList[managerNum].value!.totalReviewRate !=
+        reviewRate + currentTotalRate;
+    if (specialites.isNotEmpty) {
+      specialites.forEach((element) {
+        managerModelList[managerNum].value!.specialtyItems!['${element}']++;
+      });
+    }
+
+    updateManagerFirestore(managerModelList[managerNum].value);
+  }
+
+  void updateManagerFirestore(ManagerModel? manager) {
+    db.doc('/Manager/${manager!.uid}').update(manager.toJson());
+    update();
   }
 }

@@ -354,7 +354,7 @@ class ReserveStep2_5 extends StatelessWidget {
                     IcoButton(
                         onPressed: () {
                           additionalFeeController.setExtraChargeOptions();
-                          Get.to(BottomResultModal());
+                          BottomResultModal();
                         },
                         active: additionalFeeController.isButtonValid,
                         textStyle: IcoTextStyle.buttonTextStyleW,

@@ -16,13 +16,13 @@ import 'package:get/get.dart';
 
 class CalculatorResultPage extends StatelessWidget {
   CalculatorResultPage({Key? key}) : super(key: key);
-  // var voucherMap = Get.arguments();
-  // late String voucher = voucherMap['voucher'];
-  var voucher = Get.arguments;
-  VoucherController voucherController = Get.put(VoucherController());
+
+  VoucherController voucherController = Get.find();
   AuthController authController = Get.find();
+
   @override
   Widget build(BuildContext context) {
+    var voucher = Get.arguments;
     voucherController.setVoucherInfo(voucher, 0);
     return Scaffold(
         backgroundColor: IcoColors.white,

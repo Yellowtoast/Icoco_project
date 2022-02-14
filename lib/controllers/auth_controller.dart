@@ -53,7 +53,6 @@ class AuthController extends GetxController {
   }
 
   handleAuthChanged(_firebaseAuthUser) async {
-    signOut();
     startLoadingIndicator();
     if (_firebaseAuthUser != null &&
         (reservationModel.value != null || userModel.value != null)) {

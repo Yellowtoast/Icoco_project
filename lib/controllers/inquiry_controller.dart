@@ -22,14 +22,24 @@ class InquiryController extends GetxController {
   final FirebaseFirestore db = FirebaseFirestore.instance;
   Rx<String> reviewContents = ''.obs;
 
-  createInquiryFirestore(
-      String companyId, String userId, List<dynamic> managersId) {
+  @override
+  void onClose() {
+    contentsTextController.clear();
+    reviewContents.close();
+    super.onClose();
+  }
+
+  createInquiryFirestore(String companyId, String userId, String managerId,
+      String userEmail, String managerName) {
     InquiryModel _newInquiryModel = InquiryModel(
-        companyId: companyId,
-        contents: reviewContents.value,
-        date: DateTime.now(),
-        managersId: managersId,
-        userId: userId);
+      companyId: companyId,
+      contents: reviewContents.value,
+      date: DateTime.now(),
+      managerId: managerId,
+      userId: userId,
+      userEmail: userEmail,
+      managerName: managerName,
+    );
 
     db.collection('Question').add(_newInquiryModel.toJson());
     update();
