@@ -106,13 +106,17 @@ class SignupController extends GetxController {
     try {
       var querySnapshot = await db
           .collection('Reservation')
-          .where('phone', isEqualTo: phone)
+          .where(
+            'phone',
+            isEqualTo: phone,
+          )
           .get();
 
       querySnapshot.docs.forEach((doc) {
         if (doc.data()['name'] == name &&
             doc.data()['phone'] == phone &&
-            doc.data()[regNum]) {
+            doc.data()['regNum'] == regNum &&
+            doc.data()['reservationRoute'] == '전화') {
           reservationNumber = doc.data()['reservationNumber'];
         }
       });

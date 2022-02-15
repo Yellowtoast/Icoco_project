@@ -110,8 +110,10 @@ class SignupStep2Page extends StatelessWidget {
                                 myTextController:
                                     signupController.passwordController,
                                 onChanged: (value) async {
-                                  validatePassword(value,
-                                      signupController.passwordErrorText);
+                                  validatePassword(
+                                      value,
+                                      signupController.passwordErrorText,
+                                      false.obs);
                                 },
                               ),
                               IcoTextFormField(
@@ -128,8 +130,8 @@ class SignupStep2Page extends StatelessWidget {
                                       signupController
                                           .passwordController.value.text,
                                       value,
-                                      signupController
-                                          .confirmPasswordErrorText);
+                                      signupController.confirmPasswordErrorText,
+                                      false.obs);
                                 },
                               ),
                             ],

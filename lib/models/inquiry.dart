@@ -6,6 +6,7 @@ class InquiryModel {
   final DateTime date;
   final String userEmail;
   final String managerName;
+  final bool isAnswered;
   InquiryModel({
     required this.managerId,
     required this.companyId,
@@ -14,6 +15,7 @@ class InquiryModel {
     required this.date,
     required this.userEmail,
     required this.managerName,
+    this.isAnswered = false,
   });
 
   factory InquiryModel.fromJson(Map data) {
@@ -36,5 +38,6 @@ class InquiryModel {
         "userEmail": userEmail,
         "contents": contents,
         "date": date.millisecondsSinceEpoch,
+        "isAnswered": isAnswered,
       };
 }

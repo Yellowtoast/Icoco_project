@@ -75,17 +75,21 @@ class ReviewController extends GetxController {
     // ever(managerNum, setPreviousReview);
   }
 
-  setPreviousReview(dynamic modelList, int _managerNum) {
+  setPreviousReview(
+      RxList<Rxn<ReviewModel>> modelList, int _managerNum, String reviewType) {
     checkedSpecialtiesList.clear();
     itemSelectStatus.fillRange(0, 6, false.obs);
-    for (var element in modelList![_managerNum].value!.specialtyItems!) {
+    for (var element in modelList[_managerNum].value!.specialtyItems!) {
       checkedSpecialtiesList.add(element);
       itemSelectStatus[specialtyTitle.indexOf(element)] = true.obs;
       checkedSpecialtiesList.refresh();
     }
 
-    contentsTextController.text = modelList![_managerNum].value!.contents;
-    reviewContents.value = modelList![_managerNum].value!.contents;
+    contentsTextController.text = modelList[_managerNum].value!.contents;
+    reviewContents.value = modelList[_managerNum].value!.contents;
+    if (reviewType == '기말') {
+      reviewRate.value = modelList[_managerNum].value!.reviewRate;
+    }
   }
 
   createMidtermReviewFirestore(ManagerModel managerModel, String userName) {
@@ -145,7 +149,6 @@ class ReviewController extends GetxController {
     List<String>? imagesURL = await uploadFileStorage(totalFileList);
     review.value!.thumbnails = imagesURL;
     db.collection('Review').add(review.toJson());
-    reviewModel.value = null;
     storageRefList.clear();
     fileNameList.clear();
     totalFileList.clear();
@@ -195,8 +198,8 @@ class ReviewController extends GetxController {
     };
 
     try {
-      var uri = Uri.http(
-          'icoco2022-erpweb.vercel.app', '/api/getReviews', queryParameters);
+      var uri =
+          Uri.http('172.30.1.22:3000', '/api/getReviews', queryParameters);
 
       var response = await http.get(
         uri,

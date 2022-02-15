@@ -198,7 +198,7 @@ class ReserveStep2_1_No extends StatelessWidget {
                                                                       .totalReviewRate ==
                                                                   0)
                                                               ? "0"
-                                                              : "${(companyController.companyModelList[index].value!.totalReviewRate! ~/ companyController.companyModelList[index].value!.totalReview!).toDouble()}",
+                                                              : "${(companyController.companyModelList[index].value!.totalReviewRate ~/ companyController.companyModelList[index].value!.totalReview).toDouble()}",
                                                           style: IcoTextStyle
                                                               .regularTextStyle12B,
                                                         ),
@@ -231,7 +231,7 @@ class ReserveStep2_1_No extends StatelessWidget {
                                                               .center,
                                                       children: [
                                                         Text(
-                                                          "리뷰 ${companyController.companyModelList[index].value!.totalReview!}+",
+                                                          "리뷰 ${companyController.companyModelList[index].value!.totalReview}+",
                                                           style: IcoTextStyle
                                                               .regularTextStyle12Grey4,
                                                         ),

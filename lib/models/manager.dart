@@ -4,8 +4,8 @@ class ManagerModel {
   final String company;
   final List<dynamic> dispatchableArea;
   final String? birthDate;
-  int? totalReview;
-  int? totalReviewRate;
+  int totalReview;
+  int totalReviewRate;
   String? status;
   String? careerStartedDate;
   String? isCar;
@@ -26,8 +26,8 @@ class ManagerModel {
     required this.company,
     required this.dispatchableArea,
     required this.birthDate,
-    this.totalReviewRate,
-    this.totalReview,
+    this.totalReviewRate = 0,
+    this.totalReview = 0,
     this.status,
     this.careerStartedDate,
     this.isCar,

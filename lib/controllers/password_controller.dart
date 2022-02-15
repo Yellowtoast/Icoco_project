@@ -49,9 +49,11 @@ class PasswordController extends GetxController {
   RxBool codeSendButtonValid = false.obs;
   RxBool showTimer = false.obs;
   String? uid;
+  RxList<dynamic> stepList = [false.obs, false.obs].obs;
 
   @override
-  void onReady() async {
+  void onReady() {
+    ever(stepList, validateButton2);
     ever(passwordErrorText, validateButton);
     ever(confirmPasswordErrorText, validateButton);
     ever(nameErrorText, validateButton);
@@ -93,20 +95,20 @@ class PasswordController extends GetxController {
     try {
       await getNewCodeNum();
       print(authCode);
-      late String to = phoneNumber;
-      late String text = '아이코코 인증번호 $authCode을 입력해주세요.';
-      final jwt = JWT(
-        {"to": to, "text": text},
-      );
-      var token = jwt.sign(SecretKey(JWT_KEY));
-      codeSentTimes++;
-      var res = await http.get(
-        Uri.parse(
-          'https://icoco2022-erpweb.vercel.app/api/sendMessage',
-        ),
-        headers: {'x-access-token': token},
-      );
-      print(res.statusCode);
+      // late String to = phoneNumber;
+      // late String text = '아이코코 인증번호 $authCode을 입력해주세요.';
+      // final jwt = JWT(
+      //   {"to": to, "text": text},
+      // );
+      // var token = jwt.sign(SecretKey(JWT_KEY));
+      // codeSentTimes++;
+      // var res = await http.get(
+      //   Uri.parse(
+      //     'https://icoco2022-erpweb.vercel.app/api/sendMessage',
+      //   ),
+      //   headers: {'x-access-token': token},
+      // );
+      // print(res.statusCode);
 
       return;
     } catch (e) {
@@ -165,6 +167,14 @@ class PasswordController extends GetxController {
     }
   }
 
+  validateButton2(_list) {
+    if (_list.contains(false.obs)) {
+      isButtonValid.value = false;
+    } else {
+      isButtonValid.value = true;
+    }
+  }
+
   checkUserFirestore(String name, String phone, String regNum) async {
     String? uid;
 
@@ -172,10 +182,10 @@ class PasswordController extends GetxController {
       var querySnapshot =
           await db.collection('User').where('phone', isEqualTo: phone).get();
 
-      querySnapshot.docs.forEach((doc) {
+      querySnapshot.docs.forEach((doc) async {
         if (doc.data()['name'] == name &&
             doc.data()['phone'] == phone &&
-            doc.data()[regNum]) {
+            doc.data()['regNum'] == regNum) {
           uid = doc.data()['uid'];
         }
       });
@@ -183,6 +193,27 @@ class PasswordController extends GetxController {
     } catch (e) {
       print(e);
     }
+  }
+
+  changePassword(String _uid, String _newPassword) async {
+    // reviewModelList.clear();
+    var queryParameters = {
+      "uid": _uid,
+      "password": _newPassword,
+    };
+
+    final jwt = JWT(
+      queryParameters,
+    );
+    var token = jwt.sign(SecretKey(JWT_KEY));
+    var res = await http.put(
+      Uri.parse(
+        // 'https://icoco2022-erpweb.vercel.app/api/updatePassword',
+        'http://172.30.1.22:3000/api/updatePassword',
+      ),
+      headers: {'x-access-token': token},
+    );
+    print(res.statusCode);
   }
 
   getRegnum() {

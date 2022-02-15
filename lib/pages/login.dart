@@ -6,6 +6,7 @@ import 'package:app/controllers/login_controller.dart';
 import 'package:app/controllers/signup_controller.dart';
 import 'package:app/helpers/validator.dart';
 import 'package:app/pages/find_password1.dart';
+import 'package:app/pages/loading.dart';
 import 'package:app/widgets/button/button.dart';
 import 'package:app/widgets/appbar.dart';
 import 'package:app/widgets/modal/option_modal.dart';
@@ -81,8 +82,8 @@ class LoginPage extends StatelessWidget {
                         errorText: loginController.passwordErrorText,
                         myTextController: loginController.passwordController,
                         onChanged: (value) {
-                          validatePassword(
-                              value, loginController.passwordErrorText);
+                          validatePassword(value,
+                              loginController.passwordErrorText, false.obs);
                         },
                       ),
                     ],
@@ -95,7 +96,9 @@ class LoginPage extends StatelessWidget {
                       children: [
                         IcoButton(
                             onPressed: () async {
+                              startLoadingIndicator();
                               await loginController.login();
+                              finishLoadingIndicator();
                             },
                             active: loginController.isButtonValid,
                             buttonColor: IcoColors.primary,
@@ -107,7 +110,7 @@ class LoginPage extends StatelessWidget {
                           },
                           child: Text.rich(
                             TextSpan(
-                              text: "메인화면으로 이동",
+                              text: "비밀번호 찾기",
                               style: IcoTextStyle.mediumLinedTextStyle14G,
                             ),
                           ),

@@ -78,11 +78,11 @@ class HomeStep9Items extends StatelessWidget {
                                   initialRating: (managerController
                                               .managerModelList[index]
                                               .value!
-                                              .totalReviewRate! ~/
+                                              .totalReviewRate ~/
                                           managerController
                                               .managerModelList[index]
                                               .value!
-                                              .totalReview!)
+                                              .totalReview)
                                       .toDouble(),
                                   direction: Axis.horizontal,
                                   allowHalfRating: false,

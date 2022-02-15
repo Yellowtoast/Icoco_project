@@ -7,8 +7,8 @@ class CompanyModel {
   final String accountNumber;
   final String accountHolderName;
 
-  int? totalReviewRate;
-  int? totalReview;
+  int totalReviewRate;
+  int totalReview;
   String? homepage;
   String? blog;
   String? momcafe;
@@ -22,8 +22,8 @@ class CompanyModel {
     required this.bankName,
     required this.accountNumber,
     required this.accountHolderName,
-    this.totalReviewRate,
-    this.totalReview,
+    this.totalReviewRate = 0,
+    this.totalReview = 0,
     this.homepage,
     this.blog,
     this.momcafe,

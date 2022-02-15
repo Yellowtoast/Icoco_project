@@ -137,29 +137,20 @@ class MyPage extends StatelessWidget {
                 ));
               } else {
                 startLoadingIndicator();
-                if (authController
-                        .reservationModel.value!.finalReviewFinished ==
-                    true) {
-                  mypageController.finalReviewModelList =
-                      await reviewController.getJsonReviews(
-                          authController.reservationModel.value!.uid,
-                          'user',
-                          0,
-                          3,
-                          '기말');
-                }
-                if (authController
-                        .reservationModel.value!.midtermReviewFinished ==
-                    true) {
-                  mypageController.middleReviewModelList =
-                      await reviewController.getJsonReviews(
-                          authController.reservationModel.value!.uid,
-                          'user',
-                          0,
-                          3,
-                          '중간');
-                }
-
+                mypageController.middleReviewModelList =
+                    await reviewController.getJsonReviews(
+                        authController.reservationModel.value!.uid,
+                        'user',
+                        0,
+                        3,
+                        '중간');
+                mypageController.finalReviewModelList =
+                    await reviewController.getJsonReviews(
+                        authController.reservationModel.value!.uid,
+                        'user',
+                        0,
+                        3,
+                        '기말');
                 finishLoadingIndicator();
                 Get.to(MyReviewPage());
               }

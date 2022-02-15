@@ -41,7 +41,7 @@ class MyReviewPage extends StatelessWidget {
               children: [
                 Container(
                   width: IcoSize.width,
-                  height: managerController.managerModelList.length * 170,
+                  height: managerController.managerModelList.length * 200,
                   color: IcoColors.white,
                   padding: EdgeInsets.symmetric(horizontal: 20),
                   child: Column(
@@ -121,12 +121,12 @@ class MyReviewPage extends StatelessWidget {
                                                           .managerModelList[
                                                               index]
                                                           .value!
-                                                          .totalReviewRate! ~/
+                                                          .totalReviewRate ~/
                                                       managerController
                                                           .managerModelList[
                                                               index]
                                                           .value!
-                                                          .totalReview!)
+                                                          .totalReview)
                                                   .toDouble(),
                                               direction: Axis.horizontal,
                                               allowHalfRating: false,
@@ -214,8 +214,10 @@ class MyReviewPage extends StatelessWidget {
                     });
                   },
                   title: '중간평가',
-                  date: dateFormatWithDot.format(
-                      mypageController.middleReviewModelList![0].value!.date),
+                  date: (mypageController.middleReviewModelList!.isNotEmpty)
+                      ? dateFormatWithDot.format(mypageController
+                          .middleReviewModelList![0].value!.date)
+                      : '아직 작성 전입니다.',
                   titleTextStyle: IcoTextStyle.boldTextStyle16B,
                   dateTextStyle: IcoTextStyle.regularTextStyle13B,
                 ),
@@ -226,13 +228,20 @@ class MyReviewPage extends StatelessWidget {
                   iconUrl: 'icons/speech_bubble.svg',
                   leadingIconColor: IcoColors.primary,
                   onTap: () {
-                    Get.toNamed(Routes.FINAL_REVIEW, arguments: 0);
+                    if (mypageController.finalReviewModelList!.isNotEmpty) {
+                      Get.toNamed(Routes.FINAL_REVIEW, arguments: 0);
+                    }
                   },
                   title: '기말평가',
-                  date: dateFormatWithDot.format(
-                      mypageController.finalReviewModelList![0].value!.date),
+                  date: (mypageController.finalReviewModelList!.isNotEmpty)
+                      ? dateFormatWithDot.format(
+                          mypageController.finalReviewModelList![0].value!.date)
+                      : '작성 전',
                   titleTextStyle: IcoTextStyle.boldTextStyle16B,
-                  dateTextStyle: IcoTextStyle.regularTextStyle13B,
+                  dateTextStyle:
+                      (mypageController.finalReviewModelList!.isNotEmpty)
+                          ? IcoTextStyle.regularTextStyle13B
+                          : IcoTextStyle.regularTextStyle13Grey4,
                 ),
               ],
             ),

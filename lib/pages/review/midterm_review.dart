@@ -24,23 +24,17 @@ class MidtermReviewPage extends StatelessWidget {
   Widget build(BuildContext context) {
     int managerNum = Get.arguments['managerNum'];
     var previousReviewModelList = Get.arguments['reviewModelList'];
+    Future _setPreviousReview() async {
+      await Future.delayed(const Duration(milliseconds: 100));
+      await reviewController.setPreviousReview(
+          previousReviewModelList, managerNum, '중간');
+    }
 
-    if (authController.reservationModel.value!.midtermReviewFinished!) {
-      Future _setPreviousReview() async {
-        await Future.delayed(const Duration(milliseconds: 100));
-        await reviewController.setPreviousReview(
-            previousReviewModelList, managerNum);
-      }
-
-      if (previousReviewModelList != null) {
-        if (managerNum == 1) {
-          _setPreviousReview();
-        } else {
-          reviewController.setPreviousReview(
-              previousReviewModelList, managerNum);
-        }
-      }
-      reviewController.setPreviousReview(previousReviewModelList, managerNum);
+    if (managerNum == 1) {
+      _setPreviousReview();
+    } else {
+      reviewController.setPreviousReview(
+          previousReviewModelList, managerNum, '중간');
     }
 
     return GestureDetector(

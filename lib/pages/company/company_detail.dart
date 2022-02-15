@@ -140,7 +140,7 @@ class CompanyDetailPage extends StatelessWidget {
                                                               .totalReviewRate ==
                                                           0)
                                                       ? "0"
-                                                      : "${(companyController.companyModelList[companyNum].value!.totalReviewRate! ~/ companyController.companyModelList[companyNum].value!.totalReview!).toDouble()}",
+                                                      : "${(companyController.companyModelList[companyNum].value!.totalReviewRate ~/ companyController.companyModelList[companyNum].value!.totalReview).toDouble()}",
                                                   style: IcoTextStyle
                                                       .regularTextStyle12B,
                                                 ),
@@ -169,7 +169,7 @@ class CompanyDetailPage extends StatelessWidget {
                                                   MainAxisAlignment.center,
                                               children: [
                                                 Text(
-                                                  "리뷰 ${companyController.companyModelList[companyNum].value!.totalReview!}+",
+                                                  "리뷰 ${companyController.companyModelList[companyNum].value!.totalReview}+",
                                                   style: IcoTextStyle
                                                       .regularTextStyle12Grey4,
                                                 ),

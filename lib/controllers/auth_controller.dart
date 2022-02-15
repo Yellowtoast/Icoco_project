@@ -1,5 +1,4 @@
 import 'dart:convert';
-
 import 'package:app/configs/purplebook.dart';
 import 'package:app/helpers/database.dart';
 import 'package:app/configs/routes.dart';
@@ -11,7 +10,6 @@ import 'package:dart_jsonwebtoken/dart_jsonwebtoken.dart';
 import 'package:flutter/foundation.dart';
 import 'package:hive/hive.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'dart:async';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:get/get.dart';
@@ -33,7 +31,6 @@ class AuthController extends GetxController {
   bool isMarketingAllowed = false;
   late Rxn<dynamic> homeModel;
   Rx<bool> openPopup = false.obs;
-
   Future<User> get getUser async => _auth.currentUser!;
   Stream<User?> get user => _auth.authStateChanges();
 
@@ -136,17 +133,28 @@ class AuthController extends GetxController {
       String reservationNumber, String userUid) async {
     ReservationModel? _previousModel;
 
-    try {
-      if (reservationNumber != "") {
-        var doc = await db.doc('/Reservation/$reservationNumber').get();
+    var querySnapshot = await db
+        .collection('Reservation')
+        .where('uid', isEqualTo: userUid)
+        .get();
 
-        _previousModel = ReservationModel.fromJson(doc.data()!);
-        _previousModel.uid = userUid;
-        db.doc('/Reservation/$reservationNumber').set(_previousModel.toJson());
+    querySnapshot.docs.forEach((doc) async {
+      if (doc.data()['uid'] == userUid && doc.data()['status'] != '서비스종료') {
+        _previousModel = ReservationModel.fromJson(doc.data());
+        _previousModel!.uid = userUid;
+        await db
+            .doc('/Reservation/$reservationNumber')
+            .set(_previousModel!.toJson());
+
+        db
+            .collection('Reservation')
+            .doc('/Reservation/$reservationNumber')
+            .update({
+          'uid': userUid,
+          'reservationRoute': '전화',
+        });
       }
-    } catch (e) {
-      return null;
-    }
+    });
   }
 
   //Method to handle user sign in using email and password
@@ -240,7 +248,7 @@ class AuthController extends GetxController {
       phone: userModel.phone,
       fullRegNum: '',
       uid: userModel.uid,
-      userStep: userModel.userStep,
+      userStep: 2,
       date: DateTime.now().millisecondsSinceEpoch,
       reservationNumber: reservationNumber.value!,
       reservationRoute: '앱',
@@ -255,8 +263,8 @@ class AuthController extends GetxController {
     update();
   }
 
-  setUserStep(int currentStep) {
-    reservationModel.value!.userStep = currentStep;
+  setUserStep(int stepToSet) {
+    reservationModel.value!.userStep = stepToSet;
   }
 
   updateReservationFirestore(String reservationNumber) async {

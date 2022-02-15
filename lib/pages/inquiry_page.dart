@@ -109,12 +109,12 @@ class InquiryPage extends StatelessWidget {
                                                     .managerModelList[
                                                         managerNum]
                                                     .value!
-                                                    .totalReviewRate! ~/
+                                                    .totalReviewRate ~/
                                                 managerController
                                                     .managerModelList[
                                                         managerNum]
                                                     .value!
-                                                    .totalReview!)
+                                                    .totalReview)
                                             .toDouble(),
                                         direction: Axis.horizontal,
                                         allowHalfRating: false,

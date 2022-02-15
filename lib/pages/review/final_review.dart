@@ -377,33 +377,16 @@ class FinalReviewPage extends StatelessWidget {
                 IcoButton(
                     width: IcoSize.width - 40,
                     onPressed: () async {
-                      if (managerNum !=
-                          managerController.managerModelList.length - 1) {
-                        bool goNext = await IcoOptionModal(
-                            title: '해당 관리자 평가를\n저장하시겠습니까?',
-                            subtitle: '평가를 저장한 후에는 수정할 수 없습니다.',
-                            option1: '취소',
-                            option2: '저장',
-                            iconUrl: 'icons/checked.svg');
-                        if (goNext) {
-                          startLoadingIndicator();
-                          await reviewController.createFinalReviewModel(
-                              managerController
-                                  .managerModelList[managerNum].value!);
-                          await reviewController.updateFinalReviewFirestore(
-                            reviewController.reviewModel,
-                          );
-                          managerController.applyReviewsToManagerModel(
-                              reviewController
-                                  .reviewModel.value!.specialtyItems!,
-                              reviewController.reviewModel.value!.reviewRate!,
-                              managerNum);
-                          managerNum++;
-                          Get.toNamed(Routes.FINAL_REVIEW,
-                              arguments: managerNum, preventDuplicates: false);
-                          finishLoadingIndicator();
-                        }
-                      } else {
+                      bool goNext = true;
+
+                      goNext = await IcoOptionModal(
+                          title: '해당 관리자 평가를\n저장하시겠습니까?',
+                          subtitle: '평가를 저장한 후에는 수정할 수 없습니다.',
+                          option1: '취소',
+                          option2: '저장',
+                          iconUrl: 'icons/checked.svg');
+
+                      if (goNext) {
                         startLoadingIndicator();
                         await reviewController.createFinalReviewModel(
                             managerController
@@ -411,20 +394,26 @@ class FinalReviewPage extends StatelessWidget {
                         await reviewController.updateFinalReviewFirestore(
                           reviewController.reviewModel,
                         );
-                        managerController.applyReviewsToManagerModel(
-                            reviewController.finalReviewModelList![managerNum]
-                                .value!.specialtyItems!,
-                            reviewController.finalReviewModelList![managerNum]
-                                .value!.reviewRate!,
+                        await managerController.applyReviewsToManagerModel(
+                            reviewController.reviewModel.value!.specialtyItems!,
+                            reviewController.reviewModel.value!.reviewRate!,
                             managerNum);
+                      }
+                      if (managerNum !=
+                          managerController.managerModelList.length - 1) {
+                        managerNum++;
+                        Get.toNamed(Routes.FINAL_REVIEW,
+                            arguments: managerNum, preventDuplicates: false);
+                        finishLoadingIndicator();
+                      } else {
                         authController
                             .reservationModel.value!.finalReviewFinished = true;
+
+                        authController.setUserStep(9);
                         await authController.updateReservationFirestore(
                             authController
                                 .reservationModel.value!.reservationNumber);
-
                         await authController.setModelInfo();
-                        finishLoadingIndicator();
                         Get.offAllNamed(Routes.HOME);
                       }
                     },

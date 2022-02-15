@@ -23,23 +23,30 @@ validateEmail(
   }
 }
 
-validatePassword(String password, Rxn<String> passwordErrorText) {
+validatePassword(
+    String password, Rxn<String> passwordErrorText, RxBool stepCheck) {
   if (password.isEmpty) {
+    stepCheck.value = false;
     passwordErrorText.value = null;
   } else if (!passwordRegExp.hasMatch(password)) {
+    stepCheck.value = false;
     passwordErrorText.value = '8/12자 / 영문숫자조합';
   } else {
+    stepCheck.value = true;
     passwordErrorText.value = null;
   }
 }
 
 validateConfirmPassword(String confirmPassword, String password,
-    Rxn<String> confirmPasswordErrorText) {
+    Rxn<String> confirmPasswordErrorText, RxBool stepCheck) {
   if (confirmPassword.isEmpty) {
+    stepCheck.value = false;
     confirmPasswordErrorText.value = null;
   } else if (password != confirmPassword) {
+    stepCheck.value = false;
     confirmPasswordErrorText.value = '비밀번호가 다릅니다';
   } else {
+    stepCheck.value = true;
     confirmPasswordErrorText.value = null;
   }
 }

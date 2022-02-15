@@ -349,8 +349,10 @@ class HomeSkeletonPage extends StatelessWidget {
                                   ? NotifyBirthButton(
                                       iconUrl: 'icons/register_paper2.svg',
                                       onTap: () {
-                                        Get.toNamed(Routes.FINAL_REVIEW,
-                                            arguments: 0);
+                                        authController
+                                            .createReservationFirestore(
+                                                authController
+                                                    .userModel.value!);
                                       },
                                       title: '서비스 신규신청하기',
                                       subtitle: '새로운 서비스 신청을 진행하시겠습니까?',

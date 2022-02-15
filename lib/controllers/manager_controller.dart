@@ -46,13 +46,13 @@ class ManagerController extends GetxController {
   }
 
   applyReviewsToManagerModel(
-      List<dynamic> specialites, int reviewRate, int managerNum) {
-    int currentTotalRate = managerModelList[managerNum].value!.totalReviewRate!;
-    managerModelList[managerNum].value!.totalReviewRate !=
-        reviewRate + currentTotalRate;
+      List<dynamic> specialites, int reviewRate, int managerNum) async {
+    int currentTotalRate = managerModelList[managerNum].value!.totalReviewRate;
+    managerModelList[managerNum].value!.totalReviewRate += reviewRate;
+    managerModelList[managerNum].value!.totalReview++;
     if (specialites.isNotEmpty) {
-      specialites.forEach((element) {
-        managerModelList[managerNum].value!.specialtyItems!['${element}']++;
+      specialites.forEach((specialty) {
+        managerModelList[managerNum].value!.specialtyItems![specialty]++;
       });
     }
 

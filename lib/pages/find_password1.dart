@@ -224,14 +224,21 @@ class FindPasswordPage1 extends StatelessWidget {
                       mainAxisAlignment: MainAxisAlignment.end,
                       children: [
                         IcoButton(
-                            onPressed: () {
+                            onPressed: () async {
                               passwordController.uid =
-                                  passwordController.checkUserFirestore(
+                                  await passwordController.checkUserFirestore(
                                       passwordController.nameController.text,
                                       passwordController.phoneController.text,
                                       passwordController.getRegnum());
 
-                              Get.to(FindPasswordPage2());
+                              print(passwordController.uid);
+
+                              if (passwordController.uid == null) {
+                                passwordController.phoneErrorText.value =
+                                    '정보가 일치하는 회원이 없습니다.';
+                              } else {
+                                Get.to(FindPasswordPage2());
+                              }
                             },
                             active: passwordController.isButtonValid,
                             buttonColor: IcoColors.primary,

@@ -94,11 +94,9 @@ class CalculatorPage extends StatelessWidget {
                             onChanged: (value) {
                               calculatorController.familyNumber =
                                   int.tryParse(value);
-
                               (value == '')
                                   ? calculatorController.stepList[0] = false.obs
                                   : calculatorController.stepList[0] = true.obs;
-
                               // calculatorController.stepList.refresh();
                             },
                             keyboardType: TextInputType.number,
