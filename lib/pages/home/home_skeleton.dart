@@ -10,6 +10,7 @@ import 'package:app/controllers/reservation/step1/voucher_controller.dart';
 import 'package:app/controllers/review_controller.dart';
 
 import 'package:app/models/reservation.dart';
+import 'package:app/pages/loading.dart';
 import 'package:app/pages/review/midterm_review.dart';
 import 'package:app/widgets/modal/bottomup_modal2.dart';
 import 'package:app/widgets/modal/exit_icon_modal.dart';
@@ -348,11 +349,17 @@ class HomeSkeletonPage extends StatelessWidget {
                                       9)
                                   ? NotifyBirthButton(
                                       iconUrl: 'icons/register_paper2.svg',
-                                      onTap: () {
-                                        authController
-                                            .createReservationFirestore(
-                                                authController
-                                                    .userModel.value!);
+                                      onTap: () async {
+                                        startLoadingIndicator();
+                                        authController.reservationModel.value!
+                                            .userStep = 0;
+                                        await authController
+                                            .updateReservationFirestore(
+                                                authController.reservationModel
+                                                    .value!.reservationNumber);
+                                        await authController.setModelInfo();
+                                        finishLoadingIndicator();
+                                        Get.offAllNamed(Routes.HOME);
                                       },
                                       title: '서비스 신규신청하기',
                                       subtitle: '새로운 서비스 신청을 진행하시겠습니까?',

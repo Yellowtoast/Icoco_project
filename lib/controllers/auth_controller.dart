@@ -112,20 +112,20 @@ class AuthController extends GetxController {
   }
 
   Future<ReservationModel?> getFirebaseReservationByUid(String uid) async {
-    ReservationModel? reservationModel;
+    ReservationModel? _reservationModel;
 
     try {
-      if (uid != "") {
-        var doc = await db
-            .collection('Reservation')
-            .where('uid', isEqualTo: uid)
-            .get();
-        print(doc.docs[0].data());
-        reservationModel = ReservationModel.fromJson(doc.docs[0].data());
-        return reservationModel;
-      }
+      var querySnapshot =
+          await db.collection('Reservation').where('uid', isEqualTo: uid).get();
+
+      querySnapshot.docs.forEach((doc) async {
+        if (doc.data()['uid'] == uid && doc.data()['userStep'] != 0) {
+          _reservationModel = ReservationModel.fromJson(doc.data());
+        }
+      });
+      return _reservationModel;
     } catch (e) {
-      return null;
+      print('$e : getFirebaseReservationByUid 실패');
     }
   }
 
@@ -237,18 +237,23 @@ class AuthController extends GetxController {
         .map((snapshot) => ReservationModel.fromJson(snapshot.data()!));
   }
 
-  Future<void> createReservationFirestore(UserModel userModel) async {
+  Future<void> createReservationFirestore(
+    UserModel userModel,
+    String address,
+    String fullRegNum,
+    int userStep,
+  ) async {
     reservationNumber.value =
         dateFormatForReservatioNumber.format(DateTime.now());
     ReservationModel _newReservationModel = ReservationModel(
-      address: '',
+      address: address,
       email: userModel.email,
       isMarketingAllowed: userModel.eventAlarm,
       userName: userModel.userName,
       phone: userModel.phone,
-      fullRegNum: '',
+      fullRegNum: fullRegNum,
       uid: userModel.uid,
-      userStep: 2,
+      userStep: userStep,
       date: DateTime.now().millisecondsSinceEpoch,
       reservationNumber: reservationNumber.value!,
       reservationRoute: '앱',
