@@ -266,9 +266,32 @@ class SignupStep6Page extends StatelessWidget {
                                     icon: false,
                                     onPressed: () async {
                                       String? reservationNumber;
+                                      bool getExistingReservation = false;
 
                                       await signupController
                                           .createNewUserModel();
+
+                                      reservationNumber = await signupController
+                                          .getExistingReservationNumber(
+                                        signupController
+                                            .userModel.value!.userName,
+                                        signupController.userModel.value!.phone,
+                                      );
+
+                                      if (reservationNumber != '') {
+                                        getExistingReservation =
+                                            await IcoOptionModal2();
+                                      }
+
+                                      if (getExistingReservation == true) {
+                                        await authController
+                                            .setPreviousReservation(
+                                                reservationNumber!,
+                                                signupController
+                                                    .userModel.value!.uid,
+                                                signupController
+                                                    .userModel.value!.email);
+                                      }
                                       await signupController
                                           .registerWithEmailAndPassword(
                                               signupController.userModel.value!,
@@ -276,28 +299,6 @@ class SignupStep6Page extends StatelessWidget {
                                                   .passwordController
                                                   .value
                                                   .text);
-
-                                      bool getExistingReservation = false;
-                                      reservationNumber = await signupController
-                                          .getExistingReservationNumber(
-                                              signupController
-                                                  .userModel.value!.userName,
-                                              signupController
-                                                  .userModel.value!.phone,
-                                              signupController
-                                                  .userModel.value!.regNum);
-
-                                      if (reservationNumber != null) {
-                                        getExistingReservation =
-                                            await IcoOptionModal2();
-                                      }
-                                      if (getExistingReservation == true) {
-                                        await authController
-                                            .setPreviousReservation(
-                                                reservationNumber!,
-                                                signupController
-                                                    .userModel.value!.uid);
-                                      }
                                     },
                                     active: true.obs,
                                     buttonColor: IcoColors.primary,

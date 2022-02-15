@@ -40,7 +40,7 @@ class CalculatorPage extends StatelessWidget {
       child: Obx(() {
         return Scaffold(
           backgroundColor: IcoColors.white,
-          appBar: IcoAppbar(title: '예약하기'),
+          appBar: IcoAppbar(title: '요금계산기', usePop: false),
           body: SingleChildScrollView(
             scrollDirection: Axis.vertical,
             child: Padding(

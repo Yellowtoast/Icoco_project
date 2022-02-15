@@ -100,8 +100,8 @@ class SignupController extends GetxController {
   }
 
   Future<String?> getExistingReservationNumber(
-      String name, String phone, String regNum) async {
-    String? reservationNumber;
+      String name, String phone) async {
+    String reservationNumber = '';
 
     try {
       var querySnapshot = await db
@@ -113,10 +113,12 @@ class SignupController extends GetxController {
           .get();
 
       querySnapshot.docs.forEach((doc) {
-        if (doc.data()['name'] == name &&
+        if (doc.data()['userName'] == name &&
             doc.data()['phone'] == phone &&
-            doc.data()['regNum'] == regNum &&
             doc.data()['reservationRoute'] == '전화') {
+          print(doc.data()['userName']);
+          print(doc.data()['phone']);
+          print(doc.data()['reservationRoute']);
           reservationNumber = doc.data()['reservationNumber'];
         }
       });

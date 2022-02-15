@@ -92,7 +92,7 @@ Future<dynamic> IcoOptionModal(
       barrierDismissible: false);
 }
 
-Future<dynamic> IcoOptionModal2() {
+IcoOptionModal2() {
   void Function() onPressed;
 
   return Get.dialog(

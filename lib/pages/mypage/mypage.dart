@@ -125,11 +125,12 @@ class MyPage extends StatelessWidget {
           ),
           InkWell(
             onTap: () async {
-              if (authController.reservationModel.value!.finalReviewFinished ==
-                      false &&
-                  authController
-                          .reservationModel.value!.midtermReviewFinished ==
-                      false) {
+              if (authController.reservationModel.value == null ||
+                  (authController.reservationModel.value!.finalReviewFinished ==
+                          false &&
+                      authController
+                              .reservationModel.value!.midtermReviewFinished ==
+                          false)) {
                 Get.to(EmptyInfoPage(
                   appbarText: '평가/후기관리',
                   title: '아직 평가나 후기가 없습니다',
@@ -175,22 +176,7 @@ class MyPage extends StatelessWidget {
             height: 1,
           ),
           InkWell(
-            onTap: () {
-              // if (authController.reservationModel.value == null ||
-              //     authController.reservationModel.value!.managersId == null ||
-              //     authController.reservationModel.value!.managersId!.isEmpty) {
-              //   companyController.companyModel.value =
-              //       await companyController.getFirebaseCompanyByUid(
-              //           authController.reservationModel.value!.chosenCompany);
-              //   Get.to(InquiryPage());
-              // } else {
-              //   Get.to(EmptyInfoPage(
-              //     appbarText: '문의하기',
-              //     title: '아직 문의를 작성할 수 없습니다',
-              //     subtitle: '산후조리사를 배정받은 후에\n문의를 작성할 수 있습니다.',
-              //   ));
-              // }
-            },
+            onTap: () {},
             child: SizedBox(
               height: 55,
               width: IcoSize.width - 40,

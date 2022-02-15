@@ -28,7 +28,9 @@ class EditUserInfoPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     Rxn<String> fullAddress = Rxn<String>();
-    fullAddress.value = authController.homeModel.value.address;
+    if (authController.reservationModel.value != null) {
+      fullAddress.value = authController.homeModel.value.address;
+    }
     return GestureDetector(
       onTap: () {
         FocusScope.of(context).unfocus();
@@ -80,7 +82,7 @@ class EditUserInfoPage extends StatelessWidget {
                   ),
                   EditTextButton(
                       title: '주소',
-                      value: (fullAddress.value == '')
+                      value: (fullAddress.value == null)
                           ? '주소 없음'
                           : fullAddress.value!.split("/")[0],
                       onTap: () async {
@@ -92,7 +94,7 @@ class EditUserInfoPage extends StatelessWidget {
                     height: 9,
                   ),
                   EditTextButton(
-                    value: (fullAddress.value == '')
+                    value: (fullAddress.value == null)
                         ? ''
                         : fullAddress.value!.split("/")[1],
                     isEditable: false,

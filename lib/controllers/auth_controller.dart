@@ -130,12 +130,12 @@ class AuthController extends GetxController {
   }
 
   Future<ReservationModel?> setPreviousReservation(
-      String reservationNumber, String userUid) async {
+      String reservationNumber, String userUid, String email) async {
     ReservationModel? _previousModel;
 
     var querySnapshot = await db
         .collection('Reservation')
-        .where('uid', isEqualTo: userUid)
+        .where('reservationNumber', isEqualTo: reservationNumber)
         .get();
 
     querySnapshot.docs.forEach((doc) async {
@@ -150,6 +150,7 @@ class AuthController extends GetxController {
             .collection('Reservation')
             .doc('/Reservation/$reservationNumber')
             .update({
+          'email': email,
           'uid': userUid,
           'reservationRoute': '전화',
         });

@@ -96,7 +96,7 @@ class BottomUpModal extends StatelessWidget {
                       width: 84,
                     ),
                     mainLabel: "보건소 현장신청",
-                    subLabel: "전화연결",
+                    subLabel: "안내보기",
                   ),
                 ),
                 SizedBox(
@@ -109,7 +109,7 @@ class BottomUpModal extends StatelessWidget {
                       width: 72,
                     ),
                     mainLabel: "온라인 신청",
-                    subLabel: "전화연결",
+                    subLabel: "안내보기",
                   ),
                 ),
               ],
