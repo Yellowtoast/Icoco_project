@@ -136,8 +136,8 @@ class _VoucherSignedStep2State extends State<VoucherSignedStep2> {
                         children: [
                           IcoButton(
                               onPressed: () {
-                                voucherController.updateRegnumToModel(
-                                    authController.reservationModel);
+                                // voucherController.updateRegnumToModel(
+                                //     authController.reservationModel);
                                 Get.toNamed(Routes.VOUCHER_SIGNED3);
                               },
                               active: voucherController.isButtonValid,
@@ -146,8 +146,6 @@ class _VoucherSignedStep2State extends State<VoucherSignedStep2> {
                               text: "다음으로"),
                           TextButton(
                             onPressed: () async {
-                              voucherController.updateRegnumToModel(
-                                  authController.reservationModel);
                               await authController.setModelInfo();
                               Get.offAllNamed(Routes.HOME);
                             },

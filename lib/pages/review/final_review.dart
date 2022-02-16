@@ -387,7 +387,7 @@ class FinalReviewPage extends StatelessWidget {
                           iconUrl: 'icons/checked.svg');
 
                       if (goNext) {
-                        startLoadingIndicator();
+                        // startLoadingIndicator();
                         await reviewController.createFinalReviewModel(
                             managerController
                                 .managerModelList[managerNum].value!);
@@ -404,7 +404,7 @@ class FinalReviewPage extends StatelessWidget {
                         managerNum++;
                         Get.toNamed(Routes.FINAL_REVIEW,
                             arguments: managerNum, preventDuplicates: false);
-                        finishLoadingIndicator();
+                        // finishLoadingIndicator();
                       } else {
                         authController
                             .reservationModel.value!.finalReviewFinished = true;

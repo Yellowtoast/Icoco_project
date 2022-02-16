@@ -124,6 +124,7 @@ IcoOptionModal2() {
                 Text(
                   "전화상담 시 등록된 정보를\n불러오시겠습니까?",
                   style: IcoTextStyle.boldTextStyle22B,
+                  textAlign: TextAlign.center,
                 ),
                 SizedBox(
                   height: 11,

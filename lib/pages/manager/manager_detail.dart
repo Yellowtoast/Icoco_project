@@ -120,8 +120,11 @@ class ManagerDetailPage extends StatelessWidget {
                                       ),
                                       RatingBar(
                                         ignoreGestures: true,
-                                        initialRating: (reviewController
-                                                    .totalReviews.value ==
+                                        initialRating: (managerController
+                                                    .managerModelList[
+                                                        managerNum]
+                                                    .value!
+                                                    .totalReview ==
                                                 0)
                                             ? 0
                                             : (managerController

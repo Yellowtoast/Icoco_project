@@ -31,8 +31,7 @@ class AuthController extends GetxController {
   bool isMarketingAllowed = false;
   late Rxn<dynamic> homeModel;
   Rx<bool> openPopup = false.obs;
-  Future<User> get getUser async => _auth.currentUser!;
-  Stream<User?> get user => _auth.authStateChanges();
+  Rx<bool> isLoggedIn = true.obs;
 
   @override
   void onReady() async {
@@ -42,12 +41,31 @@ class AuthController extends GetxController {
     super.onReady();
   }
 
+  Future<User> get getUser async => _auth.currentUser!;
+  Stream<User?> get user => _auth.authStateChanges();
+
   @override
   void onClose() {
     emailController.dispose();
     passwordController.dispose();
     super.onClose();
   }
+
+  // handleAuthChanged(_firebaseAuthUser) async {
+  //   startLoadingIndicator();
+  //   if (_firebaseAuthUser != null &&
+  //       (reservationModel.value != null || userModel.value != null)) {
+  //     return;
+  //   }
+
+  //   if (_firebaseAuthUser == null) {
+  //     Get.offAllNamed(Routes.START);
+  //   } else {
+  //     await setModelInfo();
+  //     finishLoadingIndicator();
+  //     Get.offAllNamed(Routes.HOME);
+  //   }
+  // }
 
   handleAuthChanged(_firebaseAuthUser) async {
     startLoadingIndicator();
@@ -59,11 +77,34 @@ class AuthController extends GetxController {
     if (_firebaseAuthUser == null) {
       Get.offAllNamed(Routes.START);
     } else {
-      await setModelInfo();
-      finishLoadingIndicator();
-      Get.offAllNamed(Routes.HOME);
+      if (isLoggedIn.value == true) {
+        await setModelInfo();
+        finishLoadingIndicator();
+        isLoggedIn.value = true;
+        Get.offAllNamed(Routes.HOME);
+      }
     }
   }
+
+  // handleAuthChanged(_firebaseAuthUser) async {
+  //   startLoadingIndicator();
+  //   if (_firebaseAuthUser == null || userModel.value == null) {
+  //     isLoggedIn.value = false;
+  //   } else {
+  //     isLoggedIn.value = true;
+  //   }
+  //   // if (_firebaseAuthUser != null &&
+  //   //     (reservationModel.value != null || userModel.value != null)) {
+  //   //   return;
+  //   // }
+  //   if (isLoggedIn.value == false) {
+  //     Get.offAllNamed(Routes.START);
+  //   } else {
+  //     await setModelInfo();
+  //     finishLoadingIndicator();
+  //     Get.offAllNamed(Routes.HOME);
+  //   }
+  // }
 
   setModelInfo() async {
     userModel.value = await getFirestoreUser(await getUser);
@@ -139,20 +180,20 @@ class AuthController extends GetxController {
         .get();
 
     querySnapshot.docs.forEach((doc) async {
-      if (doc.data()['uid'] == userUid && doc.data()['status'] != '서비스종료') {
-        _previousModel = ReservationModel.fromJson(doc.data());
-        _previousModel!.uid = userUid;
-        await db
-            .doc('/Reservation/$reservationNumber')
-            .set(_previousModel!.toJson());
+      if (doc.data()['status'] != '서비스종료') {
+        // _previousModel = ReservationModel.fromJson(doc.data());
+        // _previousModel!.uid = userUid;
+        // await db
+        //     .doc('/Reservation/$reservationNumber')
+        //     .set(_previousModel!.toJson());
 
-        db
+        await db
             .collection('Reservation')
             .doc('/Reservation/$reservationNumber')
             .update({
           'email': email,
           'uid': userUid,
-          'reservationRoute': '전화',
+          'reservationRoute': '앱',
         });
       }
     });
@@ -243,6 +284,7 @@ class AuthController extends GetxController {
     String address,
     String fullRegNum,
     int userStep,
+    String voucher,
   ) async {
     reservationNumber.value =
         dateFormatForReservatioNumber.format(DateTime.now());
@@ -260,6 +302,7 @@ class AuthController extends GetxController {
       reservationRoute: '앱',
       isFinishedBalance: '입금 전',
       isFinishedDeposit: '입금 전',
+      voucher: voucher,
     );
     reservationModel.value = _newReservationModel;
 

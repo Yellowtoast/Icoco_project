@@ -101,7 +101,7 @@ class HomeController extends GetxController {
     } else if (homeInfoModel.value.userStep == 6) {
       return HomeStep6Items();
     } else if (homeInfoModel.value.userStep == 7) {
-      return const HomeStep7Items();
+      return HomeStep7Items();
     } else if (homeInfoModel.value.userStep == 8) {
       return const HomeStep8Items();
     } else if (homeInfoModel.value.userStep == 9) {

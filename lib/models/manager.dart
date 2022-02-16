@@ -15,7 +15,7 @@ class ManagerModel {
   bool? certHealth;
   bool? certCrime;
   String? profileImage;
-
+  int? managerRate;
   String? reservationNumber;
   String? specialty;
   Map<String, dynamic>? specialtyItems;
@@ -40,6 +40,7 @@ class ManagerModel {
     this.reservationNumber,
     this.specialty,
     this.specialtyItems,
+    this.managerRate,
   });
 
   factory ManagerModel.fromJson(Map data) {
@@ -51,6 +52,8 @@ class ManagerModel {
       birthDate: data['birthDate'] ?? '',
       totalReview: data['totalReview'] ?? 0,
       totalReviewRate: data['totalReviewRate'] ?? 0,
+      managerRate:
+          calcManagerRate(data['totalReview'], data['totalReviewRate']),
       status: data['status'] ?? '',
       careerStartedDate: data['careerStartedDate'] ?? '',
       isCar: data['isCar'] ?? '',
@@ -87,4 +90,12 @@ class ManagerModel {
         "specialty": specialty,
         "specialtyItems": specialtyItems,
       };
+
+  calcManagerRate(int? totalReview, int? totalRate) {
+    int managerRate = 0;
+    if (totalReview != null && totalRate != null && totalRate != 0) {
+      return totalRate ~/ totalReview;
+    }
+    return managerRate;
+  }
 }

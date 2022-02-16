@@ -3,7 +3,7 @@
 
 <uses-permission android:name="android.permission.INTERNET"/>
     <application
-        android:name="io.flutter.app.FlutterApplication"
+        android:name="${applicationName}"
         android:label="app"
         android:icon="@mipmap/ic_launcher"
         android:usesCleartextTraffic="true"
@@ -47,8 +47,9 @@
              This is used by the Flutter tool to generate GeneratedPluginRegistrant.java -->
  
         <meta-data
-            android:name="flutterEmbedding"
-            android:value="2" />
+          android:name="io.flutter.embedding.android.NormalTheme"
+          android:resource="@style/NormalTheme"
+        /> 
         <service
             android:name=".java.MyFirebaseMessagingService"
             android:exported="false">
@@ -58,4 +59,9 @@
         </service>
 
     </application>
+
+    <meta-data
+            android:name="flutterEmbedding"
+            android:value="2" />
+
 </manifest>

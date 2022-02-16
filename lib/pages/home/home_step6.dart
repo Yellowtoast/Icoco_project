@@ -82,15 +82,10 @@ class HomeStep6Items extends StatelessWidget {
                                 RatingBar(
                                   ignoreGestures: true,
                                   initialRating: (managerController
-                                                  .managerModelList[index]
-                                                  .value!
-                                                  .totalReview ==
-                                              null ||
-                                          managerController
-                                                  .managerModelList[index]
-                                                  .value!
-                                                  .totalReview ==
-                                              0)
+                                              .managerModelList[index]
+                                              .value!
+                                              .totalReview ==
+                                          0)
                                       ? 0
                                       : (managerController
                                                   .managerModelList[index]

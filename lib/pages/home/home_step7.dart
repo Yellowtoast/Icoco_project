@@ -17,13 +17,12 @@ import 'package:get/get.dart';
 import '../loading.dart';
 
 class HomeStep7Items extends StatelessWidget {
-  const HomeStep7Items({Key? key}) : super(key: key);
-
+  HomeStep7Items({Key? key}) : super(key: key);
+  HomeController homeController = Get.find();
+  ReviewController reviewController = Get.find();
+  ManagerController managerController = Get.find();
   @override
   Widget build(BuildContext context) {
-    HomeController homeController = Get.find();
-    ReviewController reviewController = Get.find();
-    ManagerController managerController = Get.find();
     return Obx(() {
       return Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -77,12 +76,18 @@ class HomeStep7Items extends StatelessWidget {
                                   initialRating: (managerController
                                               .managerModelList[index]
                                               .value!
-                                              .totalReviewRate ~/
-                                          managerController
-                                              .managerModelList[index]
-                                              .value!
-                                              .totalReview)
-                                      .toDouble(),
+                                              .totalReview ==
+                                          0)
+                                      ? 0
+                                      : (managerController
+                                                  .managerModelList[index]
+                                                  .value!
+                                                  .totalReviewRate ~/
+                                              managerController
+                                                  .managerModelList[index]
+                                                  .value!
+                                                  .totalReview)
+                                          .toDouble(),
                                   direction: Axis.horizontal,
                                   allowHalfRating: false,
                                   itemCount: 5,

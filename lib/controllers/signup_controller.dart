@@ -128,11 +128,44 @@ class SignupController extends GetxController {
     }
   }
 
-  createNewUserModel() {
+  // createNewUserModel() {
+  //   regNum = birthController.text + genderController.text;
+  //   UserModel _newUser = UserModel(
+  //     uid: '',
+  //     email: emailController.value.text,
+  //     userName: nameController.value.text,
+  //     phone: phoneController.value.text,
+  //     regNum: regNum,
+  //     eventAlarm: eventAlarm,
+  //     pushAlarm: true,
+  //     fcm: fcmController.fcmToken,
+  //   );
+  //   userModel.value = _newUser;
+  // }
+
+  // User registration using email and password
+  Future<String?> registerWithEmailAndPassword(
+      String _email, String _password) async {
+    String? uid;
+    try {
+      await _auth
+          .createUserWithEmailAndPassword(email: _email, password: _password)
+          .then((result) async {
+        print('uid: ' + result.user!.uid.toString());
+        uid = result.user!.uid;
+      });
+      await createUserFirestore(_email, uid!);
+      return uid;
+    } on FirebaseAuthException catch (error) {
+      print(error);
+    }
+  }
+
+  Future<UserModel> createUserFirestore(String _email, String _uid) async {
     regNum = birthController.text + genderController.text;
     UserModel _newUser = UserModel(
-      uid: '',
-      email: emailController.value.text,
+      uid: _uid,
+      email: _email,
       userName: nameController.value.text,
       phone: phoneController.value.text,
       regNum: regNum,
@@ -141,32 +174,8 @@ class SignupController extends GetxController {
       fcm: fcmController.fcmToken,
     );
     userModel.value = _newUser;
-  }
-
-  // User registration using email and password
-  Future<void> registerWithEmailAndPassword(
-      UserModel _newUser, String _password) async {
-    try {
-      await _auth
-          .createUserWithEmailAndPassword(
-              email: _newUser.email, password: _password)
-          .then((result) async {
-        print('uID: ' + result.user!.uid.toString());
-        print('email: ' + result.user!.email.toString());
-
-        //auth에 계정을 생성함과 동시에 authController내에 있는 userModel에 값을 할당한다.
-        userModel.value = _newUser;
-        userModel.value!.uid = result.user!.uid;
-        await createUserFirestore(userModel.value);
-      });
-    } on FirebaseAuthException catch (error) {
-      print(error);
-    }
-  }
-
-  Future<void> createUserFirestore(UserModel? userModel) async {
-    await db.doc('/User/${userModel!.email}').set(userModel.toJson());
-    update();
+    await db.doc('/User/${_newUser.email}').set(_newUser.toJson());
+    return _newUser;
   }
 
   void updateUserFirestore(UserModel? userModel) async {
@@ -193,22 +202,22 @@ class SignupController extends GetxController {
     try {
       await getNewCodeNum();
       print(authCode);
-      late String to = phoneNumber;
-      late String text = '아이코코 인증번호 $authCode을 입력해주세요.';
-      final jwt = JWT(
-        {"to": to, "text": text},
-      );
-      var token = jwt.sign(SecretKey(JWT_KEY));
-      codeSentTimes++;
-      var res = await http.get(
-        Uri.parse(
-          'https://icoco2022-erpweb.vercel.app/api/sendMessage',
-        ),
-        headers: {'x-access-token': token},
-      );
-      print(res.statusCode);
+      // late String to = phoneNumber;
+      // late String text = '아이코코 인증번호 $authCode을 입력해주세요.';
+      // final jwt = JWT(
+      //   {"to": to, "text": text},
+      // );
+      // var token = jwt.sign(SecretKey(JWT_KEY));
+      // codeSentTimes++;
+      // var res = await http.get(
+      //   Uri.parse(
+      //     'https://icoco2022-erpweb.vercel.app/api/sendMessage',
+      //   ),
+      //   headers: {'x-access-token': token},
+      // );
+      // print(res.statusCode);
 
-      return;
+      // return;
     } catch (e) {
       print(e);
     }

@@ -71,16 +71,10 @@ class VoucherSignedStep3 extends StatelessWidget {
                               await authController.createReservationFirestore(
                                   authController.userModel.value!,
                                   addressController.completeAddress.value!,
-                                  'sdfadfasdf',
-                                  2);
-                              // await voucherController.updateVoucherToModel(
-                              //     authController.reservationModel);
-                              // await addressController.updateAddressToModel(
-                              //     authController.reservationModel);
-                              // authController.setUserStep(2);
-                              await authController.updateReservationFirestore(
-                                  authController.reservationModel.value!
-                                      .reservationNumber);
+                                  voucherController.getFullRegNum(),
+                                  2,
+                                  voucherController.voucherResult.value!);
+
                               await authController.setModelInfo();
                               finishLoadingIndicator();
                               Get.offAllNamed(Routes.HOME);

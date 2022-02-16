@@ -266,39 +266,38 @@ class SignupStep6Page extends StatelessWidget {
                                     icon: false,
                                     onPressed: () async {
                                       String? reservationNumber;
-                                      bool getExistingReservation = false;
-
-                                      await signupController
-                                          .createNewUserModel();
+                                      bool getReserveHistory = false;
+                                      String? uid;
+                                      authController.isLoggedIn.value = false;
 
                                       reservationNumber = await signupController
                                           .getExistingReservationNumber(
-                                        signupController
-                                            .userModel.value!.userName,
-                                        signupController.userModel.value!.phone,
+                                        signupController.nameController.text,
+                                        signupController.phoneController.text,
                                       );
 
                                       if (reservationNumber != '') {
-                                        getExistingReservation =
+                                        getReserveHistory =
                                             await IcoOptionModal2();
                                       }
+                                      uid = await signupController
+                                          .registerWithEmailAndPassword(
+                                              signupController
+                                                  .emailController.text,
+                                              signupController
+                                                  .passwordController.text);
 
-                                      if (getExistingReservation == true) {
+                                      if (getReserveHistory == true) {
                                         await authController
                                             .setPreviousReservation(
                                                 reservationNumber!,
-                                                signupController
-                                                    .userModel.value!.uid,
+                                                uid!,
                                                 signupController
                                                     .userModel.value!.email);
                                       }
-                                      await signupController
-                                          .registerWithEmailAndPassword(
-                                              signupController.userModel.value!,
-                                              signupController
-                                                  .passwordController
-                                                  .value
-                                                  .text);
+                                      authController.isLoggedIn.value = true;
+                                      await authController.setModelInfo();
+                                      Get.offAllNamed(Routes.HOME);
                                     },
                                     active: true.obs,
                                     buttonColor: IcoColors.primary,

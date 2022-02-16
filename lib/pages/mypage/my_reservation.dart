@@ -112,6 +112,7 @@ class MyReservationPage extends StatelessWidget {
                         Text(
                           authController.reservationModel.value!.address,
                           style: IcoTextStyle.regularTextStyle13Grey4,
+                          overflow: TextOverflow.clip,
                         ),
                       ],
                     ),
@@ -521,6 +522,7 @@ class MyReservationPage extends StatelessWidget {
                         Text(
                           authController.reservationModel.value!.address,
                           style: IcoTextStyle.regularTextStyle13Grey4,
+                          overflow: TextOverflow.clip,
                         ),
                       ],
                     ),

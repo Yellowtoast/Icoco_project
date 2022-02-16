@@ -171,9 +171,6 @@ class ReserveStep2_5 extends StatelessWidget {
                             flex: 7,
                             child: TextField(
                               keyboardType: TextInputType.number,
-                              inputFormatters: [
-                                WhitelistingTextInputFormatter(RegExp('[0-9]')),
-                              ],
                               controller:
                                   additionalFeeController.preschoolerController,
                               maxLength: 3,
@@ -219,9 +216,6 @@ class ReserveStep2_5 extends StatelessWidget {
                                   .kindergartenController,
                               maxLength: 3,
                               keyboardType: TextInputType.number,
-                              inputFormatters: [
-                                WhitelistingTextInputFormatter(RegExp('[0-9]')),
-                              ],
                               style: IcoTextStyle.mediumTextStyle16B,
                               decoration: InputDecoration(
                                   counterText: '',
@@ -264,9 +258,6 @@ class ReserveStep2_5 extends StatelessWidget {
                                   additionalFeeController.schoolerController,
                               maxLength: 3,
                               keyboardType: TextInputType.number,
-                              inputFormatters: [
-                                WhitelistingTextInputFormatter(RegExp('[0-9]')),
-                              ],
                               style: IcoTextStyle.mediumTextStyle16B,
                               decoration: InputDecoration(
                                   counterText: '',
@@ -328,9 +319,6 @@ class ReserveStep2_5 extends StatelessWidget {
                                   additionalFeeController.extraFamilyController,
                               maxLength: 3,
                               keyboardType: TextInputType.number,
-                              inputFormatters: [
-                                WhitelistingTextInputFormatter(RegExp('[0-9]')),
-                              ],
                               style: IcoTextStyle.mediumTextStyle16B,
                               decoration: InputDecoration(
                                   counterText: '',

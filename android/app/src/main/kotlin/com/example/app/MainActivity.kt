@@ -1,6 +1,7 @@
-package com.example.app
+// MainActivity.kt
 
 import io.flutter.embedding.android.FlutterActivity
 
 class MainActivity: FlutterActivity() {
+
 }
