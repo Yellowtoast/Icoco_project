@@ -497,12 +497,11 @@ class MyReservationPage extends StatelessWidget {
                           ),
                         ),
                         Text(
-                          (authController
-                                      .reservationModel.value!.extraRequests ==
+                          (authController.reservationModel.value!.requirement ==
                                   '')
                               ? '입력안함'
                               : authController
-                                  .reservationModel.value!.extraRequests!,
+                                  .reservationModel.value!.requirement!,
                           style: IcoTextStyle.regularTextStyle13Grey4,
                         ),
                       ],

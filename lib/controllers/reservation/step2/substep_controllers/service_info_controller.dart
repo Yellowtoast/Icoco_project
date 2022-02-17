@@ -72,10 +72,10 @@ class ServiceInfoController extends GetxController {
         listIndex = 2;
         break;
       case serviceDurationType.FOURWEEK:
-        listIndex = 2;
+        listIndex = 3;
         break;
       case serviceDurationType.FIVEWEEK:
-        listIndex = 2;
+        listIndex = 4;
         break;
       default:
     }
@@ -142,7 +142,8 @@ class ServiceInfoController extends GetxController {
     setServiceCost();
     setCarePriorityList();
 
-    model.value!.voucher = voucherController.voucherResult.value!;
+    model.value!.voucher = voucherController.voucherResult.value ??
+        authController.reservationModel.value!.voucher;
     model.value!.careRanking =
         (stringCarePriorityList.isNotEmpty) ? stringCarePriorityList : null;
     model.value!.placeToBeServiced = (carePlaceTypeSelected.value != null)
@@ -154,7 +155,7 @@ class ServiceInfoController extends GetxController {
     model.value!.animalType = (petTypeSelected.value != null)
         ? petTypeSelected.value!.convertPetTypeToString
         : null;
-    model.value!.extraRequests = extraRequestsController.text;
+    model.value!.requirement = extraRequestsController.text;
   }
 
   validateButton(_info) {

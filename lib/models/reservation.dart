@@ -28,7 +28,7 @@ class ReservationModel {
   String? placeToBeServiced;
   String? animalType;
   List<dynamic>? careRanking;
-  String? extraRequests;
+  String? requirement;
   String? careType;
   Map<String, dynamic>? allAdditionalFamily;
   List<dynamic>? managersName;
@@ -94,7 +94,7 @@ class ReservationModel {
     this.placeToBeServiced,
     this.animalType,
     this.careRanking,
-    this.extraRequests,
+    this.requirement,
     this.careType,
     this.isFinishedReservation,
     this.isFinishedDeposit,
@@ -149,12 +149,12 @@ class ReservationModel {
       careCenterDuration: data['careCenterDuration'] ?? '',
       serviceStartDate: data['serviceStartDate'] ?? '',
       serviceEndDate: data['serviceEndDate'] ?? '',
-      serviceDuration: data['serviceDuration'] ?? '',
+      serviceDuration: data['serviceDuration'],
       lactationType: data['lactationType'] ?? '',
       placeToBeServiced: data['placeToBeServiced'] ?? '',
       animalType: data['animalType'] ?? '',
       careRanking: data['careRanking'] ?? [],
-      extraRequests: data['extraRequests'] ?? '',
+      requirement: data['requirement'] ?? '',
       careType: data['careType'] ?? '',
       allAdditionalFamily: (data['allAdditionalFamily'] == null)
           ? null
@@ -214,7 +214,7 @@ class ReservationModel {
         "placeToBeServiced": placeToBeServiced,
         "animalType": animalType,
         "careRanking": careRanking,
-        "extraRequests": extraRequests,
+        "requirement": requirement,
         "careType": careType,
         "allAdditionalFamily": allAdditionalFamily,
         "managersName": managersName,

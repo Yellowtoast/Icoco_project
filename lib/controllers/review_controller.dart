@@ -1,10 +1,8 @@
 import 'dart:io';
-import 'package:app/configs/purplebook.dart';
 import 'package:app/controllers/auth_controller.dart';
 import 'package:app/models/manager.dart';
 import 'package:app/models/review.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:dart_jsonwebtoken/dart_jsonwebtoken.dart';
 import 'package:firebase_storage/firebase_storage.dart' as firebase_storage;
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';

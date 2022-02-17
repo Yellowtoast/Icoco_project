@@ -73,21 +73,11 @@ class HomeStep7Items extends StatelessWidget {
                                 ),
                                 RatingBar(
                                   ignoreGestures: true,
-                                  initialRating: (managerController
-                                              .managerModelList[index]
-                                              .value!
-                                              .totalReview ==
-                                          0)
-                                      ? 0
-                                      : (managerController
-                                                  .managerModelList[index]
-                                                  .value!
-                                                  .totalReviewRate ~/
-                                              managerController
-                                                  .managerModelList[index]
-                                                  .value!
-                                                  .totalReview)
-                                          .toDouble(),
+                                  initialRating: managerController
+                                      .managerModelList[index]
+                                      .value!
+                                      .managerRate
+                                      .toDouble(),
                                   direction: Axis.horizontal,
                                   allowHalfRating: false,
                                   itemCount: 5,
@@ -128,6 +118,19 @@ class HomeStep7Items extends StatelessWidget {
                                           0,
                                           3,
                                           '기말');
+                                  await reviewController
+                                      .extractFirstIndexPictures(
+                                          reviewController.totalReviews.value!,
+                                          managerController
+                                              .managerModelList[index]
+                                              .value!
+                                              .uid,
+                                          'manager',
+                                          0,
+                                          3,
+                                          '기말',
+                                          reviewController
+                                              .reviewListWithPicture);
                                   finishLoadingIndicator();
                                   Get.toNamed(Routes.MANAGER, arguments: index);
                                 },

@@ -282,7 +282,7 @@ class AuthController extends GetxController {
   Future<void> createReservationFirestore(
     UserModel userModel,
     String address,
-    String fullRegNum,
+    String? fullRegNum,
     int userStep,
     String voucher,
   ) async {

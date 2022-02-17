@@ -430,13 +430,11 @@ class ReserveStep2_4 extends StatelessWidget {
                         ),
                       ),
                       SizedBox(
-                        height: 74,
+                        height: 30,
                       ),
                       IcoButton(
                           onPressed: () {
-                            if (reservationModel.value!.isFinishedDeposit ==
-                                    "입금완료" ||
-                                reservationModel.value!.isBirth != true) {
+                            if (reservationModel.value!.userStep > 2) {
                               Get.toNamed(Routes.RESERVE_STEP2_6);
                             } else {
                               Get.toNamed(Routes.RESERVE_STEP2_5);

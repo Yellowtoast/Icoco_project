@@ -62,8 +62,10 @@ class VoucherController extends GetxController {
       return;
     } else {
       voucherResult.value = _voucher;
-      splitVoucherResult(_voucher);
-      setDropDownList(null);
+      if (_voucher != '일반서비스') {
+        splitVoucherResult(_voucher);
+        setDropDownList(null);
+      }
       getVoucherCostInfo(_voucher, additionalFee);
     }
   }
@@ -167,6 +169,7 @@ class VoucherController extends GetxController {
 
   getVoucherCostInfo(String voucher, int additionalFee) {
     depositFeeList.assignAll(depositFeePerWeek);
+    print(totalFeeInfo[voucher]);
     totalFeeList.assignAll(totalFeeInfo[voucher]!);
     govermentFeeList.assignAll(govermentFeeInfo[voucher]!);
 

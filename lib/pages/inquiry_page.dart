@@ -105,16 +105,10 @@ class InquiryPage extends StatelessWidget {
                                       ),
                                       RatingBar(
                                         ignoreGestures: true,
-                                        initialRating: (managerController
-                                                    .managerModelList[
-                                                        managerNum]
-                                                    .value!
-                                                    .totalReviewRate ~/
-                                                managerController
-                                                    .managerModelList[
-                                                        managerNum]
-                                                    .value!
-                                                    .totalReview)
+                                        initialRating: managerController
+                                            .managerModelList[managerNum]
+                                            .value!
+                                            .managerRate
                                             .toDouble(),
                                         direction: Axis.horizontal,
                                         allowHalfRating: false,

@@ -3,6 +3,7 @@ import 'package:app/configs/routes.dart';
 import 'package:app/configs/size.dart';
 import 'package:app/configs/text_styles.dart';
 import 'package:app/controllers/auth_controller.dart';
+import 'package:app/controllers/reservation/step1/voucher_controller.dart';
 import 'package:app/controllers/reservation/step2/substep_controllers/date_info_controller.dart';
 import 'package:app/configs/enum.dart';
 
@@ -22,12 +23,18 @@ class ReserveStep2_3_AfterBirth extends StatelessWidget {
   ReserveStep2_3_AfterBirth({Key? key}) : super(key: key);
   DateInfoController dateInfoController = Get.put(DateInfoController());
   AuthController authController = Get.find();
+  VoucherController voucherController = Get.put(VoucherController());
 
   @override
   Widget build(BuildContext context) {
     Rx<bool> step1 = false.obs;
     Rx<bool> step2 = false.obs;
     Rx<bool> step3 = false.obs;
+
+    voucherController.voucherResult.value =
+        authController.reservationModel.value!.voucher;
+    voucherController.setVoucherInfo(voucherController.voucherResult.value!,
+        authController.reservationModel.value!.extraCost!);
     return GestureDetector(
       onTap: () {
         FocusScope.of(context).unfocus();

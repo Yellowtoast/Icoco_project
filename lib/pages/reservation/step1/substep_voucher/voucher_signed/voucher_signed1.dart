@@ -48,6 +48,7 @@ class VoucherSignedStep1 extends StatelessWidget {
               textStyle: IcoTextStyle.buttonTextStyleW,
               text: (Get.arguments['command'] == "수정") ? "수정완료" : "다음으로");
         }),
+        floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
         body: Obx(() {
           return SingleChildScrollView(
             child: Column(

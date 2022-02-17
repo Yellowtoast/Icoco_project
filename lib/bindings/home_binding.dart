@@ -15,14 +15,15 @@ class HomeBindings implements Bindings {
   @override
   void dependencies() {
     Get.put(HomeController());
-    Get.lazyPut(() => ManagerController());
+    Get.put(ManagerController());
+    Get.put(ReviewController());
     Get.lazyPut(() => MypageController());
     Get.lazyPut(() => VoucherController());
     Get.lazyPut(() => CompanyController());
     // Get.lazyPut(() => ServiceInfoController());
     // Get.lazyPut(() => DateInfoController());
     // Get.lazyPut(() => AdditionalFeeController());
-    // Get.lazyPut(() => ReviewController());
+
     // Get.lazyPut(() => AddressController());
   }
 }

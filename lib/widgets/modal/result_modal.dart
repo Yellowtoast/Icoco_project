@@ -11,6 +11,7 @@ import 'package:app/configs/text_styles.dart';
 
 import 'package:app/controllers/reservation/step2/substep_controllers/additional_fee_controller.dart';
 import 'package:app/models/reservation.dart';
+import 'package:app/pages/reservation/step2/reserve/reserve_step2_7_novoucher.dart';
 import 'package:app/widgets/button/button.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -204,16 +205,28 @@ BottomResultModal() {
                 onPressed: () {
                   additionalFeeController
                       .updateReservationModel(authController.reservationModel);
-                  if (authController.reservationModel.value!.isBirth == true) {
-                    Get.toNamed(Routes.RESERVE_STEP2_6,
-                        preventDuplicates: false);
+                  if (authController.reservationModel.value!.userStep == 2) {
+                    if (authController.reservationModel.value!.isBirth ==
+                        true) {
+                      Get.toNamed(Routes.RESERVE_STEP2_6,
+                          preventDuplicates: false);
+                    } else {
+                      voucherController.setDropDownList(null);
+                      voucherController.setVoucherInfo(
+                          voucherController.voucherResult.value,
+                          additionalFeeController.totalAdditionalFee);
+                      if (authController.reservationModel.value!.voucher ==
+                          '일반서비스') {
+                        Get.to(ReserveStep2_7_Novoucher());
+                      } else {
+                        Get.toNamed(Routes.RESERVE_STEP2_7,
+                            preventDuplicates: false);
+                      }
+                    }
                   } else {
-                    voucherController.setDropDownList(null);
-                    voucherController.setVoucherInfo(
-                        voucherController.voucherResult.value,
-                        additionalFeeController.totalAdditionalFee);
-                    Get.toNamed(Routes.RESERVE_STEP2_7,
-                        preventDuplicates: false);
+                    Get.toNamed(
+                      Routes.RESERVE_STEP2_FINISHED,
+                    );
                   }
                 },
                 active: true.obs,

@@ -5,6 +5,7 @@ import 'package:app/configs/steps.dart';
 import 'package:app/configs/table_contents.dart';
 import 'package:app/configs/text_styles.dart';
 import 'package:app/controllers/auth_controller.dart';
+import 'package:app/controllers/reservation/step1/address_controller.dart';
 import 'package:app/controllers/reservation/step1/voucher_controller.dart';
 import 'package:app/pages/reservation/step1/substep_voucher/voucher_signed/voucher_signed2.dart';
 import 'package:app/widgets/button/button.dart';
@@ -21,7 +22,8 @@ import '../../../../loading.dart';
 
 class ServiceFeeInfoPage extends StatelessWidget {
   ServiceFeeInfoPage({Key? key}) : super(key: key);
-
+  AuthController authController = Get.find();
+  AddressController _addressController = Get.find();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -141,7 +143,12 @@ class ServiceFeeInfoPage extends StatelessWidget {
                     IcoButton(
                         icon: false,
                         onPressed: () async {
-                          AuthController authController = Get.find();
+                          await authController.createReservationFirestore(
+                              authController.userModel.value!,
+                              _addressController.completeAddress.value!,
+                              null,
+                              2,
+                              '일반서비스');
                           await authController.setModelInfo();
                           Get.offAllNamed(Routes.HOME);
                         },
@@ -155,8 +162,9 @@ class ServiceFeeInfoPage extends StatelessWidget {
                     Center(
                       child: TextButton(
                         onPressed: () async {
-                          AuthController authController = Get.find();
+                          startLoadingIndicator();
                           await authController.setModelInfo();
+                          finishLoadingIndicator();
                           Get.offAllNamed(Routes.HOME);
                         },
                         child: Text.rich(

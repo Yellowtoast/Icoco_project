@@ -44,6 +44,7 @@ class CalculatorResultPage extends StatelessWidget {
             active: true.obs,
             textStyle: IcoTextStyle.buttonTextStyleW,
             text: "메인 홈으로"),
+        floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
         body: SingleChildScrollView(
           child: Stack(
             children: [

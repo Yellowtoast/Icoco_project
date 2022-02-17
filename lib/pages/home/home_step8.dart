@@ -17,13 +17,12 @@ import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 
 class HomeStep8Items extends StatelessWidget {
-  const HomeStep8Items({Key? key}) : super(key: key);
-
+  HomeStep8Items({Key? key}) : super(key: key);
+  HomeController homeController = Get.find();
+  ReviewController reviewController = Get.find();
+  ManagerController managerController = Get.find();
   @override
   Widget build(BuildContext context) {
-    HomeController homeController = Get.find();
-    ReviewController reviewController = Get.find();
-    ManagerController managerController = Get.find();
     return Obx(() {
       return Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -74,21 +73,11 @@ class HomeStep8Items extends StatelessWidget {
                                 ),
                                 RatingBar(
                                   ignoreGestures: true,
-                                  initialRating: (managerController
-                                              .managerModelList[index]
-                                              .value!
-                                              .totalReview ==
-                                          0)
-                                      ? 0
-                                      : (managerController
-                                                  .managerModelList[index]
-                                                  .value!
-                                                  .totalReviewRate ~/
-                                              managerController
-                                                  .managerModelList[index]
-                                                  .value!
-                                                  .totalReview)
-                                          .toDouble(),
+                                  initialRating: managerController
+                                      .managerModelList[index]
+                                      .value!
+                                      .managerRate
+                                      .toDouble(),
                                   direction: Axis.horizontal,
                                   allowHalfRating: false,
                                   itemCount: 5,

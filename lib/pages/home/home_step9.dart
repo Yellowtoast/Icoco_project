@@ -18,13 +18,12 @@ import 'package:image_picker/image_picker.dart';
 import '../loading.dart';
 
 class HomeStep9Items extends StatelessWidget {
-  const HomeStep9Items({Key? key}) : super(key: key);
-
+  HomeStep9Items({Key? key}) : super(key: key);
+  HomeController homeController = Get.find();
+  ReviewController reviewController = Get.find();
+  ManagerController managerController = Get.find();
   @override
   Widget build(BuildContext context) {
-    HomeController homeController = Get.find();
-    ReviewController reviewController = Get.find();
-    ManagerController managerController = Get.find();
     return Obx(() {
       return Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -75,21 +74,11 @@ class HomeStep9Items extends StatelessWidget {
                                 ),
                                 RatingBar(
                                   ignoreGestures: true,
-                                  initialRating: (managerController
-                                              .managerModelList[index]
-                                              .value!
-                                              .totalReview ==
-                                          0)
-                                      ? 0
-                                      : (managerController
-                                                  .managerModelList[index]
-                                                  .value!
-                                                  .totalReviewRate ~/
-                                              managerController
-                                                  .managerModelList[index]
-                                                  .value!
-                                                  .totalReview)
-                                          .toDouble(),
+                                  initialRating: managerController
+                                      .managerModelList[index]
+                                      .value!
+                                      .managerRate
+                                      .toDouble(),
                                   direction: Axis.horizontal,
                                   allowHalfRating: false,
                                   itemCount: 5,
@@ -130,6 +119,19 @@ class HomeStep9Items extends StatelessWidget {
                                           0,
                                           3,
                                           '기말');
+                                  await reviewController
+                                      .extractFirstIndexPictures(
+                                          reviewController.totalReviews.value!,
+                                          managerController
+                                              .managerModelList[index]
+                                              .value!
+                                              .uid,
+                                          'manager',
+                                          0,
+                                          3,
+                                          '기말',
+                                          reviewController
+                                              .reviewListWithPicture);
                                   finishLoadingIndicator();
                                   Get.toNamed(Routes.MANAGER, arguments: index);
                                 },

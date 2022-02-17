@@ -117,24 +117,11 @@ class MyReviewPage extends StatelessWidget {
                                             ),
                                             RatingBar(
                                               ignoreGestures: true,
-                                              initialRating: (managerController
-                                                          .managerModelList[
-                                                              index]
-                                                          .value!
-                                                          .totalReview ==
-                                                      0)
-                                                  ? 0
-                                                  : (managerController
-                                                              .managerModelList[
-                                                                  index]
-                                                              .value!
-                                                              .totalReviewRate ~/
-                                                          managerController
-                                                              .managerModelList[
-                                                                  index]
-                                                              .value!
-                                                              .totalReview)
-                                                      .toDouble(),
+                                              initialRating: managerController
+                                                  .managerModelList[index]
+                                                  .value!
+                                                  .managerRate
+                                                  .toDouble(),
                                               direction: Axis.horizontal,
                                               allowHalfRating: false,
                                               itemCount: 5,

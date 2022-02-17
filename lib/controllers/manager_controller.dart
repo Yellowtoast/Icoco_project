@@ -36,6 +36,8 @@ class ManagerController extends GetxController {
 
           Rxn<ManagerModel> model = Rxn<ManagerModel>();
           model.value = ManagerModel.fromJson(doc.docs[0].data());
+          model.value!.managerRate = calcManagerRate(
+              model.value!.totalReview, model.value!.totalReviewRate);
           managerModelList.add(model);
           managerModelList.refresh();
         }
@@ -62,5 +64,13 @@ class ManagerController extends GetxController {
   void updateManagerFirestore(ManagerModel? manager) {
     db.doc('/Manager/${manager!.uid}').update(manager.toJson());
     update();
+  }
+
+  calcManagerRate(int? totalReview, int? totalRate) {
+    int managerRate = 0;
+    if (totalReview != null && totalRate != null && totalRate != 0) {
+      managerRate = totalRate ~/ totalReview;
+    }
+    return managerRate;
   }
 }

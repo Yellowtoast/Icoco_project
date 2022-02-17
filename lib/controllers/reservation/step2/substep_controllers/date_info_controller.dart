@@ -176,8 +176,6 @@ class DateInfoController extends GetxController {
   }
 
   setServiceEndDate(String? serviceDuration) {
-    serviceDurationInt.value = serviceDurationToInt(serviceDuration!);
-
     if (serviceStartDate.value != null) {
       serviceEndDate.value = serviceStartDate.value!
           .add(Duration(days: serviceDurationInt.value! * 7));
@@ -187,7 +185,12 @@ class DateInfoController extends GetxController {
   }
 
   serviceDurationToInt(serviceDurationString) {
-    var weekString = serviceDurationString.replaceAll('주', '');
-    return int.parse(weekString);
+    if (serviceDurationString != null) {
+      var weekString = serviceDurationString.replaceAll('주', '');
+      serviceDurationInt.value = int.parse(weekString);
+      return serviceDurationInt.value;
+    } else {
+      return null;
+    }
   }
 }

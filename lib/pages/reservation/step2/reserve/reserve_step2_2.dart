@@ -58,7 +58,6 @@ class ReserveStep2_2 extends StatelessWidget {
                 IcoButton(
                     onPressed: () {
                       authController.reservationModel.value!.isBirth = true;
-                      authController.reservationModel.value!.status = '예약출산일확정';
                       Get.toNamed(Routes.RESERVE_STEP2_3_AFTER);
                     },
                     active: true.obs,
@@ -71,8 +70,6 @@ class ReserveStep2_2 extends StatelessWidget {
                 IcoButton(
                     onPressed: () {
                       authController.reservationModel.value!.isBirth = false;
-                      authController.reservationModel.value!.status =
-                          '예약출산일미확정';
                       Get.toNamed(Routes.RESERVE_STEP2_3_BEFORE);
                     },
                     active: true.obs,

@@ -23,19 +23,25 @@ class ReserveStep2_7 extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        floatingActionButton: IcoButton(
-            width: IcoSize.width - 40,
-            onPressed: () async {
-              Get.toNamed(Routes.RESERVE_STEP2_REGISTERED);
-            },
-            active: true.obs,
-            textStyle: IcoTextStyle.buttonTextStyleW,
-            text: "다음으로"),
+        floatingActionButton: Obx(() {
+          return IcoButton(
+              width: IcoSize.width - 40,
+              onPressed: () async {
+                Get.toNamed(Routes.RESERVE_STEP2_REGISTERED);
+              },
+              active: (serviceInfoController.voucherUseDurationSelected.value ==
+                      null)
+                  ? false.obs
+                  : true.obs,
+              textStyle: IcoTextStyle.buttonTextStyleW,
+              text: "다음으로");
+        }),
         backgroundColor: IcoColors.white,
         appBar: IcoAppbar(
           title: "예약하기",
           usePop: true,
         ),
+        floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
         body: Obx(() {
           return Column(
             children: [

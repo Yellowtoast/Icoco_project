@@ -61,24 +61,22 @@ class ReserveStep2_Registered extends StatelessWidget {
                         IcoButton(
                             icon: true,
                             iconColor: IcoColors.white,
-                            onPressed: () {
-                              serviceInfoController.updateServiceInfoToModel(
-                                  authController.reservationModel);
-                              dateInfoController.updateDateInfoToModel(
+                            onPressed: () async {
+                              await serviceInfoController
+                                  .updateServiceInfoToModel(
+                                      authController.reservationModel);
+                              await dateInfoController.updateDateInfoToModel(
                                   authController.reservationModel);
                               if (authController
                                       .reservationModel.value!.userStep ==
                                   2) {
-                                authController.setUserStep(3);
-                              } else if (authController
-                                      .reservationModel.value!.userStep >
-                                  2) {
+                                await authController.setUserStep(3);
+                              } else {
                                 authController.reservationModel.value!.isBirth =
                                     true;
                               }
-                              print(authController
-                                  .reservationModel.value!.reservationNumber);
-                              authController.updateReservationFirestore(
+
+                              await authController.updateReservationFirestore(
                                   authController.reservationModel.value!
                                       .reservationNumber);
 
@@ -97,8 +95,9 @@ class ReserveStep2_Registered extends StatelessWidget {
                             icon: true,
                             iconColor: IcoColors.primary,
                             onPressed: () async {
-                              serviceInfoController.updateServiceInfoToModel(
-                                  authController.reservationModel);
+                              await serviceInfoController
+                                  .updateServiceInfoToModel(
+                                      authController.reservationModel);
                               await dateInfoController.updateDateInfoToModel(
                                   authController.reservationModel);
                               if (authController

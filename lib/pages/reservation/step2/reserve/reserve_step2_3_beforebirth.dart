@@ -215,7 +215,8 @@ class ReserveStep2_3_BeforeBirth extends StatelessWidget {
                           ),
                           IgnorePointer(
                             ignoring: (authController.reservationModel.value!
-                                    .serviceDuration!.isEmpty)
+                                        .serviceDuration ==
+                                    null)
                                 ? false
                                 : true,
                             child: IcoDropDown(
@@ -246,8 +247,8 @@ class ReserveStep2_3_BeforeBirth extends StatelessWidget {
                   child: IcoButton(
                       width: IcoSize.width - 40,
                       onPressed: () {
-                        dateInfoController.setServiceEndDate(
-                            dateInfoController.serviceDurationSelected.value);
+                        // dateInfoController.setServiceEndDate(
+                        //     dateInfoController.serviceDurationSelected.value);
 
                         Get.toNamed(Routes.RESERVE_STEP2_5);
                       },

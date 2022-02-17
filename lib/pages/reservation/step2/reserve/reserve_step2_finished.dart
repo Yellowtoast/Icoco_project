@@ -10,10 +10,15 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 
+import '../../../../controllers/reservation/step2/substep_controllers/date_info_controller.dart';
+import '../../../../controllers/reservation/step2/substep_controllers/service_info_controller.dart';
+
 class ReserveStep2_Finished extends StatelessWidget {
   ReserveStep2_Finished({Key? key}) : super(key: key);
   // VoucherController voucherController = Get.find();
   AuthController authController = Get.find();
+  DateInfoController dateInfoController = Get.find();
+  ServiceInfoController serviceInfoController = Get.find();
 
   @override
   Widget build(BuildContext context) {
@@ -56,10 +61,23 @@ class ReserveStep2_Finished extends StatelessWidget {
                         IcoButton(
                             icon: false,
                             onPressed: () async {
-                              authController.reservationModel.value!.isBirth =
-                                  true;
                               authController.reservationModel.value!.status =
-                                  '예약 (출산일 확정)';
+                                  '예약출산일확정';
+                              serviceInfoController.updateServiceInfoToModel(
+                                  authController.reservationModel);
+                              await dateInfoController.updateDateInfoToModel(
+                                  authController.reservationModel);
+                              if (authController
+                                      .reservationModel.value!.userStep ==
+                                  2) {
+                                await authController.setUserStep(3);
+                              }
+
+                              await authController.updateReservationFirestore(
+                                  authController.reservationModel.value!
+                                      .reservationNumber);
+
+                              Get.offAllNamed(Routes.HOME);
                               await authController.updateReservationFirestore(
                                   authController.reservationModel.value!
                                       .reservationNumber);
