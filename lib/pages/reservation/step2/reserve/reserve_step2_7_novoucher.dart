@@ -58,39 +58,20 @@ class ReserveStep2_7_Novoucher extends StatelessWidget {
               SizedBox(
                 height: 10,
               ),
-
               Expanded(
                 child: ListView.builder(
                     shrinkWrap: true,
                     itemCount: dateInfoController.serviceDurationInt.value,
                     itemBuilder: (BuildContext context, int index) {
-                      late serviceDurationType durationType;
-
-                      switch (index) {
-                        case 0:
-                          durationType = serviceDurationType.ONEWEEK;
-                          break;
-                        case 1:
-                          durationType = serviceDurationType.TWOWEEK;
-                          break;
-                        case 2:
-                          durationType = serviceDurationType.THREEWEEK;
-                          break;
-                        case 3:
-                          durationType = serviceDurationType.FOURWEEK;
-                          break;
-                        case 4:
-                          durationType = serviceDurationType.FIVEWEEK;
-                          break;
-                        default:
-                      }
-                      print(durationType);
                       return Column(
                         children: [
+                          SizedBox(
+                            height: 20,
+                          ),
                           InkWell(
                             onTap: () {
-                              serviceInfoController.voucherUseDurationSelected
-                                  .value = durationType;
+                              dateInfoController.serviceDurationSelected.value =
+                                  "${index + 1}주";
                             },
                             child: CostInfoSelectionBox(
                               feeTypeIndex: index,
@@ -106,9 +87,9 @@ class ReserveStep2_7_Novoucher extends StatelessWidget {
                               remainingFee: voucherController.remainingFeeList,
                               title: "${index + 1}주 사용",
                               titleStyle: IcoTextStyle.boldTextStyle18B,
-                              dateType: durationType.obs,
-                              useDateSelected: serviceInfoController
-                                  .voucherUseDurationSelected,
+                              itemValue: "${index + 1}주",
+                              useDateSelected: dateInfoController
+                                  .serviceDurationSelected.value!,
                             ),
                           ),
                         ],

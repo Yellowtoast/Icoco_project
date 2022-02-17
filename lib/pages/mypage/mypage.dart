@@ -22,7 +22,7 @@ import 'edit/edit.dart';
 class MyPage extends StatelessWidget {
   MyPage({Key? key}) : super(key: key);
   AuthController authController = Get.find();
-  ReviewController reviewController = Get.put(ReviewController());
+  ReviewController reviewController = Get.find();
   ManagerController managerController = Get.find();
   MypageController mypageController = Get.find();
 

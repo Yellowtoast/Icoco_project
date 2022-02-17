@@ -10,7 +10,6 @@ class ManagerController extends GetxController {
   Rxn<ManagerModel> managerModel = Rxn<ManagerModel>();
   RxList<Rxn<ManagerModel>> managerModelList = RxList<Rxn<ManagerModel>>();
   AuthController authController = Get.find();
-  ReviewController reviewController = Get.find();
 
   @override
   onInit() async {

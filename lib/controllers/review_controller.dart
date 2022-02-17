@@ -196,8 +196,8 @@ class ReviewController extends GetxController {
     };
 
     try {
-      var uri =
-          Uri.http('172.30.1.22:3000', '/api/getReviews', queryParameters);
+      var uri = Uri.http(
+          'icoco2022-erpweb.vercel.app', '/api/getReviews', queryParameters);
 
       var response = await http.get(
         uri,

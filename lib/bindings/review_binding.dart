@@ -8,6 +8,6 @@ class ReviewBindings implements Bindings {
   @override
   void dependencies() {
     Get.lazyPut(() => ReviewController());
-    Get.put(ManagerBindings());
+    // Get.put(ManagerBindings());
   }
 }

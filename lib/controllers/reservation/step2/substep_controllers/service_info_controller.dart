@@ -2,6 +2,7 @@ import 'package:app/configs/enum.dart';
 import 'package:app/controllers/auth_controller.dart';
 import 'package:app/controllers/reservation/step1/voucher_controller.dart';
 import 'package:app/controllers/reservation/step2/substep_controllers/additional_fee_controller.dart';
+import 'package:app/controllers/reservation/step2/substep_controllers/date_info_controller.dart';
 import 'package:app/helpers/enum_to_string.dart';
 import 'package:app/helpers/formatter.dart';
 import 'package:app/models/reservation.dart';
@@ -14,6 +15,7 @@ enum stepType { STEP1, STEP2, STEP3 }
 class ServiceInfoController extends GetxController {
   AuthController authController = Get.find();
   VoucherController voucherController = Get.find();
+  DateInfoController dateInfoController = Get.find();
   Rxn<lactationType> lactationTypeSelected = Rxn<lactationType>();
   Rxn<carePlaceType> carePlaceTypeSelected = Rxn<carePlaceType>();
   Rxn<serviceDurationType> voucherUseDurationSelected =
@@ -59,22 +61,22 @@ class ServiceInfoController extends GetxController {
     super.onClose();
   }
 
-  setServiceCost() {
+  setServiceCost(String serviceDuration) {
     late int listIndex;
-    switch (voucherUseDurationSelected.value) {
-      case serviceDurationType.ONEWEEK:
+    switch (serviceDuration) {
+      case '1주':
         listIndex = 0;
         break;
-      case serviceDurationType.TWOWEEK:
+      case '2주':
         listIndex = 1;
         break;
-      case serviceDurationType.THREEWEEK:
+      case '3주':
         listIndex = 2;
         break;
-      case serviceDurationType.FOURWEEK:
+      case '4주':
         listIndex = 3;
         break;
-      case serviceDurationType.FIVEWEEK:
+      case '5주':
         listIndex = 4;
         break;
       default:
@@ -138,8 +140,9 @@ class ServiceInfoController extends GetxController {
     }
   }
 
-  updateServiceInfoToModel(Rxn<ReservationModel?> model) {
-    setServiceCost();
+  updateServiceInfoToModel(
+      Rxn<ReservationModel?> model, String serviceDuration) {
+    setServiceCost(serviceDuration);
     setCarePriorityList();
 
     model.value!.voucher = voucherController.voucherResult.value ??

@@ -24,17 +24,20 @@ class ReserveStep2_7 extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
         floatingActionButton: Obx(() {
-          return IcoButton(
-              width: IcoSize.width - 40,
-              onPressed: () async {
-                Get.toNamed(Routes.RESERVE_STEP2_REGISTERED);
-              },
-              active: (serviceInfoController.voucherUseDurationSelected.value ==
-                      null)
-                  ? false.obs
-                  : true.obs,
-              textStyle: IcoTextStyle.buttonTextStyleW,
-              text: "다음으로");
+          return Obx(() {
+            return IcoButton(
+                width: IcoSize.width - 40,
+                onPressed: () async {
+                  Get.toNamed(Routes.RESERVE_STEP2_REGISTERED);
+                },
+                active:
+                    (serviceInfoController.voucherUseDurationSelected.value ==
+                            null)
+                        ? false.obs
+                        : true.obs,
+                textStyle: IcoTextStyle.buttonTextStyleW,
+                text: "다음으로");
+          });
         }),
         backgroundColor: IcoColors.white,
         appBar: IcoAppbar(
@@ -141,27 +144,6 @@ class ReserveStep2_7 extends StatelessWidget {
                           itemCount:
                               dateInfoController.serviceDurationInt.value,
                           itemBuilder: (BuildContext context, int index) {
-                            late serviceDurationType durationType;
-
-                            switch (index) {
-                              case 0:
-                                durationType = serviceDurationType.ONEWEEK;
-                                break;
-                              case 1:
-                                durationType = serviceDurationType.TWOWEEK;
-                                break;
-                              case 2:
-                                durationType = serviceDurationType.THREEWEEK;
-                                break;
-                              case 3:
-                                durationType = serviceDurationType.FOURWEEK;
-                                break;
-                              case 4:
-                                durationType = serviceDurationType.FIVEWEEK;
-                                break;
-                              default:
-                            }
-                            print(durationType);
                             return Column(
                               children: [
                                 SizedBox(
@@ -169,9 +151,8 @@ class ReserveStep2_7 extends StatelessWidget {
                                 ),
                                 InkWell(
                                   onTap: () {
-                                    serviceInfoController
-                                        .voucherUseDurationSelected
-                                        .value = durationType;
+                                    dateInfoController.serviceDurationSelected
+                                        .value = "${index + 1}주";
                                   },
                                   child: CostInfoSelectionBox(
                                     feeTypeIndex: index,
@@ -190,9 +171,9 @@ class ReserveStep2_7 extends StatelessWidget {
                                         voucherController.remainingFeeList,
                                     title: "${index + 1}주 사용",
                                     titleStyle: IcoTextStyle.boldTextStyle18B,
-                                    dateType: durationType.obs,
-                                    useDateSelected: serviceInfoController
-                                        .voucherUseDurationSelected,
+                                    itemValue: "${index + 1}주",
+                                    useDateSelected: dateInfoController
+                                        .serviceDurationSelected.value!,
                                   ),
                                 ),
                               ],

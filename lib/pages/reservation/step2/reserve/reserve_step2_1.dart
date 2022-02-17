@@ -30,7 +30,7 @@ class ReserveStep2_1 extends StatelessWidget {
   AuthController authController = Get.find();
   AdditionalFeeController additionalFeeController = Get.find();
   ServiceInfoController serviceInfoController = Get.find();
-  // DateInfoController dateInfoController = Get.find();
+  DateInfoController dateInfoController = Get.find();
 
   @override
   Widget build(BuildContext context) {

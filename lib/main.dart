@@ -14,13 +14,11 @@ Future<void> main() async {
   Hive.registerAdapter(ReservationAdapter());
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
-
   runApp(const IcocoApp());
 }
 
 class IcocoApp extends StatelessWidget {
   const IcocoApp({Key? key}) : super(key: key);
-
   @override
   Widget build(BuildContext context) {
     return GetMaterialApp(

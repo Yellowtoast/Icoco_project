@@ -64,7 +64,9 @@ class ReserveStep2_Finished extends StatelessWidget {
                               authController.reservationModel.value!.status =
                                   '예약출산일확정';
                               serviceInfoController.updateServiceInfoToModel(
-                                  authController.reservationModel);
+                                  authController.reservationModel,
+                                  dateInfoController
+                                      .serviceDurationSelected.value!);
                               await dateInfoController.updateDateInfoToModel(
                                   authController.reservationModel);
                               if (authController

@@ -11,6 +11,8 @@ import 'package:app/controllers/review_controller.dart';
 
 import 'package:get/get.dart';
 
+import '../controllers/reservation/step2/substep_controllers/date_info_controller.dart';
+
 class HomeBindings implements Bindings {
   @override
   void dependencies() {
@@ -20,10 +22,9 @@ class HomeBindings implements Bindings {
     Get.lazyPut(() => MypageController());
     Get.lazyPut(() => VoucherController());
     Get.lazyPut(() => CompanyController());
+    Get.lazyPut(() => DateInfoController());
     // Get.lazyPut(() => ServiceInfoController());
-    // Get.lazyPut(() => DateInfoController());
     // Get.lazyPut(() => AdditionalFeeController());
-
     // Get.lazyPut(() => AddressController());
   }
 }

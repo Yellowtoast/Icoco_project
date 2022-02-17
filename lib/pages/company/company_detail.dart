@@ -21,7 +21,6 @@ class CompanyDetailPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     var companyNum = Get.arguments;
-
     if (reviewController.totalReviews.value! >= 3) {
       reviewController.reviewCount.value = 3;
     } else {

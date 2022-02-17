@@ -249,7 +249,7 @@ class Routes {
     GetPage(
         name: Routes.MANAGER,
         page: () => ManagerDetailPage(),
-        binding: ReviewBindings(),
+        // binding: ReviewBindings(),
         transition: Transition.rightToLeftWithFade),
     GetPage(
         name: Routes.MIDTERM_REVIEW,

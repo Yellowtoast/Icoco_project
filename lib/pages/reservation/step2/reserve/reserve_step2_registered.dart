@@ -64,7 +64,9 @@ class ReserveStep2_Registered extends StatelessWidget {
                             onPressed: () async {
                               await serviceInfoController
                                   .updateServiceInfoToModel(
-                                      authController.reservationModel);
+                                      authController.reservationModel,
+                                      dateInfoController
+                                          .serviceDurationSelected.value!);
                               await dateInfoController.updateDateInfoToModel(
                                   authController.reservationModel);
                               if (authController
@@ -97,7 +99,9 @@ class ReserveStep2_Registered extends StatelessWidget {
                             onPressed: () async {
                               await serviceInfoController
                                   .updateServiceInfoToModel(
-                                      authController.reservationModel);
+                                      authController.reservationModel,
+                                      dateInfoController
+                                          .serviceDurationSelected.value!);
                               await dateInfoController.updateDateInfoToModel(
                                   authController.reservationModel);
                               if (authController
