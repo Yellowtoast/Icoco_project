@@ -74,20 +74,28 @@ class ReviewController extends GetxController {
     // ever(managerNum, setPreviousReview);
   }
 
-  setPreviousReview(
-      RxList<Rxn<ReviewModel>> modelList, int _managerNum, String reviewType) {
+  setPreviousReview(RxList<Rxn<ReviewModel>> reviewModelList, String managerUid,
+      String reviewType) {
+    late ReviewModel _reviewModel;
+    reviewModelList.forEach((element) {
+      if (element.value!.managerId == managerUid) {
+        _reviewModel = element.value!;
+        reviewModel.value = _reviewModel;
+      }
+    });
+
     checkedSpecialtiesList.clear();
     itemSelectStatus.fillRange(0, 6, false.obs);
-    for (var element in modelList[_managerNum].value!.specialtyItems!) {
+    for (var element in _reviewModel.specialtyItems!) {
       checkedSpecialtiesList.add(element);
       itemSelectStatus[specialtyTitle.indexOf(element)] = true.obs;
       checkedSpecialtiesList.refresh();
     }
 
-    contentsTextController.text = modelList[_managerNum].value!.contents;
-    reviewContents.value = modelList[_managerNum].value!.contents;
+    contentsTextController.text = _reviewModel.contents;
+    reviewContents.value = _reviewModel.contents;
     if (reviewType == '기말') {
-      reviewRate.value = modelList[_managerNum].value!.reviewRate;
+      reviewRate.value = _reviewModel.reviewRate;
     }
   }
 
@@ -104,21 +112,20 @@ class ReviewController extends GetxController {
       type: '중간',
     );
     reviewModel.value = _newReviewModel;
-    reviewModelList.add(reviewModel);
-
+    // reviewModelList.add(reviewModel);
+    setMidtermReviewFirestore(_newReviewModel);
     checkedSpecialtiesList.clear();
     reviewType.value = null;
     targetUid.value = null;
     itemSelectStatus.forEach((element) {
       element.value = false;
     });
-    managerNum.value = 0;
     contentsTextController.text = '';
     reviewContents.value = '';
   }
 
 //기말평가 모델 생성, 관리자 모델에 specialty count 업데이트 해주어야 함
-  Future<void> createFinalReviewModel(ManagerModel managerModel) async {
+  Future<void> createFinalReviewFireStore(ManagerModel managerModel) async {
     ReviewModel _newReviewModel = ReviewModel(
       contents: reviewContents.value,
       userId: authController.reservationModel.value!.uid,
@@ -145,22 +152,22 @@ class ReviewController extends GetxController {
     });
   }
 
-  updateFinalReviewFirestore(Rxn<ReviewModel> review) async {
+  updateFinalReviewFirestore(ReviewModel review) async {
     List<String>? imagesURL = await uploadFileStorage(totalFileList);
-    review.value!.thumbnails = imagesURL;
-    db.collection('Review').add(review.toJson());
+    review.thumbnails = imagesURL;
+    db
+        .doc('/Review/${review.date.millisecondsSinceEpoch}')
+        .update(review.toJson());
     storageRefList.clear();
     fileNameList.clear();
     totalFileList.clear();
     update();
   }
 
-  updateMidtermReviewFirestore(RxList<Rxn<ReviewModel>> reviewModelList) {
-    reviewModelList.forEach((review) {
-      db.collection('Review').add(review.toJson());
-    });
-    reviewModelList.clear();
-
+  setMidtermReviewFirestore(ReviewModel reviewModel) {
+    db
+        .doc('/Review/${reviewModel.date.millisecondsSinceEpoch}')
+        .set(reviewModel.toJson());
     update();
   }
 

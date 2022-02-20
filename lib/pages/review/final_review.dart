@@ -388,11 +388,11 @@ class FinalReviewPage extends StatelessWidget {
 
                       if (goNext) {
                         // startLoadingIndicator();
-                        await reviewController.createFinalReviewModel(
+                        await reviewController.createFinalReviewFireStore(
                             managerController
                                 .managerModelList[managerNum].value!);
                         await reviewController.updateFinalReviewFirestore(
-                          reviewController.reviewModel,
+                          reviewController.reviewModel.value!,
                         );
                         await managerController.applyReviewsToManagerModel(
                             reviewController.reviewModel.value!.specialtyItems!,

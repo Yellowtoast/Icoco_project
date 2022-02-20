@@ -20,25 +20,26 @@ class MidtermReviewPage extends StatelessWidget {
   ManagerController managerController = Get.find();
   AuthController authController = Get.find();
 
-  Future _setPreviousReview(var reviewList, int managerNum) async {
+  Future _setPreviousReview(
+      var reviewList, String managerUid, String reviewType) async {
     await Future.delayed(const Duration(milliseconds: 100));
-    await reviewController.setPreviousReview(reviewList, managerNum, '중간');
+    await reviewController.setPreviousReview(
+        reviewList, managerUid, reviewType);
   }
 
   @override
   Widget build(BuildContext context) {
     int managerNum = Get.arguments['managerNum'];
-    var previousReviewModelList = Get.arguments['reviewModelList'];
-
+    var previousReviewModelList = Get.arguments['reviewModelList'] ?? null;
     if (previousReviewModelList != null) {
       if (managerNum == 1) {
-        _setPreviousReview(previousReviewModelList, managerNum);
+        _setPreviousReview(previousReviewModelList,
+            managerController.managerModelList[managerNum].value!.uid, '중간');
       } else {
-        reviewController.setPreviousReview(
-            previousReviewModelList, managerNum, '중간');
+        reviewController.setPreviousReview(previousReviewModelList,
+            managerController.managerModelList[managerNum].value!.uid, '중간');
       }
     }
-
     return GestureDetector(
       onTap: () {
         FocusScope.of(context).unfocus();
@@ -186,36 +187,77 @@ class MidtermReviewPage extends StatelessWidget {
                 IcoButton(
                     width: IcoSize.width - 40,
                     onPressed: () async {
-                      await reviewController.createMidtermReviewFirestore(
-                          managerController.managerModelList[managerNum].value!,
-                          authController.userModel.value!,
-                          authController.reservationModel.value!.chosenCompany!,
-                          reviewController.contentsTextController.text);
+                      // reviewController.updateMidtermReviewFirestore(
+                      //     reviewController.reviewModelList);
 
-                      if (managerNum !=
-                          managerController.managerModelList.length - 1) {
-                        managerNum++;
-                        if (previousReviewModelList != null) {
-                          Get.toNamed(Routes.MIDTERM_REVIEW,
-                              arguments: {
-                                'managerNum': managerNum,
-                                'reviewModelList': previousReviewModelList
-                              },
-                              preventDuplicates: false);
-                        } else {
-                          Get.offNamed(Routes.MIDTERM_REVIEW,
-                              arguments: {'managerNum': managerNum},
-                              preventDuplicates: false);
-                        }
+                      // if (managerNum !=
+                      //     managerController.managerModelList.length - 1) {
+                      //   managerNum++;
+                      //   if (previousReviewModelList != null) {
+                      //     Get.offNamed(Routes.MIDTERM_REVIEW,
+                      //         arguments: {
+                      //           'managerNum': managerNum,
+                      //           'reviewModelList': previousReviewModelList
+                      //         },
+                      //         preventDuplicates: false);
+                      //   } else {
+                      //     await reviewController.createMidtermReviewFirestore(
+                      //         managerController
+                      //             .managerModelList[managerNum].value!,
+                      //         authController.userModel.value!,
+                      //         authController
+                      //             .reservationModel.value!.chosenCompany!,
+                      //         reviewController.contentsTextController.text);
+                      //     Get.offNamed(Routes.MIDTERM_REVIEW,
+                      //         arguments: {'managerNum': managerNum},
+                      //         preventDuplicates: false);
+                      //   }
+                      // } else {
+                      //   await reviewController.createMidtermReviewFirestore(
+                      //       managerController
+                      //           .managerModelList[managerNum].value!,
+                      //       authController.userModel.value!,
+                      //       authController
+                      //           .reservationModel.value!.chosenCompany!,
+                      //       reviewController.contentsTextController.text);
+                      //   authController.reservationModel.value!
+                      //       .midtermReviewFinished = true;
+                      //   authController.updateReservationFirestore(authController
+                      //       .reservationModel.value!.reservationNumber);
+
+                      //   Get.offAllNamed(Routes.HOME);
+                      // }
+
+                      if (previousReviewModelList == null) {
+                        reviewController.createMidtermReviewFirestore(
+                            managerController
+                                .managerModelList[managerNum].value!,
+                            authController.userModel.value!,
+                            authController
+                                .reservationModel.value!.chosenCompany!,
+                            reviewController.contentsTextController.text);
                       } else {
-                        reviewController.updateMidtermReviewFirestore(
-                            reviewController.reviewModelList);
+                        reviewController.setPreviousReview(
+                            previousReviewModelList,
+                            managerController
+                                .managerModelList[managerNum].value!.uid,
+                            '중간');
+                      }
+
+                      if (managerNum ==
+                          managerController.managerModelList.length - 1) {
+                        reviewController.setMidtermReviewFirestore(
+                            reviewController.reviewModel.value!);
                         authController.reservationModel.value!
                             .midtermReviewFinished = true;
                         authController.updateReservationFirestore(authController
                             .reservationModel.value!.reservationNumber);
-
                         Get.offAllNamed(Routes.HOME);
+                      } else {
+                        managerNum++;
+                        Get.offNamed(Routes.MIDTERM_REVIEW,
+                            arguments: {'managerNum': managerNum},
+                            preventDuplicates: false);
                       }
                     },
                     active: (reviewController.reviewContents.value != '' &&
