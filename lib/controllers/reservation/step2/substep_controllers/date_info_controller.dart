@@ -25,6 +25,7 @@ class DateInfoController extends GetxController {
   Rxn<String> careCenterDuration = Rxn<String>();
   List<String> serviceDurationTypeList = ['1주', '2주', '3주', '4주', '5주'];
   Rxn<String> serviceDurationSelected = Rxn<String>();
+  Rxn<String> voucherDurationSelected = Rxn<String>();
   Rxn<DateTime> serviceStartDate = Rxn<DateTime>();
   Rxn<DateTime> serviceEndDate = Rxn<DateTime>();
   Rxn<int> serviceDurationInt = Rxn<int>();

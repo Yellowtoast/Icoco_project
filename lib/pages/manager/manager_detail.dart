@@ -78,20 +78,19 @@ class ManagerDetailPage extends StatelessWidget {
                                   ClipRRect(
                                     borderRadius: BorderRadius.circular(100),
                                     child: Image.network(
-                                        "${managerController.managerModelList[managerNum].value!.profileImage}",
-                                        width: 89,
-                                        height: 89,
-                                        fit: BoxFit.cover, errorBuilder:
-                                            (BuildContext context,
-                                                Object exception,
-                                                StackTrace? stackTrace) {
-                                      return Image.asset(
-                                        'images/failed_human_grey.png',
+                                      "${managerController.managerModelList[managerNum].value!.profileImage}",
+                                      width: 89,
+                                      height: 89,
+                                      fit: BoxFit.cover,
+                                      errorBuilder:
+                                          (context, error, stackTrace) =>
+                                              Image.asset(
+                                        "images/empty_profile.png",
                                         width: 89,
                                         height: 89,
                                         fit: BoxFit.cover,
-                                      );
-                                    }),
+                                      ),
+                                    ),
                                   ),
                                   const SizedBox(
                                     width: 10,
@@ -509,14 +508,12 @@ class ManagerDetailPage extends StatelessWidget {
                                                                                 child: Image.network(
                                                                                   reviewController.reviewListWithPicture[index].value!.thumbnails![0],
                                                                                   fit: BoxFit.cover,
-                                                                                  errorBuilder: (BuildContext context, Object exception, StackTrace? stackTrace) {
-                                                                                    return Image.asset(
-                                                                                      "images/empty_profile.png",
-                                                                                      width: 30,
-                                                                                      height: 30,
-                                                                                      fit: BoxFit.contain,
-                                                                                    );
-                                                                                  },
+                                                                                  errorBuilder: (context, error, stackTrace) => Image.asset(
+                                                                                    "images/empty_profile.png",
+                                                                                    width: 89,
+                                                                                    height: 89,
+                                                                                    fit: BoxFit.cover,
+                                                                                  ),
                                                                                 ),
                                                                               ),
                                                                             ),

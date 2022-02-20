@@ -49,6 +49,7 @@ Future<dynamic> BottomUpModal2({
             Text(
               title,
               style: IcoTextStyle.boldTextStyle22B,
+              textAlign: TextAlign.center,
             ),
             SizedBox(
               height: 8,

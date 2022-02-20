@@ -120,11 +120,18 @@ class ReserveStep2_1_No extends StatelessWidget {
                                               height: 89,
                                               child: Image.network(
                                                 companyController
-                                                        .companyModelList[index]
-                                                        .value!
-                                                        .thumbnail ??
-                                                    'https://t1.daumcdn.net/cfile/tistory/2446863653FC18972F',
+                                                    .companyModelList[index]
+                                                    .value!
+                                                    .thumbnail!,
                                                 fit: BoxFit.cover,
+                                                errorBuilder: (context, error,
+                                                        stackTrace) =>
+                                                    Image.asset(
+                                                  "images/empty_profile.png",
+                                                  width: 89,
+                                                  height: 89,
+                                                  fit: BoxFit.cover,
+                                                ),
                                               ),
                                             ),
                                           ),

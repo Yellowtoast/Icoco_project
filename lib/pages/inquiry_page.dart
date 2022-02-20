@@ -17,6 +17,7 @@ import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 
+import '../widgets/modal/bottomup_modal2.dart';
 import 'loading.dart';
 
 class InquiryPage extends StatelessWidget {
@@ -384,17 +385,28 @@ class InquiryPage extends StatelessWidget {
                         height: 67,
                       ),
                       IcoButton(
-                          onPressed: () async {
-                            inquiryController.createInquiryFirestore(
-                              companyController.companyModel.value!.uid!,
-                              authController.reservationModel.value!.uid,
-                              managerController
-                                  .managerModelList[managerNum].value!.uid,
-                              authController.reservationModel.value!.email,
-                              managerController
-                                  .managerModelList[managerNum].value!.name,
-                            );
-                            Get.back();
+                          onPressed: () {
+                            BottomUpModal2(
+                                title: "문의내용이 접수되었습니다.",
+                                subtitle: "문의내용에 대한 답변은\n연락처로 연락드리도록 하겠습니다.",
+                                buttonText: "확인 완료",
+                                onTap: () async {
+                                  inquiryController.createInquiryFirestore(
+                                    companyController.companyModel.value!.uid!,
+                                    authController.reservationModel.value!.uid,
+                                    managerController
+                                        .managerModelList[managerNum]
+                                        .value!
+                                        .uid,
+                                    authController
+                                        .reservationModel.value!.email,
+                                    managerController
+                                        .managerModelList[managerNum]
+                                        .value!
+                                        .name,
+                                  );
+                                  Get.offAllNamed(Routes.HOME);
+                                });
                           },
                           active: (inquiryController.reviewContents.value != '')
                               ? true.obs

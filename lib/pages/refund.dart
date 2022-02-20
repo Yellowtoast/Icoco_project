@@ -8,6 +8,7 @@ import 'package:app/helpers/formatter.dart';
 import 'package:app/configs/routes.dart';
 import 'package:app/configs/text_styles.dart';
 import 'package:app/controllers/home_controller.dart';
+import 'package:app/pages/manager/manager_detail.dart';
 
 import 'package:app/widgets/appbar.dart';
 import 'package:app/widgets/button/button.dart';
@@ -17,6 +18,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
+
+import '../widgets/modal/bottomup_modal2.dart';
 
 class RefundPage extends StatelessWidget {
   RefundPage({Key? key}) : super(key: key);
@@ -285,10 +288,17 @@ class RefundPage extends StatelessWidget {
                   height: 42,
                 ),
                 IcoButton(
-                    onPressed: () async {
-                      refundController.createRefundFirestore(authController
-                          .reservationModel.value!.reservationNumber);
-                      Get.back();
+                    onPressed: () {
+                      BottomUpModal2(
+                          title: "환불신청이 완료되었습니다.",
+                          subtitle: "문의내용에 대한 답변은\n연락처로 연락드리도록 하겠습니다.",
+                          buttonText: "확인 완료",
+                          onTap: () async {
+                            refundController.createRefundFirestore(
+                                authController
+                                    .reservationModel.value!.reservationNumber);
+                            Get.offNamed(Routes.HOME);
+                          });
                     },
                     active: refundController.isButtonValid,
                     buttonColor: IcoColors.primary,

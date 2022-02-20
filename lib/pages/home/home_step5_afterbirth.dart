@@ -18,12 +18,10 @@ import 'package:get/get.dart';
 import '../../widgets/cost_info_selection_box.dart';
 
 class HomeStep5Items_2 extends StatelessWidget {
-  const HomeStep5Items_2({Key? key}) : super(key: key);
-
+  HomeStep5Items_2({Key? key}) : super(key: key);
+  HomeController homeController = Get.find();
   @override
   Widget build(BuildContext context) {
-    HomeController homeController = Get.find();
-
     return Obx(() {
       return Column(
         crossAxisAlignment: CrossAxisAlignment.start,

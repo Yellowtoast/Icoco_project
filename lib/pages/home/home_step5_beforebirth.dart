@@ -9,12 +9,10 @@ import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 
 class HomeStep5Items_1 extends StatelessWidget {
-  const HomeStep5Items_1({Key? key}) : super(key: key);
-
+  HomeStep5Items_1({Key? key}) : super(key: key);
+  HomeController homeController = Get.find();
   @override
   Widget build(BuildContext context) {
-    HomeController homeController = Get.find();
-
     return Obx(() {
       return Column(
         crossAxisAlignment: CrossAxisAlignment.start,

@@ -70,7 +70,7 @@ class ReserveStep2_7_Novoucher extends StatelessWidget {
                           ),
                           InkWell(
                             onTap: () {
-                              dateInfoController.serviceDurationSelected.value =
+                              dateInfoController.voucherDurationSelected.value =
                                   "${index + 1}주";
                             },
                             child: CostInfoSelectionBox(
@@ -88,8 +88,8 @@ class ReserveStep2_7_Novoucher extends StatelessWidget {
                               title: "${index + 1}주 사용",
                               titleStyle: IcoTextStyle.boldTextStyle18B,
                               itemValue: "${index + 1}주",
-                              useDateSelected: dateInfoController
-                                  .serviceDurationSelected.value!,
+                              useDateSelected:
+                                  dateInfoController.voucherDurationSelected,
                             ),
                           ),
                         ],

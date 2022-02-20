@@ -20,21 +20,23 @@ class MidtermReviewPage extends StatelessWidget {
   ManagerController managerController = Get.find();
   AuthController authController = Get.find();
 
+  Future _setPreviousReview(var reviewList, int managerNum) async {
+    await Future.delayed(const Duration(milliseconds: 100));
+    await reviewController.setPreviousReview(reviewList, managerNum, '중간');
+  }
+
   @override
   Widget build(BuildContext context) {
     int managerNum = Get.arguments['managerNum'];
     var previousReviewModelList = Get.arguments['reviewModelList'];
-    Future _setPreviousReview() async {
-      await Future.delayed(const Duration(milliseconds: 100));
-      await reviewController.setPreviousReview(
-          previousReviewModelList, managerNum, '중간');
-    }
 
-    if (managerNum == 1) {
-      _setPreviousReview();
-    } else {
-      reviewController.setPreviousReview(
-          previousReviewModelList, managerNum, '중간');
+    if (previousReviewModelList != null) {
+      if (managerNum == 1) {
+        _setPreviousReview(previousReviewModelList, managerNum);
+      } else {
+        reviewController.setPreviousReview(
+            previousReviewModelList, managerNum, '중간');
+      }
     }
 
     return GestureDetector(
@@ -125,7 +127,8 @@ class MidtermReviewPage extends StatelessWidget {
                         children: [
                           (managerController.managerModelList.length > 1)
                               ? Text(
-                                  "${managerController.managerModelList[managerNum].value!.name}",
+                                  managerController
+                                      .managerModelList[managerNum].value!.name,
                                   style: IcoTextStyle.boldTextStyle20P)
                               : SizedBox(),
                           Text("관리사님께 한마디 부탁드려요!",
@@ -185,13 +188,15 @@ class MidtermReviewPage extends StatelessWidget {
                     onPressed: () async {
                       await reviewController.createMidtermReviewFirestore(
                           managerController.managerModelList[managerNum].value!,
-                          authController.reservationModel.value!.userName);
+                          authController.userModel.value!,
+                          authController.reservationModel.value!.chosenCompany!,
+                          reviewController.contentsTextController.text);
 
                       if (managerNum !=
                           managerController.managerModelList.length - 1) {
                         managerNum++;
                         if (previousReviewModelList != null) {
-                          Get.to(() => MidtermReviewPage(),
+                          Get.toNamed(Routes.MIDTERM_REVIEW,
                               arguments: {
                                 'managerNum': managerNum,
                                 'reviewModelList': previousReviewModelList

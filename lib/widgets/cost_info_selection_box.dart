@@ -31,163 +31,168 @@ class CostInfoSelectionBox extends StatelessWidget {
   RxList<int> remainingFee;
   Rx<bool> isVoucherUsed;
   int feeTypeIndex;
-  String useDateSelected;
+  Rxn<String> useDateSelected;
   String itemValue;
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      margin: EdgeInsets.fromLTRB(20, 20, 20, 0),
-      padding: EdgeInsets.fromLTRB(17, 20, 17, 25),
-      decoration: BoxDecoration(
-          color: IcoColors.white,
-          borderRadius: BorderRadius.circular(10),
-          border: Border.all(
-              color: (useDateSelected == itemValue)
-                  ? IcoColors.primary
-                  : IcoColors.grey2)),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.stretch,
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          Row(
-            children: [
-              SvgPicture.asset((useDateSelected == itemValue)
-                  ? "icons/check.svg"
-                  : "icons/unchecked.svg"),
-              SizedBox(
-                width: 7,
-              ),
-              Text(title, style: titleStyle),
-            ],
-          ),
-          SizedBox(
-            height: 24,
-          ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text("총 요금", style: IcoTextStyle.mediumTextStyle13Grey4),
-              Text(
-                  (totalFee != null)
-                      ? numFormat.format(totalFee[feeTypeIndex]) + " 원"
-                      : "",
-                  style: (isVoucherUsed.value)
-                      ? IcoTextStyle.boldTextStyle18B
-                      : IcoTextStyle.mediumTextStyle16Grey3),
-            ],
-          ),
-          SizedBox(
-            height: 15,
-          ),
-          (isVoucherUsed.value)
-              ? Column(
-                  children: [
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text("정부지원금",
-                            style: IcoTextStyle.mediumTextStyle13Grey4),
-                        Text(
-                            (govermentFee != null)
-                                ? numFormat.format(govermentFee[feeTypeIndex]) +
-                                    " 원"
-                                : "",
-                            style: IcoTextStyle.mediumTextStyle16Grey3),
-                      ],
-                    ),
-                    SizedBox(
-                      height: 15,
-                    ),
-                    DividerLineWidget(height: 1, color: IcoColors.grey2),
-                    SizedBox(
-                      height: 15,
-                    ),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text("본인부담금",
-                            style: IcoTextStyle.mediumTextStyle13Grey4),
-                        Text(
-                            (userFee != null)
-                                ? numFormat.format(userFee[feeTypeIndex]) + " 원"
-                                : "",
-                            style: IcoTextStyle.boldTextStyle18B),
-                      ],
-                    ),
-                    SizedBox(
-                      height: 18,
-                    ),
-                  ],
-                )
-              : SizedBox(),
-          Container(
-            padding: EdgeInsets.all(17),
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(5),
-              color: (useDateSelected == itemValue)
-                  ? IcoColors.purple1
-                  : IcoColors.grey1,
-            ),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.baseline,
-              textBaseline: TextBaseline.alphabetic,
+    return Obx(() {
+      return Container(
+        margin: EdgeInsets.fromLTRB(20, 20, 20, 0),
+        padding: EdgeInsets.fromLTRB(17, 20, 17, 25),
+        decoration: BoxDecoration(
+            color: IcoColors.white,
+            borderRadius: BorderRadius.circular(10),
+            border: Border.all(
+                color: (useDateSelected == itemValue)
+                    ? IcoColors.primary
+                    : IcoColors.grey2)),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Row(
               children: [
-                Row(
-                  children: [
-                    Expanded(
-                      flex: 2,
-                      child: Text(
-                        "예약금",
-                        style: IcoTextStyle.mediumTextStyle12Grey4,
-                      ),
-                    ),
-                    SizedBox(
-                      width: 11,
-                    ),
-                    Expanded(
-                      flex: 10,
-                      child: Text(
-                        // "${numFormat.format(depositFee.value[feeTypeIndex] - 100000)}원",
-                        numFormat.format(depositFee.value[feeTypeIndex]) + " 원",
-                        style: IcoTextStyle.mediumTextStyle15Grey4,
-                      ),
-                    )
-                  ],
-                ),
+                SvgPicture.asset((useDateSelected == itemValue)
+                    ? "icons/check.svg"
+                    : "icons/unchecked.svg"),
                 SizedBox(
-                  height: 5,
+                  width: 7,
                 ),
-                Row(
-                  children: [
-                    Expanded(
-                      flex: 2,
-                      child: Text(
-                        "잔금",
-                        style: IcoTextStyle.mediumTextStyle12Grey4,
-                      ),
-                    ),
-                    SizedBox(
-                      width: 11,
-                    ),
-                    Expanded(
-                      flex: 10,
-                      child: Text(
-                        "${numFormat.format(remainingFee.value[feeTypeIndex])}원",
-                        style: IcoTextStyle.mediumTextStyle15Grey4,
-                      ),
-                    )
-                  ],
-                ),
+                Text(title, style: titleStyle),
               ],
             ),
-          )
-        ],
-      ),
-    );
+            SizedBox(
+              height: 24,
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text("총 요금", style: IcoTextStyle.mediumTextStyle13Grey4),
+                Text(
+                    (totalFee != null)
+                        ? numFormat.format(totalFee[feeTypeIndex]) + " 원"
+                        : "",
+                    style: (isVoucherUsed.value)
+                        ? IcoTextStyle.boldTextStyle18B
+                        : IcoTextStyle.mediumTextStyle16Grey3),
+              ],
+            ),
+            SizedBox(
+              height: 15,
+            ),
+            (isVoucherUsed.value)
+                ? Column(
+                    children: [
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text("정부지원금",
+                              style: IcoTextStyle.mediumTextStyle13Grey4),
+                          Text(
+                              (govermentFee != null)
+                                  ? numFormat
+                                          .format(govermentFee[feeTypeIndex]) +
+                                      " 원"
+                                  : "",
+                              style: IcoTextStyle.mediumTextStyle16Grey3),
+                        ],
+                      ),
+                      SizedBox(
+                        height: 15,
+                      ),
+                      DividerLineWidget(height: 1, color: IcoColors.grey2),
+                      SizedBox(
+                        height: 15,
+                      ),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text("본인부담금",
+                              style: IcoTextStyle.mediumTextStyle13Grey4),
+                          Text(
+                              (userFee != null)
+                                  ? numFormat.format(userFee[feeTypeIndex]) +
+                                      " 원"
+                                  : "",
+                              style: IcoTextStyle.boldTextStyle18B),
+                        ],
+                      ),
+                      SizedBox(
+                        height: 18,
+                      ),
+                    ],
+                  )
+                : SizedBox(),
+            Container(
+              padding: EdgeInsets.all(17),
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(5),
+                color: (useDateSelected == itemValue)
+                    ? IcoColors.purple1
+                    : IcoColors.grey1,
+              ),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.baseline,
+                textBaseline: TextBaseline.alphabetic,
+                children: [
+                  Row(
+                    children: [
+                      Expanded(
+                        flex: 2,
+                        child: Text(
+                          "예약금",
+                          style: IcoTextStyle.mediumTextStyle12Grey4,
+                        ),
+                      ),
+                      SizedBox(
+                        width: 11,
+                      ),
+                      Expanded(
+                        flex: 10,
+                        child: Text(
+                          // "${numFormat.format(depositFee.value[feeTypeIndex] - 100000)}원",
+                          numFormat.format(depositFee.value[feeTypeIndex]) +
+                              " 원",
+                          style: IcoTextStyle.mediumTextStyle15Grey4,
+                        ),
+                      )
+                    ],
+                  ),
+                  SizedBox(
+                    height: 5,
+                  ),
+                  Row(
+                    children: [
+                      Expanded(
+                        flex: 2,
+                        child: Text(
+                          "잔금",
+                          style: IcoTextStyle.mediumTextStyle12Grey4,
+                        ),
+                      ),
+                      SizedBox(
+                        width: 11,
+                      ),
+                      Expanded(
+                        flex: 10,
+                        child: Text(
+                          "${numFormat.format(remainingFee.value[feeTypeIndex])}원",
+                          style: IcoTextStyle.mediumTextStyle15Grey4,
+                        ),
+                      )
+                    ],
+                  ),
+                ],
+              ),
+            )
+          ],
+        ),
+      );
+    });
   }
 }
 

@@ -2,6 +2,7 @@ import 'dart:io';
 import 'package:app/controllers/auth_controller.dart';
 import 'package:app/models/manager.dart';
 import 'package:app/models/review.dart';
+import 'package:app/models/user.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_storage/firebase_storage.dart' as firebase_storage;
 import 'package:flutter/cupertino.dart';
@@ -90,13 +91,14 @@ class ReviewController extends GetxController {
     }
   }
 
-  createMidtermReviewFirestore(ManagerModel managerModel, String userName) {
+  createMidtermReviewFirestore(ManagerModel managerModel, UserModel userModel,
+      String companyUid, String contents) {
     ReviewModel _newReviewModel = ReviewModel(
-      userName: authController.reservationModel.value!.userName,
-      userId: authController.reservationModel.value!.uid,
-      contents: reviewContents.value,
+      userName: userModel.userName,
+      userId: userModel.uid,
+      contents: contents,
       managerId: managerModel.uid,
-      companyId: authController.reservationModel.value!.chosenCompany!,
+      companyId: companyUid,
       specialtyItems: checkedSpecialtiesList.toList(),
       date: DateTime.now(),
       type: '중간',

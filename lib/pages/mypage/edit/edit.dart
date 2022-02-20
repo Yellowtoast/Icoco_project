@@ -167,7 +167,7 @@ class EditUserInfoPage extends StatelessWidget {
                           option2: '탈퇴',
                           iconUrl: 'icons/failed_human.svg');
                       if (confirm) {
-                        await authController
+                        authController
                             .deleteUser(authController.homeModel.value.uid);
                         authController.signOut();
                       }

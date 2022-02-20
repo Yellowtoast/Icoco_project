@@ -79,6 +79,7 @@ class AuthController extends GetxController {
     } else {
       if (isLoggedIn.value == true) {
         await setModelInfo();
+
         finishLoadingIndicator();
         isLoggedIn.value = true;
         Get.offAllNamed(Routes.HOME);
@@ -107,10 +108,14 @@ class AuthController extends GetxController {
   // }
 
   setModelInfo() async {
-    userModel.value = await getFirestoreUser(await getUser);
-    reservationModel.value =
-        await getFirebaseReservationByUid(userModel.value!.uid);
-    await storeModelInLocalStorage();
+    try {
+      userModel.value = await getFirestoreUser(await getUser);
+      reservationModel.value =
+          await getFirebaseReservationByUid(userModel.value!.uid);
+      await storeModelInLocalStorage();
+    } catch (e) {
+      await Get.offAllNamed(Routes.START);
+    }
   }
 
   storeModelInLocalStorage() async {
@@ -187,10 +192,7 @@ class AuthController extends GetxController {
         //     .doc('/Reservation/$reservationNumber')
         //     .set(_previousModel!.toJson());
 
-        await db
-            .collection('Reservation')
-            .doc('/Reservation/$reservationNumber')
-            .update({
+        await db.collection('Reservation').doc(reservationNumber).update({
           'email': email,
           'uid': userUid,
           'reservationRoute': '앱',

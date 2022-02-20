@@ -269,7 +269,7 @@ class SignupStep6Page extends StatelessWidget {
                                       bool getReserveHistory = false;
                                       String? uid;
                                       authController.isLoggedIn.value = false;
-
+                                      startLoadingIndicator();
                                       reservationNumber = await signupController
                                           .getExistingReservationNumber(
                                         signupController.nameController.text,
@@ -297,6 +297,7 @@ class SignupStep6Page extends StatelessWidget {
                                       }
                                       authController.isLoggedIn.value = true;
                                       await authController.setModelInfo();
+                                      finishLoadingIndicator();
                                       Get.offAllNamed(Routes.HOME);
                                     },
                                     active: true.obs,

@@ -7,11 +7,14 @@ String calcCertainDateBefore(int duration, String date) {
   return dateFormatWithDot.format(newDateTime);
 }
 
-int calcDifferenceBetweenDates(String fromDate, String untilDate) {
+int calcDifferenceBetweenDates(String fromDate, String dateNow) {
   DateTime fromDateTime = dashStringDateToDateTime(fromDate);
-  DateTime untilDateTime = dashStringDateToDateTime(untilDate);
-  int newDateTime =
-      int.parse(fromDateTime.difference(untilDateTime).inDays.toString());
+  DateTime untilDateTime = dashStringDateToDateTime(dateNow);
+  int newDateTime = 0;
+  if (untilDateTime.isAfter(fromDateTime)) {
+    newDateTime =
+        int.parse(fromDateTime.difference(untilDateTime).inDays.toString());
+  }
 
   return newDateTime;
 }

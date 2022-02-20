@@ -1,20 +1,14 @@
 import 'package:app/configs/colors.dart';
 import 'package:app/configs/routes.dart';
-
 import 'package:app/configs/text_styles.dart';
 import 'package:app/controllers/home_controller.dart';
 import 'package:app/controllers/manager_controller.dart';
 import 'package:app/controllers/review_controller.dart';
-
-import 'package:app/helpers/calc_date.dart';
-
 import 'package:app/widgets/button/button.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
-import 'package:image_picker/image_picker.dart';
-
 import '../loading.dart';
 
 class HomeStep9Items extends StatelessWidget {
@@ -48,6 +42,13 @@ class HomeStep9Items extends StatelessWidget {
                                 width: 89,
                                 height: 89,
                                 fit: BoxFit.cover,
+                                errorBuilder: (context, error, stackTrace) =>
+                                    Image.asset(
+                                  "images/empty_profile.png",
+                                  width: 89,
+                                  height: 89,
+                                  fit: BoxFit.cover,
+                                ),
                               ),
                             ),
                             SizedBox(

@@ -87,6 +87,14 @@ class MyReviewPage extends StatelessWidget {
                                             width: 89,
                                             height: 89,
                                             fit: BoxFit.cover,
+                                            errorBuilder:
+                                                (context, error, stackTrace) =>
+                                                    Image.asset(
+                                              "images/empty_profile.png",
+                                              width: 89,
+                                              height: 89,
+                                              fit: BoxFit.cover,
+                                            ),
                                           ),
                                         ),
                                         SizedBox(
