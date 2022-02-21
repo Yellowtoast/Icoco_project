@@ -86,6 +86,7 @@ class ReviewController extends GetxController {
 
     checkedSpecialtiesList.clear();
     itemSelectStatus.fillRange(0, 7, false.obs);
+
     for (var element in _reviewModel.specialtyItems!) {
       checkedSpecialtiesList.add(element);
       itemSelectStatus[specialtyTitle.indexOf(element)] = true.obs;
