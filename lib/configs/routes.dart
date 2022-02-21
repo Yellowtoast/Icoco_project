@@ -1,7 +1,6 @@
 // ignore_for_file: constant_identifier_names
 import 'package:app/bindings/calculator_bindings.dart';
 import 'package:app/bindings/reserve_binding.dart';
-import 'package:app/bindings/review_binding.dart';
 import 'package:app/bindings/splash_binding.dart';
 import 'package:app/bindings/home_binding.dart';
 import 'package:app/bindings/login_binding.dart';
