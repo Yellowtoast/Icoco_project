@@ -35,7 +35,6 @@ class VoucherController extends GetxController {
   Rxn<User?> firebaseAuthUser = Rxn<User?>();
   late serviceDurationType maxSupportedWeek;
   RxBool isButtonValid = false.obs;
-  HomeController homeController = HomeController();
   Rxn<String> regNumErrorText = Rxn<String>();
   AuthController authController = Get.find();
 

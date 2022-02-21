@@ -178,14 +178,21 @@ class ReserveStep2_6 extends StatelessWidget {
                           },
                           onPageFinished: (String url) {
                             print('webview page finished loading: $url');
-                            print(dateInfoController.birthDate.value);
+                            print(dateFormatWithDot
+                                .format(dateInfoController.birthDate.value!));
 
-                            print(
-                                dateInfoController.hospitalCheckoutDate.value);
-                            print(dateInfoController
-                                .careCenterChekcoutDate.value);
-                            print(dateInfoController.serviceStartDate.value);
-                            print(dateInfoController.serviceEndDate.value);
+                            print(dateFormatWithDot.format(dateInfoController
+                                .hospitalCheckoutDate.value!));
+                            print(dateFormatWithDot.format(dateInfoController
+                                .careCenterChekcoutDate.value!));
+                            print(dateFormatWithDot.format(
+                                dateInfoController.serviceStartDate.value!));
+                            print(dateFormatWithDot.format(
+                                dateInfoController.serviceEndDate.value!));
+
+                            dateFormatWithDot.format(
+                                dateInfoController.hospitalCheckoutDate.value!);
+
                             webViewController!.runJavascriptReturningResult(
                                 "postMessage(JSON.stringify({'birthExpectedDate': '${dateInfoController.birthDate.value == null ? '' : dateFormatWithDot.format(dateInfoController.birthDate.value!)}','careCenterEndDate': '${dateInfoController.careCenterChekcoutDate.value == null ? '' : dateFormatWithDot.format(dateInfoController.careCenterChekcoutDate.value!)}', 'careCenterStartDate': '', 'dispatchExpectedDate': '${dateInfoController.serviceStartDate.value == null ? '' : dateFormatWithDot.format(dateInfoController.serviceStartDate.value!)}', 'hospitalEndDate': '${dateInfoController.hospitalCheckoutDate.value == null ? '' : dateFormatWithDot.format(dateInfoController.hospitalCheckoutDate.value!)}', 'serviceEndDate': '${dateInfoController.serviceEndDate.value == null ? '' : dateFormatWithDot.format(dateInfoController.serviceEndDate.value!)}'}));");
                           },

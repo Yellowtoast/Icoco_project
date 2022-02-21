@@ -25,7 +25,7 @@ import 'package:scroll_to_index/scroll_to_index.dart';
 class HomeSkeletonPage extends StatelessWidget {
   HomeSkeletonPage({Key? key}) : super(key: key);
   AuthController authController = Get.find();
-  HomeController homeController = Get.put(HomeController());
+  HomeController homeController = Get.find();
 
   Widget sizeWidthBox(double width) => SizedBox(
         width: width,

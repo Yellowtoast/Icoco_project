@@ -387,7 +387,6 @@ class FinalReviewPage extends StatelessWidget {
                           iconUrl: 'icons/checked.svg');
 
                       if (goNext) {
-                        // startLoadingIndicator();
                         await reviewController.createFinalReviewFireStore(
                             managerController
                                 .managerModelList[managerNum].value!,
@@ -408,8 +407,8 @@ class FinalReviewPage extends StatelessWidget {
                         managerNum++;
                         Get.toNamed(Routes.FINAL_REVIEW,
                             arguments: managerNum, preventDuplicates: false);
-                        // finishLoadingIndicator();
                       } else {
+                        startLoadingIndicator();
                         authController
                             .reservationModel.value!.finalReviewFinished = true;
 
@@ -418,6 +417,7 @@ class FinalReviewPage extends StatelessWidget {
                             authController
                                 .reservationModel.value!.reservationNumber);
                         await authController.setModelInfo();
+                        finishLoadingIndicator();
                         Get.offAllNamed(Routes.HOME);
                       }
                     },
