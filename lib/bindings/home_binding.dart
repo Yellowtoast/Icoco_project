@@ -19,7 +19,7 @@ class HomeBindings implements Bindings {
     Get.put(HomeController());
     Get.put(ManagerController());
     Get.put(ReviewController());
-    Get.lazyPut(() => MypageController());
+    Get.put(MypageController());
     Get.lazyPut(() => VoucherController());
     Get.lazyPut(() => CompanyController());
     Get.lazyPut(() => DateInfoController());

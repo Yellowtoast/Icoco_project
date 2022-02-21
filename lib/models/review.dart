@@ -11,6 +11,7 @@ class ReviewModel {
   List<dynamic>? thumbnails;
   int? reviewRate;
   DateTime date;
+  String reservationNumber;
 
   ReviewModel({
     required this.userName,
@@ -21,6 +22,7 @@ class ReviewModel {
     required this.date,
     required this.type,
     required this.specialtyItems,
+    required this.reservationNumber,
     this.reviewRate,
     this.thumbnails,
   });
@@ -35,6 +37,7 @@ class ReviewModel {
       userId: data['userId'] ?? '',
       date: DateTime.fromMillisecondsSinceEpoch(data['date']),
       // date: DateTime.fromMillisecondsSinceEpoch(data['date']),
+      reservationNumber: data['reservationNumber'] ?? '',
       type: data['type'] ?? '',
       specialtyItems: data['specialtyItems'] ?? [],
       reviewRate: data['reviewRate'] ?? 0,
@@ -52,5 +55,6 @@ class ReviewModel {
         "type": type,
         "specialtyItems": specialtyItems,
         "reviewRate": reviewRate,
+        "reservationNumber": reservationNumber
       };
 }

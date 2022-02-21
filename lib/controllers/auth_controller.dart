@@ -186,12 +186,6 @@ class AuthController extends GetxController {
 
     querySnapshot.docs.forEach((doc) async {
       if (doc.data()['status'] != '서비스종료') {
-        // _previousModel = ReservationModel.fromJson(doc.data());
-        // _previousModel!.uid = userUid;
-        // await db
-        //     .doc('/Reservation/$reservationNumber')
-        //     .set(_previousModel!.toJson());
-
         await db.collection('Reservation').doc(reservationNumber).update({
           'email': email,
           'uid': userUid,

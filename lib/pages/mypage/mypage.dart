@@ -139,18 +139,16 @@ class MyPage extends StatelessWidget {
               } else {
                 startLoadingIndicator();
                 mypageController.middleReviewModelList =
-                    await reviewController.getJsonReviews(
+                    await mypageController.getMyPreviousReview(
+                        authController
+                            .reservationModel.value!.reservationNumber,
                         authController.reservationModel.value!.uid,
-                        'user',
-                        0,
-                        3,
                         '중간');
                 mypageController.finalReviewModelList =
-                    await reviewController.getJsonReviews(
+                    await mypageController.getMyPreviousReview(
+                        authController
+                            .reservationModel.value!.reservationNumber,
                         authController.reservationModel.value!.uid,
-                        'user',
-                        0,
-                        3,
                         '기말');
                 finishLoadingIndicator();
                 Get.to(MyReviewPage());

@@ -212,7 +212,9 @@ class MidtermReviewPage extends StatelessWidget {
                               authController.userModel.value!,
                               authController
                                   .reservationModel.value!.chosenCompany!,
-                              reviewController.reviewContents.value);
+                              reviewController.reviewContents.value,
+                              authController
+                                  .reservationModel.value!.reservationNumber);
                         }
 
                         reviewController.setMidtermReviewFirestore(
@@ -228,8 +230,12 @@ class MidtermReviewPage extends StatelessWidget {
                           Get.offAllNamed(Routes.HOME);
                         } else {
                           managerNum++;
+
                           Get.offNamed(Routes.MIDTERM_REVIEW,
-                              arguments: {'managerNum': managerNum},
+                              arguments: {
+                                'managerNum': managerNum,
+                                'reviewModelList': previousReviewModelList
+                              },
                               preventDuplicates: false);
                         }
                       },

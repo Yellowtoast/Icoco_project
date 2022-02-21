@@ -103,17 +103,17 @@ class ReviewController extends GetxController {
   }
 
   createMidtermReviewFirestore(ManagerModel managerModel, UserModel userModel,
-      String companyUid, String contents) {
+      String companyUid, String contents, String reservationNumber) {
     ReviewModel _newReviewModel = ReviewModel(
-      userName: userModel.userName,
-      userId: userModel.uid,
-      contents: contents,
-      managerId: managerModel.uid,
-      companyId: companyUid,
-      specialtyItems: checkedSpecialtiesList.toList(),
-      date: DateTime.now(),
-      type: '중간',
-    );
+        userName: userModel.userName,
+        userId: userModel.uid,
+        contents: contents,
+        managerId: managerModel.uid,
+        companyId: companyUid,
+        specialtyItems: checkedSpecialtiesList.toList(),
+        date: DateTime.now(),
+        type: '중간',
+        reservationNumber: reservationNumber);
     reviewModel.value = _newReviewModel;
     // reviewModelList.add(reviewModel);
     setMidtermReviewFirestore(_newReviewModel);
@@ -128,20 +128,24 @@ class ReviewController extends GetxController {
   }
 
 //기말평가 모델 생성, 관리자 모델에 specialty count 업데이트 해주어야 함
-  Future<void> createFinalReviewFireStore(ManagerModel managerModel,
-      UserModel userModel, String companyUid, String contents) async {
+  Future<void> createFinalReviewFireStore(
+      ManagerModel managerModel,
+      UserModel userModel,
+      String companyUid,
+      String contents,
+      String reservationNumber) async {
     ReviewModel _newReviewModel = ReviewModel(
-      contents: contents,
-      userId: userModel.uid,
-      managerId: managerModel.uid,
-      thumbnails: [],
-      userName: authController.reservationModel.value!.userName,
-      specialtyItems: checkedSpecialtiesList.toList(),
-      companyId: companyUid,
-      date: DateTime.now(),
-      type: '기말',
-      reviewRate: reviewRate.value,
-    );
+        contents: contents,
+        userId: userModel.uid,
+        managerId: managerModel.uid,
+        thumbnails: [],
+        userName: authController.reservationModel.value!.userName,
+        specialtyItems: checkedSpecialtiesList.toList(),
+        companyId: companyUid,
+        date: DateTime.now(),
+        type: '기말',
+        reviewRate: reviewRate.value,
+        reservationNumber: reservationNumber);
 
     reviewModel.value = _newReviewModel;
     reviewType.value = null;

@@ -393,7 +393,9 @@ class FinalReviewPage extends StatelessWidget {
                             authController.userModel.value!,
                             authController
                                 .reservationModel.value!.chosenCompany!,
-                            reviewController.reviewContents.value);
+                            reviewController.reviewContents.value,
+                            authController
+                                .reservationModel.value!.reservationNumber);
                         await reviewController.setFinalReviewFirestore(
                           reviewController.reviewModel.value!,
                         );
