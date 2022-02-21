@@ -165,6 +165,12 @@ class ReviewController extends GetxController {
   }
 
   setMidtermReviewFirestore(ReviewModel reviewModel) {
+    reviewModel.contents = contentsTextController.text;
+    // reviewModel.specialtyItems!.clear();
+    // checkedSpecialtiesList.forEach((element) {
+    //   reviewModel.specialtyItems!.add(element);
+    // });
+
     db
         .doc('/Review/${reviewModel.date.millisecondsSinceEpoch}')
         .set(reviewModel.toJson());

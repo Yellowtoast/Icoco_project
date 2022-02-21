@@ -32,7 +32,7 @@ class MidtermReviewPage extends StatelessWidget {
     int managerNum = Get.arguments['managerNum'];
     var previousReviewModelList = Get.arguments['reviewModelList'] ?? null;
     if (previousReviewModelList != null) {
-      if (managerNum == 1) {
+      if (managerNum == managerController.managerModelList.length - 1) {
         _setPreviousReview(previousReviewModelList,
             managerController.managerModelList[managerNum].value!.uid, '중간');
       } else {
@@ -152,6 +152,8 @@ class MidtermReviewPage extends StatelessWidget {
                         child: TextField(
                           onChanged: (value) {
                             reviewController.reviewContents.value = value;
+                            reviewController.reviewModel.value!.contents =
+                                value;
                           },
                           controller: reviewController.contentsTextController,
                           keyboardType: TextInputType.multiline,
@@ -186,7 +188,7 @@ class MidtermReviewPage extends StatelessWidget {
                 ),
                 IcoButton(
                     width: IcoSize.width - 40,
-                    onPressed: () async {
+                    onPressed: () {
                       // reviewController.updateMidtermReviewFirestore(
                       //     reviewController.reviewModelList);
 
@@ -236,18 +238,20 @@ class MidtermReviewPage extends StatelessWidget {
                             authController
                                 .reservationModel.value!.chosenCompany!,
                             reviewController.contentsTextController.text);
-                      } else {
-                        reviewController.setPreviousReview(
-                            previousReviewModelList,
-                            managerController
-                                .managerModelList[managerNum].value!.uid,
-                            '중간');
                       }
+                      // else {
+                      //   reviewController.setPreviousReview(
+                      //       previousReviewModelList,
+                      //       managerController
+                      //           .managerModelList[managerNum].value!.uid,
+                      //       '중간');
+                      // }
+
+                      reviewController.setMidtermReviewFirestore(
+                          reviewController.reviewModel.value!);
 
                       if (managerNum ==
                           managerController.managerModelList.length - 1) {
-                        reviewController.setMidtermReviewFirestore(
-                            reviewController.reviewModel.value!);
                         authController.reservationModel.value!
                             .midtermReviewFinished = true;
                         authController.updateReservationFirestore(authController

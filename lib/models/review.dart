@@ -2,7 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 
 class ReviewModel {
   final String userName;
-  final String contents;
+  String contents;
   final String managerId;
   final String companyId;
   final String userId;
