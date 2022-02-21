@@ -92,7 +92,8 @@ class ReserveStep2_3_AfterBirth extends StatelessWidget {
                                       dateInfoController.birthDate,
                                       dateInfoController.isBirthDateSelected,
                                       DateTime.now(),
-                                      step1);
+                                      step1,
+                                      null);
                                   dateInfoController.clearSelectedInfo(
                                       dateInfoController.hospitalCheckoutDate,
                                       dateInfoController.useHospitalSelected);
@@ -282,7 +283,8 @@ class ReserveStep2_3_AfterBirth extends StatelessWidget {
                                                 .isHospitalDateSelected,
                                             dateInfoController
                                                 .initialDateTime.value,
-                                            step2);
+                                            step2,
+                                            null);
                                         dateInfoController.clearSelectedInfo(
                                             dateInfoController
                                                 .careCenterChekcoutDate,
@@ -398,7 +400,8 @@ class ReserveStep2_3_AfterBirth extends StatelessWidget {
                                                 .isCareCenterDateSelected,
                                             dateInfoController
                                                 .initialDateTime.value,
-                                            step3);
+                                            step3,
+                                            null);
                                         dateInfoController
                                             .serviceStartDate.value = null;
                                       },

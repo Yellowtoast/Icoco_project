@@ -85,11 +85,11 @@ class ReviewController extends GetxController {
     });
 
     checkedSpecialtiesList.clear();
-    itemSelectStatus.fillRange(0, 6, false.obs);
+    itemSelectStatus.fillRange(0, 7, false.obs);
     for (var element in _reviewModel.specialtyItems!) {
       checkedSpecialtiesList.add(element);
       itemSelectStatus[specialtyTitle.indexOf(element)] = true.obs;
-      checkedSpecialtiesList.refresh();
+      // checkedSpecialtiesList.refresh();
     }
 
     contentsTextController.text = _reviewModel.contents;
@@ -125,15 +125,16 @@ class ReviewController extends GetxController {
   }
 
 //기말평가 모델 생성, 관리자 모델에 specialty count 업데이트 해주어야 함
-  Future<void> createFinalReviewFireStore(ManagerModel managerModel) async {
+  Future<void> createFinalReviewFireStore(ManagerModel managerModel,
+      UserModel userModel, String companyUid, String contents) async {
     ReviewModel _newReviewModel = ReviewModel(
-      contents: reviewContents.value,
-      userId: authController.reservationModel.value!.uid,
+      contents: contents,
+      userId: userModel.uid,
       managerId: managerModel.uid,
       thumbnails: [],
       userName: authController.reservationModel.value!.userName,
       specialtyItems: checkedSpecialtiesList.toList(),
-      companyId: authController.reservationModel.value!.chosenCompany!,
+      companyId: companyUid,
       date: DateTime.now(),
       type: '기말',
       reviewRate: reviewRate.value,
@@ -152,12 +153,12 @@ class ReviewController extends GetxController {
     });
   }
 
-  updateFinalReviewFirestore(ReviewModel review) async {
+  setFinalReviewFirestore(ReviewModel reviewModel) async {
     List<String>? imagesURL = await uploadFileStorage(totalFileList);
-    review.thumbnails = imagesURL;
-    db
-        .doc('/Review/${review.date.millisecondsSinceEpoch}')
-        .update(review.toJson());
+    reviewModel.thumbnails = imagesURL;
+    await db
+        .doc('/Review/${reviewModel.date.millisecondsSinceEpoch}')
+        .set(reviewModel.toJson());
     storageRefList.clear();
     fileNameList.clear();
     totalFileList.clear();
@@ -165,12 +166,6 @@ class ReviewController extends GetxController {
   }
 
   setMidtermReviewFirestore(ReviewModel reviewModel) {
-    reviewModel.contents = contentsTextController.text;
-    // reviewModel.specialtyItems!.clear();
-    // checkedSpecialtiesList.forEach((element) {
-    //   reviewModel.specialtyItems!.add(element);
-    // });
-
     db
         .doc('/Review/${reviewModel.date.millisecondsSinceEpoch}')
         .set(reviewModel.toJson());

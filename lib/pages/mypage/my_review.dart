@@ -210,10 +210,13 @@ class MyReviewPage extends StatelessWidget {
                   iconUrl: 'icons/speech_bubble.svg',
                   leadingIconColor: IcoColors.purple3,
                   onTap: () {
-                    Get.toNamed(Routes.MIDTERM_REVIEW, arguments: {
-                      "managerNum": 0,
-                      "reviewModelList": mypageController.middleReviewModelList,
-                    });
+                    if (mypageController.middleReviewModelList!.isNotEmpty) {
+                      Get.toNamed(Routes.MIDTERM_REVIEW, arguments: {
+                        "managerNum": 0,
+                        "reviewModelList":
+                            mypageController.middleReviewModelList,
+                      });
+                    }
                   },
                   title: '중간평가',
                   date: (mypageController.middleReviewModelList!.isNotEmpty)
@@ -231,7 +234,11 @@ class MyReviewPage extends StatelessWidget {
                   leadingIconColor: IcoColors.primary,
                   onTap: () {
                     if (mypageController.finalReviewModelList!.isNotEmpty) {
-                      Get.toNamed(Routes.FINAL_REVIEW, arguments: 0);
+                      Get.toNamed(Routes.FINAL_REVIEW, arguments: {
+                        "managerNum": 0,
+                        "reviewModelList":
+                            mypageController.finalReviewModelList,
+                      });
                     }
                   },
                   title: '기말평가',

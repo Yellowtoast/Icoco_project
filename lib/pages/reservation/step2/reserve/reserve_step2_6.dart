@@ -44,8 +44,6 @@ class ReserveStep2_6 extends StatelessWidget {
     if (authController.reservationModel.value!.serviceDuration != null) {
       dateInfoController.serviceDurationSelected.value =
           authController.reservationModel.value!.serviceDuration;
-      serviceInfoController.voucherUseDurationSelected.value =
-          serviceDurationType.THREEWEEK;
     }
 
     if (Platform.isAndroid) {
@@ -105,7 +103,8 @@ class ReserveStep2_6 extends StatelessWidget {
                                     dateInfoController.serviceStartDate,
                                     dateInfoController.isServiceDateSelected,
                                     dateInfoController.initialDateTime.value,
-                                    step1);
+                                    step1,
+                                    webViewController);
                               },
                             ),
                           ],
@@ -136,6 +135,7 @@ class ReserveStep2_6 extends StatelessWidget {
                                   dateInfoController
                                       .setServiceEndDate(newValue);
                                   step2.value = true;
+                                  webViewController!.reload();
                                 },
                                 hintText: "이용주수를 선택해주세요",
                                 dropDownList:
@@ -161,75 +161,77 @@ class ReserveStep2_6 extends StatelessWidget {
                     height: 27,
                   ),
                   DividerLineWidget(),
-                  Container(
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.end,
-                      children: [
-                        SizedBox(
-                          height: 480,
-                          child: WebView(
-                            initialUrl:
-                                'https://icoco2022-erpweb.vercel.app/calendar',
-                            onWebViewCreated: (controller) {
-                              this.webViewController = controller;
-                              print('webview created');
-                            },
-                            onPageStarted: (String url) {
-                              print('webview page started loading: $url');
-                            },
-                            onPageFinished: (String url) {
-                              print('webview page finished loading: $url');
+                  Column(
+                    children: [
+                      Container(
+                        padding: EdgeInsets.symmetric(horizontal: 20),
+                        height: 480,
+                        child: WebView(
+                          initialUrl:
+                              'https://icoco2022-erpweb.vercel.app/calendar',
+                          onWebViewCreated: (controller) {
+                            this.webViewController = controller;
+                            print('webview created');
+                          },
+                          onPageStarted: (String url) {
+                            print('webview page started loading: $url');
+                          },
+                          onPageFinished: (String url) {
+                            print('webview page finished loading: $url');
+                            print(dateInfoController.birthDate.value);
 
-                              webViewController!.runJavascriptReturningResult(
-                                  "postMessage(JSON.stringify({'birthExpectedDate':'2022.02.01','careCenterEndDate': '2022.02.10', 'careCenterStartDate': '', 'dispatchExpectedDate': '2022.02.26', 'hospitalEndDate': '2022.02.02', 'serviceEndDate': ''}));");
-                            },
-                            javascriptMode: JavascriptMode.unrestricted,
-                          ),
+                            print(
+                                dateInfoController.hospitalCheckoutDate.value);
+                            print(dateInfoController
+                                .careCenterChekcoutDate.value);
+                            print(dateInfoController.serviceStartDate.value);
+                            print(dateInfoController.serviceEndDate.value);
+                            webViewController!.runJavascriptReturningResult(
+                                "postMessage(JSON.stringify({'birthExpectedDate': '${dateInfoController.birthDate.value == null ? '' : dateFormatWithDot.format(dateInfoController.birthDate.value!)}','careCenterEndDate': '${dateInfoController.careCenterChekcoutDate.value == null ? '' : dateFormatWithDot.format(dateInfoController.careCenterChekcoutDate.value!)}', 'careCenterStartDate': '', 'dispatchExpectedDate': '${dateInfoController.serviceStartDate.value == null ? '' : dateFormatWithDot.format(dateInfoController.serviceStartDate.value!)}', 'hospitalEndDate': '${dateInfoController.hospitalCheckoutDate.value == null ? '' : dateFormatWithDot.format(dateInfoController.hospitalCheckoutDate.value!)}', 'serviceEndDate': '${dateInfoController.serviceEndDate.value == null ? '' : dateFormatWithDot.format(dateInfoController.serviceEndDate.value!)}'}));");
+                          },
+                          javascriptMode: JavascriptMode.unrestricted,
                         ),
-                        IcoButton(
-                            width: IcoSize.width - 40,
-                            onPressed: () {
+                      ),
+                      IcoButton(
+                          width: IcoSize.width - 40,
+                          onPressed: () {
+                            if (authController
+                                    .reservationModel.value!.userStep >
+                                2) {
+                              Get.toNamed(Routes.RESERVE_STEP2_FINISHED);
+                            } else {
                               if (authController
-                                      .reservationModel.value!.userStep >
-                                  2) {
-                                Get.toNamed(Routes.RESERVE_STEP2_FINISHED);
+                                      .reservationModel.value!.voucher ==
+                                  '일반서비스') {
+                                voucherController.setVoucherInfo(
+                                    voucherController.voucherResult.value,
+                                    additionalFeeController.totalAdditionalFee);
+                                Get.to(ReserveStep2_7_Novoucher());
                               } else {
-                                if (authController
-                                        .reservationModel.value!.voucher ==
-                                    '일반서비스') {
-                                  voucherController.setVoucherInfo(
-                                      voucherController.voucherResult.value,
-                                      additionalFeeController
-                                          .totalAdditionalFee);
-                                  Get.to(ReserveStep2_7_Novoucher());
-                                } else {
-                                  additionalFeeController = Get.find();
+                                additionalFeeController = Get.find();
 
-                                  voucherController.voucherResult.value =
-                                      authController
-                                          .reservationModel.value!.voucher;
-                                  voucherController.setDropDownList(null);
-                                  voucherController.setVoucherInfo(
-                                      voucherController.voucherResult.value,
-                                      additionalFeeController
-                                          .totalAdditionalFee);
-                                  Get.toNamed(Routes.RESERVE_STEP2_7,
-                                      preventDuplicates: false);
-                                }
+                                voucherController.voucherResult.value =
+                                    authController
+                                        .reservationModel.value!.voucher;
+                                voucherController.setDropDownList(null);
+                                voucherController.setVoucherInfo(
+                                    voucherController.voucherResult.value,
+                                    additionalFeeController.totalAdditionalFee);
+                                Get.toNamed(Routes.RESERVE_STEP2_7,
+                                    preventDuplicates: false);
                               }
-                            },
-                            active:
-                                (dateInfoController.serviceStartDate.value !=
-                                        null)
-                                    ? true.obs
-                                    : false.obs,
-                            textStyle: IcoTextStyle.buttonTextStyleW,
-                            text: "다음으로"),
-                        SizedBox(
-                          height: 20,
-                        ),
-                      ],
-                    ),
+                            }
+                          },
+                          active: (dateInfoController.serviceStartDate.value !=
+                                  null)
+                              ? true.obs
+                              : false.obs,
+                          textStyle: IcoTextStyle.buttonTextStyleW,
+                          text: "다음으로"),
+                      SizedBox(
+                        height: 20,
+                      ),
+                    ],
                   )
                 ],
               ),

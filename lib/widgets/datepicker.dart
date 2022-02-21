@@ -1,8 +1,10 @@
 import 'package:app/configs/colors.dart';
 import 'package:app/configs/enum.dart';
+import 'package:app/controllers/auth_controller.dart';
 import 'package:app/controllers/reservation/step2/substep_controllers/date_info_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:webview_flutter/webview_flutter.dart';
 
 showDatePickerPop(
   BuildContext context,
@@ -11,8 +13,10 @@ showDatePickerPop(
   Rx<bool> dateSelected,
   DateTime? initialDate,
   Rx<bool> stepFinished,
+  WebViewController? webViewController,
 ) {
-  DateInfoController birthInfoController = Get.find();
+  DateInfoController dateInfoController = Get.find();
+  AuthController authController = Get.find();
   Future<DateTime?> selectedDate = showDatePicker(
     locale: const Locale('ko', 'KR'),
     context: context,
@@ -40,7 +44,12 @@ showDatePickerPop(
       stepFinished.value = true;
     }
 
-    birthInfoController.isStepsFinished();
+    if (webViewController != null) {
+      dateInfoController.setServiceEndDate(
+          authController.reservationModel.value!.serviceDuration);
+      webViewController.reload();
+    }
+    dateInfoController.isStepsFinished();
   });
 }
 

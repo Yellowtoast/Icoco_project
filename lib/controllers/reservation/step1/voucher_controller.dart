@@ -169,27 +169,40 @@ class VoucherController extends GetxController {
 
   getVoucherCostInfo(String voucher, int additionalFee) {
     depositFeeList.assignAll(depositFeePerWeek);
-    print(totalFeeInfo[voucher]);
-    totalFeeList.assignAll(totalFeeInfo[voucher]!);
+    totalFeeList.assignAll(serviceFeeInfo[voucher]!);
+    for (int i = 0; i < 5; i++) {
+      totalFeeList[i] += depositFeeList[i] + additionalFee;
+    }
     govermentFeeList.assignAll(govermentFeeInfo[voucher]!);
-
-    calculateUserFee(additionalFee);
+    calculateUserFee();
     calculateRemainingFee();
-
     showResult.value = true;
   }
 
-  calculateUserFee(int additionalFee) {
+  // calculateUserFee(int additionalFee) {
+  //   for (int i = 0; i < 5; i++) {
+  //     userFeeList[i] =
+  //         (serviceFeeList[i] - govermentFeeList[i]) + additionalFee;
+  //   }
+  // }
+
+  calculateUserFee() {
     for (int i = 0; i < 5; i++) {
-      userFeeList[i] = (totalFeeList[i] - govermentFeeList[i]) + additionalFee;
+      userFeeList[i] = totalFeeList[i] - govermentFeeList[i];
     }
   }
 
   calculateRemainingFee() {
     for (int i = 0; i < 5; i++) {
-      remainingFeeList[i] = userFeeList[i].toInt() - depositFeeList[i].toInt();
+      remainingFeeList[i] = userFeeList[i] - depositFeeList[i];
     }
   }
+
+  // calculateRemainingFee() {
+  //   for (int i = 0; i < 5; i++) {
+  //     remainingFeeList[i] = userFeeList[i].toInt() - depositFeeList[i].toInt();
+  //   }
+  // }
 
   getFullRegNum() {
     String fullRegNum;

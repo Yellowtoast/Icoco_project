@@ -11,6 +11,7 @@ class DateInfoController extends GetxController {
   Rxn<DateTime> hospitalCheckoutDate = Rxn<DateTime>();
   Rxn<DateTime> careCenterChekcoutDate = Rxn<DateTime>();
   Rxn<DateTime> initialDateTime = Rxn<DateTime>();
+
   Rxn<birthType> birthTypeSelected = Rxn<birthType>();
   Rxn<usageType> useCareCenterSelected = Rxn<usageType>();
   Rxn<usageType> useHospitalSelected = Rxn<usageType>();

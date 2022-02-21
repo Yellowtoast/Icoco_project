@@ -12,7 +12,7 @@ import '../mypage/mypage.dart';
 
 class HomePage extends StatelessWidget {
   HomePage({Key? key}) : super(key: key);
-  HomeController homeController = Get.find();
+  // HomeController homeController = Get.find();
   AuthController authController = Get.find();
   VoucherController voucherController = Get.find();
 

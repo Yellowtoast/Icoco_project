@@ -26,8 +26,8 @@ import '../refund.dart';
 
 class ManagerDetailPage extends StatelessWidget {
   int managerNum = Get.arguments;
-  ManagerController managerController = Get.find();
-  ReviewController reviewController = Get.find();
+  ManagerController managerController = Get.put(ManagerController());
+  ReviewController reviewController = Get.put(ReviewController());
   AuthController authController = Get.find();
   CompanyController companyController = Get.put(CompanyController());
 

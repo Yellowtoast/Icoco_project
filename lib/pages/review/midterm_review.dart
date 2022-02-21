@@ -20,35 +20,35 @@ class MidtermReviewPage extends StatelessWidget {
   ManagerController managerController = Get.find();
   AuthController authController = Get.find();
 
-  Future _setPreviousReview(
-      var reviewList, String managerUid, String reviewType) async {
-    await Future.delayed(const Duration(milliseconds: 100));
-    await reviewController.setPreviousReview(
-        reviewList, managerUid, reviewType);
-  }
+  // Future _setPreviousReview(
+  //     var reviewList, String managerUid, String reviewType) async {
+  //   await Future.delayed(const Duration(milliseconds: 100));
+  //   await reviewController.setPreviousReview(
+  //       reviewList, managerUid, reviewType);
+  // }
+
+  int managerNum = Get.arguments['managerNum'];
+  var previousReviewModelList = Get.arguments['reviewModelList'];
 
   @override
   Widget build(BuildContext context) {
-    int managerNum = Get.arguments['managerNum'];
-    var previousReviewModelList = Get.arguments['reviewModelList'] ?? null;
-    if (previousReviewModelList != null) {
-      if (managerNum == managerController.managerModelList.length - 1) {
-        _setPreviousReview(previousReviewModelList,
-            managerController.managerModelList[managerNum].value!.uid, '중간');
-      } else {
-        reviewController.setPreviousReview(previousReviewModelList,
-            managerController.managerModelList[managerNum].value!.uid, '중간');
-      }
-    }
+    // if (previousReviewModelList != null) {
+    //   if (managerNum == managerController.managerModelList.length - 1) {
+    //     _setPreviousReview(previousReviewModelList,
+    //         managerController.managerModelList[managerNum].value!.uid, '중간');
+    //   } else {
+    //     reviewController.setPreviousReview(previousReviewModelList,
+    //         managerController.managerModelList[managerNum].value!.uid, '중간');
+    //   }
+    // }
     return GestureDetector(
       onTap: () {
         FocusScope.of(context).unfocus();
       },
       child: Scaffold(
-        backgroundColor: IcoColors.white,
-        appBar: IcoAppbar(title: '예약하기'),
-        body: Obx(() {
-          return SingleChildScrollView(
+          backgroundColor: IcoColors.white,
+          appBar: IcoAppbar(title: '예약하기'),
+          body: SingleChildScrollView(
             scrollDirection: Axis.vertical,
             child: Column(
               children: [
@@ -152,8 +152,6 @@ class MidtermReviewPage extends StatelessWidget {
                         child: TextField(
                           onChanged: (value) {
                             reviewController.reviewContents.value = value;
-                            reviewController.reviewModel.value!.contents =
-                                value;
                           },
                           controller: reviewController.contentsTextController,
                           keyboardType: TextInputType.multiline,
@@ -186,104 +184,59 @@ class MidtermReviewPage extends StatelessWidget {
                 SizedBox(
                   height: 57,
                 ),
-                IcoButton(
-                    width: IcoSize.width - 40,
-                    onPressed: () {
-                      // reviewController.updateMidtermReviewFirestore(
-                      //     reviewController.reviewModelList);
+                Obx(() {
+                  return IcoButton(
+                      width: IcoSize.width - 40,
+                      onPressed: () {
+                        if (previousReviewModelList == null) {
+                          reviewController.createMidtermReviewFirestore(
+                              managerController
+                                  .managerModelList[managerNum].value!,
+                              authController.userModel.value!,
+                              authController
+                                  .reservationModel.value!.chosenCompany!,
+                              reviewController.reviewContents.value);
+                        }
 
-                      // if (managerNum !=
-                      //     managerController.managerModelList.length - 1) {
-                      //   managerNum++;
-                      //   if (previousReviewModelList != null) {
-                      //     Get.offNamed(Routes.MIDTERM_REVIEW,
-                      //         arguments: {
-                      //           'managerNum': managerNum,
-                      //           'reviewModelList': previousReviewModelList
-                      //         },
-                      //         preventDuplicates: false);
-                      //   } else {
-                      //     await reviewController.createMidtermReviewFirestore(
-                      //         managerController
-                      //             .managerModelList[managerNum].value!,
-                      //         authController.userModel.value!,
-                      //         authController
-                      //             .reservationModel.value!.chosenCompany!,
-                      //         reviewController.contentsTextController.text);
-                      //     Get.offNamed(Routes.MIDTERM_REVIEW,
-                      //         arguments: {'managerNum': managerNum},
-                      //         preventDuplicates: false);
-                      //   }
-                      // } else {
-                      //   await reviewController.createMidtermReviewFirestore(
-                      //       managerController
-                      //           .managerModelList[managerNum].value!,
-                      //       authController.userModel.value!,
-                      //       authController
-                      //           .reservationModel.value!.chosenCompany!,
-                      //       reviewController.contentsTextController.text);
-                      //   authController.reservationModel.value!
-                      //       .midtermReviewFinished = true;
-                      //   authController.updateReservationFirestore(authController
-                      //       .reservationModel.value!.reservationNumber);
+                        reviewController.setMidtermReviewFirestore(
+                            reviewController.reviewModel.value!);
 
-                      //   Get.offAllNamed(Routes.HOME);
-                      // }
-
-                      if (previousReviewModelList == null) {
-                        reviewController.createMidtermReviewFirestore(
-                            managerController
-                                .managerModelList[managerNum].value!,
-                            authController.userModel.value!,
-                            authController
-                                .reservationModel.value!.chosenCompany!,
-                            reviewController.contentsTextController.text);
-                      }
-                      // else {
-                      //   reviewController.setPreviousReview(
-                      //       previousReviewModelList,
-                      //       managerController
-                      //           .managerModelList[managerNum].value!.uid,
-                      //       '중간');
-                      // }
-
-                      reviewController.setMidtermReviewFirestore(
-                          reviewController.reviewModel.value!);
-
-                      if (managerNum ==
-                          managerController.managerModelList.length - 1) {
-                        authController.reservationModel.value!
-                            .midtermReviewFinished = true;
-                        authController.updateReservationFirestore(authController
-                            .reservationModel.value!.reservationNumber);
-                        Get.offAllNamed(Routes.HOME);
-                      } else {
-                        managerNum++;
-                        Get.offNamed(Routes.MIDTERM_REVIEW,
-                            arguments: {'managerNum': managerNum},
-                            preventDuplicates: false);
-                      }
-                    },
-                    active: (reviewController.reviewContents.value != '' &&
-                            reviewController.checkedSpecialtiesList.isNotEmpty)
-                        ? true.obs
-                        : false.obs,
-                    textStyle: IcoTextStyle.buttonTextStyleW,
-                    text: (managerNum !=
-                                managerController.managerModelList.length - 1 &&
-                            previousReviewModelList == null)
-                        ? '다음으로'
-                        : (previousReviewModelList != null)
-                            ? '중간평가 수정'
-                            : '중간평가 등록'),
+                        if (managerNum ==
+                            managerController.managerModelList.length - 1) {
+                          authController.reservationModel.value!
+                              .midtermReviewFinished = true;
+                          authController.updateReservationFirestore(
+                              authController
+                                  .reservationModel.value!.reservationNumber);
+                          Get.offAllNamed(Routes.HOME);
+                        } else {
+                          managerNum++;
+                          Get.offNamed(Routes.MIDTERM_REVIEW,
+                              arguments: {'managerNum': managerNum},
+                              preventDuplicates: false);
+                        }
+                      },
+                      active: (reviewController.reviewContents.value != '' &&
+                              reviewController
+                                  .checkedSpecialtiesList.isNotEmpty)
+                          ? true.obs
+                          : false.obs,
+                      textStyle: IcoTextStyle.buttonTextStyleW,
+                      text: (managerNum !=
+                                  managerController.managerModelList.length -
+                                      1 &&
+                              previousReviewModelList == null)
+                          ? '다음으로'
+                          : (previousReviewModelList != null)
+                              ? '중간평가 수정'
+                              : '중간평가 등록');
+                }),
                 SizedBox(
                   height: 20,
                 )
               ],
             ),
-          );
-        }),
-      ),
+          )),
     );
   }
 }
@@ -315,6 +268,7 @@ class IconCheckButton extends StatelessWidget {
               } else {
                 selectedItemList.add(title);
                 checked.value = true;
+                selectedItemList.refresh();
               }
               print(selectedItemList);
             },
