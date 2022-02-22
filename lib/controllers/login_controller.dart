@@ -1,4 +1,5 @@
 import 'package:app/controllers/auth_controller.dart';
+import 'package:app/pages/loading.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -9,7 +10,7 @@ class LoginController extends GetxController {
   final passwordController = TextEditingController();
   Rx<bool> isButtonValid = false.obs;
 
-  FirebaseAuth _auth = FirebaseAuth.instance;
+  final FirebaseAuth _auth = FirebaseAuth.instance;
   Rxn<User> firebaseAuthUser = Rxn<User>();
 
   RxList<Rxn<String>> errorTextList = RxList<Rxn<String>>();
@@ -64,10 +65,11 @@ class LoginController extends GetxController {
     }
   }
 
-  login() async {
+  login(Rxn<User> firebaseAuthUser, Rx<bool> isLoggedIn) async {
     try {
       UserCredential userCredential = await _auth.signInWithEmailAndPassword(
           email: emailController.text, password: passwordController.text);
+      isLoggedIn.value = true;
       firebaseAuthUser.value = userCredential.user;
     } on FirebaseAuthException catch (e) {
       if (e.code == 'user-not-found') {
@@ -76,6 +78,8 @@ class LoginController extends GetxController {
         print('Wrong password provided for that user.');
       } else if (e.code == "invalid-email") {
         print('이메일 형식이 잘못되었습니다');
+      } else {
+        print(e);
       }
     }
   }

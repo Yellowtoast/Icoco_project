@@ -70,7 +70,8 @@ class AuthController extends GetxController {
   handleAuthChanged(_firebaseAuthUser) async {
     startLoadingIndicator();
     if (_firebaseAuthUser != null &&
-        (reservationModel.value != null || userModel.value != null)) {
+        (reservationModel.value != null || userModel.value != null) &&
+        isLoggedIn.value == false) {
       return;
     }
 
@@ -80,11 +81,11 @@ class AuthController extends GetxController {
       if (isLoggedIn.value == true) {
         await setModelInfo();
 
-        finishLoadingIndicator();
         isLoggedIn.value = true;
         Get.offAllNamed(Routes.HOME);
       }
     }
+    finishLoadingIndicator();
   }
 
   // handleAuthChanged(_firebaseAuthUser) async {

@@ -46,7 +46,7 @@ class IcoAppbar extends StatelessWidget implements PreferredSizeWidget {
       child: PreferredSize(
         child: AppBar(
           centerTitle: true,
-          elevation: (isDefault) ? 4 : 0.0,
+          elevation: (isDefault) ? 0.3 : 0.0,
           bottomOpacity: 0.0,
           backgroundColor: backgroundColor,
           shadowColor: Colors.transparent,
@@ -59,11 +59,11 @@ class IcoAppbar extends StatelessWidget implements PreferredSizeWidget {
           ),
           leading: usePop ? popButton(context, tapFunction) : Container(),
         ),
-        preferredSize: Size.fromHeight(Get.height * 0.063),
+        preferredSize: Size.fromHeight(Get.height * 0.070),
       ),
     );
   }
 
   @override
-  Size get preferredSize => Size.fromHeight(Get.height * 0.063);
+  Size get preferredSize => Size.fromHeight(Get.height * 0.070);
 }

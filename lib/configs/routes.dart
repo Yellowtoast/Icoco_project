@@ -7,6 +7,7 @@ import 'package:app/bindings/login_binding.dart';
 import 'package:app/bindings/signup_binding.dart';
 import 'package:app/pages/calculator.dart';
 import 'package:app/pages/calculator_result.dart';
+import 'package:app/pages/event/event.dart';
 import 'package:app/pages/home/home.dart';
 import 'package:app/pages/login.dart';
 import 'package:app/pages/manager/manager_detail.dart';
@@ -97,6 +98,8 @@ class Routes {
   static const EXTRAFEE_RESULT = '/extrafee_result';
   static const RESERVE_STEP2_COMPANY_NO = '/reserve/step2/company/no';
   static const RESERVE_STEP2_COMPANY_YES = '/reserve/step2/company/yes';
+  static const EVENT = '/event';
+  static const EVENT_DETAIL = '/event/detail';
 
   static final pages = [
     GetPage(
@@ -104,22 +107,11 @@ class Routes {
         page: () => SplashPage(),
         binding: InitialBindings(),
         transition: Transition.fadeIn),
-    // GetPage(
-    //     name: Routes.LOADING,
-    //     page: () => LoadingPage(),
-    //     binding: LoadingBindings(),
-    //     transition: Transition.fade),
-
     GetPage(
         name: Routes.HOME,
         page: () => HomePage(),
         binding: HomeBindings(),
         transition: Transition.noTransition),
-    // GetPage(
-    //     name: Routes.HOME_SKELETON,
-    //     page: () => HomeSkeletonPage(),
-    //     binding: HomeSkeletonBindings(),
-    //     transition: Transition.noTransition),
     GetPage(
         name: Routes.START,
         page: () => StartPage(),
@@ -266,6 +258,14 @@ class Routes {
     GetPage(
         name: Routes.CALCULATOR_RESULT,
         page: () => CalculatorResultPage(),
+        transition: Transition.rightToLeft),
+    GetPage(
+        name: Routes.EVENT,
+        page: () => EventPage(),
+        transition: Transition.rightToLeft),
+    GetPage(
+        name: Routes.EVENT_DETAIL,
+        page: () => EventPage(),
         transition: Transition.rightToLeft),
   ];
 }

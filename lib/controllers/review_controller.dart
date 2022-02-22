@@ -169,9 +169,6 @@ class ReviewController extends GetxController {
     reviewContents.value = '';
     reviewRate.value = null;
     checkedSpecialtiesList.clear();
-    // itemSelectStatus.forEach((element) {
-    //   element.value = false;
-    // });
   }
 
   setFinalReviewFirestore(ReviewModel reviewModel) async {

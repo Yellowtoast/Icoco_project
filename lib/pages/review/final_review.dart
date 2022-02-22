@@ -166,7 +166,9 @@ class FinalReviewPage extends StatelessWidget {
                         alignment: Alignment.center,
                         child: RatingBar(
                           ignoreGestures: false,
-                          initialRating: 0,
+                          initialRating: editReview
+                              ? reviewController.reviewRate.value!.toDouble()
+                              : 0,
                           minRating: 1,
                           itemPadding: EdgeInsets.symmetric(horizontal: 7),
                           direction: Axis.horizontal,

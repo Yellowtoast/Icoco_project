@@ -18,7 +18,7 @@ import 'package:google_fonts/google_fonts.dart';
 class LoginPage extends StatelessWidget {
   LoginPage({Key? key}) : super(key: key);
   LoginController loginController = Get.find();
-
+  AuthController authController = Get.find();
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
 
   @override
@@ -96,9 +96,9 @@ class LoginPage extends StatelessWidget {
                       children: [
                         IcoButton(
                             onPressed: () async {
-                              startLoadingIndicator();
-                              await loginController.login();
-                              finishLoadingIndicator();
+                              await loginController.login(
+                                  authController.firebaseAuthUser,
+                                  authController.isLoggedIn);
                             },
                             active: loginController.isButtonValid,
                             buttonColor: IcoColors.primary,
