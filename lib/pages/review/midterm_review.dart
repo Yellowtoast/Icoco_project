@@ -233,7 +233,7 @@ class MidtermReviewPage extends StatelessWidget {
                       Get.offNamed(Routes.MIDTERM_REVIEW,
                           arguments: {
                             'managerNum': managerNum,
-                            'editReview': true
+                            'editReview': editReview
                           },
                           preventDuplicates: false);
                     }

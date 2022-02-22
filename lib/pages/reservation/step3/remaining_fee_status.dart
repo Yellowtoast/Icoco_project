@@ -234,7 +234,7 @@ class RemainingFeeStatus extends StatelessWidget {
                           style: IcoTextStyle.mediumTextStyle13Grey4,
                         ),
                         Text(
-                          "${numFormat.format(authController.reservationModel.value!.userCost! + authController.reservationModel.value!.extraCost! - authController.reservationModel.value!.depositCost! - authController.reservationModel.value!.completedBalanceCost!)} 원 미입금",
+                          "${numFormat.format(authController.reservationModel.value!.userCost! + authController.reservationModel.value!.extraCost! - authController.reservationModel.value!.depositCost! - authController.reservationModel.value!.completedBalanceCost! + ((authController.reservationModel.value!.isFinishedDeposit! == '입금완료') ? 0 : authController.reservationModel.value!.completedBalanceCost!))} 원 미입금",
                           style: IcoTextStyle.mediumTextStyle16Grey4,
                         ),
                       ],

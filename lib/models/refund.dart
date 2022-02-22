@@ -5,6 +5,7 @@ class RefundModel {
   String refundAccountNumber;
   String refundAccountHolder;
   int serviceRemainingDays;
+  String status;
 
   RefundModel({
     required this.refundRequested,
@@ -12,6 +13,7 @@ class RefundModel {
     required this.refundAccountNumber,
     required this.refundAccountHolder,
     required this.serviceRemainingDays,
+    required this.status,
     this.refundAccepted,
   });
 
@@ -23,6 +25,7 @@ class RefundModel {
       refundAccountNumber: data['refundAccountNumber'],
       refundAccountHolder: data['refundAccountHolder'],
       serviceRemainingDays: data['serviceRemainingDays'],
+      status: data['status'] ?? '',
     );
   }
 
@@ -33,5 +36,6 @@ class RefundModel {
         "refundAccountNumber": refundAccountNumber,
         "refundAccountHolder": refundAccountHolder,
         "serviceRemainingDays": serviceRemainingDays,
+        "status": status,
       };
 }

@@ -257,7 +257,7 @@ class RefundPage extends StatelessWidget {
                       IcoTextField(
                         textController:
                             refundController.accountHolderTextController,
-                        textInputType: TextInputType.number,
+                        textInputType: TextInputType.text,
                         width: double.infinity,
                         onChanged: (value) {
                           refundController.accountHolder.value = value;

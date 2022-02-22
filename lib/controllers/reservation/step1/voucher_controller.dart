@@ -170,20 +170,13 @@ class VoucherController extends GetxController {
     depositFeeList.assignAll(depositFeePerWeek);
     totalFeeList.assignAll(serviceFeeInfo[voucher]!);
     for (int i = 0; i < 5; i++) {
-      totalFeeList[i] += depositFeeList[i] + additionalFee;
+      totalFeeList[i] = totalFeeList[i] + depositFeeList[i] + additionalFee;
     }
     govermentFeeList.assignAll(govermentFeeInfo[voucher]!);
     calculateUserFee();
     calculateRemainingFee();
     showResult.value = true;
   }
-
-  // calculateUserFee(int additionalFee) {
-  //   for (int i = 0; i < 5; i++) {
-  //     userFeeList[i] =
-  //         (serviceFeeList[i] - govermentFeeList[i]) + additionalFee;
-  //   }
-  // }
 
   calculateUserFee() {
     for (int i = 0; i < 5; i++) {

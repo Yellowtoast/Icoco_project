@@ -32,11 +32,13 @@ class ReviewController extends GetxController {
   Rxn<ReviewModel> reviewModel = Rxn<ReviewModel>();
   TextEditingController contentsTextController = TextEditingController();
   RxList<String> checkedSpecialtiesList = RxList<String>();
+  RxList<String> previousSpecialitesList = RxList<String>();
   Rx<int> managerNum = 0.obs;
   Rxn<String> searchTarget = Rxn<String>();
   Rxn<String> reviewType = Rxn<String>();
   Rxn<String> targetUid = Rxn<String>();
-  Rxn<int> reviewRate = Rxn<int>();
+  Rx<int> reviewRate = 0.obs;
+  Rx<int> previousReviewRate = 0.obs;
   Rxn<int> totalReviews = Rxn<int>();
   Rxn<int> reviewCount = Rxn<int>();
   bool editReview = false;
@@ -88,7 +90,8 @@ class ReviewController extends GetxController {
   @override
   void onReady() {
     if (editReview == true) {
-      setPreviousReview(previousReviewList, targetUid.value!, '중간');
+      setPreviousReview(
+          previousReviewList, targetUid.value!, reviewType.value!);
     }
     super.onReady();
   }
@@ -103,14 +106,18 @@ class ReviewController extends GetxController {
       }
     }
     checkedSpecialtiesList.clear();
+    previousSpecialitesList.clear();
     for (var element in _reviewModel.specialtyItems!) {
       checkedSpecialtiesList.add(element);
+      previousSpecialitesList.add(element);
     }
 
     contentsTextController.text = _reviewModel.contents;
     reviewContents.value = _reviewModel.contents;
     if (reviewType == '기말') {
-      reviewRate.value = _reviewModel.reviewRate;
+      reviewRate.value = _reviewModel.reviewRate!;
+      previousReviewRate.value = _reviewModel.reviewRate!;
+      print(reviewRate.value);
     }
     print("onReady : ${checkedSpecialtiesList} ");
     checkedSpecialtiesList.refresh();
@@ -148,11 +155,13 @@ class ReviewController extends GetxController {
       String companyUid,
       String contents,
       String reservationNumber) async {
+    List<String>? imagesURL =
+        await uploadFileStorage(totalFileList, userModel.uid);
     ReviewModel _newReviewModel = ReviewModel(
         contents: contents,
         userId: userModel.uid,
         managerId: managerModel.uid,
-        thumbnails: [],
+        thumbnails: imagesURL,
         userName: authController.reservationModel.value!.userName,
         specialtyItems: checkedSpecialtiesList.toList(),
         companyId: companyUid,
@@ -167,17 +176,28 @@ class ReviewController extends GetxController {
     managerNum.value = 0;
     contentsTextController.text = '';
     reviewContents.value = '';
-    reviewRate.value = null;
+    reviewRate.value = 0;
     checkedSpecialtiesList.clear();
   }
 
+  updateFinalReviewFirestore(String documentNumber, String userId) async {
+    List<String>? imagesURL = await uploadFileStorage(totalFileList, userId);
+    await db.doc('/Review/$documentNumber').update({
+      'thumnails': imagesURL,
+      'contents': reviewContents.value,
+      'specialtyItems': checkedSpecialtiesList,
+      'reviewRate': reviewRate.value,
+    });
+    storageRefList.clear();
+    fileNameList.clear();
+    totalFileList.clear();
+    update();
+  }
+
   setFinalReviewFirestore(ReviewModel reviewModel) async {
-    List<String>? imagesURL =
-        await uploadFileStorage(totalFileList, reviewModel.userId);
-    // reviewModel.thumbnails = imagesURL;
     await db
         .doc('/Review/${reviewModel.date.millisecondsSinceEpoch}')
-        .update({'thumnails': imagesURL});
+        .set(reviewModel.toJson());
     storageRefList.clear();
     fileNameList.clear();
     totalFileList.clear();

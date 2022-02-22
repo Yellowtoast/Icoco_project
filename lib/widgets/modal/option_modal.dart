@@ -6,7 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 
-Future<dynamic> IcoOptionModal(
+IcoOptionModal(
     {String title = '마케팅 이용 동의',
     String subtitle = "마케팅 이용동의에 허용하면\n문자로 아이코코 예약현황 및 소식을\n빠르게 확인할 수 있습니다",
     String option1 = '허용안함',

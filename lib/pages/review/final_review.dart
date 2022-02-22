@@ -164,26 +164,28 @@ class FinalReviewPage extends StatelessWidget {
                       ),
                       Container(
                         alignment: Alignment.center,
-                        child: RatingBar(
-                          ignoreGestures: false,
-                          initialRating: editReview
-                              ? reviewController.reviewRate.value!.toDouble()
-                              : 0,
-                          minRating: 1,
-                          itemPadding: EdgeInsets.symmetric(horizontal: 7),
-                          direction: Axis.horizontal,
-                          allowHalfRating: false,
-                          itemCount: 5,
-                          ratingWidget: RatingWidget(
-                            full: SvgPicture.asset('icons/star_full.svg'),
-                            half: SvgPicture.asset('icons/star_full.svg'),
-                            empty: SvgPicture.asset('icons/star_empty.svg'),
-                          ),
-                          itemSize: 47,
-                          onRatingUpdate: (rating) {
-                            reviewController.reviewRate.value = rating.toInt();
-                          },
-                        ),
+                        child: Obx(() {
+                          return RatingBar(
+                            ignoreGestures: false,
+                            initialRating:
+                                reviewController.reviewRate.value.toDouble(),
+                            minRating: 1,
+                            itemPadding: EdgeInsets.symmetric(horizontal: 7),
+                            direction: Axis.horizontal,
+                            allowHalfRating: false,
+                            itemCount: 5,
+                            ratingWidget: RatingWidget(
+                              full: SvgPicture.asset('icons/star_full.svg'),
+                              half: SvgPicture.asset('icons/star_full.svg'),
+                              empty: SvgPicture.asset('icons/star_empty.svg'),
+                            ),
+                            itemSize: 47,
+                            onRatingUpdate: (rating) {
+                              reviewController.reviewRate.value =
+                                  rating.toInt();
+                            },
+                          );
+                        }),
                       ),
                     ],
                   ),
@@ -420,50 +422,67 @@ class FinalReviewPage extends StatelessWidget {
                           iconUrl: 'icons/checked.svg');
 
                       if (goNext) {
-                        await reviewController.createFinalReviewFireStore(
-                            managerController
-                                .managerModelList[managerNum].value!,
-                            authController.userModel.value!,
-                            authController
-                                .reservationModel.value!.chosenCompany!,
-                            reviewController.reviewContents.value,
-                            authController
-                                .reservationModel.value!.reservationNumber);
-                        await reviewController.setFinalReviewFirestore(
-                          reviewController.reviewModel.value!,
-                        );
-                        await managerController.applyReviewsToManagerModel(
-                            reviewController.reviewModel.value!.specialtyItems!,
-                            reviewController.reviewModel.value!.reviewRate!,
-                            managerNum);
-                      }
-                      if (managerNum !=
-                          managerController.managerModelList.length - 1) {
-                        managerNum++;
-                        Get.toNamed(Routes.FINAL_REVIEW,
-                            arguments: {
-                              'managerNum': managerNum,
-                              'editReview': null
-                            },
-                            preventDuplicates: false);
-                      } else {
-                        startLoadingIndicator();
-                        authController
-                            .reservationModel.value!.finalReviewFinished = true;
+                        if (editReview == false) {
+                          await reviewController.createFinalReviewFireStore(
+                              managerController
+                                  .managerModelList[managerNum].value!,
+                              authController.userModel.value!,
+                              authController
+                                  .reservationModel.value!.chosenCompany!,
+                              reviewController.reviewContents.value,
+                              authController
+                                  .reservationModel.value!.reservationNumber);
+                          await reviewController.setFinalReviewFirestore(
+                              reviewController.reviewModel.value!);
+                          await managerController.applyReviewsToManagerModel(
+                              reviewController
+                                  .reviewModel.value!.specialtyItems!,
+                              reviewController.reviewRate.value,
+                              managerNum);
+                        } else {
+                          reviewController.updateFinalReviewFirestore(
+                              reviewController.reviewModel.value!.date
+                                  .millisecondsSinceEpoch
+                                  .toString(),
+                              authController.reservationModel.value!.uid);
+                          managerController.changeReviewsToManagerModel(
+                              reviewController.previousSpecialitesList,
+                              reviewController.checkedSpecialtiesList,
+                              reviewController.reviewRate.value -
+                                  reviewController.previousReviewRate.value,
+                              managerNum);
+                        }
 
-                        authController.setUserStep(9);
-                        await authController.updateReservationFirestore(
-                            authController
-                                .reservationModel.value!.reservationNumber);
-                        await authController.setModelInfo();
-                        finishLoadingIndicator();
-                        Get.offAllNamed(Routes.HOME);
+                        if (managerNum !=
+                            managerController.managerModelList.length - 1) {
+                          managerNum++;
+                          Get.offNamed(Routes.FINAL_REVIEW,
+                              arguments: {
+                                'managerNum': managerNum,
+                                'editReview': editReview
+                              },
+                              preventDuplicates: false);
+                        } else {
+                          startLoadingIndicator();
+                          if (editReview == false) {
+                            authController.reservationModel.value!
+                                .finalReviewFinished = true;
+
+                            authController.setUserStep(9);
+                            await authController.updateReservationFirestore(
+                                authController
+                                    .reservationModel.value!.reservationNumber);
+                          }
+                          await authController.setModelInfo();
+                          finishLoadingIndicator();
+                          Get.offAllNamed(Routes.HOME);
+                        }
                       }
                     },
                     active: (reviewController.reviewContents.value != '' &&
                             reviewController
                                 .checkedSpecialtiesList.isNotEmpty &&
-                            reviewController.reviewRate.value != null)
+                            reviewController.reviewRate.value != 0)
                         ? true.obs
                         : false.obs,
                     textStyle: IcoTextStyle.buttonTextStyleW,

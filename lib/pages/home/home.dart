@@ -7,7 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:app/controllers/home_controller.dart';
 import '../calculator.dart';
-import '../event.dart';
+import '../event/event.dart';
 import '../mypage/mypage.dart';
 
 class HomePage extends StatelessWidget {

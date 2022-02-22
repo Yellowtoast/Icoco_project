@@ -3,17 +3,9 @@ import 'package:app/configs/routes.dart';
 import 'package:app/configs/size.dart';
 import 'package:app/configs/text_styles.dart';
 import 'package:app/controllers/auth_controller.dart';
-import 'package:app/controllers/manager_controller.dart';
-import 'package:app/controllers/mypage_controller.dart';
-import 'package:app/controllers/reservation/step1/address_controller.dart';
-import 'package:app/controllers/reservation/step1/voucher_controller.dart';
-import 'package:app/controllers/review_controller.dart';
 
-import 'package:app/models/reservation.dart';
 import 'package:app/pages/loading.dart';
-import 'package:app/pages/review/midterm_review.dart';
 import 'package:app/widgets/modal/bottomup_modal2.dart';
-import 'package:app/widgets/modal/exit_icon_modal.dart';
 import 'package:app/widgets/modal/info_modal.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -51,11 +43,11 @@ class HomeSkeletonPage extends StatelessWidget {
             child: SvgPicture.asset("icons/$iconName.svg"),
             onPressed: () {},
             style: TextButton.styleFrom(
-              backgroundColor: IcoColors.white,
-              shape: const CircleBorder(),
-              side: const BorderSide(color: IcoColors.grey2),
-              shadowColor: Colors.transparent,
-            ),
+                backgroundColor: IcoColors.white,
+                shape: const CircleBorder(),
+                side: const BorderSide(color: IcoColors.grey2),
+                shadowColor: Colors.transparent,
+                elevation: 0),
           ),
         ),
         sizeHeightBox(12),
@@ -317,8 +309,10 @@ class HomeSkeletonPage extends StatelessWidget {
                           ? NotifyBirthButton(
                               iconUrl: 'icons/register_paper.svg',
                               onTap: () {
-                                Get.toNamed(Routes.MIDTERM_REVIEW,
-                                    arguments: {"managerNum": 0});
+                                Get.toNamed(Routes.MIDTERM_REVIEW, arguments: {
+                                  "managerNum": 0,
+                                  "editReview": false
+                                });
                               },
                               title: '서비스 중간평가',
                               subtitle: '중간평가를 통해 후기를 남겨보세요',
@@ -338,7 +332,7 @@ class HomeSkeletonPage extends StatelessWidget {
                                     Get.toNamed(Routes.FINAL_REVIEW,
                                         arguments: {
                                           'managerNum': 0,
-                                          'editReview': null
+                                          "editReview": false
                                         });
                                   },
                                   title: '기말평가 및 리뷰작성',

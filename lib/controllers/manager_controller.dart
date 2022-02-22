@@ -47,12 +47,33 @@ class ManagerController extends GetxController {
   }
 
   applyReviewsToManagerModel(
-      List<dynamic> specialites, int reviewRate, int managerNum) async {
-    int currentTotalRate = managerModelList[managerNum].value!.totalReviewRate;
-    managerModelList[managerNum].value!.totalReviewRate += reviewRate;
+      List<dynamic> specialites, int reviewRate, int managerNum) {
+    print(reviewRate);
+    managerModelList[managerNum].value!.totalReviewRate =
+        managerModelList[managerNum].value!.totalReviewRate + reviewRate;
     managerModelList[managerNum].value!.totalReview++;
     if (specialites.isNotEmpty) {
       specialites.forEach((specialty) {
+        managerModelList[managerNum].value!.specialtyItems![specialty]++;
+      });
+    }
+
+    updateManagerFirestore(managerModelList[managerNum].value);
+  }
+
+  changeReviewsToManagerModel(List<dynamic> specialitesBefore,
+      List<dynamic> specialitesAfter, int changedRate, int managerNum) {
+    print(changedRate);
+    managerModelList[managerNum].value!.totalReviewRate =
+        managerModelList[managerNum].value!.totalReviewRate + changedRate;
+
+    if (specialitesBefore.isNotEmpty) {
+      specialitesBefore.forEach((specialty) {
+        managerModelList[managerNum].value!.specialtyItems![specialty]--;
+      });
+    }
+    if (specialitesAfter.isNotEmpty) {
+      specialitesAfter.forEach((specialty) {
         managerModelList[managerNum].value!.specialtyItems![specialty]++;
       });
     }

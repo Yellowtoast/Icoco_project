@@ -92,7 +92,8 @@ class RefundController extends GetxController {
         refundAccountNumber: accountNumber.value!,
         refundBank: bankSelected.value!,
         refundRequested: true,
-        serviceRemainingDays: serviceDaysLeft);
+        serviceRemainingDays: serviceDaysLeft,
+        status: '서비스취소');
     db.doc('/Reservation/$reservationNumber').update(_newRefundModel.toJson());
     update();
   }
