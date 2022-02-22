@@ -336,7 +336,10 @@ class HomeSkeletonPage extends StatelessWidget {
                                   iconUrl: 'icons/register_paper.svg',
                                   onTap: () {
                                     Get.toNamed(Routes.FINAL_REVIEW,
-                                        arguments: 0);
+                                        arguments: {
+                                          'managerNum': 0,
+                                          'editReview': null
+                                        });
                                   },
                                   title: '기말평가 및 리뷰작성',
                                   subtitle: '기말평가를 통해 후기를 남겨보세요',

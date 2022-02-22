@@ -19,7 +19,7 @@ class HomeStep6Items extends StatelessWidget {
   HomeStep6Items({Key? key}) : super(key: key);
   HomeController homeController = Get.find();
   ManagerController managerController = Get.find();
-  ReviewController reviewController = Get.find();
+  ReviewController reviewController = Get.put(ReviewController());
   @override
   Widget build(BuildContext context) {
     return Obx(() {

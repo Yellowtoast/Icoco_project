@@ -26,7 +26,7 @@ class ReviewController extends GetxController {
       firebase_storage.FirebaseStorage.instance;
   RxList<firebase_storage.Reference?> storageRefList =
       RxList<firebase_storage.Reference?>();
-  RxList<Rxn<ReviewModel>> reviewModelList = RxList<Rxn<ReviewModel>>();
+  RxList<ReviewModel> previousReviewList = RxList<ReviewModel>();
   RxList<Rxn<ReviewModel>>? middleReviewModelList = RxList<Rxn<ReviewModel>>();
   RxList<Rxn<ReviewModel>>? finalReviewModelList = RxList<Rxn<ReviewModel>>();
   Rxn<ReviewModel> reviewModel = Rxn<ReviewModel>();
@@ -39,15 +39,16 @@ class ReviewController extends GetxController {
   Rxn<int> reviewRate = Rxn<int>();
   Rxn<int> totalReviews = Rxn<int>();
   Rxn<int> reviewCount = Rxn<int>();
-  List<RxBool> itemSelectStatus = [
-    false.obs,
-    false.obs,
-    false.obs,
-    false.obs,
-    false.obs,
-    false.obs,
-    false.obs
-  ];
+  bool editReview = false;
+  // List<RxBool> itemSelectStatus = [
+  //   false.obs,
+  //   false.obs,
+  //   false.obs,
+  //   false.obs,
+  //   false.obs,
+  //   false.obs,
+  //   false.obs
+  // ];
 
   List<String> specialtyTitle = [
     '정리정돈',
@@ -68,31 +69,42 @@ class ReviewController extends GetxController {
     "아이를 사랑으로 대해주세요",
   ];
   Rx<String> reviewContents = ''.obs;
+  // @override
+  // void onInit() {
+  //   if (editReview == true) {
+  //     setPreviousReview(previousReviewList, targetUid.value!, '중간');
+  //   }
+  //   super.onInit();
+  // }
+
+  // @override
+  // void onInit() {
+  //   if (editReview == true) {
+  //     setPreviousReview(previousReviewList, targetUid.value!, '중간');
+  //   }
+  //   super.onInit();
+  // }
 
   @override
   void onReady() {
-    // ever(managerNum, setPreviousReview);
+    if (editReview == true) {
+      setPreviousReview(previousReviewList, targetUid.value!, '중간');
+    }
+    super.onReady();
   }
 
-  setPreviousReview(RxList<Rxn<ReviewModel>> reviewModelList, String managerUid,
+  setPreviousReview(RxList<ReviewModel> reviewModelList, String managerUid,
       String reviewType) {
     late ReviewModel _reviewModel;
-    reviewModelList.forEach((element) {
-      if (element.value!.managerId == managerUid) {
-        _reviewModel = element.value!;
+    for (var element in reviewModelList) {
+      if (element.managerId == managerUid) {
+        _reviewModel = element;
         reviewModel.value = _reviewModel;
       }
-    });
-
+    }
     checkedSpecialtiesList.clear();
-    // itemSelectStatus.fillRange(0, 7, false.obs);
-    itemSelectStatus.forEach((item) {
-      item.value = false;
-    });
     for (var element in _reviewModel.specialtyItems!) {
       checkedSpecialtiesList.add(element);
-      itemSelectStatus[specialtyTitle.indexOf(element)] = true.obs;
-      // checkedSpecialtiesList.refresh();
     }
 
     contentsTextController.text = _reviewModel.contents;
@@ -100,6 +112,8 @@ class ReviewController extends GetxController {
     if (reviewType == '기말') {
       reviewRate.value = _reviewModel.reviewRate;
     }
+    print("onReady : ${checkedSpecialtiesList} ");
+    checkedSpecialtiesList.refresh();
   }
 
   createMidtermReviewFirestore(ManagerModel managerModel, UserModel userModel,
@@ -120,9 +134,9 @@ class ReviewController extends GetxController {
     checkedSpecialtiesList.clear();
     reviewType.value = null;
     targetUid.value = null;
-    itemSelectStatus.forEach((element) {
-      element.value = false;
-    });
+    // itemSelectStatus.forEach((element) {
+    //   element.value = false;
+    // });
     contentsTextController.text = '';
     reviewContents.value = '';
   }
@@ -155,17 +169,18 @@ class ReviewController extends GetxController {
     reviewContents.value = '';
     reviewRate.value = null;
     checkedSpecialtiesList.clear();
-    itemSelectStatus.forEach((element) {
-      element.value = false;
-    });
+    // itemSelectStatus.forEach((element) {
+    //   element.value = false;
+    // });
   }
 
   setFinalReviewFirestore(ReviewModel reviewModel) async {
-    List<String>? imagesURL = await uploadFileStorage(totalFileList);
-    reviewModel.thumbnails = imagesURL;
+    List<String>? imagesURL =
+        await uploadFileStorage(totalFileList, reviewModel.userId);
+    // reviewModel.thumbnails = imagesURL;
     await db
         .doc('/Review/${reviewModel.date.millisecondsSinceEpoch}')
-        .set(reviewModel.toJson());
+        .update({'thumnails': imagesURL});
     storageRefList.clear();
     fileNameList.clear();
     totalFileList.clear();
@@ -176,6 +191,14 @@ class ReviewController extends GetxController {
     db
         .doc('/Review/${reviewModel.date.millisecondsSinceEpoch}')
         .set(reviewModel.toJson());
+    update();
+  }
+
+  updateMidtermReviewFirestore(String documentNumber) {
+    db.doc('/Review/$documentNumber').update({
+      'contents': reviewContents.value,
+      'specialtyItems': checkedSpecialtiesList
+    });
     update();
   }
 
@@ -265,29 +288,21 @@ class ReviewController extends GetxController {
     final picker = ImagePicker();
     List<XFile>? pickedImages;
     try {
-      pickedImages = await picker.pickMultiImage(imageQuality: 70);
-
-      for (var image in pickedImages!) {
-        totalFileList.add(File(image.path));
-        fileNameList.add(path.basename(image.path));
-      }
-
-      totalFileList.refresh();
-
-      try {} on FirebaseException catch (error) {
-        if (kDebugMode) {
-          print(error);
-        }
-      }
+      pickedImages = await picker.pickMultiImage(imageQuality: 60);
+      print(pickedImages);
     } catch (err) {
-      if (kDebugMode) {
-        print(err);
-      }
+      print('image selection failed');
     }
+    for (var image in pickedImages!) {
+      totalFileList.add(File(image.path));
+      fileNameList.add(path.basename(image.path));
+    }
+
+    totalFileList.refresh();
   }
 
   Future<List<String>?> uploadFileStorage(
-      RxList<File?> fileListForModel) async {
+      RxList<File?> fileListForModel, String uid) async {
     String? downloadURL;
     List<String> reviewImageURL = [];
     try {
@@ -298,8 +313,7 @@ class ReviewController extends GetxController {
         firebase_storage.UploadTask uploadTask = storageRefList[i]!.putFile(
             fileListForModel[i]!,
             firebase_storage.SettableMetadata(customMetadata: {
-              'uploaded_by': userName,
-              'description': reservationNum,
+              'uid': userName,
             }));
 
         downloadURL = await (await uploadTask).ref.getDownloadURL();

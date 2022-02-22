@@ -213,18 +213,20 @@ class MyReviewPage extends StatelessWidget {
                     if (mypageController.middleReviewModelList!.isNotEmpty) {
                       Get.toNamed(Routes.MIDTERM_REVIEW, arguments: {
                         "managerNum": 0,
-                        "reviewModelList":
-                            mypageController.middleReviewModelList,
+                        "editReview": true,
                       });
                     }
                   },
                   title: '중간평가',
                   date: (mypageController.middleReviewModelList!.isNotEmpty)
-                      ? dateFormatWithDot.format(mypageController
-                          .middleReviewModelList![0].value!.date)
-                      : '아직 작성 전입니다.',
+                      ? dateFormatWithDot.format(
+                          mypageController.middleReviewModelList![0].date)
+                      : '작성 전',
                   titleTextStyle: IcoTextStyle.boldTextStyle16B,
-                  dateTextStyle: IcoTextStyle.regularTextStyle13B,
+                  dateTextStyle:
+                      (mypageController.middleReviewModelList!.isNotEmpty)
+                          ? IcoTextStyle.regularTextStyle13B
+                          : IcoTextStyle.regularTextStyle13Grey4,
                 ),
                 SizedBox(
                   height: 14,
@@ -236,15 +238,14 @@ class MyReviewPage extends StatelessWidget {
                     if (mypageController.finalReviewModelList!.isNotEmpty) {
                       Get.toNamed(Routes.FINAL_REVIEW, arguments: {
                         "managerNum": 0,
-                        "reviewModelList":
-                            mypageController.finalReviewModelList,
+                        "editReview": true,
                       });
                     }
                   },
                   title: '기말평가',
                   date: (mypageController.finalReviewModelList!.isNotEmpty)
                       ? dateFormatWithDot.format(
-                          mypageController.finalReviewModelList![0].value!.date)
+                          mypageController.finalReviewModelList![0].date)
                       : '작성 전',
                   titleTextStyle: IcoTextStyle.boldTextStyle16B,
                   dateTextStyle:

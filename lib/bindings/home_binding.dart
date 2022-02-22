@@ -18,7 +18,7 @@ class HomeBindings implements Bindings {
   void dependencies() {
     Get.put(HomeController());
     Get.put(ManagerController());
-    Get.put(ReviewController());
+    // Get.put(ReviewController());
     Get.put(MypageController());
     Get.lazyPut(() => VoucherController());
     Get.lazyPut(() => CompanyController());

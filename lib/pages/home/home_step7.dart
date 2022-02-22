@@ -19,7 +19,7 @@ import '../loading.dart';
 class HomeStep7Items extends StatelessWidget {
   HomeStep7Items({Key? key}) : super(key: key);
   HomeController homeController = Get.find();
-  ReviewController reviewController = Get.find();
+  ReviewController reviewController = Get.put(ReviewController());
   ManagerController managerController = Get.find();
   @override
   Widget build(BuildContext context) {

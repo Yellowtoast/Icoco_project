@@ -7,6 +7,7 @@ import 'package:app/controllers/manager_controller.dart';
 
 import 'package:app/controllers/review_controller.dart';
 import 'package:app/pages/loading.dart';
+import 'package:app/pages/review/midterm_review.dart';
 import 'package:app/widgets/appbar.dart';
 import 'package:app/widgets/button/button.dart';
 import 'package:app/widgets/modal/exit_icon_modal.dart';
@@ -19,31 +20,39 @@ import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 
+import '../../controllers/mypage_controller.dart';
+
 class FinalReviewPage extends StatelessWidget {
   FinalReviewPage({Key? key}) : super(key: key);
-  ReviewController reviewController = Get.find();
   ManagerController managerController = Get.find();
   AuthController authController = Get.find();
-  int managerNum = Get.arguments;
-
+  MypageController mypageController = Get.find();
+  ReviewController reviewController = Get.put(ReviewController(), tag: '1');
   @override
   Widget build(BuildContext context) {
-    reviewController.reservationNum =
-        authController.reservationModel.value!.reservationNumber;
-    reviewController.userName = authController.reservationModel.value!.userName;
+    int managerNum = Get.arguments['managerNum'];
+    var editReview = Get.arguments['editReview'];
+
+    if (editReview == true) {
+      reviewController.editReview = editReview;
+      reviewController.targetUid.value =
+          managerController.managerModelList[managerNum].value!.uid;
+      reviewController.previousReviewList =
+          mypageController.finalReviewModelList!;
+      reviewController.reviewType.value = '기말';
+    }
 
     return GestureDetector(
       onTap: () {
         FocusScope.of(context).unfocus();
       },
       child: Scaffold(
-        backgroundColor: IcoColors.white,
-        appBar: IcoAppbar(
-          title: '기말평가',
-          usePop: false,
-        ),
-        body: Obx(() {
-          return SingleChildScrollView(
+          backgroundColor: IcoColors.white,
+          appBar: IcoAppbar(
+            title: '기말평가',
+            usePop: false,
+          ),
+          body: SingleChildScrollView(
             scrollDirection: Axis.vertical,
             child: Column(
               children: [
@@ -84,15 +93,35 @@ class FinalReviewPage extends StatelessWidget {
                         itemBuilder: (BuildContext context, int index) {
                           return Column(
                             children: [
-                              IconCheckButton(
-                                title: reviewController.specialtyTitle[index],
-                                subtitle:
-                                    reviewController.specialtySubitle[index],
-                                selectedItemList:
-                                    reviewController.checkedSpecialtiesList,
-                                checked:
-                                    reviewController.itemSelectStatus[index],
-                              ),
+                              Obx(() {
+                                return IconCheckButton(
+                                  title: reviewController.specialtyTitle[index],
+                                  subtitle:
+                                      reviewController.specialtySubitle[index],
+                                  checked: reviewController
+                                      .checkedSpecialtiesList
+                                      .contains(reviewController
+                                          .specialtyTitle[index]),
+                                  onTap: () {
+                                    reviewController.checkedSpecialtiesList
+                                        .contains(reviewController
+                                            .specialtyTitle[index]);
+                                    if (reviewController.checkedSpecialtiesList
+                                        .contains(reviewController
+                                            .specialtyTitle[index])) {
+                                      reviewController.checkedSpecialtiesList
+                                          .remove(reviewController
+                                              .specialtyTitle[index]);
+                                    } else {
+                                      reviewController.checkedSpecialtiesList
+                                          .add(reviewController
+                                              .specialtyTitle[index]);
+                                    }
+                                    reviewController.checkedSpecialtiesList
+                                        .refresh();
+                                  },
+                                );
+                              }),
                               SizedBox(
                                 height: 12,
                               )
@@ -233,7 +262,7 @@ class FinalReviewPage extends StatelessWidget {
                       child: Row(
                         children: [
                           Expanded(
-                            child: ListView.builder(
+                            child: Obx(() => ListView.builder(
                                 scrollDirection: Axis.horizontal,
                                 shrinkWrap: true,
                                 itemCount: (reviewController
@@ -257,12 +286,11 @@ class FinalReviewPage extends StatelessWidget {
                                                     reviewController
                                                         .totalFileList.length)
                                             ? InkWell(
-                                                onTap: () async {
-                                                  await reviewController
-                                                      .selectFile(
-                                                          ImageSource.camera,
-                                                          'manager/profileImage/',
-                                                          managerNum);
+                                                onTap: () {
+                                                  reviewController.selectFile(
+                                                      ImageSource.camera,
+                                                      'manager/profileImage/',
+                                                      managerNum);
                                                 },
                                                 child: Column(
                                                   mainAxisAlignment:
@@ -314,9 +342,12 @@ class FinalReviewPage extends StatelessWidget {
                                                             end: Alignment
                                                                 .bottomCenter,
                                                             colors: [
-                                                          Colors.black38,
-                                                          Colors.black26,
-                                                          Colors.black12,
+                                                          Color.fromARGB(
+                                                              51, 0, 0, 0),
+                                                          Color.fromARGB(
+                                                              33, 0, 0, 0),
+                                                          Color.fromARGB(
+                                                              14, 0, 0, 0),
                                                         ],
                                                             stops: [
                                                           0.1,
@@ -364,7 +395,7 @@ class FinalReviewPage extends StatelessWidget {
                                       )
                                     ],
                                   );
-                                }),
+                                })),
                           ),
                         ],
                       ),
@@ -374,7 +405,7 @@ class FinalReviewPage extends StatelessWidget {
                 SizedBox(
                   height: 80,
                 ),
-                IcoButton(
+                Obx(() => IcoButton(
                     width: IcoSize.width - 40,
                     onPressed: () async {
                       bool goNext = true;
@@ -408,7 +439,11 @@ class FinalReviewPage extends StatelessWidget {
                           managerController.managerModelList.length - 1) {
                         managerNum++;
                         Get.toNamed(Routes.FINAL_REVIEW,
-                            arguments: managerNum, preventDuplicates: false);
+                            arguments: {
+                              'managerNum': managerNum,
+                              'editReview': null
+                            },
+                            preventDuplicates: false);
                       } else {
                         startLoadingIndicator();
                         authController
@@ -433,96 +468,13 @@ class FinalReviewPage extends StatelessWidget {
                     text: (managerNum !=
                             managerController.managerModelList.length - 1)
                         ? '다음으로'
-                        : '기말평가 및 리뷰 등록'),
+                        : '기말평가 및 리뷰 등록')),
                 SizedBox(
                   height: 20,
                 )
               ],
             ),
-          );
-        }),
-      ),
+          )),
     );
-  }
-}
-
-class IconCheckButton extends StatelessWidget {
-  IconCheckButton({
-    Key? key,
-    required this.title,
-    required this.subtitle,
-    required this.selectedItemList,
-    required this.checked,
-  }) : super(key: key);
-
-  RxList<String> selectedItemList = RxList<String>();
-  final String title;
-  final String subtitle;
-  RxBool checked;
-
-  @override
-  Widget build(BuildContext context) {
-    return Obx(() {
-      return Row(
-        children: [
-          InkWell(
-            onTap: () {
-              if (selectedItemList.contains(title)) {
-                selectedItemList.remove(title);
-                checked.value = false;
-              } else {
-                selectedItemList.add(title);
-                checked.value = true;
-              }
-              print(selectedItemList);
-            },
-            child: Container(
-              width: IcoSize.width - 40,
-              height: 50,
-              decoration: BoxDecoration(
-                color: (checked.value) ? IcoColors.purple1 : IcoColors.white,
-                border: Border.all(
-                  width: 1,
-                  color: (checked.value) ? IcoColors.primary : IcoColors.grey2,
-                ),
-                borderRadius: BorderRadius.circular(10),
-              ),
-              child: Row(
-                children: [
-                  SizedBox(
-                    width: 12,
-                  ),
-                  Text(
-                    title,
-                    textAlign: TextAlign.left,
-                    style: IcoTextStyle.boldTextStyle14B,
-                  ),
-                  SizedBox(
-                    width: 20,
-                  ),
-                  Text(
-                    subtitle,
-                    textAlign: TextAlign.left,
-                    style: IcoTextStyle.mediumTextStyle14Grey4,
-                  ),
-                  Expanded(
-                    child: SvgPicture.asset(
-                      (checked.value)
-                          ? 'icons/checked.svg'
-                          : 'icons/unchecked.svg',
-                      width: 24,
-                      alignment: Alignment.centerRight,
-                    ),
-                  ),
-                  SizedBox(
-                    width: 12,
-                  ),
-                ],
-              ),
-            ),
-          )
-        ],
-      );
-    });
   }
 }

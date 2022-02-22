@@ -20,6 +20,7 @@ import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 
 import '../widgets/modal/bottomup_modal2.dart';
+import '../widgets/modal/option_modal.dart';
 
 class RefundPage extends StatelessWidget {
   RefundPage({Key? key}) : super(key: key);
@@ -288,17 +289,19 @@ class RefundPage extends StatelessWidget {
                   height: 42,
                 ),
                 IcoButton(
-                    onPressed: () {
-                      BottomUpModal2(
-                          title: "환불신청이 완료되었습니다.",
-                          subtitle: "문의내용에 대한 답변은\n연락처로 연락드리도록 하겠습니다.",
-                          buttonText: "확인 완료",
-                          onTap: () async {
-                            refundController.createRefundFirestore(
-                                authController
-                                    .reservationModel.value!.reservationNumber);
-                            Get.offNamed(Routes.HOME);
-                          });
+                    onPressed: () async {
+                      bool confirm = await IcoOptionModal(
+                          iconUrl: 'icons/refund.svg',
+                          title: "본인부담금 환불에는\n1~3일 정도 소요됩니다",
+                          subtitle: '일반적으로 환불에는 약 1~3일\n소요됩니다. 환불을 진행하시겠습니까?',
+                          option1: '아니오',
+                          option2: '환불신청');
+
+                      if (confirm) {
+                        refundController.createRefundFirestore(authController
+                            .reservationModel.value!.reservationNumber);
+                        Get.offNamed(Routes.HOME);
+                      }
                     },
                     active: refundController.isButtonValid,
                     buttonColor: IcoColors.primary,

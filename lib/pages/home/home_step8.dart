@@ -19,7 +19,7 @@ import 'package:image_picker/image_picker.dart';
 class HomeStep8Items extends StatelessWidget {
   HomeStep8Items({Key? key}) : super(key: key);
   HomeController homeController = Get.find();
-  ReviewController reviewController = Get.find();
+  ReviewController reviewController = Get.put(ReviewController());
   ManagerController managerController = Get.find();
   @override
   Widget build(BuildContext context) {

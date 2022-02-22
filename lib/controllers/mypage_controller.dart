@@ -14,12 +14,11 @@ class MypageController extends GetxController {
   AuthController authController = Get.find();
   Rxn<dynamic> model = Rxn<dynamic>();
   List<String> addressList = [];
-  RxList<Rxn<ReviewModel>>? middleReviewModelList = RxList<Rxn<ReviewModel>>();
-  RxList<Rxn<ReviewModel>>? finalReviewModelList = RxList<Rxn<ReviewModel>>();
+  RxList<ReviewModel>? middleReviewModelList = RxList<ReviewModel>();
+  RxList<ReviewModel>? finalReviewModelList = RxList<ReviewModel>();
 
   @override
   void onInit() {
-    // splitAddress(model);
     super.onInit();
   }
 
@@ -30,25 +29,28 @@ class MypageController extends GetxController {
 
   getMyPreviousReview(
       String reservationNumber, String userUid, String reviewType) async {
-    Rxn<ReviewModel> _previousModel = Rxn<ReviewModel>();
-    RxList<Rxn<ReviewModel>> _myReviewList = RxList<Rxn<ReviewModel>>();
+    ReviewModel _previousModel;
+    RxList<ReviewModel> _myReviewList = RxList<ReviewModel>();
 
     var querySnapshot = await db
         .collection('Review')
         .where('reservationNumber', isEqualTo: reservationNumber)
         .get();
 
-    querySnapshot.docs.forEach((doc) {
+    for (var doc in querySnapshot.docs) {
       if (doc.data()['type'] == reviewType && doc.data()['userId'] == userUid) {
-        _previousModel.value = ReviewModel.fromJson(doc.data());
-        if (_previousModel.value != null) {
-          print({'before', _previousModel.value!.contents});
-          _myReviewList.add(_previousModel);
-          print({'after', _previousModel.value!.contents});
-        }
-      }
-    });
+        _previousModel = ReviewModel.fromJson(doc.data());
 
+        print({'before', _previousModel.contents});
+        _myReviewList.add(_previousModel);
+        print({'after', _previousModel.contents});
+
+        print(_myReviewList[0].contents);
+      }
+    }
+    for (var review in _myReviewList) {
+      print(review.contents);
+    }
     return _myReviewList;
   }
 }
