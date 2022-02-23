@@ -5,6 +5,7 @@ import 'package:app/controllers/auth_controller.dart';
 import 'package:app/helpers/calc_date.dart';
 import 'package:app/helpers/formatter.dart';
 import 'package:app/models/notice.dart';
+import 'package:app/pages/loading.dart';
 import 'package:http/http.dart' as http;
 
 import 'package:get/get.dart';
@@ -17,17 +18,23 @@ class NoticeController extends GetxController {
 
   @override
   Future<void> onReady() async {
+    startLoadingIndicator();
     noticeModelList =
         (await getJsonEvent(noticeOffset.value, noticelimitNumber.value))!;
     noticeModelList.refresh();
+    finishLoadingIndicator();
     super.onReady();
   }
 
-  // @override
-  // void onReady() {
-
-  //   super.onReady();
-  // }
+  @override
+  void onInit() async {
+    startLoadingIndicator();
+    noticeModelList =
+        (await getJsonEvent(noticeOffset.value, noticelimitNumber.value))!;
+    noticeModelList.refresh();
+    finishLoadingIndicator();
+    super.onInit();
+  }
 
   Future<RxList<NoticeModel>?> getJsonEvent(int offset, int limitNumber) async {
     RxList<NoticeModel> noticeModelList = RxList<NoticeModel>();

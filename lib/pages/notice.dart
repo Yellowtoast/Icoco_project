@@ -81,9 +81,10 @@ class NoticePage extends StatelessWidget {
                                       ),
                                     ],
                                   ),
-                                  SizedBox(
+                                  Container(
                                     width: 50,
                                     height: double.infinity,
+                                    alignment: Alignment.centerRight,
                                     child: SizedBox(
                                       child: SvgPicture.asset(
                                         'icons/button_arrow.svg',
