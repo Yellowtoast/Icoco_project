@@ -28,11 +28,10 @@ class FinalReviewPage extends StatelessWidget {
   AuthController authController = Get.find();
   MypageController mypageController = Get.find();
   ReviewController reviewController = Get.put(ReviewController(), tag: '1');
+  var managerNum = Get.arguments['managerNum'];
+  var editReview = Get.arguments['editReview'];
   @override
   Widget build(BuildContext context) {
-    int managerNum = Get.arguments['managerNum'];
-    var editReview = Get.arguments['editReview'];
-
     if (editReview == true) {
       reviewController.editReview = editReview;
       reviewController.targetUid.value =
@@ -57,7 +56,7 @@ class FinalReviewPage extends StatelessWidget {
             child: Column(
               children: [
                 Container(
-                  margin: const EdgeInsets.symmetric(horizontal: 20),
+                  padding: const EdgeInsets.symmetric(horizontal: 20),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
@@ -72,14 +71,19 @@ class FinalReviewPage extends StatelessWidget {
                                   "${managerController.managerModelList[managerNum].value!.name}",
                                   style: IcoTextStyle.boldTextStyle20P)
                               : SizedBox(),
-                          Text("관리사님의 이런부분이 좋았어요!",
-                              style: IcoTextStyle.boldTextStyle17B),
+                          (managerController.managerModelList.length > 1)
+                              ? Text("님의 이런부분이 좋았어요!",
+                                  style: IcoTextStyle.boldTextStyle17B)
+                              : Text(
+                                  "관리사님의 이런부분이 좋았어요!",
+                                ),
                           SizedBox(
                             width: 5,
                           ),
                           Text(
                             "중복선택",
                             style: IcoTextStyle.mediumTextStyle13P,
+                            overflow: TextOverflow.ellipsis,
                           ),
                         ],
                       ),
@@ -270,8 +274,8 @@ class FinalReviewPage extends StatelessWidget {
                                 scrollDirection: Axis.horizontal,
                                 shrinkWrap: true,
                                 itemCount: (reviewController
-                                        .totalFileList.isNotEmpty)
-                                    ? reviewController.totalFileList.length + 1
+                                        .imageFileList.isNotEmpty)
+                                    ? reviewController.imageFileList.length + 1
                                     : 1,
                                 itemBuilder: (BuildContext context, int index) {
                                   return Row(
@@ -285,14 +289,14 @@ class FinalReviewPage extends StatelessWidget {
                                         height: 221,
                                         width: 221,
                                         child: (reviewController
-                                                    .totalFileList.isEmpty ||
+                                                    .imageFileList.isEmpty ||
                                                 index ==
                                                     reviewController
-                                                        .totalFileList.length)
+                                                        .imageFileList.length)
                                             ? InkWell(
                                                 onTap: () {
                                                   reviewController.selectFile(
-                                                      ImageSource.camera,
+                                                      ImageSource.gallery,
                                                       'manager/profileImage/',
                                                       managerNum);
                                                 },
@@ -332,7 +336,7 @@ class FinalReviewPage extends StatelessWidget {
                                                       ),
                                                       child: Image.file(
                                                         reviewController
-                                                                .totalFileList[
+                                                                .imageFileList[
                                                             index]!,
                                                         fit: BoxFit.cover,
                                                       ),
@@ -364,15 +368,18 @@ class FinalReviewPage extends StatelessWidget {
                                                       child: InkWell(
                                                         onTap: () {
                                                           reviewController
-                                                              .totalFileList
+                                                              .imageFileList
                                                               .removeAt(index);
                                                           reviewController
-                                                              .totalFileList
+                                                              .imageNameList
+                                                              .removeAt(index);
+                                                          reviewController
+                                                              .imageFileList
                                                               .refresh();
                                                           print(
-                                                              "지운 후 이름 리스트  ${reviewController.fileNameList.length}");
+                                                              "지운 후 이름 리스트  ${reviewController.imageNameList.length}");
                                                           print(
-                                                              "지운 후 파일 리스트  ${reviewController.totalFileList.length}");
+                                                              "지운 후 파일 리스트  ${reviewController.imageFileList.length}");
                                                         },
                                                         child: Container(
                                                           width: 50,
@@ -416,7 +423,7 @@ class FinalReviewPage extends StatelessWidget {
                 Obx(() => IcoButton(
                     width: IcoSize.width - 40,
                     onPressed: () async {
-                      bool goNext = true;
+                      late bool goNext;
 
                       goNext = await IcoOptionModal(
                           title: '해당 관리자 평가를\n저장하시겠습니까?',
@@ -426,7 +433,12 @@ class FinalReviewPage extends StatelessWidget {
                           iconUrl: 'icons/checked.svg');
 
                       if (goNext) {
+                        startLoadingIndicator();
                         if (editReview == false) {
+                          await managerController.applyReviewsToManagerModel(
+                              reviewController.checkedSpecialtiesList,
+                              reviewController.reviewRate.value,
+                              managerNum);
                           await reviewController.createFinalReviewFireStore(
                               managerController
                                   .managerModelList[managerNum].value!,
@@ -436,30 +448,27 @@ class FinalReviewPage extends StatelessWidget {
                               reviewController.reviewContents.value,
                               authController
                                   .reservationModel.value!.reservationNumber);
-                          await reviewController.setFinalReviewFirestore(
-                              reviewController.reviewModel.value!);
-                          await managerController.applyReviewsToManagerModel(
-                              reviewController
-                                  .reviewModel.value!.specialtyItems!,
-                              reviewController.reviewRate.value,
-                              managerNum);
                         } else {
-                          reviewController.updateFinalReviewFirestore(
-                              reviewController.reviewModel.value!.date
-                                  .millisecondsSinceEpoch
-                                  .toString(),
-                              authController.reservationModel.value!.uid);
+                          print(reviewController.reviewRate.value);
                           managerController.changeReviewsToManagerModel(
                               reviewController.previousSpecialitesList,
                               reviewController.checkedSpecialtiesList,
                               reviewController.reviewRate.value -
                                   reviewController.previousReviewRate.value,
                               managerNum);
+                          await reviewController.deleteFileCloudstorage(
+                              reviewController.previousImageUrlList);
+                          reviewController.updateFinalReviewFirestore(
+                              reviewController.reviewModel.value!.date
+                                  .millisecondsSinceEpoch
+                                  .toString(),
+                              authController.reservationModel.value!.uid);
                         }
 
                         if (managerNum !=
                             managerController.managerModelList.length - 1) {
                           managerNum++;
+                          finishLoadingIndicator();
                           Get.offNamed(Routes.FINAL_REVIEW,
                               arguments: {
                                 'managerNum': managerNum,
@@ -467,7 +476,6 @@ class FinalReviewPage extends StatelessWidget {
                               },
                               preventDuplicates: false);
                         } else {
-                          startLoadingIndicator();
                           if (editReview == false) {
                             authController.reservationModel.value!
                                 .finalReviewFinished = true;

@@ -5,6 +5,7 @@ import 'package:app/configs/text_styles.dart';
 import 'package:app/controllers/auth_controller.dart';
 
 import 'package:app/pages/loading.dart';
+import 'package:app/pages/notice.dart';
 import 'package:app/widgets/modal/bottomup_modal2.dart';
 import 'package:app/widgets/modal/info_modal.dart';
 import 'package:flutter/material.dart';
@@ -26,8 +27,10 @@ class HomeSkeletonPage extends StatelessWidget {
         height: height,
       );
 
-  Widget circularButton(String label) {
+  Widget circularButton(String label, void Function() onPressed) {
     String iconName = '';
+    void Function() onTap = onPressed;
+
     if (label == '서비스 범위') iconName = 'home_service_intro';
     if (label == '육아팁') iconName = 'home_tip';
     if (label == 'FAQ') iconName = 'home_FAQ';
@@ -41,7 +44,7 @@ class HomeSkeletonPage extends StatelessWidget {
           constraints: BoxConstraints.tightFor(width: boxSize, height: boxSize),
           child: ElevatedButton(
             child: SvgPicture.asset("icons/$iconName.svg"),
-            onPressed: () {},
+            onPressed: onTap,
             style: TextButton.styleFrom(
                 backgroundColor: IcoColors.white,
                 shape: const CircleBorder(),
@@ -380,11 +383,11 @@ class HomeSkeletonPage extends StatelessWidget {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  circularButton('서비스 범위'),
+                  circularButton('서비스 범위', () => {}),
                   sizeWidthBox(32),
-                  circularButton('육아팁'),
+                  circularButton('육아팁', () => {}),
                   sizeWidthBox(32),
-                  circularButton('FAQ'),
+                  circularButton('FAQ', () => Get.to(NoticePage())),
                 ],
               ),
             ),

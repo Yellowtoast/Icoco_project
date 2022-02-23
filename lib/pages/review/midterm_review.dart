@@ -21,11 +21,10 @@ class MidtermReviewPage extends StatelessWidget {
   AuthController authController = Get.find();
   MypageController mypageController = Get.find();
   ReviewController reviewController = Get.put(ReviewController(), tag: '1');
+  int managerNum = Get.arguments['managerNum'];
+  var editReview = Get.arguments['editReview'];
   @override
   Widget build(BuildContext context) {
-    int managerNum = Get.arguments['managerNum'];
-    var editReview = Get.arguments['editReview'];
-
     if (editReview == true) {
       reviewController.editReview = editReview;
       reviewController.targetUid.value =

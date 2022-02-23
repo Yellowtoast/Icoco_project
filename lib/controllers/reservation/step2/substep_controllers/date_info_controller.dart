@@ -165,6 +165,10 @@ class DateInfoController extends GetxController {
     }
     //출산 전 : 서비스 시작일 받지 않음, 서비스 이용기간(주수)데이터만 받음
     //출산 후 : 서비스 시작일 + 서비스 이용기간(주수)데이터 받음
+
+    if (voucherDurationSelected.value != null) {
+      serviceDurationSelected.value = voucherDurationSelected.value;
+    }
     model.value!.serviceDuration = serviceDurationSelected.value;
     if (serviceStartDate.value != null) {
       setServiceEndDate(serviceDurationSelected.value);

@@ -136,7 +136,7 @@ class RefundPage extends StatelessWidget {
                       Container(
                         height: 57,
                         padding:
-                            EdgeInsets.symmetric(vertical: 18, horizontal: 20),
+                            EdgeInsets.symmetric(vertical: 0, horizontal: 20),
                         decoration: BoxDecoration(
                             color: IcoColors.purple2,
                             borderRadius: BorderRadius.vertical(

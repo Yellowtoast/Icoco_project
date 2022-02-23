@@ -36,7 +36,7 @@ class LoginPage extends StatelessWidget {
     return Form(
       key: _formKey,
       child: Scaffold(
-        appBar: IcoAppbar(title: '회원가입'),
+        appBar: IcoAppbar(title: '로그인'),
         body: SafeArea(
           child: Container(
             margin: const EdgeInsets.symmetric(horizontal: 20),

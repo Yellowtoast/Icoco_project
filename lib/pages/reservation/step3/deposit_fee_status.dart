@@ -307,12 +307,10 @@ class DepositFeeStatus extends StatelessWidget {
                   children: [
                     IcoButton(
                         onPressed: () async {
-                          authController
-                              .reservationModel.value!.notifyDepositCost = true;
-
-                          await authController.updateReservationFirestore(
+                          await authController.updateSingleDataFirestore(
                               authController
-                                  .reservationModel.value!.reservationNumber);
+                                  .reservationModel.value!.reservationNumber,
+                              {'notifyDepositCost': true});
 
                           await authController.setModelInfo();
                           Get.offAllNamed(Routes.HOME);

@@ -372,10 +372,9 @@ Future<dynamic> RemainingCostStatusPopup() {
             top: 0,
             child: IconButton(
                 onPressed: () {
-                  authController.updateReservationFirestore(
-                      reservationModel.value!.reservationNumber);
-                  authController.setModelInfo();
-                  Get.offAllNamed(Routes.HOME);
+                  // authController.setModelInfo();
+                  // Get.offAllNamed(Routes.HOME);
+                  Get.back();
                 },
                 icon: SvgPicture.asset(
                   "icons/modal_close.svg",

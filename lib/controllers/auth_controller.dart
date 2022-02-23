@@ -318,6 +318,12 @@ class AuthController extends GetxController {
     update();
   }
 
+  updateSingleDataFirestore(
+      String reservationNumber, Map<String, dynamic> data) async {
+    db.doc('/Reservation/$reservationNumber').update(data);
+    update();
+  }
+
   Future<void> deleteUser(String uid) async {
     String token;
     try {

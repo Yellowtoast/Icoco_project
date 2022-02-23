@@ -6,21 +6,21 @@ import 'package:app/models/user.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_storage/firebase_storage.dart' as firebase_storage;
 import 'package:flutter/cupertino.dart';
-import 'package:flutter/foundation.dart';
+import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
 import 'package:path/path.dart' as path;
 import 'dart:convert';
-
 import 'package:image_picker/image_picker.dart';
+import 'package:path_provider/path_provider.dart';
 
 class ReviewController extends GetxController {
   AuthController authController = Get.find();
   final FirebaseFirestore db = FirebaseFirestore.instance;
   late String reservationNum;
   late String userName;
-  RxList<File?> totalFileList = RxList<File?>();
-  RxList<String?> fileNameList = RxList<String?>();
+  RxList<File?> imageFileList = RxList<File?>();
+  RxList<String?> imageNameList = RxList<String?>();
   RxList<Rxn<ReviewModel>> reviewListWithPicture = RxList<Rxn<ReviewModel>>();
   firebase_storage.FirebaseStorage storage =
       firebase_storage.FirebaseStorage.instance;
@@ -33,7 +33,7 @@ class ReviewController extends GetxController {
   TextEditingController contentsTextController = TextEditingController();
   RxList<String> checkedSpecialtiesList = RxList<String>();
   RxList<String> previousSpecialitesList = RxList<String>();
-  List<dynamic> previousThumbnailUrls = [];
+  List<dynamic> previousImageUrlList = [];
   Rx<int> managerNum = 0.obs;
   Rxn<String> searchTarget = Rxn<String>();
   Rxn<String> reviewType = Rxn<String>();
@@ -65,9 +65,9 @@ class ReviewController extends GetxController {
   Rx<String> reviewContents = ''.obs;
 
   @override
-  void onReady() {
+  Future<void> onReady() async {
     if (editReview == true) {
-      setPreviousReview(
+      await setPreviousReview(
           previousReviewList, targetUid.value!, reviewType.value!);
     }
     super.onReady();
@@ -91,14 +91,38 @@ class ReviewController extends GetxController {
 
     contentsTextController.text = _reviewModel.contents;
     reviewContents.value = _reviewModel.contents;
-    previousThumbnailUrls = _reviewModel.thumbnails!;
+
     if (reviewType == '기말') {
       reviewRate.value = _reviewModel.reviewRate!;
       previousReviewRate.value = _reviewModel.reviewRate!;
-      print(reviewRate.value);
+      previousImageUrlList = _reviewModel.thumbnails!;
+      imageFileList.clear();
+      imageNameList.clear();
+      previousImageUrlList.forEach((url) async {
+        print('convert 전');
+        print(url);
+        var imageMap = await convertUrlToFile(url);
+        imageFileList.add(imageMap['file']);
+        imageNameList.add(imageMap['fileName']);
+      });
+      imageFileList.refresh();
     }
-    print("onReady : ${checkedSpecialtiesList} ");
     checkedSpecialtiesList.refresh();
+  }
+
+  convertUrlToFile(String url) async {
+    print('convert 시작');
+    print(url);
+    final http.Response responseData = await http.get(Uri.parse(url));
+
+    var uint8list = responseData.bodyBytes;
+    var buffer = uint8list.buffer;
+    ByteData byteData = ByteData.view(buffer);
+    var tempDir = await getTemporaryDirectory();
+    String fileName = DateTime.now().microsecondsSinceEpoch.toString();
+    File file = await File('${tempDir.path}/$fileName').writeAsBytes(
+        buffer.asUint8List(byteData.offsetInBytes, byteData.lengthInBytes));
+    return {'file': file, 'fileName': fileName};
   }
 
   createMidtermReviewFirestore(ManagerModel managerModel, UserModel userModel,
@@ -119,9 +143,7 @@ class ReviewController extends GetxController {
     checkedSpecialtiesList.clear();
     reviewType.value = null;
     targetUid.value = null;
-    // itemSelectStatus.forEach((element) {
-    //   element.value = false;
-    // });
+
     contentsTextController.text = '';
     reviewContents.value = '';
   }
@@ -134,7 +156,7 @@ class ReviewController extends GetxController {
       String contents,
       String reservationNumber) async {
     List<String>? imagesURL = await uploadFileCloudstorage(
-        totalFileList, userModel.uid, fileNameList);
+        imageFileList, userModel.uid, imageNameList);
     ReviewModel _newReviewModel = ReviewModel(
         contents: contents,
         userId: userModel.uid,
@@ -148,6 +170,8 @@ class ReviewController extends GetxController {
         reviewRate: reviewRate.value,
         reservationNumber: reservationNumber);
 
+    setFinalReviewFirestore(_newReviewModel);
+
     reviewModel.value = _newReviewModel;
     reviewType.value = null;
     targetUid.value = null;
@@ -156,20 +180,23 @@ class ReviewController extends GetxController {
     reviewContents.value = '';
     reviewRate.value = 0;
     checkedSpecialtiesList.clear();
+    storageRefList.clear();
+    imageNameList.clear();
+    imageFileList.clear();
   }
 
   updateFinalReviewFirestore(String documentNumber, String userId) async {
     List<String>? imagesURL =
-        await uploadFileCloudstorage(totalFileList, userId, fileNameList);
+        await uploadFileCloudstorage(imageFileList, userId, imageNameList);
     await db.doc('/Review/$documentNumber').update({
-      'thumnails': imagesURL,
+      'thumbnails': imagesURL,
       'contents': reviewContents.value,
       'specialtyItems': checkedSpecialtiesList,
       'reviewRate': reviewRate.value,
     });
     storageRefList.clear();
-    fileNameList.clear();
-    totalFileList.clear();
+    imageNameList.clear();
+    imageFileList.clear();
     update();
   }
 
@@ -177,9 +204,6 @@ class ReviewController extends GetxController {
     await db
         .doc('/Review/${reviewModel.date.millisecondsSinceEpoch}')
         .set(reviewModel.toJson());
-    storageRefList.clear();
-    fileNameList.clear();
-    totalFileList.clear();
     update();
   }
 
@@ -283,49 +307,55 @@ class ReviewController extends GetxController {
       ImageSource inputSource, String uploadPath, int managerNum) async {
     final picker = ImagePicker();
     List<XFile>? pickedImages;
-    totalFileList.clear();
 
     try {
       pickedImages = await picker.pickMultiImage(imageQuality: 60);
-      print(pickedImages);
+      pickedImageToFile(pickedImages);
     } catch (err) {
       print('image selection failed');
     }
-    for (var image in pickedImages!) {
-      totalFileList.add(File(image.path));
-      fileNameList.add(path.basename(image.path));
-    }
-    print("추가한 후 이름 리스트  ${fileNameList.length}");
-    print("추가한 후 파일 리스트  ${totalFileList.length}");
-
-    totalFileList.refresh();
   }
 
-  Future<List<String>?> uploadFileCloudstorage(RxList<File?> fileListForModel,
-      String uid, RxList<String?> fileNameList) async {
+  pickedImageToFile(List<XFile>? pickedImages) {
+    for (var image in pickedImages!) {
+      imageFileList.add(File(image.path));
+      imageNameList
+          .add(path.basename(DateTime.now().microsecondsSinceEpoch.toString()));
+    }
+    print("추가한 후 이름 리스트  ${imageNameList.length}");
+    print("추가한 후 파일 리스트  ${imageFileList.length}");
+
+    imageFileList.refresh();
+  }
+
+  Future<List<String>?> uploadFileCloudstorage(
+      RxList<File?> fileList, String uid, RxList<String?> fileNameList) async {
     String? downloadURL;
     List<String> reviewImageURL = [];
     try {
       for (var fileName in fileNameList) {
         storageRefList.add(storage.ref("review/$fileName"));
       }
-      for (int i = 0; i < fileListForModel.length; i++) {
+      for (int i = 0; i < fileList.length; i++) {
         firebase_storage.UploadTask uploadTask = storageRefList[i]!.putFile(
-            fileListForModel[i]!,
+            fileList[i]!,
             firebase_storage.SettableMetadata(customMetadata: {
-              'uid': userName,
+              'uid': uid,
             }));
 
         downloadURL = await (await uploadTask).ref.getDownloadURL();
         reviewImageURL.add(downloadURL);
       }
+      storageRefList.clear();
+      imageFileList.clear();
+      fileNameList.clear();
       return reviewImageURL.toList();
     } catch (e) {
       return [];
     }
   }
 
-  Future<void> deleteFileCloudstorage(List<String?> thumbnailUrls) async {
+  Future<void> deleteFileCloudstorage(List<dynamic?> thumbnailUrls) async {
     try {
       if (thumbnailUrls.isNotEmpty) {
         thumbnailUrls.forEach((url) {

@@ -433,13 +433,13 @@ class RemainingFeeStatus extends StatelessWidget {
                 children: [
                   IcoButton(
                       onPressed: () async {
-                        authController
-                            .reservationModel.value!.notifyBalanceCost = true;
-
-                        await authController.updateReservationFirestore(
+                        await authController.updateSingleDataFirestore(
                             authController
-                                .reservationModel.value!.reservationNumber);
-
+                                .reservationModel.value!.reservationNumber,
+                            {'notifyBalanceCost': true});
+                        // await authController.updateReservationFirestore(
+                        //     authController
+                        //         .reservationModel.value!.reservationNumber);
                         await authController.setModelInfo();
                         Get.offAllNamed(Routes.HOME);
                       },
