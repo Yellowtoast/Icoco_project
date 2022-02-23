@@ -165,7 +165,7 @@ class EditUserInfoPage extends StatelessWidget {
                           subtitle: '탈퇴 시 회원님의 정보는\n모두 영구 삭제됩니다',
                           option1: '닫기',
                           option2: '탈퇴',
-                          iconUrl: 'icons/failed_human.svg');
+                          iconUrl: 'icons/no_girl.svg');
                       if (confirm) {
                         authController
                             .deleteUser(authController.homeModel.value.uid);

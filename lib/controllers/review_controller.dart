@@ -33,6 +33,7 @@ class ReviewController extends GetxController {
   TextEditingController contentsTextController = TextEditingController();
   RxList<String> checkedSpecialtiesList = RxList<String>();
   RxList<String> previousSpecialitesList = RxList<String>();
+  List<dynamic> previousThumbnailUrls = [];
   Rx<int> managerNum = 0.obs;
   Rxn<String> searchTarget = Rxn<String>();
   Rxn<String> reviewType = Rxn<String>();
@@ -42,15 +43,6 @@ class ReviewController extends GetxController {
   Rxn<int> totalReviews = Rxn<int>();
   Rxn<int> reviewCount = Rxn<int>();
   bool editReview = false;
-  // List<RxBool> itemSelectStatus = [
-  //   false.obs,
-  //   false.obs,
-  //   false.obs,
-  //   false.obs,
-  //   false.obs,
-  //   false.obs,
-  //   false.obs
-  // ];
 
   List<String> specialtyTitle = [
     '정리정돈',
@@ -71,21 +63,6 @@ class ReviewController extends GetxController {
     "아이를 사랑으로 대해주세요",
   ];
   Rx<String> reviewContents = ''.obs;
-  // @override
-  // void onInit() {
-  //   if (editReview == true) {
-  //     setPreviousReview(previousReviewList, targetUid.value!, '중간');
-  //   }
-  //   super.onInit();
-  // }
-
-  // @override
-  // void onInit() {
-  //   if (editReview == true) {
-  //     setPreviousReview(previousReviewList, targetUid.value!, '중간');
-  //   }
-  //   super.onInit();
-  // }
 
   @override
   void onReady() {
@@ -114,6 +91,7 @@ class ReviewController extends GetxController {
 
     contentsTextController.text = _reviewModel.contents;
     reviewContents.value = _reviewModel.contents;
+    previousThumbnailUrls = _reviewModel.thumbnails!;
     if (reviewType == '기말') {
       reviewRate.value = _reviewModel.reviewRate!;
       previousReviewRate.value = _reviewModel.reviewRate!;
@@ -155,8 +133,8 @@ class ReviewController extends GetxController {
       String companyUid,
       String contents,
       String reservationNumber) async {
-    List<String>? imagesURL =
-        await uploadFileStorage(totalFileList, userModel.uid);
+    List<String>? imagesURL = await uploadFileCloudstorage(
+        totalFileList, userModel.uid, fileNameList);
     ReviewModel _newReviewModel = ReviewModel(
         contents: contents,
         userId: userModel.uid,
@@ -181,7 +159,8 @@ class ReviewController extends GetxController {
   }
 
   updateFinalReviewFirestore(String documentNumber, String userId) async {
-    List<String>? imagesURL = await uploadFileStorage(totalFileList, userId);
+    List<String>? imagesURL =
+        await uploadFileCloudstorage(totalFileList, userId, fileNameList);
     await db.doc('/Review/$documentNumber').update({
       'thumnails': imagesURL,
       'contents': reviewContents.value,
@@ -304,6 +283,8 @@ class ReviewController extends GetxController {
       ImageSource inputSource, String uploadPath, int managerNum) async {
     final picker = ImagePicker();
     List<XFile>? pickedImages;
+    totalFileList.clear();
+
     try {
       pickedImages = await picker.pickMultiImage(imageQuality: 60);
       print(pickedImages);
@@ -314,12 +295,14 @@ class ReviewController extends GetxController {
       totalFileList.add(File(image.path));
       fileNameList.add(path.basename(image.path));
     }
+    print("추가한 후 이름 리스트  ${fileNameList.length}");
+    print("추가한 후 파일 리스트  ${totalFileList.length}");
 
     totalFileList.refresh();
   }
 
-  Future<List<String>?> uploadFileStorage(
-      RxList<File?> fileListForModel, String uid) async {
+  Future<List<String>?> uploadFileCloudstorage(RxList<File?> fileListForModel,
+      String uid, RxList<String?> fileNameList) async {
     String? downloadURL;
     List<String> reviewImageURL = [];
     try {
@@ -339,6 +322,19 @@ class ReviewController extends GetxController {
       return reviewImageURL.toList();
     } catch (e) {
       return [];
+    }
+  }
+
+  Future<void> deleteFileCloudstorage(List<String?> thumbnailUrls) async {
+    try {
+      if (thumbnailUrls.isNotEmpty) {
+        thumbnailUrls.forEach((url) {
+          var fileRef = storage.refFromURL(url!);
+          fileRef.delete().then((value) => print('file deleted'));
+        });
+      }
+    } catch (e) {
+      print('cloud storage delete failed');
     }
   }
 }

@@ -369,6 +369,10 @@ class FinalReviewPage extends StatelessWidget {
                                                           reviewController
                                                               .totalFileList
                                                               .refresh();
+                                                          print(
+                                                              "지운 후 이름 리스트  ${reviewController.fileNameList.length}");
+                                                          print(
+                                                              "지운 후 파일 리스트  ${reviewController.totalFileList.length}");
                                                         },
                                                         child: Container(
                                                           width: 50,

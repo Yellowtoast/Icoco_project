@@ -23,7 +23,7 @@ BottomResultModal() {
   return Get.bottomSheet(
       Container(
         height: 380,
-        padding: EdgeInsets.fromLTRB(20, 20, 20, 20),
+        padding: EdgeInsets.fromLTRB(20, 20, 20, 10),
         width: IcoSize.width,
         decoration: BoxDecoration(
           color: IcoColors.white,

@@ -11,6 +11,7 @@ class IcoAppbar extends StatelessWidget implements PreferredSizeWidget {
       this.iconColor = IcoColors.grey4,
       this.isDefault = true,
       this.backgroundColor = IcoColors.white,
+      this.actionButton,
       this.tapFunction});
 
   final String title;
@@ -19,6 +20,7 @@ class IcoAppbar extends StatelessWidget implements PreferredSizeWidget {
   Color iconColor;
   bool isDefault;
   void Function()? tapFunction;
+  List<Widget>? actionButton;
 
   Widget popButton(context, void Function()? tapFunction) {
     onTap() {
@@ -50,6 +52,7 @@ class IcoAppbar extends StatelessWidget implements PreferredSizeWidget {
           bottomOpacity: 0.0,
           backgroundColor: backgroundColor,
           shadowColor: Colors.transparent,
+          actions: (actionButton == null) ? [] : actionButton,
           title: Text(
             title,
             style: (isDefault)

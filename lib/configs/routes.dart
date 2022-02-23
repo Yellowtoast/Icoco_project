@@ -137,17 +137,14 @@ class Routes {
     GetPage(
         name: Routes.SIGNUP_STEP2,
         page: () => SignupStep2Page(),
-        // binding: SignupBindings(),
         transition: Transition.noTransition),
     GetPage(
         name: Routes.SIGNUP_STEP3,
         page: () => SignupStep3Page(),
-        // binding: SignupBindings(),
         transition: Transition.noTransition),
     GetPage(
         name: Routes.SIGNUP_STEP4,
         page: () => SignupStep4Page(),
-        // binding: SignupBindings(),
         transition: Transition.noTransition),
     GetPage(
         name: Routes.SIGNUP_STEP5,
