@@ -1,12 +1,13 @@
-import 'package:app/models/event.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:get/get.dart';
+
+import 'package:cloud_firestore/cloud_firestore.dart';
+
+import 'package:app/models/event.dart';
+import 'package:app/pages/loading.dart';
 
 class EventDetailController extends GetxController {
   var pageArguments = Get.arguments;
   final FirebaseFirestore db = FirebaseFirestore.instance;
-
-  Rx<bool> initialLoading = false.obs;
 
   Rx<String> id = ''.obs;
   Rx<String> appBanner = ''.obs;
@@ -33,6 +34,7 @@ class EventDetailController extends GetxController {
   }
 
   Future<void> initRequest() async {
+    startLoadingIndicator();
     var eventId = pageArguments["eventId"];
     var querySanpshot = await db.collection('Event').doc(eventId).get();
 
@@ -50,6 +52,7 @@ class EventDetailController extends GetxController {
     status.value = event.status;
     thumbnail.value = event.thumbnail;
     title.value = event.title;
-    initialLoading.value = false;
+
+    finishLoadingIndicator();
   }
 }

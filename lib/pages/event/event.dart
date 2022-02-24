@@ -1,3 +1,4 @@
+import 'package:app/configs/constants.dart';
 import 'package:app/configs/routes.dart';
 import 'package:app/controllers/event_controller.dart';
 import 'package:flutter/material.dart';
@@ -10,6 +11,10 @@ import 'package:app/widgets/card/event.dart';
 
 class EventPage extends StatelessWidget {
   const EventPage({Key? key}) : super(key: key);
+
+  _onTapToDetailPage(id) {
+    Get.toNamed(Routes.EVENT_DETAIL, arguments: {"eventId": id});
+  }
 
   TabBar _getTabBar() {
     return const TabBar(
@@ -37,13 +42,38 @@ class EventPage extends StatelessWidget {
     );
   }
 
+  Widget _getScollView(List<dynamic> list, String status) {
+    var l = list.where((el) => el.status == status);
+    return SingleChildScrollView(
+        child: Column(
+      children: l.map((dynamic item) {
+        return GestureDetector(
+          onTap: () => _onTapToDetailPage(item.id),
+          child: Container(
+            margin: const EdgeInsets.only(bottom: 46),
+            width: Get.width,
+            child: EventCard(
+              title: item.title,
+              thumbnail: item.appBanner,
+              status: item.status,
+              periodStart: item.startDate,
+              periodEnd: item.endDate,
+            ),
+          ),
+        );
+      }).toList(),
+    ));
+  }
+
   @override
   Widget build(BuildContext context) {
     EventController eventController = Get.find();
+    int tabLen = 3;
+    int initialTabIndex = 0;
 
     return DefaultTabController(
-      length: 3,
-      initialIndex: 0,
+      length: tabLen,
+      initialIndex: initialTabIndex,
       child: Scaffold(
         appBar: AppBar(
           backgroundColor: IcoColors.white,
@@ -63,62 +93,9 @@ class EventPage extends StatelessWidget {
             ),
             Expanded(
               child: _getTabBarView([
-                SingleChildScrollView(
-                    child: Column(
-                  children: eventController.events.map((dynamic item) {
-                    return GestureDetector(
-                      onTap: () => {
-                        Get.toNamed(Routes.EVENT_DETAIL,
-                            arguments: {"eventId": item.id})
-                      },
-                      child: Container(
-                        margin: const EdgeInsets.only(bottom: 46),
-                        width: Get.width,
-                        child: EventCard(
-                          title: item.title,
-                          thumbnail: item.appBanner,
-                          status: item.status,
-                          periodStart: item.startDate,
-                          periodEnd: item.endDate,
-                        ),
-                      ),
-                    );
-                  }).toList(),
-                )),
-                SingleChildScrollView(
-                    child: Column(
-                  children: [
-                    Container(
-                      margin: const EdgeInsets.only(bottom: 46),
-                      width: Get.width,
-                      child: EventCard(
-                        title: '아이코코 런칭 이벤트 아이코코',
-                        thumbnail:
-                            'https://random.dog/3f62f2c1-e0cb-4077-8cd9-1ca76bfe98d5.jpg',
-                        status: 'completed',
-                        periodStart: '',
-                        periodEnd: '',
-                      ),
-                    ),
-                  ],
-                )),
-                SingleChildScrollView(
-                    child: Column(
-                  children: [
-                    Container(
-                      margin: const EdgeInsets.only(bottom: 46),
-                      width: Get.width,
-                      child: EventCard(
-                        title: '아이코코 런칭 이벤트 아이코코',
-                        thumbnail:
-                            'https://random.dog/3f62f2c1-e0cb-4077-8cd9-1ca76bfe98d5.jpg',
-                        status: 'after',
-                        periodStart: '',
-                        periodEnd: '',
-                      ),
-                    ),
-                  ],
-                )),
+                _getScollView(eventController.events, EventStatus.running),
+                _getScollView(eventController.events, EventStatus.completed),
+                _getScollView(eventController.events, EventStatus.announnced),
               ]),
             )
           ],

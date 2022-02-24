@@ -1,6 +1,5 @@
-// ignore_for_file: non_constant_identifier_names
-
 import 'package:app/configs/colors.dart';
+import 'package:app/configs/constants.dart';
 import 'package:app/configs/text_styles.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -21,24 +20,20 @@ class EventCard extends StatelessWidget {
   String periodEnd;
   String status;
 
-  String STATUS_RUNNING = 'running';
-  String STATUS_COMPLETED = 'completed';
-  String STATUS_AFTER = 'after';
-
   Widget _getStatusLabel(status) {
     String statusLabel = '진행중';
     Color statusTextColor = IcoColors.primary;
     Color statusBgColor = IcoColors.purple1;
 
-    if (status == STATUS_RUNNING) {
+    if (status == EventStatus.running) {
       statusLabel = '진행중';
       statusTextColor = IcoColors.primary;
       statusBgColor = IcoColors.purple1;
-    } else if (status == STATUS_COMPLETED) {
+    } else if (status == EventStatus.completed) {
       statusLabel = '종료됨';
       statusTextColor = IcoColors.grey4;
       statusBgColor = IcoColors.grey1;
-    } else if (status == STATUS_AFTER) {
+    } else if (status == EventStatus.announnced) {
       statusLabel = '당첨자 발표';
       statusTextColor = IcoColors.grey4;
       statusBgColor = IcoColors.yellow1;
@@ -92,7 +87,7 @@ class EventCard extends StatelessWidget {
                     children: [
                       Container(
                         width: Get.width - 120,
-                        padding: EdgeInsets.only(right: 8),
+                        padding: const EdgeInsets.only(right: 8),
                         child: Text(
                           title,
                           style: IcoTextStyle.boldTextStyle24B,

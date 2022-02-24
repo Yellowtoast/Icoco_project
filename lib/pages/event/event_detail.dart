@@ -50,10 +50,12 @@ class EventDetailPage extends StatelessWidget {
                     Container(
                       width: double.infinity,
                       height: Get.width / 2,
-                      child: Image.network(
-                        eventDetailController.detailThumbnail.value,
-                        fit: BoxFit.cover,
-                      ),
+                      child: eventDetailController.detailThumbnail.value != ''
+                          ? Image.network(
+                              eventDetailController.detailThumbnail.value,
+                              fit: BoxFit.cover,
+                            )
+                          : Container(),
                     ),
                     const SizedBox(
                       height: 23,
