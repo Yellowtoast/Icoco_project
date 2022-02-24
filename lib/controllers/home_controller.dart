@@ -19,7 +19,9 @@ import 'package:app/pages/home/home_step7.dart';
 import 'package:app/pages/home/home_step8.dart';
 import 'package:app/pages/home/home_step9.dart';
 import 'package:flutter/foundation.dart';
+import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
+import 'package:scroll_to_index/scroll_to_index.dart';
 
 class HomeController extends GetxController {
   Rxn<String> reservationNumber = Rxn<String>();
@@ -28,7 +30,6 @@ class HomeController extends GetxController {
   Rxn<dynamic> homeInfoModel = Rxn<dynamic>();
   Rxn<ReservationModel?> reservationModel = Rxn<ReservationModel?>();
   Rxn<UserModel?> userModel = Rxn<UserModel?>();
-  // Rxn<bool> openPopup = Rxn<bool>();
 
   @override
   void onInit() {
@@ -40,7 +41,7 @@ class HomeController extends GetxController {
   }
 
   @override
-  void onReady() {
+  Future<void> onReady() async {
     super.onReady();
   }
 

@@ -68,7 +68,7 @@ class EventDetailPage extends StatelessWidget {
                           children: [
                             Text(
                               eventDetailController.title.value,
-                              style: IcoTextStyle.boldTextStyle24B,
+                              style: IcoTextStyle.boldTextStyle20B,
                             ),
                             Text(
                               '${eventDetailController.startDate.value} ~ ${eventDetailController.endDate.value}',

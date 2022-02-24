@@ -16,6 +16,7 @@ import 'package:app/pages/home/home.dart';
 import 'package:app/pages/login.dart';
 import 'package:app/pages/manager/manager_detail.dart';
 import 'package:app/pages/notice.dart';
+import 'package:app/pages/notice_detail.dart';
 import 'package:app/pages/reservation/step1/substep_address/address1.dart';
 import 'package:app/pages/reservation/step1/substep_address/address2.dart';
 import 'package:app/pages/reservation/step1/substep_address/address3.dart';
@@ -106,6 +107,7 @@ class Routes {
   static const EVENT = '/event';
   static const EVENT_DETAIL = '/event/detail';
   static const NOTICE = '/notice';
+  static const NOTICE_DETAIL = '/notice/detail';
 
   static final pages = [
     GetPage(
@@ -275,6 +277,10 @@ class Routes {
         name: Routes.NOTICE,
         page: () => NoticePage(),
         binding: NoticeBindings(),
+        transition: Transition.rightToLeft),
+    GetPage(
+        name: Routes.NOTICE_DETAIL,
+        page: () => NoticeDetailPage(),
         transition: Transition.rightToLeft),
   ];
 }

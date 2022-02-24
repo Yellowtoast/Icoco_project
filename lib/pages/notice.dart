@@ -4,11 +4,14 @@ import 'package:app/controllers/scroll_controller.dart';
 import 'package:app/helpers/formatter.dart';
 import 'package:app/configs/text_styles.dart';
 import 'package:app/pages/loading.dart';
+import 'package:app/pages/notice_detail.dart';
 import 'package:app/widgets/appbar.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
+
+import '../configs/routes.dart';
 
 class NoticePage extends StatelessWidget {
   NoticePage({Key? key}) : super(key: key);
@@ -40,46 +43,56 @@ class NoticePage extends StatelessWidget {
                     itemBuilder: (BuildContext context, int index) {
                       return Column(
                         children: [
-                          Container(
-                            height: 88,
-                            padding: EdgeInsets.symmetric(horizontal: 20),
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                Column(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    Text(
-                                      _noticeController
-                                          .noticeModelList[index].title,
-                                      style: IcoTextStyle.boldTextStyle17B,
-                                    ),
-                                    SizedBox(
-                                      height: 4,
-                                    ),
-                                    Text(
-                                      dateFormatWithDot.format(_noticeController
-                                          .noticeModelList[index].date),
-                                      style:
-                                          IcoTextStyle.mediumTextStyle14Grey4,
-                                    ),
-                                  ],
-                                ),
-                                Container(
-                                  width: 50,
-                                  height: double.infinity,
-                                  alignment: Alignment.centerRight,
-                                  child: SizedBox(
-                                    child: SvgPicture.asset(
-                                      'icons/button_arrow.svg',
-                                      color: IcoColors.grey3,
-                                      width: 16,
-                                      fit: BoxFit.none,
+                          InkWell(
+                            onTap: () {
+                              print(index);
+                              Get.toNamed(Routes.NOTICE_DETAIL,
+                                  arguments: {'eventNum': index});
+                            },
+                            child: Container(
+                              height: 88,
+                              padding: EdgeInsets.symmetric(horizontal: 20),
+                              child: Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                children: [
+                                  Column(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [
+                                      Text(
+                                        _noticeController
+                                            .noticeModelList[index].title,
+                                        style: IcoTextStyle.boldTextStyle17B,
+                                      ),
+                                      SizedBox(
+                                        height: 4,
+                                      ),
+                                      Text(
+                                        dateFormatWithDot.format(
+                                            _noticeController
+                                                .noticeModelList[index].date),
+                                        style:
+                                            IcoTextStyle.mediumTextStyle14Grey4,
+                                      ),
+                                    ],
+                                  ),
+                                  Container(
+                                    width: 50,
+                                    height: double.infinity,
+                                    alignment: Alignment.centerRight,
+                                    child: SizedBox(
+                                      child: SvgPicture.asset(
+                                        'icons/button_arrow.svg',
+                                        color: IcoColors.grey3,
+                                        width: 16,
+                                        fit: BoxFit.none,
+                                      ),
                                     ),
                                   ),
-                                ),
-                              ],
+                                ],
+                              ),
                             ),
                           ),
                           Divider(
@@ -90,6 +103,17 @@ class NoticePage extends StatelessWidget {
                       );
                     }),
               ),
+              Obx(() => _noticeController.isLoading.value
+                  ? Container(
+                      margin: EdgeInsets.symmetric(vertical: 16),
+                      height: 20,
+                      width: 20,
+                      child: CircularProgressIndicator(
+                        color: IcoColors.purple3,
+                        strokeWidth: 4,
+                      ),
+                    )
+                  : SizedBox())
             ],
           ),
         );

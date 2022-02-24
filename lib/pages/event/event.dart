@@ -42,11 +42,10 @@ class EventPage extends StatelessWidget {
     );
   }
 
-  Widget _getScollView(List<dynamic> list, String status) {
-    var l = list.where((el) => el.status == status);
+  Widget _getScollView(List<dynamic> list) {
     return SingleChildScrollView(
         child: Column(
-      children: l.map((dynamic item) {
+      children: list.map((dynamic item) {
         return GestureDetector(
           onTap: () => _onTapToDetailPage(item.id),
           child: Container(
@@ -77,7 +76,8 @@ class EventPage extends StatelessWidget {
       child: Scaffold(
         appBar: AppBar(
           backgroundColor: IcoColors.white,
-          shadowColor: Colors.transparent,
+          shadowColor: IcoColors.grey1,
+          elevation: 1,
           centerTitle: true,
           title: Text(
             '이벤트',
@@ -89,15 +89,15 @@ class EventPage extends StatelessWidget {
         body: Column(
           children: [
             const SizedBox(
-              height: 8,
+              height: 28,
             ),
             Expanded(
               child: _getTabBarView([
-                _getScollView(eventController.events, EventStatus.running),
-                _getScollView(eventController.events, EventStatus.completed),
-                _getScollView(eventController.events, EventStatus.announnced),
+                _getScollView(eventController.runningEvents),
+                _getScollView(eventController.completedEvents),
+                _getScollView(eventController.announcedEvents),
               ]),
-            )
+            ),
           ],
         ),
       ),

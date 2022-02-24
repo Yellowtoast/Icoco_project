@@ -90,7 +90,7 @@ class EventCard extends StatelessWidget {
                         padding: const EdgeInsets.only(right: 8),
                         child: Text(
                           title,
-                          style: IcoTextStyle.boldTextStyle24B,
+                          style: IcoTextStyle.boldTextStyle17B,
                           overflow: TextOverflow.ellipsis,
                         ),
                       ),

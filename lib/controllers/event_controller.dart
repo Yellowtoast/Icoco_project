@@ -4,10 +4,10 @@ import 'package:get/get.dart';
 
 class EventController extends GetxController {
   final FirebaseFirestore db = FirebaseFirestore.instance;
-
   Rx<bool> initialLoading = false.obs;
-  RxList<dynamic> events = [].obs;
-
+  RxList<EventModel> runningEvents = RxList<EventModel>();
+  RxList<EventModel> completedEvents = RxList<EventModel>();
+  RxList<EventModel> announcedEvents = RxList<EventModel>();
   @override
   void onReady() async {
     super.onReady();
@@ -21,9 +21,71 @@ class EventController extends GetxController {
 
   Future<void> initRequest() async {
     var querySanpshots = await db.collection('Event').get();
-    var list = querySanpshots.docs.map((snapshot) =>
-        EventModel.fromJson({"id": snapshot.id, ...snapshot.data()}));
-    events.assignAll(list);
+    List<EventModel> totalEventModel = [];
+    EventModel eventModel;
+
+    querySanpshots.docs.forEach((snapshot) {
+      eventModel = EventModel.fromJson({"id": snapshot.id, ...snapshot.data()});
+      totalEventModel.add(eventModel);
+    });
+
+    totalEventModel.forEach((event) {
+      if (event.status == 'running') {
+        runningEvents.add(event);
+      }
+      if (event.status == 'announced') {
+        announcedEvents.add(event);
+      }
+      if (event.status == 'completed') {
+        completedEvents.add(event);
+      }
+    });
     initialLoading.value = false;
   }
+
+  // Future<void> initRequest() async {
+  //   var querySanpshots = await db.collection('Event').get();
+  //   RxList<EventModel> list = RxList<EventModel>();
+  //   dynamic event;
+
+  //   querySanpshots.docs.map((snapshot) {
+  //     event = EventModel.fromJson({"id": snapshot.id, ...snapshot.data()});
+  //     list.add(event!);
+  //   });
+  //   list.map((event) {
+  //     if (event.status == 'running') {
+  //       runningEvents.add(event);
+  //     }
+  //     if (event.status == 'announced') {
+  //       announcedEvents.add(event);
+  //     }
+  //     if (event.status == 'completed') {
+  //       completedEvents.add(event);
+  //     }
+  //   });
+  //   initialLoading.value = false;
+  // }
+
+  // Future<void> initRequest() async {
+  //   var querySanpshots = await db.collection('Event').get();
+  //   List<EventModel> totalEventList = [];
+  //   querySanpshots.docs.map((snapshot) {
+  //     totalEventList
+  //         .add(EventModel.fromJson({"id": snapshot.id, ...snapshot.data()}));
+  //   });
+
+  //   totalEventList.map((event) {
+  //     if (event.status == 'running') {
+  //       runningEvents.add(event);
+  //     }
+  //     if (event.status == 'announced') {
+  //       announcedEvents.add(event);
+  //     }
+  //     if (event.status == 'completed') {
+  //       completedEvents.add(event);
+  //     }
+  //   });
+
+  //   initialLoading.value = false;
+  // }
 }

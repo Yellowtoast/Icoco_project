@@ -1,9 +1,12 @@
 import 'package:app/bindings/notice_bindings.dart';
 import 'package:app/configs/colors.dart';
+import 'package:app/configs/constants.dart';
 import 'package:app/configs/routes.dart';
 import 'package:app/configs/size.dart';
 import 'package:app/configs/text_styles.dart';
 import 'package:app/controllers/auth_controller.dart';
+import 'package:app/controllers/event_controller.dart';
+import 'package:app/controllers/notice_controller.dart';
 
 import 'package:app/pages/loading.dart';
 import 'package:app/pages/notice.dart';
@@ -20,6 +23,24 @@ class HomeSkeletonPage extends StatelessWidget {
   HomeSkeletonPage({Key? key}) : super(key: key);
   AuthController authController = Get.find();
   HomeController homeController = Get.find();
+  NoticeController _noticeController =
+      Get.put(NoticeController(), tag: 'fromHome');
+  EventController _eventController =
+      Get.put(EventController(), tag: 'fromHome');
+
+  RxInt noticeLength = 0.obs;
+  RxInt eventLength = 0.obs;
+  RxInt totalInfoLength = 0.obs;
+
+  AutoScrollController autoScrollController = AutoScrollController(
+      viewportBoundaryGetter: () => Rect.fromLTRB(0, 0, 0, Get.bottomBarHeight),
+      axis: Axis.horizontal,
+      suggestedRowHeight: 600);
+
+  startAutoScroller() => autoScrollController.scrollToIndex(
+      homeController.homeInfoModel.value.userStep - 1,
+      preferPosition: AutoScrollPosition.begin,
+      duration: Duration(milliseconds: 100));
 
   Widget sizeWidthBox(double width) => SizedBox(
         width: width,
@@ -32,7 +53,7 @@ class HomeSkeletonPage extends StatelessWidget {
     String iconName = '';
     void Function() onTap = onPressed;
 
-    if (label == '서비스 범위') iconName = 'home_service_intro';
+    if (label == '공지사항') iconName = 'home_service_intro';
     if (label == '육아팁') iconName = 'home_tip';
     if (label == 'FAQ') iconName = 'home_FAQ';
 
@@ -91,11 +112,6 @@ class HomeSkeletonPage extends StatelessWidget {
     );
   }
 
-  AutoScrollController autoScrollController = AutoScrollController(
-      viewportBoundaryGetter: () => Rect.fromLTRB(0, 0, 0, Get.bottomBarHeight),
-      axis: Axis.horizontal,
-      suggestedRowHeight: 600);
-
   void showPopup(BuildContext context, int userStep, String? isFinishedDeposit,
       String? isFinishedBalance) {
     if (userStep == 3 &&
@@ -115,6 +131,14 @@ class HomeSkeletonPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    noticeLength.value = (_noticeController.noticeModelList.length > 2)
+        ? 2
+        : _noticeController.noticeModelList.length;
+    eventLength.value = (_eventController.runningEvents.length > 3)
+        ? 3
+        : _eventController.runningEvents.length;
+    totalInfoLength.value = noticeLength.value + eventLength.value;
+
     Future.delayed(Duration.zero, () {
       if (authController.reservationModel.value != null &&
           authController.openPopup.value == true) {
@@ -143,16 +167,6 @@ class HomeSkeletonPage extends StatelessWidget {
               Get.offAllNamed(Routes.HOME);
             });
       }
-    });
-
-    startStepScroll(userStep) {
-      autoScrollController.scrollToIndex(userStep,
-          preferPosition: AutoScrollPosition.begin,
-          duration: Duration(milliseconds: 100));
-    }
-
-    Future.delayed(Duration.zero, () {
-      startStepScroll(authController.homeModel.value.userStep - 1);
     });
 
     homeController.setInfoFromModel();
@@ -200,42 +214,36 @@ class HomeSkeletonPage extends StatelessWidget {
                       children: [
                         Expanded(
                           child: ListView.builder(
-                              scrollDirection: Axis.horizontal,
-                              controller: autoScrollController,
-                              physics: const NeverScrollableScrollPhysics(),
-                              shrinkWrap: true,
-                              itemCount: 9,
-                              itemBuilder: (BuildContext context, int index) {
-                                if (index == 8) {
-                                  Future.delayed(Duration(milliseconds: 300),
-                                      () {
-                                    startStepScroll(authController
-                                            .homeModel.value.userStep -
-                                        1);
-                                  });
-                                }
-                                return AutoScrollTag(
-                                  key: ValueKey(index),
-                                  controller: autoScrollController,
-                                  index: index,
-                                  child: Row(
-                                    children: [
-                                      SizedBox(
-                                        width: (index == 0) ? 20 : 8,
-                                      ),
-                                      SvgPicture.asset((authController.homeModel
-                                                      .value.userStep -
-                                                  1 ==
-                                              index)
-                                          ? "icons/active_step${index + 1}.svg"
-                                          : "icons/inactive_step${index + 1}.svg"),
-                                      SizedBox(
-                                        width: (index == 8) ? 20 : 0,
-                                      ),
-                                    ],
-                                  ),
-                                );
-                              }),
+                            scrollDirection: Axis.horizontal,
+                            controller: autoScrollController,
+                            shrinkWrap: true,
+                            itemCount: 9,
+                            itemBuilder: (BuildContext context, int index) {
+                              return AutoScrollTag(
+                                key: ValueKey(3),
+                                controller: autoScrollController,
+                                index: index,
+                                child: Row(
+                                  children: [
+                                    SizedBox(
+                                      width: (index == 0) ? 20 : 8,
+                                    ),
+                                    SvgPicture.asset((homeController
+                                                    .homeInfoModel
+                                                    .value
+                                                    .userStep -
+                                                1 ==
+                                            index)
+                                        ? "icons/active_step${index + 1}.svg"
+                                        : "icons/inactive_step${index + 1}.svg"),
+                                    SizedBox(
+                                      width: (index == 8) ? 20 : 0,
+                                    ),
+                                  ],
+                                ),
+                              );
+                            },
+                          ),
                         ),
                       ],
                     ),
@@ -384,11 +392,11 @@ class HomeSkeletonPage extends StatelessWidget {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  circularButton('서비스 범위', () => {}),
+                  circularButton('공지사항', () => Get.toNamed(Routes.NOTICE)),
                   sizeWidthBox(32),
                   circularButton('육아팁', () => {}),
                   sizeWidthBox(32),
-                  circularButton('FAQ', () => Get.toNamed(Routes.NOTICE))
+                  circularButton('FAQ', () => {})
                 ],
               ),
             ),
@@ -397,19 +405,34 @@ class HomeSkeletonPage extends StatelessWidget {
               height: 1,
               color: IcoColors.grey2,
             ),
-            sizeHeightBox(16),
+            sizeHeightBox(24),
             Container(
               margin: const EdgeInsets.symmetric(horizontal: 20),
               child: Column(
                 children: [
-                  noticeRow('공지', '추석 연휴 고객센터 휴무 안내'),
-                  noticeRow('이벤트', '추석 연휴 고객센터 휴무 안내'),
-                  noticeRow('이벤트', '추석 연휴 고객센터 휴무 안내'),
+                  ListView.builder(
+                      padding: EdgeInsets.all(0),
+                      physics: const NeverScrollableScrollPhysics(),
+                      itemCount: noticeLength.value,
+                      shrinkWrap: true,
+                      itemBuilder: (BuildContext context, int index) {
+                        return noticeRow('공지',
+                            _noticeController.noticeModelList[index].title);
+                      }),
+                  ListView.builder(
+                      padding: EdgeInsets.all(0),
+                      physics: const NeverScrollableScrollPhysics(),
+                      itemCount: eventLength.value,
+                      shrinkWrap: true,
+                      itemBuilder: (BuildContext context, int index) {
+                        return noticeRow(
+                            '이벤트', _eventController.runningEvents[index].title);
+                      }),
                 ],
               ),
             ),
             SizedBox(
-              height: 200,
+              height: 50,
             )
           ],
         ),
