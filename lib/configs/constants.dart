@@ -1,3 +1,5 @@
+import 'dart:html';
+
 class EventStatus {
   static const String running = 'running';
   static const String completed = 'completed';
