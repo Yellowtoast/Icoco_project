@@ -1,3 +1,4 @@
+import 'package:app/bindings/notice_bindings.dart';
 import 'package:app/configs/colors.dart';
 import 'package:app/configs/routes.dart';
 import 'package:app/configs/size.dart';
@@ -387,7 +388,7 @@ class HomeSkeletonPage extends StatelessWidget {
                   sizeWidthBox(32),
                   circularButton('육아팁', () => {}),
                   sizeWidthBox(32),
-                  circularButton('FAQ', () => Get.to(NoticePage())),
+                  circularButton('FAQ', () => Get.toNamed(Routes.NOTICE))
                 ],
               ),
             ),

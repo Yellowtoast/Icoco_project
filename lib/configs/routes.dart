@@ -1,5 +1,6 @@
 // ignore_for_file: constant_identifier_names
 import 'package:app/bindings/calculator_bindings.dart';
+import 'package:app/bindings/notice_bindings.dart';
 import 'package:app/bindings/reserve_binding.dart';
 import 'package:app/bindings/splash_binding.dart';
 import 'package:app/bindings/home_binding.dart';
@@ -11,6 +12,7 @@ import 'package:app/pages/event/event.dart';
 import 'package:app/pages/home/home.dart';
 import 'package:app/pages/login.dart';
 import 'package:app/pages/manager/manager_detail.dart';
+import 'package:app/pages/notice.dart';
 import 'package:app/pages/reservation/step1/substep_address/address1.dart';
 import 'package:app/pages/reservation/step1/substep_address/address2.dart';
 import 'package:app/pages/reservation/step1/substep_address/address3.dart';
@@ -100,6 +102,7 @@ class Routes {
   static const RESERVE_STEP2_COMPANY_YES = '/reserve/step2/company/yes';
   static const EVENT = '/event';
   static const EVENT_DETAIL = '/event/detail';
+  static const NOTICE = '/notice';
 
   static final pages = [
     GetPage(
@@ -263,6 +266,11 @@ class Routes {
     GetPage(
         name: Routes.EVENT_DETAIL,
         page: () => EventPage(),
+        transition: Transition.rightToLeft),
+    GetPage(
+        name: Routes.NOTICE,
+        page: () => NoticePage(),
+        binding: NoticeBindings(),
         transition: Transition.rightToLeft),
   ];
 }

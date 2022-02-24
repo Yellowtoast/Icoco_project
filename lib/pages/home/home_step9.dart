@@ -120,6 +120,7 @@ class HomeStep9Items extends StatelessWidget {
                                           0,
                                           3,
                                           '기말');
+
                                   await reviewController
                                       .extractFirstIndexPictures(
                                           reviewController.totalReviews.value!,

@@ -209,7 +209,7 @@ class PasswordController extends GetxController {
     var res = await http.put(
       Uri.parse(
         // 'https://icoco2022-erpweb.vercel.app/api/updatePassword',
-        'http://172.30.1.22:3000/api/updatePassword',
+        'https://icoco2022-erpweb.vercel.app/api/updatePassword',
       ),
       headers: {'x-access-token': token},
     );
