@@ -1,3 +1,5 @@
+import 'package:app/configs/routes.dart';
+import 'package:app/controllers/event_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -37,6 +39,8 @@ class EventPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    EventController eventController = Get.find();
+
     return DefaultTabController(
       length: 3,
       initialIndex: 0,
@@ -61,44 +65,25 @@ class EventPage extends StatelessWidget {
               child: _getTabBarView([
                 SingleChildScrollView(
                     child: Column(
-                  children: [
-                    Container(
-                      margin: const EdgeInsets.only(bottom: 46),
-                      width: Get.width,
-                      child: EventCard(
-                        title: '아이코코 런칭 이벤트 아이코코',
-                        thumbnail:
-                            'https://random.dog/3f62f2c1-e0cb-4077-8cd9-1ca76bfe98d5.jpg',
-                        status: 'running',
-                        periodStart: 20220101,
-                        periodEnd: 20220301,
+                  children: eventController.events.map((dynamic item) {
+                    return GestureDetector(
+                      onTap: () => {
+                        Get.toNamed(Routes.EVENT_DETAIL,
+                            arguments: {"eventId": item.id})
+                      },
+                      child: Container(
+                        margin: const EdgeInsets.only(bottom: 46),
+                        width: Get.width,
+                        child: EventCard(
+                          title: item.title,
+                          thumbnail: item.appBanner,
+                          status: item.status,
+                          periodStart: item.startDate,
+                          periodEnd: item.endDate,
+                        ),
                       ),
-                    ),
-                    Container(
-                      margin: const EdgeInsets.only(bottom: 46),
-                      width: Get.width,
-                      child: EventCard(
-                        title: '아이코코 런칭 이벤트 아이코코',
-                        thumbnail:
-                            'https://random.dog/3f62f2c1-e0cb-4077-8cd9-1ca76bfe98d5.jpg',
-                        status: 'running',
-                        periodStart: 20220101,
-                        periodEnd: 20220301,
-                      ),
-                    ),
-                    Container(
-                      margin: const EdgeInsets.only(bottom: 46),
-                      width: Get.width,
-                      child: EventCard(
-                        title: '아이코코 런칭 이벤트 아이코코',
-                        thumbnail:
-                            'https://random.dog/3f62f2c1-e0cb-4077-8cd9-1ca76bfe98d5.jpg',
-                        status: 'running',
-                        periodStart: 20220101,
-                        periodEnd: 20220301,
-                      ),
-                    ),
-                  ],
+                    );
+                  }).toList(),
                 )),
                 SingleChildScrollView(
                     child: Column(
@@ -111,32 +96,8 @@ class EventPage extends StatelessWidget {
                         thumbnail:
                             'https://random.dog/3f62f2c1-e0cb-4077-8cd9-1ca76bfe98d5.jpg',
                         status: 'completed',
-                        periodStart: 20220101,
-                        periodEnd: 20220301,
-                      ),
-                    ),
-                    Container(
-                      margin: const EdgeInsets.only(bottom: 46),
-                      width: Get.width,
-                      child: EventCard(
-                        title: '아이코코 런칭 이벤트 아이코코',
-                        thumbnail:
-                            'https://random.dog/3f62f2c1-e0cb-4077-8cd9-1ca76bfe98d5.jpg',
-                        status: 'completed',
-                        periodStart: 20220101,
-                        periodEnd: 20220301,
-                      ),
-                    ),
-                    Container(
-                      margin: const EdgeInsets.only(bottom: 46),
-                      width: Get.width,
-                      child: EventCard(
-                        title: '아이코코 런칭 이벤트 아이코코',
-                        thumbnail:
-                            'https://random.dog/3f62f2c1-e0cb-4077-8cd9-1ca76bfe98d5.jpg',
-                        status: 'completed',
-                        periodStart: 20220101,
-                        periodEnd: 20220301,
+                        periodStart: '',
+                        periodEnd: '',
                       ),
                     ),
                   ],
@@ -152,32 +113,8 @@ class EventPage extends StatelessWidget {
                         thumbnail:
                             'https://random.dog/3f62f2c1-e0cb-4077-8cd9-1ca76bfe98d5.jpg',
                         status: 'after',
-                        periodStart: 20220101,
-                        periodEnd: 20220301,
-                      ),
-                    ),
-                    Container(
-                      margin: const EdgeInsets.only(bottom: 46),
-                      width: Get.width,
-                      child: EventCard(
-                        title: '아이코코 런칭 이벤트 아이코코',
-                        thumbnail:
-                            'https://random.dog/3f62f2c1-e0cb-4077-8cd9-1ca76bfe98d5.jpg',
-                        status: 'after',
-                        periodStart: 20220101,
-                        periodEnd: 20220301,
-                      ),
-                    ),
-                    Container(
-                      margin: const EdgeInsets.only(bottom: 46),
-                      width: Get.width,
-                      child: EventCard(
-                        title: '아이코코 런칭 이벤트 아이코코',
-                        thumbnail:
-                            'https://random.dog/3f62f2c1-e0cb-4077-8cd9-1ca76bfe98d5.jpg',
-                        status: 'after',
-                        periodStart: 20220101,
-                        periodEnd: 20220301,
+                        periodStart: '',
+                        periodEnd: '',
                       ),
                     ),
                   ],

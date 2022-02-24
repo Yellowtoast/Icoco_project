@@ -1,5 +1,6 @@
 // ignore_for_file: constant_identifier_names
 import 'package:app/bindings/calculator_bindings.dart';
+import 'package:app/bindings/event_detail_bindings.dart';
 import 'package:app/bindings/reserve_binding.dart';
 import 'package:app/bindings/splash_binding.dart';
 import 'package:app/bindings/home_binding.dart';
@@ -8,6 +9,7 @@ import 'package:app/bindings/signup_binding.dart';
 import 'package:app/pages/calculator.dart';
 import 'package:app/pages/calculator_result.dart';
 import 'package:app/pages/event/event.dart';
+import 'package:app/pages/event/event_detail.dart';
 import 'package:app/pages/home/home.dart';
 import 'package:app/pages/login.dart';
 import 'package:app/pages/manager/manager_detail.dart';
@@ -262,7 +264,8 @@ class Routes {
         transition: Transition.rightToLeft),
     GetPage(
         name: Routes.EVENT_DETAIL,
-        page: () => EventPage(),
+        page: () => EventDetailPage(),
+        binding: EventDetailBindings(),
         transition: Transition.rightToLeft),
   ];
 }

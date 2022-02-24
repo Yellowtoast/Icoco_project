@@ -17,8 +17,8 @@ class EventCard extends StatelessWidget {
   }) : super(key: key);
   String title;
   String thumbnail;
-  int periodStart;
-  int periodEnd;
+  String periodStart;
+  String periodEnd;
   String status;
 
   String STATUS_RUNNING = 'running';
@@ -69,11 +69,12 @@ class EventCard extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.start,
         children: [
           Container(
+            width: double.infinity,
             height: Get.width / 2,
             margin: const EdgeInsets.only(bottom: 18),
             child: Image.network(
               thumbnail,
-              fit: BoxFit.fill,
+              fit: BoxFit.cover,
             ),
           ),
           Container(
@@ -89,10 +90,14 @@ class EventCard extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
-                      Text(
-                        title,
-                        style: IcoTextStyle.boldTextStyle24B,
-                        overflow: TextOverflow.ellipsis,
+                      Container(
+                        width: Get.width - 120,
+                        padding: EdgeInsets.only(right: 8),
+                        child: Text(
+                          title,
+                          style: IcoTextStyle.boldTextStyle24B,
+                          overflow: TextOverflow.ellipsis,
+                        ),
                       ),
                       _getStatusLabel(status),
                     ],
