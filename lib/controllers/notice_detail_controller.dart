@@ -1,91 +1,35 @@
-// import 'dart:convert';
-
-// import 'package:app/controllers/auth_controller.dart';
-
-// import 'package:app/models/notice.dart';
-// import 'package:app/pages/loading.dart';
-// import 'package:flutter/cupertino.dart';
-// import 'package:flutter/rendering.dart';
-// import 'package:http/http.dart' as http;
-
 // import 'package:get/get.dart';
 
-// class NoticeController extends GetxController {
-//   AuthController _authController = Get.find();
-//   RxInt offset = 0.obs;
-//   RxInt limitNumber = 10.obs;
-//   RxList<dynamic> noticeModelList = RxList<dynamic>();
-//   RxBool isPageLoading = false.obs;
-//   var scrollController = ScrollController();
-//   var isLoading = false.obs;
-//   var hasMore = false.obs;
-//   var isShow = true.obs;
+// import 'package:cloud_firestore/cloud_firestore.dart';
+
+// import 'package:app/models/event.dart';
+// import 'package:app/pages/loading.dart';
+
+// import '../models/notice.dart';
+
+// class NoticeDetailController extends GetxController {
+//   var pageArguments = Get.arguments;
+//   final FirebaseFirestore db = FirebaseFirestore.instance;
+//   Rxn<NoticeModel> noticeModel = Rxn<NoticeModel>();
 
 //   @override
 //   void onReady() async {
-//     startLoadingIndicator();
-//     await getJsonNoticeData(offset, limitNumber.value);
-//     finishLoadingIndicator();
-
-//     scrollController.addListener(() async {
-//       if (scrollController.position.pixels ==
-//               scrollController.position.maxScrollExtent &&
-//           hasMore.value) {
-//         getJsonNoticeData(offset, limitNumber.value);
-//       }
-
-//       final direction = scrollController.position.userScrollDirection;
-//       if (direction == ScrollDirection.forward) {
-//         isShow.value = true;
-//       } else {
-//         isShow.value = false;
-//       }
-//     });
-
 //     super.onReady();
+//     initRequest();
 //   }
 
-//   changeInitialLoading(_isLoading) {
-//     if (_isLoading == true) {
-//       startLoadingIndicator();
-//     } else {
-//       finishLoadingIndicator();
-//     }
+//   @override
+//   Future<void> onClose() async {
+//     super.onClose();
 //   }
 
-//   getJsonNoticeData(RxInt offset, int limitNumber) async {
-//     isLoading.value = true;
-//     List<dynamic> newList = [];
-//     var currentUser = await _authController.getUser;
-//     String userToken = await currentUser.getIdToken();
-
-//     var queryParameters = {
-//       "offset": offset.value.toString(),
-//       "limitNumber": limitNumber.toString(),
-//     };
-
-//     try {
-//       var uri = Uri.http(
-//           'icoco2022-adminweb.vercel.app', '/api/getNotice', queryParameters);
-
-//       var response = await http.get(
-//         uri,
-//         headers: {'x-access-token': userToken},
-//       );
-//       var responseObject = jsonDecode(response.body);
-//       var responseList = responseObject['data'];
-//       for (var eventData in responseList) {
-//         var res = eventData.cast<dynamic, dynamic>();
-//         NoticeModel noticeModel;
-//         noticeModel = NoticeModel.fromJson(res);
-//         newList.add(noticeModel);
-//       }
-//       offset.value += newList.length;
-//       isLoading.value = false;
-//       hasMore.value = newList.length >= limitNumber;
-//       noticeModelList.value = [...noticeModelList, ...newList];
-//     } catch (e) {
-//       return [].obs;
-//     }
+//   Future<void> initRequest() async {
+//     startLoadingIndicator();
+//     var noticeId = pageArguments["noticeId"];
+//     var querySanpshot = await db.collection('Notice').doc(noticeId).get();
+//     NoticeModel model =
+//         NoticeModel.fromJson({"id": noticeId, ...?querySanpshot.data()});
+//     noticeModel.value = model;
+//     finishLoadingIndicator();
 //   }
 // }

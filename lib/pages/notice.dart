@@ -1,6 +1,5 @@
 import 'package:app/configs/colors.dart';
 import 'package:app/controllers/notice_controller.dart';
-import 'package:app/controllers/scroll_controller.dart';
 import 'package:app/helpers/formatter.dart';
 import 'package:app/configs/text_styles.dart';
 import 'package:app/pages/loading.dart';
@@ -15,10 +14,11 @@ import '../configs/routes.dart';
 
 class NoticePage extends StatelessWidget {
   NoticePage({Key? key}) : super(key: key);
-  NoticeController _noticeController = Get.find();
+  String controllerTag = 'fromBinding';
 
   @override
   Widget build(BuildContext context) {
+    NoticeController _noticeController = Get.find(tag: controllerTag);
     return Scaffold(
       backgroundColor: IcoColors.white,
       appBar: IcoAppbar(
@@ -29,94 +29,129 @@ class NoticePage extends StatelessWidget {
         },
       ),
       body: Obx(() {
-        return SizedBox(
-          height: _noticeController.noticeModelList.length * 88,
-          child: Column(
-            children: [
-              Expanded(
-                child: ListView.builder(
-                    controller: _noticeController.scrollController,
-                    scrollDirection: Axis.vertical,
-                    shrinkWrap: true,
-                    itemCount: _noticeController.noticeModelList.length,
-                    // physics: const NeverScrollableScrollPhysics(),
-                    itemBuilder: (BuildContext context, int index) {
-                      return Column(
-                        children: [
-                          InkWell(
-                            onTap: () {
-                              print(index);
-                              Get.toNamed(Routes.NOTICE_DETAIL,
-                                  arguments: {'eventNum': index});
-                            },
-                            child: Container(
-                              height: 88,
-                              padding: EdgeInsets.symmetric(horizontal: 20),
-                              child: Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
-                                children: [
-                                  Column(
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    children: [
-                                      Text(
-                                        _noticeController
-                                            .noticeModelList[index].title,
-                                        style: IcoTextStyle.boldTextStyle17B,
-                                      ),
-                                      SizedBox(
-                                        height: 4,
-                                      ),
-                                      Text(
-                                        dateFormatWithDot.format(
-                                            _noticeController
-                                                .noticeModelList[index].date),
-                                        style:
-                                            IcoTextStyle.mediumTextStyle14Grey4,
-                                      ),
-                                    ],
-                                  ),
-                                  Container(
-                                    width: 50,
-                                    height: double.infinity,
-                                    alignment: Alignment.centerRight,
-                                    child: SizedBox(
-                                      child: SvgPicture.asset(
-                                        'icons/button_arrow.svg',
-                                        color: IcoColors.grey3,
-                                        width: 16,
-                                        fit: BoxFit.none,
-                                      ),
+        return (_noticeController.noticeModelList.isEmpty)
+            ? Container(
+                alignment: Alignment.center,
+                child: Column(
+                  children: [
+                    SizedBox(
+                      height: 110,
+                    ),
+                    Image.asset(
+                      'images/failed_human_grey.png',
+                      width: 120,
+                    ),
+                    SizedBox(
+                      height: 12,
+                    ),
+                    Text(
+                      '공지사항이 없습니다',
+                      style: IcoTextStyle.boldTextStyle20Grey4,
+                    ),
+                    SizedBox(
+                      height: 6,
+                    ),
+                    Text(
+                      '등록된 공지 글이 없습니다',
+                      style: IcoTextStyle.mediumTextStyle14Grey4,
+                    )
+                  ],
+                ))
+            : SizedBox(
+                height: _noticeController.noticeModelList.length * 88,
+                child: Column(
+                  children: [
+                    Expanded(
+                      child: ListView.builder(
+                          controller: _noticeController.scrollController,
+                          scrollDirection: Axis.vertical,
+                          shrinkWrap: true,
+                          itemCount: _noticeController.noticeModelList.length,
+                          // physics: const NeverScrollableScrollPhysics(),
+                          itemBuilder: (BuildContext context, int index) {
+                            return Column(
+                              children: [
+                                InkWell(
+                                  onTap: () {
+                                    print(index);
+                                    Get.toNamed(Routes.NOTICE_DETAIL,
+                                        arguments: {
+                                          'noticeNum': index,
+                                          'controllerTag': 'fromBinding'
+                                        });
+                                  },
+                                  child: Container(
+                                    height: 88,
+                                    padding:
+                                        EdgeInsets.symmetric(horizontal: 20),
+                                    child: Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceBetween,
+                                      children: [
+                                        Column(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.center,
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.start,
+                                          children: [
+                                            Text(
+                                              _noticeController
+                                                  .noticeModelList[index].title,
+                                              style:
+                                                  IcoTextStyle.boldTextStyle17B,
+                                            ),
+                                            SizedBox(
+                                              height: 4,
+                                            ),
+                                            Text(
+                                              dateFormatWithDot.format(
+                                                  _noticeController
+                                                      .noticeModelList[index]
+                                                      .date),
+                                              style: IcoTextStyle
+                                                  .mediumTextStyle14Grey4,
+                                            ),
+                                          ],
+                                        ),
+                                        Container(
+                                          width: 50,
+                                          height: double.infinity,
+                                          alignment: Alignment.centerRight,
+                                          child: SizedBox(
+                                            child: SvgPicture.asset(
+                                              'icons/button_arrow.svg',
+                                              color: IcoColors.grey3,
+                                              width: 16,
+                                              fit: BoxFit.none,
+                                            ),
+                                          ),
+                                        ),
+                                      ],
                                     ),
                                   ),
-                                ],
-                              ),
+                                ),
+                                Divider(
+                                  height: 1,
+                                  color: IcoColors.grey2,
+                                )
+                              ],
+                            );
+                          }),
+                    ),
+                    Obx(() => _noticeController.isLoading.value
+                        ? Container(
+                            margin: EdgeInsets.symmetric(vertical: 16),
+                            height: 20,
+                            width: 20,
+                            child: CircularProgressIndicator(
+                              color: IcoColors.purple3,
+                              strokeWidth: 4,
                             ),
-                          ),
-                          Divider(
-                            height: 1,
-                            color: IcoColors.grey2,
                           )
-                        ],
-                      );
-                    }),
-              ),
-              Obx(() => _noticeController.isLoading.value
-                  ? Container(
-                      margin: EdgeInsets.symmetric(vertical: 16),
-                      height: 20,
-                      width: 20,
-                      child: CircularProgressIndicator(
-                        color: IcoColors.purple3,
-                        strokeWidth: 4,
-                      ),
-                    )
-                  : SizedBox())
-            ],
-          ),
-        );
+                        : SizedBox())
+                  ],
+                ),
+              );
       }),
     );
   }

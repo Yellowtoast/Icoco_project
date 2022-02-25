@@ -17,13 +17,13 @@ class NoticeController extends GetxController {
   var isLoading = false.obs;
   var hasMore = false.obs;
   var isShow = true.obs;
+  RxBool pageInit = false.obs;
 
   @override
   void onReady() async {
     startLoadingIndicator();
     await getJsonNoticeData(offset, limitNumber.value);
     finishLoadingIndicator();
-
     getDataByScrollEvent();
 
     super.onReady();

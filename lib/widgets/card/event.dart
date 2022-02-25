@@ -45,7 +45,7 @@ class EventCard extends StatelessWidget {
         borderRadius: BorderRadius.circular(50),
         color: statusBgColor,
       ),
-      width: 72,
+      width: 76,
       height: 28,
       child: Text(statusLabel,
           style: GoogleFonts.notoSans(

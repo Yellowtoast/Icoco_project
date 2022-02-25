@@ -1,4 +1,5 @@
 class NoticeModel {
+  String id;
   String title;
   String subtitle;
   String contents;
@@ -6,6 +7,7 @@ class NoticeModel {
   DateTime date;
 
   NoticeModel({
+    required this.id,
     required this.title,
     required this.subtitle,
     required this.contents,
@@ -15,6 +17,7 @@ class NoticeModel {
 
   factory NoticeModel.fromJson(Map data) {
     return NoticeModel(
+      id: data['id'] ?? '',
       subtitle: data['subtitle'] ?? '',
       title: data['title'] ?? '',
       contents: data['contents'] ?? '',
@@ -24,6 +27,7 @@ class NoticeModel {
   }
 
   Map<String, dynamic> toJson() => {
+        "id": id,
         "title": title,
         "subtitle": subtitle,
         "contents": contents,

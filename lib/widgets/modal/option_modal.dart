@@ -11,7 +11,9 @@ IcoOptionModal(
     String subtitle = "마케팅 이용동의에 허용하면\n문자로 아이코코 예약현황 및 소식을\n빠르게 확인할 수 있습니다",
     String option1 = '허용안함',
     String option2 = '허용',
-    String iconUrl = "icons/modal_mail.svg"}) {
+    String iconUrl = "icons/modal_mail.svg",
+    double iconHeight = 55,
+    double iconWidth = 44}) {
   void Function() onPressed;
   return Get.dialog(
       Dialog(
@@ -33,11 +35,11 @@ IcoOptionModal(
                 children: [
                   SvgPicture.asset(
                     iconUrl,
-                    height: 55,
-                    width: 44,
+                    height: iconHeight,
+                    width: iconWidth,
                   ),
                   SizedBox(
-                    height: 7,
+                    height: 10,
                   ),
                   Text(
                     title,
@@ -53,7 +55,7 @@ IcoOptionModal(
                     style: IcoTextStyle.mediumTextStyle14B,
                   ),
                   SizedBox(
-                    height: 30,
+                    height: 28,
                   ),
                   Row(
                     children: [

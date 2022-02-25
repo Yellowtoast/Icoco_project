@@ -10,6 +10,7 @@ import 'package:app/controllers/notice_controller.dart';
 
 import 'package:app/pages/loading.dart';
 import 'package:app/pages/notice.dart';
+import 'package:app/pages/tip_page.dart';
 import 'package:app/widgets/modal/bottomup_modal2.dart';
 import 'package:app/widgets/modal/info_modal.dart';
 import 'package:flutter/material.dart';
@@ -27,10 +28,6 @@ class HomeSkeletonPage extends StatelessWidget {
       Get.put(NoticeController(), tag: 'fromHome');
   EventController _eventController =
       Get.put(EventController(), tag: 'fromHome');
-
-  RxInt noticeLength = 0.obs;
-  RxInt eventLength = 0.obs;
-  RxInt totalInfoLength = 0.obs;
 
   AutoScrollController autoScrollController = AutoScrollController(
       viewportBoundaryGetter: () => Rect.fromLTRB(0, 0, 0, Get.bottomBarHeight),
@@ -84,9 +81,9 @@ class HomeSkeletonPage extends StatelessWidget {
     );
   }
 
-  Widget noticeRow(String type, String title) {
+  Widget noticeRow(String type, String title, void Function() onTap) {
     return GestureDetector(
-      onTap: () {},
+      onTap: onTap,
       child: Container(
         color: Colors.transparent,
         padding: const EdgeInsets.symmetric(vertical: 8),
@@ -131,14 +128,6 @@ class HomeSkeletonPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    noticeLength.value = (_noticeController.noticeModelList.length > 2)
-        ? 2
-        : _noticeController.noticeModelList.length;
-    eventLength.value = (_eventController.runningEvents.length > 3)
-        ? 3
-        : _eventController.runningEvents.length;
-    totalInfoLength.value = noticeLength.value + eventLength.value;
-
     Future.delayed(Duration.zero, () {
       if (authController.reservationModel.value != null &&
           authController.openPopup.value == true) {
@@ -245,6 +234,33 @@ class HomeSkeletonPage extends StatelessWidget {
                             },
                           ),
                         ),
+
+                        // Expanded(
+                        //   child: ListView.builder(
+                        //     scrollDirection: Axis.horizontal,
+                        //     controller: autoScrollController,
+                        //     shrinkWrap: true,
+                        //     itemCount: 9,
+                        //     itemBuilder: (BuildContext context, int index) {
+                        //       return Row(
+                        //         children: [
+                        //           SizedBox(
+                        //             width: (index == 0) ? 20 : 8,
+                        //           ),
+                        //           SvgPicture.asset((homeController.homeInfoModel
+                        //                           .value.userStep -
+                        //                       1 ==
+                        //                   index)
+                        //               ? "icons/active_step${index + 1}.svg"
+                        //               : "icons/inactive_step${index + 1}.svg"),
+                        //           SizedBox(
+                        //             width: (index == 8) ? 20 : 0,
+                        //           ),
+                        //         ],
+                        //       );
+                        //     },
+                        //   ),
+                        // ),
                       ],
                     ),
                   ),
@@ -394,7 +410,7 @@ class HomeSkeletonPage extends StatelessWidget {
                 children: [
                   circularButton('공지사항', () => Get.toNamed(Routes.NOTICE)),
                   sizeWidthBox(32),
-                  circularButton('육아팁', () => {}),
+                  circularButton('육아팁', () => Get.toNamed(Routes.TIP)),
                   sizeWidthBox(32),
                   circularButton('FAQ', () => {})
                 ],
@@ -406,31 +422,47 @@ class HomeSkeletonPage extends StatelessWidget {
               color: IcoColors.grey2,
             ),
             sizeHeightBox(24),
-            Container(
-              margin: const EdgeInsets.symmetric(horizontal: 20),
-              child: Column(
-                children: [
-                  ListView.builder(
-                      padding: EdgeInsets.all(0),
-                      physics: const NeverScrollableScrollPhysics(),
-                      itemCount: noticeLength.value,
-                      shrinkWrap: true,
-                      itemBuilder: (BuildContext context, int index) {
-                        return noticeRow('공지',
-                            _noticeController.noticeModelList[index].title);
-                      }),
-                  ListView.builder(
-                      padding: EdgeInsets.all(0),
-                      physics: const NeverScrollableScrollPhysics(),
-                      itemCount: eventLength.value,
-                      shrinkWrap: true,
-                      itemBuilder: (BuildContext context, int index) {
-                        return noticeRow(
-                            '이벤트', _eventController.runningEvents[index].title);
-                      }),
-                ],
-              ),
-            ),
+            Obx(() {
+              homeController.setNoticeEventCount(
+                  _noticeController.noticeModelList.length,
+                  _eventController.runningEvents.length);
+              return Container(
+                margin: const EdgeInsets.symmetric(horizontal: 20),
+                child: Column(
+                  children: [
+                    ListView.builder(
+                        padding: EdgeInsets.all(0),
+                        physics: const NeverScrollableScrollPhysics(),
+                        itemCount: homeController.noticeLength.value,
+                        shrinkWrap: true,
+                        itemBuilder: (BuildContext context, int index) {
+                          return noticeRow('공지',
+                              _noticeController.noticeModelList[index].title,
+                              () {
+                            Get.toNamed(Routes.NOTICE_DETAIL, arguments: {
+                              'noticeNum': index,
+                              'controllerTag': 'fromHome'
+                            });
+                          });
+                        }),
+                    ListView.builder(
+                        padding: EdgeInsets.all(0),
+                        physics: const NeverScrollableScrollPhysics(),
+                        itemCount: homeController.eventLength.value,
+                        shrinkWrap: true,
+                        itemBuilder: (BuildContext context, int index) {
+                          return noticeRow('이벤트',
+                              _eventController.runningEvents[index].title, () {
+                            Get.toNamed(Routes.EVENT_DETAIL, arguments: {
+                              'eventId':
+                                  _eventController.runningEvents[index].id
+                            });
+                          });
+                        }),
+                  ],
+                ),
+              );
+            }),
             SizedBox(
               height: 50,
             )

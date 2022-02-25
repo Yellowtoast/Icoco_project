@@ -8,6 +8,7 @@ class EventController extends GetxController {
   RxList<EventModel> runningEvents = RxList<EventModel>();
   RxList<EventModel> completedEvents = RxList<EventModel>();
   RxList<EventModel> announcedEvents = RxList<EventModel>();
+  RxnInt totalEventNumber = RxnInt();
   @override
   void onReady() async {
     super.onReady();
@@ -19,29 +20,29 @@ class EventController extends GetxController {
     super.onClose();
   }
 
-  Future<void> initRequest() async {
-    var querySanpshots = await db.collection('Event').get();
-    List<EventModel> totalEventModel = [];
-    EventModel eventModel;
+  // Future<void> initRequest() async {
+  //   var querySanpshots = await db.collection('Event').get();
+  //   List<EventModel> totalEventModel = [];
+  //   EventModel eventModel;
 
-    querySanpshots.docs.forEach((snapshot) {
-      eventModel = EventModel.fromJson({"id": snapshot.id, ...snapshot.data()});
-      totalEventModel.add(eventModel);
-    });
+  //   querySanpshots.docs.forEach((snapshot) {
+  //     eventModel = EventModel.fromJson({"id": snapshot.id, ...snapshot.data()});
+  //     totalEventModel.add(eventModel);
+  //   });
 
-    totalEventModel.forEach((event) {
-      if (event.status == 'running') {
-        runningEvents.add(event);
-      }
-      if (event.status == 'announced') {
-        announcedEvents.add(event);
-      }
-      if (event.status == 'completed') {
-        completedEvents.add(event);
-      }
-    });
-    initialLoading.value = false;
-  }
+  //   totalEventModel.forEach((event) {
+  //     if (event.status == 'running') {
+  //       runningEvents.add(event);
+  //     }
+  //     if (event.status == 'announced') {
+  //       announcedEvents.add(event);
+  //     }
+  //     if (event.status == 'completed') {
+  //       completedEvents.add(event);
+  //     }
+  //   });
+  //   initialLoading.value = false;
+  // }
 
   // Future<void> initRequest() async {
   //   var querySanpshots = await db.collection('Event').get();
@@ -68,10 +69,11 @@ class EventController extends GetxController {
 
   // Future<void> initRequest() async {
   //   var querySanpshots = await db.collection('Event').get();
-  //   List<EventModel> totalEventList = [];
+  //   // List<EventModel> totalEventList = [];
   //   querySanpshots.docs.map((snapshot) {
   //     totalEventList
-  //         .add(EventModel.fromJson({"id": snapshot.id, ...snapshot.data()}));
+  //         .add(
+  //EventModel.fromJson({"id": snapshot.id, ...snapshot.data()}));
   //   });
 
   //   totalEventList.map((event) {
@@ -88,4 +90,25 @@ class EventController extends GetxController {
 
   //   initialLoading.value = false;
   // }
+
+  Future<void> initRequest() async {
+    var querySanpshots = await db.collection('Event').get();
+    totalEventNumber.value = querySanpshots.docs.length;
+    Iterable<EventModel> list = querySanpshots.docs.map((snapshot) =>
+        EventModel.fromJson({"id": snapshot.id, ...snapshot.data()}));
+
+    list.forEach((event) {
+      if (event.status == 'running') {
+        runningEvents.add(event);
+      }
+      if (event.status == 'announced') {
+        announcedEvents.add(event);
+      }
+      if (event.status == 'completed') {
+        completedEvents.add(event);
+      }
+    });
+
+    initialLoading.value = false;
+  }
 }

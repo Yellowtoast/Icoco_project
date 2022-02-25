@@ -5,6 +5,6 @@ import 'package:get/get.dart';
 class NoticeBindings implements Bindings {
   @override
   void dependencies() {
-    Get.put(NoticeController());
+    Get.put(NoticeController(), tag: 'fromBinding');
   }
 }

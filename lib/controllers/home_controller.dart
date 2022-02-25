@@ -1,9 +1,3 @@
-import 'package:app/controllers/auth_controller.dart';
-import 'package:app/controllers/manager_controller.dart';
-import 'package:app/controllers/mypage_controller.dart';
-import 'package:app/controllers/reservation/step1/address_controller.dart';
-import 'package:app/controllers/reservation/step1/voucher_controller.dart';
-import 'package:app/controllers/review_controller.dart';
 import 'package:app/helpers/database.dart';
 import 'package:app/configs/steps.dart';
 import 'package:app/models/reservation.dart';
@@ -18,10 +12,8 @@ import 'package:app/pages/home/home_step6.dart';
 import 'package:app/pages/home/home_step7.dart';
 import 'package:app/pages/home/home_step8.dart';
 import 'package:app/pages/home/home_step9.dart';
-import 'package:flutter/foundation.dart';
-import 'package:flutter/widgets.dart';
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:scroll_to_index/scroll_to_index.dart';
 
 class HomeController extends GetxController {
   Rxn<String> reservationNumber = Rxn<String>();
@@ -30,6 +22,10 @@ class HomeController extends GetxController {
   Rxn<dynamic> homeInfoModel = Rxn<dynamic>();
   Rxn<ReservationModel?> reservationModel = Rxn<ReservationModel?>();
   Rxn<UserModel?> userModel = Rxn<UserModel?>();
+  RxInt noticeLength = 0.obs;
+  RxInt eventLength = 0.obs;
+  RxInt totalInfoLength = 0.obs;
+  ScrollController _scrollController = ScrollController();
 
   @override
   void onInit() {
@@ -45,6 +41,12 @@ class HomeController extends GetxController {
     super.onReady();
   }
 
+  setNoticeEventCount(int allNoticeNum, int allEventNum) {
+    noticeLength.value = (allNoticeNum > 2) ? 2 : allNoticeNum;
+    eventLength.value = (allEventNum > 3) ? 3 : allEventNum;
+    totalInfoLength.value = allNoticeNum + allEventNum;
+  }
+
   setInfoFromModel() {
     if (reservationBox.isEmpty == true) {
       userModel.value = userBox.get('userModel');
@@ -55,7 +57,6 @@ class HomeController extends GetxController {
 
       homeInfoModel = reservationModel;
     }
-
     setStep();
   }
 

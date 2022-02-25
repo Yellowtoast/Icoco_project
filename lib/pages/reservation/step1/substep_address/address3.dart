@@ -6,6 +6,7 @@ import 'package:app/widgets/button/button.dart';
 import 'package:app/widgets/appbar.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 import '../../../loading.dart';
 
@@ -55,7 +56,10 @@ class AddressPage3 extends StatelessWidget {
                             iconColor: IcoColors.primary,
                             icon: true,
                             border: true,
-                            onPressed: () {},
+                            onPressed: () async {
+                              await launch(
+                                  'https://www.g-health.kr/portal/health/pubHealthSearch/list.do?bbsId=U00198&menuNo=200452');
+                            },
                             active: true.obs,
                             buttonColor: IcoColors.white,
                             textStyle: IcoTextStyle.buttonTextStyleP,

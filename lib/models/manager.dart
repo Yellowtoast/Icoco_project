@@ -1,3 +1,5 @@
+import '../configs/constants.dart';
+
 class ManagerModel {
   final String uid;
   final String name;
@@ -60,7 +62,7 @@ class ManagerModel {
       certName: data['certName'],
       certHealth: data['certHealth'],
       certCrime: data['certCrime'],
-      profileImage: data['profileImage'] ?? '',
+      profileImage: data['profileImage'] ?? emptyProfileUrl,
       reservationNumber: data['reservationNumber'] ?? '',
       specialty: data['specialty'] ?? '',
       specialtyItems: data['specialtyItems'].cast<String, dynamic>(),

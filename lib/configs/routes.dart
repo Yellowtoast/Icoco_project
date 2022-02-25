@@ -48,8 +48,11 @@ import 'package:app/pages/signup/signup_step5.dart';
 import 'package:app/pages/signup/signup_step6_intro.dart';
 import 'package:app/pages/splash.dart';
 import 'package:app/pages/start.dart';
+import 'package:app/pages/tip_page.dart';
 import 'package:app/widgets/modal/result_modal.dart';
 import 'package:get/get.dart';
+
+import '../pages/tip_detail.dart';
 
 class Routes {
   static const SPLASH = '/';
@@ -108,6 +111,8 @@ class Routes {
   static const EVENT_DETAIL = '/event/detail';
   static const NOTICE = '/notice';
   static const NOTICE_DETAIL = '/notice/detail';
+  static const TIP = '/tip';
+  static const TIP_DETAIL = '/tip/detail';
 
   static final pages = [
     GetPage(
@@ -281,6 +286,14 @@ class Routes {
     GetPage(
         name: Routes.NOTICE_DETAIL,
         page: () => NoticeDetailPage(),
+        transition: Transition.rightToLeft),
+    GetPage(
+        name: Routes.TIP,
+        page: () => TipPage(),
+        transition: Transition.rightToLeft),
+    GetPage(
+        name: Routes.TIP_DETAIL,
+        page: () => TipDetailPage(),
         transition: Transition.rightToLeft),
   ];
 }

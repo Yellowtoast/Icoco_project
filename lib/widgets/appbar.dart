@@ -62,7 +62,7 @@ class IcoAppbar extends StatelessWidget implements PreferredSizeWidget {
           ),
           leading: usePop ? popButton(context, tapFunction) : Container(),
         ),
-        preferredSize: Size.fromHeight(Get.height * 0.070),
+        preferredSize: preferredSize,
       ),
     );
   }

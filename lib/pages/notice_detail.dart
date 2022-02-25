@@ -1,7 +1,6 @@
 import 'package:app/configs/colors.dart';
 import 'package:app/configs/size.dart';
 import 'package:app/controllers/notice_controller.dart';
-import 'package:app/controllers/scroll_controller.dart';
 import 'package:app/helpers/formatter.dart';
 import 'package:app/configs/text_styles.dart';
 import 'package:app/pages/loading.dart';
@@ -14,10 +13,11 @@ import 'package:get/get.dart';
 class NoticeDetailPage extends StatelessWidget {
   NoticeDetailPage({Key? key}) : super(key: key);
 
-  NoticeController _noticeController = Get.find();
-  var eventNum = Get.arguments['eventNum'];
+  var noticeNum = Get.arguments['noticeNum'];
+  var controllerTag = Get.arguments['controllerTag'];
   @override
   Widget build(BuildContext context) {
+    NoticeController _noticeController = Get.find(tag: controllerTag);
     return Scaffold(
       backgroundColor: IcoColors.white,
       appBar: IcoAppbar(
@@ -40,14 +40,14 @@ class NoticeDetailPage extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      _noticeController.noticeModelList[eventNum].title,
+                      _noticeController.noticeModelList[noticeNum].title,
                       style: IcoTextStyle.boldTextStyle20B,
                     ),
                     SizedBox(
                       height: 7,
                     ),
                     Text(dateFormatWithDot.format(
-                        _noticeController.noticeModelList[eventNum].date)),
+                        _noticeController.noticeModelList[noticeNum].date)),
                     SizedBox(
                       height: 25,
                     ),
@@ -58,7 +58,7 @@ class NoticeDetailPage extends StatelessWidget {
                     SizedBox(
                       height: 23,
                     ),
-                    Text(_noticeController.noticeModelList[eventNum].subtitle),
+                    Text(_noticeController.noticeModelList[noticeNum].subtitle),
                     SizedBox(
                       height: 40,
                     ),
@@ -68,7 +68,7 @@ class NoticeDetailPage extends StatelessWidget {
             ),
             Obx(
               () => Image.network(
-                  _noticeController.noticeModelList[eventNum].thumbnail!,
+                  _noticeController.noticeModelList[noticeNum].thumbnail!,
                   errorBuilder: (context, error, stackTrace) => SizedBox()),
             )
           ],

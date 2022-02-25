@@ -86,20 +86,48 @@ class EventPage extends StatelessWidget {
           ),
           bottom: _getTabBar(),
         ),
-        body: Column(
-          children: [
-            const SizedBox(
-              height: 28,
-            ),
-            Expanded(
-              child: _getTabBarView([
-                _getScollView(eventController.runningEvents),
-                _getScollView(eventController.completedEvents),
-                _getScollView(eventController.announcedEvents),
-              ]),
-            ),
-          ],
-        ),
+        body: (eventController.totalEventNumber.value == 0)
+            ? Container(
+                alignment: Alignment.center,
+                child: Column(
+                  children: [
+                    SizedBox(
+                      height: 107,
+                    ),
+                    Image.asset(
+                      'images/failed_human_grey.png',
+                      height: 140,
+                    ),
+                    SizedBox(
+                      height: 12,
+                    ),
+                    Text(
+                      '진행중인 이벤트가 없습니다',
+                      style: IcoTextStyle.boldTextStyle20Grey4,
+                    ),
+                    SizedBox(
+                      height: 6,
+                    ),
+                    Text(
+                      '진행중인 이벤트가 없습니다.\n다양한 혜택을 곧 만나보세요!',
+                      style: IcoTextStyle.mediumTextStyle14Grey4,
+                    )
+                  ],
+                ))
+            : Column(
+                children: [
+                  const SizedBox(
+                    height: 28,
+                  ),
+                  Expanded(
+                    child: _getTabBarView([
+                      _getScollView(eventController.runningEvents),
+                      _getScollView(eventController.completedEvents),
+                      _getScollView(eventController.announcedEvents),
+                    ]),
+                  ),
+                ],
+              ),
       ),
     );
   }

@@ -1,21 +1,19 @@
 import 'package:app/configs/colors.dart';
+import 'package:app/configs/constants.dart';
 import 'package:app/configs/routes.dart';
 import 'package:app/configs/size.dart';
 import 'package:app/configs/text_styles.dart';
 import 'package:app/controllers/calculator_controller.dart';
 import 'package:app/controllers/home_controller.dart';
 import 'package:app/controllers/reservation/step1/address_controller.dart';
-
-import 'package:app/pages/calculator_result.dart';
-import 'package:app/pages/reservation/step1/substep_address/address1.dart';
+import 'package:app/helpers/url_launcher.dart';
 import 'package:app/pages/reservation/step1/substep_address/address2.dart';
-import 'package:app/pages/reservation/step1/substep_voucher/voucher_signed/voucher_signed1.dart';
 import 'package:app/widgets/appbar.dart';
 import 'package:app/widgets/button/button.dart';
 import 'package:app/widgets/button/radio_button/text_radio_button2.dart';
 import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
+
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
@@ -279,7 +277,10 @@ class CalculatorPage extends StatelessWidget {
                           children: [
                             LinkButton(
                               iconUrl: 'icons/iphone.svg',
-                              onTap: () {},
+                              onTap: () {
+                                UrlLauncher()
+                                    .launchURL(UrlLauncher.INSURANCE_APP_IOS);
+                              },
                               text: 'IOS',
                             ),
                             SizedBox(
@@ -287,7 +288,10 @@ class CalculatorPage extends StatelessWidget {
                             ),
                             LinkButton(
                               iconUrl: 'icons/android.svg',
-                              onTap: () {},
+                              onTap: () {
+                                UrlLauncher().launchURL(
+                                    UrlLauncher.INSURANCE_APP_ANDROID);
+                              },
                               text: 'Android',
                             ),
                             SizedBox(
