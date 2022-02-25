@@ -4,7 +4,7 @@
 <uses-permission android:name="android.permission.INTERNET"/>
     <application
         android:name="${applicationName}"
-        android:label="app"
+        android:label="Icoco"
         android:icon="@mipmap/ic_launcher"
         android:usesCleartextTraffic="true"
         android:hardwareAccelerated="true">

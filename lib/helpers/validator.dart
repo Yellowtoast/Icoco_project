@@ -30,7 +30,7 @@ validatePassword(
     passwordErrorText.value = null;
   } else if (!passwordRegExp.hasMatch(password)) {
     stepCheck.value = false;
-    passwordErrorText.value = '8/12자 / 영문숫자조합';
+    passwordErrorText.value = '8~12자 / 영문숫자조합';
   } else {
     stepCheck.value = true;
     passwordErrorText.value = null;
