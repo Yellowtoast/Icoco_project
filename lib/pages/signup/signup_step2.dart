@@ -141,7 +141,9 @@ class SignupStep2Page extends StatelessWidget {
                     ),
                   ),
                   Container(
-                    height: IcoSize.height / 4.5,
+                    height: IcoSize.height -
+                        IcoSize.appbarHeight -
+                        (IcoSize.height - 330),
                     alignment: Alignment.bottomCenter,
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.end,

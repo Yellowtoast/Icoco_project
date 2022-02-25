@@ -464,7 +464,7 @@ class HomeSkeletonPage extends StatelessWidget {
               );
             }),
             SizedBox(
-              height: 50,
+              height: 30,
             )
           ],
         ),
