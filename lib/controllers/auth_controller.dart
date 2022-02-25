@@ -328,7 +328,7 @@ class AuthController extends GetxController {
     String token;
     try {
       var url = Uri.parse(
-        'http://172.30.1.22:3000/api/deleteUser',
+        'https://icoco2022-erpweb.vercel.app/api/deleteUser',
       );
       final jwt = JWT(
         {

@@ -27,10 +27,10 @@ class IcoAppbar extends StatelessWidget implements PreferredSizeWidget {
       Get.back();
     }
 
-    return Container(
-      padding: EdgeInsets.only(left: 20),
-      child: GestureDetector(
-        onTap: (tapFunction == null) ? onTap : tapFunction,
+    return GestureDetector(
+      onTap: (tapFunction == null) ? onTap : tapFunction,
+      child: Container(
+        padding: EdgeInsets.only(left: 20),
         child: Container(
           padding: EdgeInsets.only(right: 25),
           child: SvgPicture.asset(
