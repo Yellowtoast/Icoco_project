@@ -29,10 +29,11 @@ class IcoAppbar extends StatelessWidget implements PreferredSizeWidget {
 
     return GestureDetector(
       onTap: (tapFunction == null) ? onTap : tapFunction,
-      child: Container(
-        padding: EdgeInsets.only(left: 20),
+      child: InkWell(
         child: Container(
-          padding: EdgeInsets.only(right: 25),
+          width: 100,
+          height: 20,
+          padding: EdgeInsets.all(15),
           child: SvgPicture.asset(
             "icons/arrow_back.svg",
             color: IcoColors.grey4,

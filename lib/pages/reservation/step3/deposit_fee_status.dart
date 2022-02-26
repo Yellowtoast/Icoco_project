@@ -327,8 +327,11 @@ class DepositFeeStatus extends StatelessWidget {
                                 true)
                             ? "예약금 입금 확인중"
                             : "예약금 입금 완료"),
-                    TextButton(
-                      onPressed: () async {
+                    SizedBox(
+                      height: 5,
+                    ),
+                    GestureDetector(
+                      onTap: () async {
                         await authController.setModelInfo();
                         Get.offAllNamed(Routes.HOME);
                       },
@@ -339,6 +342,9 @@ class DepositFeeStatus extends StatelessWidget {
                         ),
                       ),
                     ),
+                    SizedBox(
+                      height: 25,
+                    )
                   ],
                 ),
               ],

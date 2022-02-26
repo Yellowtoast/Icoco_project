@@ -457,15 +457,12 @@ class RemainingFeeStatus extends StatelessWidget {
                           : "잔금 입금 완료"),
                   TextButton(
                     onPressed: () async {
-                      AuthController authController = Get.find();
                       await authController.setModelInfo();
                       Get.offAllNamed(Routes.HOME);
                     },
-                    child: Text.rich(
-                      TextSpan(
-                        text: "메인화면으로 이동",
-                        style: IcoTextStyle.mediumLinedTextStyle14G,
-                      ),
+                    child: Text(
+                      "메인화면으로 이동",
+                      style: IcoTextStyle.mediumLinedTextStyle14G,
                     ),
                   ),
                 ],

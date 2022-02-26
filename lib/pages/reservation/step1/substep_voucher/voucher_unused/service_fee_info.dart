@@ -26,145 +26,143 @@ class ServiceFeeInfoPage extends StatelessWidget {
   AddressController _addressController = Get.find();
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-        backgroundColor: IcoColors.white,
-        appBar: IcoAppbar(
-          isDefault: false,
-          iconColor: IcoColors.white,
-          backgroundColor: IcoColors.primary,
-          title: "요금표",
-          usePop: true,
-        ),
-        body: SingleChildScrollView(
-          child: Column(
-            children: [
-              Container(
-                width: IcoSize.width,
-                color: IcoColors.primary,
-                padding: const EdgeInsets.symmetric(horizontal: 20),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    SizedBox(height: 30),
-                    Text(
-                      "일반 서비스 요금 안내",
-                      style: IcoTextStyle.boldTextStyle24W,
-                    ),
-                    SizedBox(
-                      height: 7,
-                    ),
-                    Text(
-                      "정부지원금 미이용시 일반 서비스 요금입니다",
-                      style: IcoTextStyle.mediumTextStyle13W,
-                    ),
-                    SizedBox(
-                      height: 30,
-                    ),
-                  ],
+    return SafeArea(
+      child: Scaffold(
+          backgroundColor: IcoColors.white,
+          appBar: IcoAppbar(
+            isDefault: false,
+            iconColor: IcoColors.white,
+            backgroundColor: IcoColors.primary,
+            title: "요금표",
+            usePop: true,
+          ),
+          body: SingleChildScrollView(
+            child: Column(
+              children: [
+                Container(
+                  width: IcoSize.width,
+                  color: IcoColors.primary,
+                  padding: const EdgeInsets.symmetric(horizontal: 20),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      SizedBox(height: 30),
+                      Text(
+                        "일반 서비스 요금 안내",
+                        style: IcoTextStyle.boldTextStyle24W,
+                      ),
+                      SizedBox(
+                        height: 7,
+                      ),
+                      Text(
+                        "정부지원금 미이용시 일반 서비스 요금입니다",
+                        style: IcoTextStyle.mediumTextStyle13W,
+                      ),
+                      SizedBox(
+                        height: 30,
+                      ),
+                    ],
+                  ),
                 ),
-              ),
-              Container(
-                width: IcoSize.width,
-                margin: const EdgeInsets.symmetric(horizontal: 20),
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    SizedBox(
-                      height: 35,
-                    ),
-                    Text(
-                      "일반 서비스 요금 안내",
-                      style: IcoTextStyle.boldTextStyle19B,
-                    ),
-                    SizedBox(
-                      height: 13,
-                    ),
-                    IcoDataTable(
+                Container(
+                  width: IcoSize.width,
+                  margin: const EdgeInsets.symmetric(horizontal: 20),
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      SizedBox(
+                        height: 35,
+                      ),
+                      Text(
+                        "일반 서비스 요금 안내",
+                        style: IcoTextStyle.boldTextStyle19B,
+                      ),
+                      SizedBox(
+                        height: 13,
+                      ),
+                      IcoDataTable(
+                          colorList: TableColorListPurple,
+                          list1: serviceFeeList1,
+                          list2: serviceFeeList2,
+                          list3: serviceFeeList3),
+                      SizedBox(
+                        height: 12,
+                      ),
+                      Text(
+                        "*기본요금은 보건복지부 규정을 따라 책정되었습니다.",
+                        style: IcoTextStyle.mediumTextStyle12B,
+                      ),
+                      SizedBox(
+                        height: 56,
+                      ),
+                      Text(
+                        "예약금 안내",
+                        style: IcoTextStyle.boldTextStyle19B,
+                      ),
+                      SizedBox(
+                        height: 13,
+                      ),
+                      IcoDataTable2(
+                        colorList: TableColorListYellow,
+                        list1: depositFeeList1,
+                        list2: depositFeeList2,
+                      ),
+                      SizedBox(
+                        height: 12,
+                      ),
+                      Text(
+                        "* 예약 후 3일 내에 예약금을 입금하시면 예약이 완료됩니다.\n* 예약금은 현금 입금이 원칙입니다.",
+                        style: IcoTextStyle.mediumTextStyle12B,
+                      ),
+                      SizedBox(
+                        height: 56,
+                      ),
+                      Text(
+                        "추가요금안내",
+                        style: IcoTextStyle.boldTextStyle19B,
+                      ),
+                      SizedBox(
+                        height: 13,
+                      ),
+                      IcoDataTable3(
                         colorList: TableColorListPurple,
-                        list1: serviceFeeList1,
-                        list2: serviceFeeList2,
-                        list3: serviceFeeList3),
-                    SizedBox(
-                      height: 12,
-                    ),
-                    Text(
-                      "*기본요금은 보건복지부 규정을 따라 책정되었습니다.",
-                      style: IcoTextStyle.mediumTextStyle12B,
-                    ),
-                    SizedBox(
-                      height: 56,
-                    ),
-                    Text(
-                      "예약금 안내",
-                      style: IcoTextStyle.boldTextStyle19B,
-                    ),
-                    SizedBox(
-                      height: 13,
-                    ),
-                    IcoDataTable2(
-                      colorList: TableColorListYellow,
-                      list1: depositFeeList1,
-                      list2: depositFeeList2,
-                    ),
-                    SizedBox(
-                      height: 12,
-                    ),
-                    Text(
-                      "* 예약 후 3일 내에 예약금을 입금하시면 예약이 완료됩니다.\n* 예약금은 현금 입금이 원칙입니다.",
-                      style: IcoTextStyle.mediumTextStyle12B,
-                    ),
-                    SizedBox(
-                      height: 56,
-                    ),
-                    Text(
-                      "추가요금안내",
-                      style: IcoTextStyle.boldTextStyle19B,
-                    ),
-                    SizedBox(
-                      height: 13,
-                    ),
-                    IcoDataTable3(
-                      colorList: TableColorListPurple,
-                      list1: extraFeeList1,
-                      list2: extraFeeList2,
-                      spanList: extraFeeSpanList,
-                    ),
-                    SizedBox(
-                      height: 12,
-                    ),
-                    Text(
-                      "* 산모님의 여건에 맞추어, 관리사님과 협의하에 추가요금 관련 서비스를 이용할 수 있습니다.\n** 재택근무 등으로 상주하는 배우자에게 한합니다.",
-                      style: IcoTextStyle.mediumTextStyle12B,
-                    ),
-                    SizedBox(
-                      height: 70,
-                    ),
-                    IcoButton(
-                        icon: false,
-                        onPressed: () async {
-                          await authController.createReservationFirestore(
-                              authController.userModel.value!,
-                              _addressController.completeAddress.value!,
-                              null,
-                              2,
-                              '일반서비스');
+                        list1: extraFeeList1,
+                        list2: extraFeeList2,
+                        spanList: extraFeeSpanList,
+                      ),
+                      SizedBox(
+                        height: 12,
+                      ),
+                      Text(
+                        "* 산모님의 여건에 맞추어, 관리사님과 협의하에 추가요금 관련 서비스를 이용할 수 있습니다.\n** 재택근무 등으로 상주하는 배우자에게 한합니다.",
+                        style: IcoTextStyle.mediumTextStyle12B,
+                      ),
+                      SizedBox(
+                        height: 70,
+                      ),
+                      IcoButton(
+                          icon: false,
+                          onPressed: () async {
+                            await authController.createReservationFirestore(
+                                authController.userModel.value!,
+                                _addressController.completeAddress.value!,
+                                null,
+                                2,
+                                '일반서비스');
+                            await authController.setModelInfo();
+                            Get.offAllNamed(Routes.HOME);
+                          },
+                          active: true.obs,
+                          buttonColor: IcoColors.primary,
+                          textStyle: IcoTextStyle.buttonTextStyleW,
+                          text: "일반서비스 신청"),
+                      SizedBox(
+                        height: 5,
+                      ),
+                      GestureDetector(
+                        onTap: () async {
                           await authController.setModelInfo();
-                          Get.offAllNamed(Routes.HOME);
-                        },
-                        active: true.obs,
-                        buttonColor: IcoColors.primary,
-                        textStyle: IcoTextStyle.buttonTextStyleW,
-                        text: "일반서비스 신청"),
-                    SizedBox(
-                      height: 5,
-                    ),
-                    Center(
-                      child: TextButton(
-                        onPressed: () async {
-                          startLoadingIndicator();
-                          await authController.setModelInfo();
-                          finishLoadingIndicator();
                           Get.offAllNamed(Routes.HOME);
                         },
                         child: Text.rich(
@@ -174,16 +172,16 @@ class ServiceFeeInfoPage extends StatelessWidget {
                           ),
                         ),
                       ),
-                    ),
-                    SizedBox(
-                      height: 20,
-                    ),
-                  ],
+                      SizedBox(
+                        height: 25,
+                      )
+                    ],
+                  ),
                 ),
-              ),
-            ],
-          ),
-        ));
+              ],
+            ),
+          )),
+    );
   }
 }
 

@@ -144,8 +144,11 @@ class _VoucherSignedStep2State extends State<VoucherSignedStep2> {
                               buttonColor: IcoColors.primary,
                               textStyle: IcoTextStyle.buttonTextStyleW,
                               text: "다음으로"),
-                          TextButton(
-                            onPressed: () async {
+                          SizedBox(
+                            height: 5,
+                          ),
+                          GestureDetector(
+                            onTap: () async {
                               await authController.setModelInfo();
                               Get.offAllNamed(Routes.HOME);
                             },
@@ -156,6 +159,9 @@ class _VoucherSignedStep2State extends State<VoucherSignedStep2> {
                               ),
                             ),
                           ),
+                          SizedBox(
+                            height: 25,
+                          )
                         ],
                       ),
                     ),

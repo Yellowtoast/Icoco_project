@@ -21,6 +21,7 @@ class BottomUpModal extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     AddressController addressController = Get.put(AddressController());
+    AuthController authController = Get.find();
     return Container(
       height: IcoSize.height - 90,
       decoration: BoxDecoration(
@@ -133,17 +134,23 @@ class BottomUpModal extends StatelessWidget {
                         buttonColor: IcoColors.primary,
                         textStyle: IcoTextStyle.buttonTextStyleW,
                         text: "요금계산기"),
-                    TextButton(
-                      style: TextButton.styleFrom(
-                        padding: EdgeInsets.zero,
-                      ),
-                      onPressed: () async {
+                    SizedBox(
+                      height: 5,
+                    ),
+                    GestureDetector(
+                      onTap: () async {
+                        await authController.setModelInfo();
                         Get.offAllNamed(Routes.HOME);
                       },
-                      child: Text.rich(TextSpan(
-                        text: "메인화면으로 이동",
-                        style: IcoTextStyle.mediumLinedTextStyle14G,
-                      )),
+                      child: Text.rich(
+                        TextSpan(
+                          text: "메인화면으로 이동",
+                          style: IcoTextStyle.mediumLinedTextStyle14G,
+                        ),
+                      ),
+                    ),
+                    SizedBox(
+                      height: 25,
                     )
                   ],
                 ),

@@ -67,7 +67,7 @@ class NoticePage extends StatelessWidget {
                           scrollDirection: Axis.vertical,
                           shrinkWrap: true,
                           itemCount: _noticeController.noticeModelList.length,
-                          // physics: const NeverScrollableScrollPhysics(),
+                          physics: const NeverScrollableScrollPhysics(),
                           itemBuilder: (BuildContext context, int index) {
                             return Column(
                               children: [

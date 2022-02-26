@@ -104,8 +104,11 @@ class LoginPage extends StatelessWidget {
                             buttonColor: IcoColors.primary,
                             textStyle: IcoTextStyle.buttonTextStyleW,
                             text: "다음으로"),
-                        TextButton(
-                          onPressed: () {
+                        SizedBox(
+                          height: 5,
+                        ),
+                        GestureDetector(
+                          onTap: () {
                             Get.to(FindPasswordPage1());
                           },
                           child: Text.rich(
@@ -115,6 +118,9 @@ class LoginPage extends StatelessWidget {
                             ),
                           ),
                         ),
+                        SizedBox(
+                          height: 25,
+                        )
                       ],
                     ),
                   ),

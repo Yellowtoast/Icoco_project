@@ -113,7 +113,7 @@ class TipPage extends StatelessWidget {
                       ],
                     ))
                 : SizedBox(
-                    height: IcoSize.height - IcoSize.appbarHeight - 65 - 20,
+                    height: IcoSize.height - IcoSize.appbarHeight - 65 - 24,
                     child: Column(
                       children: [
                         Obx(() {

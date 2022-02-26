@@ -88,6 +88,7 @@ class TipDetailPage extends StatelessWidget {
               () => SizedBox(
                 height: _tipController.tipList[tipNum].thumbnails.length * 375,
                 child: ListView.builder(
+                    physics: NeverScrollableScrollPhysics(),
                     itemCount: _tipController.tipList[tipNum].thumbnails.length,
                     itemBuilder: (BuildContext context, int index) {
                       return Container(
