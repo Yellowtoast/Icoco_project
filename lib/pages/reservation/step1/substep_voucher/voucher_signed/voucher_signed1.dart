@@ -22,7 +22,7 @@ class VoucherSignedStep1 extends StatelessWidget {
     return Scaffold(
         backgroundColor: IcoColors.white,
         appBar: IcoAppbar(
-          isDefault: false,
+          hasShadow: false,
           iconColor: IcoColors.white,
           backgroundColor: IcoColors.primary,
           title: "요금 계산",

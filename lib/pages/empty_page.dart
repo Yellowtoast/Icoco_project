@@ -28,29 +28,31 @@ class EmptyInfoPage extends StatelessWidget {
       body: SizedBox(
         height: IcoSize.height,
         width: IcoSize.width,
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            SizedBox(
-              height: 200,
-            ),
-            Image.asset('images/failed_human_grey.png', width: 170),
-            SizedBox(
-              height: 15,
-            ),
-            Text(
-              title,
-              style: IcoTextStyle.boldTextStyle20Grey4,
-            ),
-            SizedBox(
-              height: 8,
-            ),
-            Text(
-              subtitle,
-              style: IcoTextStyle.mediumTextStyle14Grey4,
-              textAlign: TextAlign.center,
-            )
-          ],
+        child: Expanded(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              SizedBox(
+                height: 200,
+              ),
+              Image.asset('images/failed_human_grey.png', width: 160),
+              SizedBox(
+                height: 15,
+              ),
+              Text(
+                title,
+                style: IcoTextStyle.boldTextStyle20Grey4,
+              ),
+              SizedBox(
+                height: 8,
+              ),
+              Text(
+                subtitle,
+                style: IcoTextStyle.mediumTextStyle14Grey4,
+                textAlign: TextAlign.center,
+              )
+            ],
+          ),
         ),
       ),
     );

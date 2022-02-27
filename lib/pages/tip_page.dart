@@ -9,6 +9,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import '../configs/routes.dart';
+import 'event/event.dart';
 
 class TipPage extends StatelessWidget {
   TipPage({Key? key}) : super(key: key);
@@ -85,33 +86,8 @@ class TipPage extends StatelessWidget {
               height: 13,
             ),
             (_tipController.tipList.isEmpty)
-                ? Container(
-                    alignment: Alignment.center,
-                    child: Column(
-                      children: [
-                        SizedBox(
-                          height: 110,
-                        ),
-                        Image.asset(
-                          'images/failed_human_grey.png',
-                          width: 120,
-                        ),
-                        SizedBox(
-                          height: 12,
-                        ),
-                        Text(
-                          '등록된 육아팁이 없습니다',
-                          style: IcoTextStyle.boldTextStyle20Grey4,
-                        ),
-                        SizedBox(
-                          height: 6,
-                        ),
-                        Text(
-                          '이 카테고리에 등록된 육아팁이 없습니다',
-                          style: IcoTextStyle.mediumTextStyle14Grey4,
-                        )
-                      ],
-                    ))
+                ? EmptyListPage(
+                    title: '등록된 육아팁이 없습니다', subtitle: '이 카테고리에 등록된 육아팁이 없습니다')
                 : SizedBox(
                     height: IcoSize.height - IcoSize.appbarHeight - 65 - 24,
                     child: Column(

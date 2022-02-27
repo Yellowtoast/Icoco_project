@@ -27,7 +27,7 @@ class CalculatorResultPage extends StatelessWidget {
     return Scaffold(
         backgroundColor: IcoColors.white,
         appBar: IcoAppbar(
-          isDefault: true,
+          hasShadow: true,
           iconColor: IcoColors.white,
           backgroundColor: IcoColors.purple2,
           title: "요금 계산",

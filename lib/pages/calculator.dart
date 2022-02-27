@@ -140,7 +140,7 @@ class CalculatorPage extends StatelessWidget {
                                   selectedItem: calculatorController
                                       .insuranceTypeSelected,
                                   activeTextStyle:
-                                      IcoTextStyle.mediumTextStyle14P,
+                                      IcoTextStyle.boldTextStyle14P,
                                   inactiveTextStyle:
                                       IcoTextStyle.mediumTextStyle14B,
                                   radiusBottomRight: false,
@@ -154,16 +154,16 @@ class CalculatorPage extends StatelessWidget {
                                   selectedItem: calculatorController
                                       .insuranceTypeSelected,
                                   activeTextStyle:
-                                      IcoTextStyle.mediumTextStyle14P,
+                                      IcoTextStyle.boldTextStyle14P,
                                   inactiveTextStyle:
                                       IcoTextStyle.mediumTextStyle14B,
                                   radiusBottomRight: false,
                                   radiusTopRight: false,
                                   radiusBottomLeft: false,
                                   radiusTopLeft: false,
-                                  horizontalBorder: false,
                                   stepList: calculatorController.stepList,
                                   stepNum: 1,
+                                  horizontalBorder: false,
                                 ),
                                 TextRadioButton2(
                                   isMultiple: false,
@@ -171,7 +171,7 @@ class CalculatorPage extends StatelessWidget {
                                   selectedItem: calculatorController
                                       .insuranceTypeSelected,
                                   activeTextStyle:
-                                      IcoTextStyle.mediumTextStyle14P,
+                                      IcoTextStyle.boldTextStyle14P,
                                   inactiveTextStyle:
                                       IcoTextStyle.mediumTextStyle14B,
                                   radiusBottomLeft: false,
@@ -364,8 +364,8 @@ class CalculatorPage extends StatelessWidget {
                             multipleAllowItem: calculatorController.babyType[3],
                             selectedItemList:
                                 calculatorController.babyTypeSelectedList,
-                            activeTextStyle: IcoTextStyle.boldTextStyle13P,
-                            inactiveTextStyle: IcoTextStyle.mediumTextStyle13B,
+                            activeTextStyle: IcoTextStyle.boldTextStyle14P,
+                            inactiveTextStyle: IcoTextStyle.mediumTextStyle14B,
                             stepList: calculatorController.stepList,
                             stepNum: 3,
                           ),
@@ -383,8 +383,8 @@ class CalculatorPage extends StatelessWidget {
                             multipleAllowItem: calculatorController.babyType[3],
                             selectedItemList:
                                 calculatorController.babyTypeSelectedList,
-                            activeTextStyle: IcoTextStyle.boldTextStyle13P,
-                            inactiveTextStyle: IcoTextStyle.mediumTextStyle13B,
+                            activeTextStyle: IcoTextStyle.boldTextStyle14P,
+                            inactiveTextStyle: IcoTextStyle.mediumTextStyle14B,
                             stepList: calculatorController.stepList,
                             stepNum: 3,
                           ),
@@ -406,8 +406,8 @@ class CalculatorPage extends StatelessWidget {
                             multipleAllowItem: calculatorController.babyType[3],
                             selectedItemList:
                                 calculatorController.babyTypeSelectedList,
-                            activeTextStyle: IcoTextStyle.boldTextStyle13P,
-                            inactiveTextStyle: IcoTextStyle.mediumTextStyle13B,
+                            activeTextStyle: IcoTextStyle.boldTextStyle14P,
+                            inactiveTextStyle: IcoTextStyle.mediumTextStyle14B,
                             stepList: calculatorController.stepList,
                             stepNum: 3,
                           ),
@@ -425,8 +425,8 @@ class CalculatorPage extends StatelessWidget {
                             multipleAllowItem: calculatorController.babyType[3],
                             selectedItemList:
                                 calculatorController.babyTypeSelectedList,
-                            activeTextStyle: IcoTextStyle.boldTextStyle13P,
-                            inactiveTextStyle: IcoTextStyle.mediumTextStyle13B,
+                            activeTextStyle: IcoTextStyle.boldTextStyle14P,
+                            inactiveTextStyle: IcoTextStyle.mediumTextStyle14B,
                             stepList: calculatorController.stepList,
                             stepNum: 3,
                           ),
@@ -465,6 +465,18 @@ class CalculatorPage extends StatelessWidget {
                                 child: Text(items),
                               );
                             }).toList(),
+                            dropdownElevation: 0,
+                            dropdownDecoration: BoxDecoration(
+                                color: IcoColors.white,
+                                boxShadow: [
+                                  BoxShadow(
+                                    spreadRadius: 1,
+                                    color: IcoColors.grey2,
+                                  )
+                                ],
+                                borderRadius: BorderRadius.only(
+                                    bottomLeft: Radius.circular(10),
+                                    bottomRight: Radius.circular(10))),
                             onChanged: (item) {
                               calculatorController.numberofHelperSelected
                                   .value = item.toString();
@@ -504,6 +516,7 @@ class CalculatorPage extends StatelessWidget {
                                 child: Text(items),
                               );
                             }).toList(),
+                            dropdownElevation: 0,
                             onChanged: (item) {
                               calculatorController.numberOfChildSelected.value =
                                   item.toString();

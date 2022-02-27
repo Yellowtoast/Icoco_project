@@ -85,6 +85,8 @@ class ReserveStep2_4 extends StatelessWidget {
                                   serviceInfoController.lactationTypeSelected
                                       .value = lactationType.BREAST_FEEDING;
                                 },
+                                activeBorderColor: IcoColors.primary,
+                                inactiveBorderColor: IcoColors.grey2,
                               ),
                               OptionDividerLine(),
                               TextRadioButton(
@@ -101,6 +103,8 @@ class ReserveStep2_4 extends StatelessWidget {
                                   serviceInfoController.lactationTypeSelected
                                       .value = lactationType.BOTTLE_FEEDING;
                                 },
+                                activeBorderColor: IcoColors.primary,
+                                inactiveBorderColor: IcoColors.grey2,
                               ),
                               OptionDividerLine(),
                               TextRadioButton(
@@ -115,6 +119,8 @@ class ReserveStep2_4 extends StatelessWidget {
                                   serviceInfoController.lactationTypeSelected
                                       .value = lactationType.MIX_FEEDING;
                                 },
+                                activeBorderColor: IcoColors.primary,
+                                inactiveBorderColor: IcoColors.grey2,
                               ),
                             ],
                           ),
@@ -163,6 +169,8 @@ class ReserveStep2_4 extends StatelessWidget {
                                   serviceInfoController.carePlaceTypeSelected
                                       .value = carePlaceType.OWN_HOUSE;
                                 },
+                                activeBorderColor: IcoColors.primary,
+                                inactiveBorderColor: IcoColors.grey2,
                               ),
                               OptionDividerLine(),
                               TextRadioButton(
@@ -179,6 +187,8 @@ class ReserveStep2_4 extends StatelessWidget {
                                   serviceInfoController.carePlaceTypeSelected
                                       .value = carePlaceType.PARENTS_HOUSE;
                                 },
+                                activeBorderColor: IcoColors.primary,
+                                inactiveBorderColor: IcoColors.grey2,
                               ),
                               OptionDividerLine(),
                               TextRadioButton(
@@ -193,6 +203,8 @@ class ReserveStep2_4 extends StatelessWidget {
                                   serviceInfoController.carePlaceTypeSelected
                                       .value = carePlaceType.IN_LAW_HOUSE;
                                 },
+                                activeBorderColor: IcoColors.primary,
+                                inactiveBorderColor: IcoColors.grey2,
                               ),
                             ],
                           ),
@@ -242,6 +254,8 @@ class ReserveStep2_4 extends StatelessWidget {
                                       petType.DOG;
                                   serviceInfoController.setPetType();
                                 },
+                                activeBorderColor: IcoColors.primary,
+                                inactiveBorderColor: IcoColors.grey2,
                               ),
                               OptionDividerLine(),
                               TextRadioButton(
@@ -259,6 +273,8 @@ class ReserveStep2_4 extends StatelessWidget {
                                       petType.CAT;
                                   serviceInfoController.setPetType();
                                 },
+                                activeBorderColor: IcoColors.primary,
+                                inactiveBorderColor: IcoColors.grey2,
                               ),
                               OptionDividerLine(),
                               TextRadioButton(
@@ -276,6 +292,8 @@ class ReserveStep2_4 extends StatelessWidget {
                                       petType.ETC;
                                   serviceInfoController.setPetType();
                                 },
+                                activeBorderColor: IcoColors.primary,
+                                inactiveBorderColor: IcoColors.grey2,
                               ),
                               OptionDividerLine(),
                               TextRadioButton(
@@ -291,6 +309,8 @@ class ReserveStep2_4 extends StatelessWidget {
                                       petType.NONE;
                                   serviceInfoController.setPetType();
                                 },
+                                activeBorderColor: IcoColors.primary,
+                                inactiveBorderColor: IcoColors.grey2,
                               ),
                             ],
                           ),
@@ -515,7 +535,7 @@ class OrderSelectionButton extends StatelessWidget {
                     "icons/${selectionList.indexOf(selectionType) + 1}.svg",
                   ),
                   decoration: BoxDecoration(
-                    color: Colors.black54,
+                    color: Color.fromARGB(127, 0, 0, 0),
                     borderRadius: BorderRadius.circular(10),
                   ),
                 ),

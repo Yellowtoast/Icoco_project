@@ -51,24 +51,7 @@ class AuthController extends GetxController {
     super.onClose();
   }
 
-  // handleAuthChanged(_firebaseAuthUser) async {
-  //   startLoadingIndicator();
-  //   if (_firebaseAuthUser != null &&
-  //       (reservationModel.value != null || userModel.value != null)) {
-  //     return;
-  //   }
-
-  //   if (_firebaseAuthUser == null) {
-  //     Get.offAllNamed(Routes.START);
-  //   } else {
-  //     await setModelInfo();
-  //     finishLoadingIndicator();
-  //     Get.offAllNamed(Routes.HOME);
-  //   }
-  // }
-
   handleAuthChanged(_firebaseAuthUser) async {
-    startLoadingIndicator();
     if (_firebaseAuthUser != null &&
         (reservationModel.value != null || userModel.value != null) &&
         isLoggedIn.value == false) {
@@ -85,28 +68,7 @@ class AuthController extends GetxController {
         Get.offAllNamed(Routes.HOME);
       }
     }
-    finishLoadingIndicator();
   }
-
-  // handleAuthChanged(_firebaseAuthUser) async {
-  //   startLoadingIndicator();
-  //   if (_firebaseAuthUser == null || userModel.value == null) {
-  //     isLoggedIn.value = false;
-  //   } else {
-  //     isLoggedIn.value = true;
-  //   }
-  //   // if (_firebaseAuthUser != null &&
-  //   //     (reservationModel.value != null || userModel.value != null)) {
-  //   //   return;
-  //   // }
-  //   if (isLoggedIn.value == false) {
-  //     Get.offAllNamed(Routes.START);
-  //   } else {
-  //     await setModelInfo();
-  //     finishLoadingIndicator();
-  //     Get.offAllNamed(Routes.HOME);
-  //   }
-  // }
 
   setModelInfo() async {
     try {

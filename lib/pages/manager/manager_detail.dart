@@ -8,6 +8,7 @@ import 'package:app/controllers/manager_controller.dart';
 
 import 'package:app/controllers/review_controller.dart';
 import 'package:app/helpers/formatter.dart';
+import 'package:app/pages/event/event.dart';
 import 'package:app/pages/inquiry_page.dart';
 import 'package:app/widgets/appbar.dart';
 import 'package:app/widgets/button/button.dart';
@@ -403,30 +404,9 @@ class ManagerDetailPage extends StatelessWidget {
                   thickness: 9,
                 ),
                 (reviewController.totalReviews.value == 0)
-                    ? Container(
-                        color: IcoColors.white,
-                        alignment: Alignment.center,
-                        child: Column(
-                          children: [
-                            SizedBox(
-                              height: 100,
-                            ),
-                            Image.asset(
-                              'images/failed_human_grey.png',
-                              width: 130,
-                            ),
-                            SizedBox(
-                              height: 15,
-                            ),
-                            Text(
-                              '아직 등록된 리뷰가 없습니다.',
-                              style: IcoTextStyle.mediumTextStyle16Grey3,
-                            ),
-                            SizedBox(
-                              height: 100,
-                            )
-                          ],
-                        ))
+                    ? EmptyListPage(
+                        title: '아직 등록된 리뷰가 없습니다',
+                      )
                     : Container(
                         color: IcoColors.white,
                         child: Column(

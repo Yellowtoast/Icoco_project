@@ -30,7 +30,7 @@ class ServiceFeeInfoPage extends StatelessWidget {
       child: Scaffold(
           backgroundColor: IcoColors.white,
           appBar: IcoAppbar(
-            isDefault: false,
+            hasShadow: false,
             iconColor: IcoColors.white,
             backgroundColor: IcoColors.primary,
             title: "요금표",
@@ -160,15 +160,17 @@ class ServiceFeeInfoPage extends StatelessWidget {
                       SizedBox(
                         height: 5,
                       ),
-                      GestureDetector(
-                        onTap: () async {
-                          await authController.setModelInfo();
-                          Get.offAllNamed(Routes.HOME);
-                        },
-                        child: Text.rich(
-                          TextSpan(
-                            text: "메인화면으로 이동",
-                            style: IcoTextStyle.mediumLinedTextStyle14G,
+                      Center(
+                        child: GestureDetector(
+                          onTap: () async {
+                            await authController.setModelInfo();
+                            Get.offAllNamed(Routes.HOME);
+                          },
+                          child: Text.rich(
+                            TextSpan(
+                              text: "메인화면으로 이동",
+                              style: IcoTextStyle.mediumLinedTextStyle14G,
+                            ),
                           ),
                         ),
                       ),

@@ -110,6 +110,8 @@ class ReserveStep2_5 extends StatelessWidget {
                                 additionalFeeController.careTypeSelected.value =
                                     careType.COMMUTER;
                               },
+                              activeBorderColor: IcoColors.primary,
+                              inactiveBorderColor: IcoColors.grey2,
                             ),
                             SizedBox(width: 7),
                             TextRadioButton(
@@ -121,6 +123,8 @@ class ReserveStep2_5 extends StatelessWidget {
                                 additionalFeeController.careTypeSelected.value =
                                     careType.RESIDENT;
                               },
+                              activeBorderColor: IcoColors.primary,
+                              inactiveBorderColor: IcoColors.grey2,
                             ),
                           ],
                         ),

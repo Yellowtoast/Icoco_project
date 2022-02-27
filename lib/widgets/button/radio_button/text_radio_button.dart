@@ -15,7 +15,9 @@ class TextRadioButton extends StatelessWidget {
       this.radiusTopRight = true,
       this.radiusBottomLeft = true,
       this.radiusBottomRight = true,
-      this.hasBorder = true})
+      this.hasBorder = true,
+      required this.activeBorderColor,
+      required this.inactiveBorderColor})
       : super(key: key);
   Rxn<Enum> selectedItem;
   Enum item;
@@ -26,6 +28,8 @@ class TextRadioButton extends StatelessWidget {
   bool radiusBottomLeft;
   bool radiusBottomRight;
   bool hasBorder;
+  Color activeBorderColor;
+  Color inactiveBorderColor;
 
   @override
   Widget build(BuildContext context) {
@@ -41,31 +45,31 @@ class TextRadioButton extends StatelessWidget {
               height: 50,
               width: IcoSize.width,
               decoration: BoxDecoration(
-                  color: (selectedItem.value == item)
-                      ? IcoColors.purple2
-                      : IcoColors.white,
-                  borderRadius: BorderRadius.only(
-                    topLeft: (radiusTopLeft)
-                        ? Radius.circular(10.0)
-                        : Radius.circular(0),
-                    topRight: (radiusTopRight)
-                        ? Radius.circular(10.0)
-                        : Radius.circular(0),
-                    bottomLeft: (radiusBottomLeft)
-                        ? Radius.circular(10.0)
-                        : Radius.circular(0),
-                    bottomRight: (radiusBottomRight)
-                        ? Radius.circular(10.0)
-                        : Radius.circular(0),
-                  ),
-                  border: (hasBorder)
-                      ? Border.all(
-                          color: (selectedItem.value == item)
-                              ? IcoColors.primary
-                              : IcoColors.grey2,
-                          width: 1,
-                        )
-                      : Border.fromBorderSide(BorderSide.none)),
+                boxShadow: [
+                  BoxShadow(
+                      color: (selectedItem.value == item)
+                          ? activeBorderColor
+                          : inactiveBorderColor,
+                      spreadRadius: 1)
+                ],
+                color: (selectedItem.value == item)
+                    ? IcoColors.purple2
+                    : IcoColors.white,
+                borderRadius: BorderRadius.only(
+                  topLeft: (radiusTopLeft)
+                      ? Radius.circular(10.0)
+                      : Radius.circular(0),
+                  topRight: (radiusTopRight)
+                      ? Radius.circular(10.0)
+                      : Radius.circular(0),
+                  bottomLeft: (radiusBottomLeft)
+                      ? Radius.circular(10.0)
+                      : Radius.circular(0),
+                  bottomRight: (radiusBottomRight)
+                      ? Radius.circular(10.0)
+                      : Radius.circular(0),
+                ),
+              ),
               child: Text(itemTitle,
                   style: (selectedItem.value == item)
                       ? IcoTextStyle.mediumTextStyle16P

@@ -13,6 +13,8 @@ import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 
+import '../event/event.dart';
+
 class CompanyDetailPage extends StatelessWidget {
   CompanyController companyController = Get.find();
   ReviewController reviewController = Get.find();
@@ -330,26 +332,7 @@ class CompanyDetailPage extends StatelessWidget {
                 thickness: 9,
               ),
               (reviewController.finalReviewModelList!.isEmpty)
-                  ? Container(
-                      alignment: Alignment.center,
-                      child: Column(
-                        children: [
-                          SizedBox(
-                            height: 45,
-                          ),
-                          Image.asset(
-                            'images/failed_human_grey.png',
-                            width: 120,
-                          ),
-                          SizedBox(
-                            height: 12,
-                          ),
-                          Text(
-                            '아직 등록된 리뷰가 없습니다.',
-                            style: IcoTextStyle.boldTextStyle16Grey3,
-                          )
-                        ],
-                      ))
+                  ? EmptyListPage(title: '아직 등록된 리뷰가 없습니다')
                   : Container(
                       color: IcoColors.white,
                       child: Column(

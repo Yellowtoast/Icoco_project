@@ -142,6 +142,8 @@ class ReserveStep2_3_AfterBirth extends StatelessWidget {
                                               .useCareCenterSelected);
                                       dateInfoController.isStepsFinished();
                                     },
+                                    activeBorderColor: IcoColors.primary,
+                                    inactiveBorderColor: IcoColors.grey2,
                                   ),
                                   SizedBox(width: 7),
                                   TextRadioButton(
@@ -166,6 +168,8 @@ class ReserveStep2_3_AfterBirth extends StatelessWidget {
                                               .useCareCenterSelected);
                                       dateInfoController.isStepsFinished();
                                     },
+                                    activeBorderColor: IcoColors.primary,
+                                    inactiveBorderColor: IcoColors.grey2,
                                   ),
                                 ],
                               ),
@@ -220,6 +224,8 @@ class ReserveStep2_3_AfterBirth extends StatelessWidget {
                                             dateInfoController
                                                 .isStepsFinished();
                                           },
+                                          activeBorderColor: IcoColors.primary,
+                                          inactiveBorderColor: IcoColors.grey2,
                                         ),
                                         SizedBox(width: 7),
                                         TextRadioButton(
@@ -244,6 +250,8 @@ class ReserveStep2_3_AfterBirth extends StatelessWidget {
                                             dateInfoController
                                                 .isStepsFinished();
                                           },
+                                          activeBorderColor: IcoColors.primary,
+                                          inactiveBorderColor: IcoColors.grey2,
                                         ),
                                       ],
                                     ),
@@ -339,6 +347,8 @@ class ReserveStep2_3_AfterBirth extends StatelessWidget {
                                             dateInfoController
                                                 .isStepsFinished();
                                           },
+                                          activeBorderColor: IcoColors.primary,
+                                          inactiveBorderColor: IcoColors.grey2,
                                         ),
                                         SizedBox(width: 7),
                                         TextRadioButton(
@@ -361,6 +371,8 @@ class ReserveStep2_3_AfterBirth extends StatelessWidget {
                                             dateInfoController
                                                 .isStepsFinished();
                                           },
+                                          activeBorderColor: IcoColors.primary,
+                                          inactiveBorderColor: IcoColors.grey2,
                                         ),
                                       ],
                                     ),

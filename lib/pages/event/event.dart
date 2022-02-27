@@ -42,26 +42,31 @@ class EventPage extends StatelessWidget {
     );
   }
 
-  Widget _getScollView(List<dynamic> list) {
+  Widget _getScollView(RxList<dynamic> list) {
     return SingleChildScrollView(
-        child: Column(
-      children: list.map((dynamic item) {
-        return GestureDetector(
-          onTap: () => _onTapToDetailPage(item.id),
-          child: Container(
-            margin: const EdgeInsets.only(bottom: 46),
-            width: Get.width,
-            child: EventCard(
-              title: item.title,
-              thumbnail: item.appBanner,
-              status: item.status,
-              periodStart: item.startDate,
-              periodEnd: item.endDate,
-            ),
-          ),
-        );
-      }).toList(),
-    ));
+        child: (list.isEmpty)
+            ? EmptyListPage(
+                title: '진행중인 이벤트가 없습니다.',
+                subtitle: '진행중인 이벤트가 없습니다.\n다양한 혜택을 곧 만나보세요!',
+              )
+            : Column(
+                children: list.map((dynamic item) {
+                  return GestureDetector(
+                    onTap: () => _onTapToDetailPage(item.id),
+                    child: Container(
+                      margin: const EdgeInsets.only(bottom: 46),
+                      width: Get.width,
+                      child: EventCard(
+                        title: item.title,
+                        thumbnail: item.appBanner,
+                        status: item.status,
+                        periodStart: item.startDate,
+                        periodEnd: item.endDate,
+                      ),
+                    ),
+                  );
+                }).toList(),
+              ));
   }
 
   @override
@@ -87,33 +92,10 @@ class EventPage extends StatelessWidget {
           bottom: _getTabBar(),
         ),
         body: (eventController.totalEventNumber.value == 0)
-            ? Container(
-                alignment: Alignment.center,
-                child: Column(
-                  children: [
-                    SizedBox(
-                      height: 107,
-                    ),
-                    Image.asset(
-                      'images/failed_human_grey.png',
-                      height: 140,
-                    ),
-                    SizedBox(
-                      height: 12,
-                    ),
-                    Text(
-                      '진행중인 이벤트가 없습니다',
-                      style: IcoTextStyle.boldTextStyle20Grey4,
-                    ),
-                    SizedBox(
-                      height: 6,
-                    ),
-                    Text(
-                      '진행중인 이벤트가 없습니다.\n다양한 혜택을 곧 만나보세요!',
-                      style: IcoTextStyle.mediumTextStyle14Grey4,
-                    )
-                  ],
-                ))
+            ? EmptyListPage(
+                title: '진행중인 이벤트가 없습니다.',
+                subtitle: '진행중인 이벤트가 없습니다.\n다양한 혜택을 곧 만나보세요!',
+              )
             : Column(
                 children: [
                   const SizedBox(
@@ -128,6 +110,45 @@ class EventPage extends StatelessWidget {
                   ),
                 ],
               ),
+      ),
+    );
+  }
+}
+
+class EmptyListPage extends StatelessWidget {
+  EmptyListPage({Key? key, this.title = '', this.subtitle = ''})
+      : super(key: key);
+
+  String title;
+  String subtitle;
+
+  @override
+  Widget build(BuildContext context) {
+    return ConstrainedBox(
+      constraints: BoxConstraints(maxWidth: 800, minHeight: 500),
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: [
+          Image.asset(
+            'images/failed_human_grey.png',
+            height: 140,
+          ),
+          SizedBox(
+            height: 12,
+          ),
+          Text(
+            title,
+            style: IcoTextStyle.boldTextStyle20Grey4,
+          ),
+          SizedBox(
+            height: 6,
+          ),
+          Text(
+            subtitle,
+            style: IcoTextStyle.mediumTextStyle14Grey4,
+          )
+        ],
       ),
     );
   }

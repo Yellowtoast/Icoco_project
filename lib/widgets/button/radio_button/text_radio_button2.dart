@@ -18,9 +18,7 @@ class TextRadioButton2 extends StatelessWidget {
     this.radiusTopRight = true,
     this.radiusBottomLeft = true,
     this.radiusBottomRight = true,
-    this.hasBorder = true,
     this.horizontalBorder = true,
-    // this.relatedItem,
     this.stepList,
     this.stepNum,
     this.relatedStepNum,
@@ -39,7 +37,6 @@ class TextRadioButton2 extends StatelessWidget {
   bool radiusTopRight;
   bool radiusBottomLeft;
   bool radiusBottomRight;
-  bool hasBorder;
   bool horizontalBorder;
   bool isMultiple;
   TextStyle activeTextStyle;
@@ -93,43 +90,26 @@ class TextRadioButton2 extends StatelessWidget {
               height: 50,
               width: IcoSize.width,
               decoration: BoxDecoration(
-                  color: ((isMultiple && selectedItemList!.contains(item)) ||
-                          (selectedItem != null && selectedItem!.value == item))
-                      ? IcoColors.purple2
-                      : IcoColors.white,
-                  borderRadius: BorderRadius.only(
-                    topLeft: (radiusTopLeft)
-                        ? Radius.circular(10.0)
-                        : Radius.circular(0),
-                    topRight: (radiusTopRight)
-                        ? Radius.circular(10.0)
-                        : Radius.circular(0),
-                    bottomLeft: (radiusBottomLeft)
-                        ? Radius.circular(10.0)
-                        : Radius.circular(0),
-                    bottomRight: (radiusBottomRight)
-                        ? Radius.circular(10.0)
-                        : Radius.circular(0),
-                  ),
-                  border: (horizontalBorder)
-                      ? Border.all(
-                          color: ((isMultiple &&
-                                      selectedItemList!.contains(item)) ||
-                                  (selectedItem != null &&
-                                      selectedItem!.value == item))
-                              ? IcoColors.primary
-                              : IcoColors.grey2,
-                          width: 1,
-                        )
-                      : Border.all(
-                          color: ((isMultiple &&
-                                      selectedItemList!.contains(item)) ||
-                                  (selectedItem != null &&
-                                      selectedItem!.value == item))
-                              ? IcoColors.primary
-                              : IcoColors.grey2,
-                          width: 1,
-                        )),
+                boxShadow: [BoxShadow(color: IcoColors.grey2, spreadRadius: 1)],
+                color: ((isMultiple && selectedItemList!.contains(item)) ||
+                        (selectedItem != null && selectedItem!.value == item))
+                    ? IcoColors.purple2
+                    : IcoColors.white,
+                borderRadius: BorderRadius.only(
+                  topLeft: (radiusTopLeft)
+                      ? Radius.circular(10.0)
+                      : Radius.circular(0),
+                  topRight: (radiusTopRight)
+                      ? Radius.circular(10.0)
+                      : Radius.circular(0),
+                  bottomLeft: (radiusBottomLeft)
+                      ? Radius.circular(10.0)
+                      : Radius.circular(0),
+                  bottomRight: (radiusBottomRight)
+                      ? Radius.circular(10.0)
+                      : Radius.circular(0),
+                ),
+              ),
               child: Text(item,
                   style: ((isMultiple && selectedItemList!.contains(item)) ||
                           (selectedItem != null && selectedItem!.value == item))

@@ -123,6 +123,8 @@ class ReserveStep2_3_BeforeBirth extends StatelessWidget {
                                   step2.value = true;
                                   step3.value = false;
                                 },
+                                activeBorderColor: IcoColors.primary,
+                                inactiveBorderColor: IcoColors.grey2,
                               ),
                               SizedBox(width: 7),
                               TextRadioButton(
@@ -140,6 +142,8 @@ class ReserveStep2_3_BeforeBirth extends StatelessWidget {
                                   step2.value = true;
                                   step3.value = true;
                                 },
+                                activeBorderColor: IcoColors.primary,
+                                inactiveBorderColor: IcoColors.grey2,
                               ),
                             ],
                           ),
