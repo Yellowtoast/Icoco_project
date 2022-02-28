@@ -4,7 +4,7 @@ import 'package:app/bindings/notice_bindings.dart';
 
 import 'package:app/bindings/event_detail_bindings.dart';
 import 'package:app/bindings/reserve_binding.dart';
-import 'package:app/bindings/splash_binding.dart';
+import 'package:app/bindings/init_bindings.dart';
 import 'package:app/bindings/home_binding.dart';
 import 'package:app/bindings/login_binding.dart';
 import 'package:app/bindings/signup_binding.dart';

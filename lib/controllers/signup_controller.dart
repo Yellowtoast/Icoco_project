@@ -171,7 +171,7 @@ class SignupController extends GetxController {
       regNum: regNum,
       eventAlarm: eventAlarm,
       pushAlarm: true,
-      fcm: fcmController.fcmToken,
+      fcm: fcmController.fcmToken.value,
     );
     userModel.value = _newUser;
     await db.doc('/User/${_newUser.email}').set(_newUser.toJson());

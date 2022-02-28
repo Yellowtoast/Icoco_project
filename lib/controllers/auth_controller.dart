@@ -169,39 +169,6 @@ class AuthController extends GetxController {
     } catch (error) {}
   }
 
-  // //handles updating the user when updating profile
-  // Future<void> updateUser(BuildContext context, UserModel user, String oldEmail,
-  //     String password) async {
-  //   try {
-  //     try {
-  //       await _auth
-  //           .signInWithEmailAndPassword(email: oldEmail, password: password)
-  //           .then((_firebaseUser) {
-  //         _firebaseUser.user!
-  //             .updateEmail(user.email)
-  //             .then((value) => updateUserFirestore(user, _firebaseUser.user!));
-  //       });
-  //     } catch (err) {
-  //       print('Caught error: $err');
-
-  //       if (err ==
-  //           "Error: [firebase_auth/email-already-in-use] The email address is already in use by another account.") {
-  //       } else {}
-  //     }
-  //   } on PlatformException catch (error) {
-  //     print(error.code);
-  //     String authError;
-  //     switch (error.code) {
-  //       case 'ERROR_WRONG_PASSWORD':
-  //         authError = 'auth.wrongPasswordNotice'.tr;
-  //         break;
-  //       default:
-  //         authError = 'auth.unknownError'.tr;
-  //         break;
-  //     }
-  //   }
-  // }
-
   //유저정보를 firestore에 updqte
   void updateUserFirestore(UserModel? user) {
     db.doc('/User/${user!.email}').update(user.toJson());
@@ -216,19 +183,6 @@ class AuthController extends GetxController {
 
     }
   }
-
-  // isAdmin() async {
-  //   await getUser.then((user) async {
-  //     DocumentSnapshot adminRef =
-  //         await db.collection('admin').doc(user.uid).get();
-  //     if (adminRef.exists) {
-  //       admin.value = true;
-  //     } else {
-  //       admin.value = false;
-  //     }
-  //     update();
-  //   });
-  // }
 
   Stream<ReservationModel> streamFirestoreReservation() {
     print('streamFirestoreReservation()');
@@ -303,11 +257,8 @@ class AuthController extends GetxController {
         url,
         headers: {'x-access-token': token},
       );
-
-      print(response);
       var res = jsonDecode(response.body);
       var code = response.statusCode;
-      print(res);
 
       if (res['success'] == false) {
         print('회원 탈퇴 실패 : $code/${res['message']}');
@@ -323,5 +274,11 @@ class AuthController extends GetxController {
     return _auth.signOut();
   }
 
-  changeUsername(String newName, String uid) {}
+  updateFCMToken(String fcmToken) async {
+    var user = await getUser;
+    String email = user.email!;
+
+    db.doc('/User/$email').update({'fcm': fcmToken});
+    update();
+  }
 }

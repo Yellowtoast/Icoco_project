@@ -1,46 +1,23 @@
 // ignore_for_file: prefer_final_fields, prefer_collection_literals, avoid_print
-
+import 'package:app/controllers/auth_controller.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:get/get.dart';
-import 'package:get/get_core/src/get_main.dart';
 
 class FCMController extends GetxController {
   static FCMController get to => Get.find();
   FirebaseMessaging _messaging = FirebaseMessaging.instance;
-  late final String fcmToken;
+  Rx<String> fcmToken = ''.obs;
   RxMap<String, dynamic> message = Map<String, dynamic>().obs;
 
   @override
   void onInit() {
     _initNotification();
     _getToken();
+    ever(fcmToken, updateFCM);
     super.onInit();
   }
 
-  Future<String?> _getToken() async {
-    try {
-      String? token = await _messaging.getToken(
-        vapidKey: 'KEY',
-      );
-      fcmToken = token!;
-    } catch (e) {
-      print(e);
-    }
-  }
-
-  Future<void> _initNotification() async {
-    // NotificationSettings settings = await _messaging.requestPermission(
-    //     sound: true, badge: true, alert: true, provisional: true);
-
-    FirebaseMessaging.onMessage.listen((RemoteMessage message) async {
-      onMessage:
-      _onMessage;
-      onLaunch:
-      _onLaunch;
-      onResume:
-      _onResume;
-    });
-
+  Future<void> getPermisstionFromUser() async {
     NotificationSettings _settings = await _messaging.requestPermission(
       alert: true,
       announcement: false,
@@ -50,31 +27,60 @@ class FCMController extends GetxController {
       provisional: false,
       sound: true,
     );
-    await FirebaseMessaging.instance
-        .setForegroundNotificationPresentationOptions(
-      alert: true, // Required to display a heads up notification
+  }
+
+  Future<String?> _getToken() async {
+    try {
+      String? token = await _messaging.getToken(
+        vapidKey: 'KEY',
+      );
+
+      fcmToken.value = token!;
+      print({"token: ${fcmToken.value}"});
+    } catch (e) {
+      print(e);
+    }
+  }
+
+  Future<void> _initNotification() async {
+    await _messaging.setForegroundNotificationPresentationOptions(
+      alert: true,
       badge: true,
       sound: true,
     );
+
+    FirebaseMessaging.onMessage.listen((RemoteMessage message) async {
+      _onMessage(message);
+    });
+
+    FirebaseMessaging.onMessageOpenedApp.listen((RemoteMessage message) {
+      print(message);
+    });
+
+    FirebaseMessaging.onBackgroundMessage(_firebaseMessagingBackgroundHandler);
   }
 
-  Future<void>? _onResume(Map<String, dynamic> message) {
-    print("_onResume : $message");
+  Future<void>? _onMessage(RemoteMessage message) {
+    print("_onMessage : ${message.data}");
     return null;
   }
 
-  Future<void>? _onLaunch(Map<String, dynamic> message) {
-    print("_onLaunch : $message");
-    _actionOnNotification(message);
-    return null;
+  Future<void> _firebaseMessagingBackgroundHandler(
+      RemoteMessage message) async {
+    print("_onLaunch : ${message.data}");
   }
 
-  void _actionOnNotification(Map<String, dynamic> messageMap) {
-    message(messageMap);
-  }
-
-  Future<void>? _onMessage(Map<String, dynamic> message) {
-    print("_onMessage : $message");
-    return null;
+  Future<void> updateFCM(_fcmToken) async {
+    AuthController authController = Get.find();
+    Future.delayed(const Duration(seconds: 1), () {
+      if (authController.isLoggedIn.value) {
+        authController.updateFCMToken(fcmToken.value);
+      }
+    });
   }
 }
+
+
+  // void _actionOnNotification(Map<String, dynamic> messageMap) {
+  //   message(messageMap);
+  // }

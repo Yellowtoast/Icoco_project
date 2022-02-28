@@ -2,6 +2,7 @@ import 'package:app/configs/colors.dart';
 import 'package:app/configs/routes.dart';
 import 'package:app/configs/size.dart';
 import 'package:app/configs/text_styles.dart';
+import 'package:app/controllers/fcm_controller.dart';
 import 'package:app/pages/signup/signup_step5.dart';
 import 'package:app/widgets/appbar.dart';
 import 'package:app/widgets/button/button.dart';
@@ -9,10 +10,13 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 class SignupStep4Page extends StatelessWidget {
-  const SignupStep4Page({Key? key}) : super(key: key);
+  SignupStep4Page({Key? key}) : super(key: key);
+
+  FCMController _fcmController = Get.find();
 
   @override
   Widget build(BuildContext context) {
+    _fcmController.getPermisstionFromUser();
     return Scaffold(
       appBar: IcoAppbar(title: "알림 동의"),
       body: SafeArea(

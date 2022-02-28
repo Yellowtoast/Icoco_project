@@ -1,6 +1,7 @@
-import 'package:app/bindings/splash_binding.dart';
+import 'package:app/bindings/init_bindings.dart';
 import 'package:app/configs/colors.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -12,8 +13,10 @@ Future<void> main() async {
   await Hive.initFlutter();
   Hive.registerAdapter(UserAdapter());
   Hive.registerAdapter(ReservationAdapter());
-  WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
+
+  WidgetsFlutterBinding.ensureInitialized();
+
   runApp(const IcocoApp());
 }
 

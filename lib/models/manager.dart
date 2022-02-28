@@ -1,9 +1,10 @@
-import '../configs/constants.dart';
+import 'package:app/configs/constants.dart';
 
 class ManagerModel {
   final String uid;
   final String name;
   final String company;
+  final String companyUid;
   final List<dynamic> dispatchableArea;
   final String? birthDate;
   int totalReview;
@@ -28,6 +29,7 @@ class ManagerModel {
     required this.company,
     required this.dispatchableArea,
     required this.birthDate,
+    required this.companyUid,
     this.totalReviewRate = 0,
     this.totalReview = 0,
     this.status,
@@ -49,7 +51,8 @@ class ManagerModel {
     return ManagerModel(
       uid: data['uid'],
       name: data['name'] ?? '',
-      company: data['company'] ?? '',
+      company: '',
+      companyUid: data['company'] ?? '',
       dispatchableArea: data['dispatchableArea'] ?? [],
       birthDate: data['birthDate'] ?? '',
       totalReview: data['totalReview'] ?? 0,
@@ -72,7 +75,7 @@ class ManagerModel {
   Map<String, dynamic> toJson() => {
         "uid": uid,
         "name": name,
-        "company": company,
+        "company": companyUid,
         "dispatchableArea": dispatchableArea,
         "birthDate": birthDate,
         "totalReview": totalReview,

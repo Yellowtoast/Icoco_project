@@ -31,7 +31,9 @@ class NoticePage extends StatelessWidget {
       ),
       body: Obx(() {
         return (_noticeController.noticeModelList.isEmpty)
-            ? EmptyListPage(title: '공지사항이 없습니다', subtitle: '등록된 공지 글이 없습니다')
+            ? Center(
+                child: EmptyListPage(
+                    title: '공지사항이 없습니다', subtitle: '등록된 공지 글이 없습니다'))
             : SizedBox(
                 height: _noticeController.noticeModelList.length * 88,
                 child: Column(

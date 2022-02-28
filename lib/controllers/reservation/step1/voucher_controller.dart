@@ -5,7 +5,9 @@ import 'package:app/controllers/auth_controller.dart';
 import 'package:app/controllers/home_controller.dart';
 import 'package:app/helpers/validator.dart';
 import 'package:app/configs/voucher_fee.dart';
+import 'package:app/models/fee_info.dart';
 import 'package:app/models/reservation.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:dart_jsonwebtoken/dart_jsonwebtoken.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -37,22 +39,24 @@ class VoucherController extends GetxController {
   RxBool isButtonValid = false.obs;
   Rxn<String> regNumErrorText = Rxn<String>();
   AuthController authController = Get.find();
+  final FirebaseFirestore db = FirebaseFirestore.instance;
+  late FeeModel feeModelCompany;
+  late FeeModel feeModelDefault;
 
   @override
   void onInit() {
+    super.onInit();
+    getDefaultFeeInfoFirestore();
     if (voucherResult.value != null) {
       setVoucherInfo(voucherResult.value!,
           authController.reservationModel.value!.extraCost!);
     }
-
-    super.onInit();
   }
 
   @override
   void onReady() {
-    // ever(voucherResult, setVoucherInfo);
-
     super.onReady();
+    // ever(voucherResult, setVoucherInfo);
   }
 
   setVoucherInfo(String? _voucher, int additionalFee) {
@@ -119,27 +123,6 @@ class VoucherController extends GetxController {
     }
   }
 
-  // Rxn<String>? checkVoucherValid() {
-  //   Rxn<String> fullVoucher = Rxn<String>();
-  //   if ((voucherType1.value != null &&
-  //           voucherType2.value != null &&
-  //           voucherType3.value != null) ||
-  //       (voucherType1.value == 'C' && voucherType2.value != null)) {
-  //     if (voucherType1.value == 'C') {
-  //       fullVoucher.value = voucherType1.value! + '-' + voucherType2.value!;
-  //     } else {
-  //       fullVoucher.value = voucherType1.value! +
-  //           '-' +
-  //           voucherType2.value! +
-  //           '-' +
-  //           voucherType3.value!;
-  //       return fullVoucher;
-  //     }
-  //   } else {
-  //     return fullVoucher;
-  //   }
-  // }
-
   makeFullVoucherResult() {
     late String fullVoucher;
     if (voucherType1.value == 'C') {
@@ -168,11 +151,11 @@ class VoucherController extends GetxController {
 
   getVoucherCostInfo(String voucher, int additionalFee) {
     depositFeeList.assignAll(depositFeePerWeek);
-    totalFeeList.assignAll(serviceFeeInfo[voucher]!);
+    totalFeeList.assignAll(feeModelCompany.serviceFeeInfo[voucher]!);
     for (int i = 0; i < 5; i++) {
       totalFeeList[i] = totalFeeList[i] + depositFeeList[i] + additionalFee;
     }
-    govermentFeeList.assignAll(govermentFeeInfo[voucher]!);
+    govermentFeeList.assignAll(feeModelCompany.govermentFeeInfo[voucher]!);
     calculateUserFee();
     calculateRemainingFee();
     showResult.value = true;
@@ -190,11 +173,27 @@ class VoucherController extends GetxController {
     }
   }
 
-  // calculateRemainingFee() {
-  //   for (int i = 0; i < 5; i++) {
-  //     remainingFeeList[i] = userFeeList[i].toInt() - depositFeeList[i].toInt();
-  //   }
-  // }
+  getCompanyFeeInfoFirestore(String companyId) async {
+    var documentSnapshot = await db.collection('Company').doc(companyId).get();
+    FeeModel model = FeeModel.fromJson({
+      'companyId': companyId,
+      'govermentFeeInfo': documentSnapshot.data()!['govermentFeeInfo'],
+      'serviceFeeInfo': documentSnapshot.data()!['serviceFeeInfo'],
+    });
+    feeModelCompany = model;
+    return model;
+  }
+
+  getDefaultFeeInfoFirestore() async {
+    var documentSnapshot = await db.collection('Admin').doc('info').get();
+    FeeModel model = FeeModel.fromJson({
+      'companyId': 'default',
+      'govermentFeeInfo': documentSnapshot.data()!['govermentFeeInfo'],
+      'serviceFeeInfo': documentSnapshot.data()!['serviceFeeInfo'],
+    });
+    feeModelDefault = model;
+    return model;
+  }
 
   getFullRegNum() {
     String fullRegNum;

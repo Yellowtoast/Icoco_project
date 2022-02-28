@@ -14,7 +14,7 @@ class ManagerController extends GetxController {
   @override
   onInit() async {
     if (authController.reservationModel.value != null) {
-      await getFirebaseManagerModel(
+      await getManagerFirestore(
           authController.reservationModel.value!.reservationNumber,
           authController.reservationModel.value!.managersId);
     }
@@ -23,7 +23,7 @@ class ManagerController extends GetxController {
   }
 
   // Future<RxList<Rxn<ManagerModel>>>
-  getFirebaseManagerModel(
+  getManagerFirestore(
       String reservationNumber, List<dynamic>? managerUidList) async {
     try {
       if (reservationNumber != "" && managerUidList != null) {
@@ -33,8 +33,15 @@ class ManagerController extends GetxController {
               .where('uid', isEqualTo: managerUid)
               .get();
 
+          var company = await db
+              .collection('Company')
+              .doc(doc.docs[0].data()['company'])
+              .get();
+          String companyName = company.data()!['name'];
+
           Rxn<ManagerModel> model = Rxn<ManagerModel>();
-          model.value = ManagerModel.fromJson(doc.docs[0].data());
+          model.value = ManagerModel.fromJson(
+              {'company': companyName, ...doc.docs[0].data()});
           model.value!.managerRate = calcManagerRate(
               model.value!.totalReview, model.value!.totalReviewRate);
           managerModelList.add(model);

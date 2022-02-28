@@ -125,7 +125,7 @@ class EmptyListPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ConstrainedBox(
-      constraints: BoxConstraints(maxWidth: 800, minHeight: 500),
+      constraints: BoxConstraints(maxHeight: 700, minHeight: 400),
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         crossAxisAlignment: CrossAxisAlignment.center,
