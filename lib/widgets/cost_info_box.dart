@@ -18,9 +18,9 @@ class CostInfoBox extends StatelessWidget {
   }) : super(key: key);
   String title;
   TextStyle titleStyle;
-  RxList<int> totalFee;
-  RxList<int> userFee;
-  RxList<int> govermentFee;
+  List<int> totalFee;
+  List<int> userFee;
+  List<int> govermentFee;
   Widget? icon;
   Rx<bool> isVoucherUsed;
   int weekIndex;

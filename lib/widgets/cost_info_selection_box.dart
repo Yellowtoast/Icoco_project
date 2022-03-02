@@ -24,11 +24,11 @@ class CostInfoSelectionBox extends StatelessWidget {
   }) : super(key: key);
   String title;
   TextStyle titleStyle;
-  RxList<int> totalFee;
-  RxList<int> userFee;
-  RxList<int> govermentFee;
-  RxList<int> depositFee;
-  RxList<int> remainingFee;
+  List<int> totalFee;
+  List<int> userFee;
+  List<int> govermentFee;
+  List<int> depositFee;
+  List<int> remainingFee;
   Rx<bool> isVoucherUsed;
   int feeTypeIndex;
   Rxn<String> useDateSelected;
@@ -155,8 +155,7 @@ class CostInfoSelectionBox extends StatelessWidget {
                         flex: 10,
                         child: Text(
                           // "${numFormat.format(depositFee.value[feeTypeIndex] - 100000)}원",
-                          numFormat.format(depositFee.value[feeTypeIndex]) +
-                              " 원",
+                          numFormat.format(depositFee[feeTypeIndex]) + " 원",
                           style: IcoTextStyle.mediumTextStyle15Grey4,
                         ),
                       )
@@ -180,7 +179,7 @@ class CostInfoSelectionBox extends StatelessWidget {
                       Expanded(
                         flex: 10,
                         child: Text(
-                          "${numFormat.format(remainingFee.value[feeTypeIndex])}원",
+                          "${numFormat.format(remainingFee[feeTypeIndex])}원",
                           style: IcoTextStyle.mediumTextStyle15Grey4,
                         ),
                       )

@@ -26,12 +26,11 @@ class VoucherController extends GetxController {
   RxList<String> voucherType2List = ['가', '통합', '라'].obs;
   RxList<String> voucherType3List = ['1', '2', '3'].obs;
   RxBool showResult = false.obs;
-  RxList<int> userFeeList = [0, 0, 0, 0, 0].obs;
-  RxList<int> govermentFeeList = [0, 0, 0, 0, 0].obs;
-  RxList<int> depositFeeList = [0, 0, 0, 0, 0].obs;
-  RxList<int> remainingFeeList = [0, 0, 0, 0, 0].obs;
-  RxList<int> totalFeeList = [0, 0, 0, 0, 0].obs;
-  // RxInt additionalFee = 0.obs;
+  List<int> userFeeList = [0, 0, 0, 0, 0];
+  List<int> govermentFeeList = [0, 0, 0, 0, 0];
+  List<int> depositFeeList = [0, 0, 0, 0, 0];
+  List<int> remainingFeeList = [0, 0, 0, 0, 0];
+  List<int> totalFeeList = [0, 0, 0, 0, 0];
   TextEditingController frontRegNumController = TextEditingController();
   TextEditingController backRegNumController = TextEditingController();
   Rxn<User?> firebaseAuthUser = Rxn<User?>();
@@ -149,15 +148,17 @@ class VoucherController extends GetxController {
     }
   }
 
-  getVoucherCostInfo(String voucher, int additionalFee) {
+  getVoucherCostInfo(String voucher, int additionalFee) async {
+    await getCompanyFeeInfoFirestore('51KRu3JuYAUKYKvLdEW2AGyCqr23');
     depositFeeList.assignAll(depositFeePerWeek);
-    totalFeeList.assignAll(feeModelCompany.serviceFeeInfo[voucher]!);
+    print(feeModelCompany.serviceFeeInfo[voucher]);
+    totalFeeList.assignAll(feeModelCompany.serviceFeeInfo[voucher]);
     for (int i = 0; i < 5; i++) {
       totalFeeList[i] = totalFeeList[i] + depositFeeList[i] + additionalFee;
     }
     govermentFeeList.assignAll(feeModelCompany.govermentFeeInfo[voucher]!);
-    calculateUserFee();
-    calculateRemainingFee();
+    await calculateUserFee();
+    await calculateRemainingFee();
     showResult.value = true;
   }
 
@@ -173,13 +174,10 @@ class VoucherController extends GetxController {
     }
   }
 
-  getCompanyFeeInfoFirestore(String companyId) async {
-    var documentSnapshot = await db.collection('Company').doc(companyId).get();
-    FeeModel model = FeeModel.fromJson({
-      'companyId': companyId,
-      'govermentFeeInfo': documentSnapshot.data()!['govermentFeeInfo'],
-      'serviceFeeInfo': documentSnapshot.data()!['serviceFeeInfo'],
-    });
+  getCompanyFeeInfoFirestore(String companyid) async {
+    var documentSnapshot = await db.collection('Company').doc(companyid).get();
+    FeeModel model = FeeModel.fromJson(
+        {'companyId': companyid, ...documentSnapshot.data()!});
     feeModelCompany = model;
     return model;
   }

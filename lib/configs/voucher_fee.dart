@@ -153,4 +153,4 @@ Map totalFeePerWeek = {
   'type4': 1184000,
 };
 
-List<int> depositFeePerWeek = [50000, 50000, 100000, 100000, 100000];
+Iterable<int> depositFeePerWeek = [50000, 50000, 100000, 100000, 100000];

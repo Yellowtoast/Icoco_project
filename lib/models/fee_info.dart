@@ -1,7 +1,7 @@
 class FeeModel {
   final String companyId;
-  final Map<String, List<int>> govermentFeeInfo;
-  final Map<String, List<int>> serviceFeeInfo;
+  final Map<dynamic, dynamic> govermentFeeInfo;
+  final Map<dynamic, dynamic> serviceFeeInfo;
 
   FeeModel(
       {required this.companyId,
@@ -11,14 +11,14 @@ class FeeModel {
   factory FeeModel.fromJson(Map data) {
     return FeeModel(
       companyId: data['companyId'] ?? {},
-      govermentFeeInfo: data['govermentFeeInfo'] ?? {},
-      serviceFeeInfo: data['serviceFeeInfo'] ?? {},
+      govermentFeeInfo: data['revenueCostInfo'] ?? {},
+      serviceFeeInfo: data['serviceCostInfo'] ?? {},
     );
   }
 
   Map<String, dynamic> toJson() => {
         "companyId": companyId,
-        "govermentFeeInfo": govermentFeeInfo,
-        "serviceFeeInfo": serviceFeeInfo,
+        "revenueCostInfo": govermentFeeInfo,
+        "serviceCostInfo": serviceFeeInfo,
       };
 }
