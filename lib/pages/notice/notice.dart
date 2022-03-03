@@ -2,16 +2,16 @@ import 'package:app/configs/colors.dart';
 import 'package:app/controllers/notice_controller.dart';
 import 'package:app/helpers/formatter.dart';
 import 'package:app/configs/text_styles.dart';
-import 'package:app/pages/loading.dart';
-import 'package:app/pages/notice_detail.dart';
-import 'package:app/widgets/appbar.dart';
+import 'package:app/widgets/loading/loading.dart';
+import 'package:app/pages/notice/notice_detail.dart';
+import 'package:app/widgets/appbar/appbar.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 
-import '../configs/routes.dart';
-import 'event/event.dart';
+import '../../configs/routes.dart';
+import '../event/event.dart';
 
 class NoticePage extends StatelessWidget {
   NoticePage({Key? key}) : super(key: key);

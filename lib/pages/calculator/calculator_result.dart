@@ -3,13 +3,13 @@ import 'package:app/configs/routes.dart';
 import 'package:app/configs/size.dart';
 import 'package:app/configs/text_styles.dart';
 import 'package:app/controllers/auth_controller.dart';
-import 'package:app/controllers/reservation/step1/voucher_controller.dart';
+import 'package:app/controllers/voucher_controller.dart';
 
-import 'package:app/pages/loading.dart';
+import 'package:app/widgets/loading/loading.dart';
 import 'package:app/widgets/button/button.dart';
-import 'package:app/widgets/cost_info_box.dart';
+import 'package:app/widgets/info_box/cost_info_box.dart';
 import 'package:app/widgets/dropdown/voucher_dropdown.dart';
-import 'package:app/widgets/appbar.dart';
+import 'package:app/widgets/appbar/appbar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';

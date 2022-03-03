@@ -1,8 +1,8 @@
 import 'package:app/configs/colors.dart';
 import 'package:flutter/material.dart';
 
-class ContentsButton extends StatelessWidget {
-  const ContentsButton({
+class SmallTextButton extends StatelessWidget {
+  const SmallTextButton({
     Key? key,
   }) : super(key: key);
 

@@ -6,9 +6,9 @@ import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 import 'package:app/configs/enum.dart';
 
-class CostInfoSelectionBox extends StatelessWidget {
+class CostInfoSelectButton extends StatelessWidget {
   var numFormat = NumberFormat('###,###,###,###');
-  CostInfoSelectionBox({
+  CostInfoSelectButton({
     Key? key,
     required this.title,
     required this.totalFee,

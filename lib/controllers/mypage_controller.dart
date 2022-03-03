@@ -1,11 +1,7 @@
-import 'package:app/configs/insurance_standards.dart';
 import 'package:app/controllers/auth_controller.dart';
-import 'package:app/models/reservation.dart';
 import 'package:app/models/review.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:extended_masked_text/extended_masked_text.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 class MypageController extends GetxController {

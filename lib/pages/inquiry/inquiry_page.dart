@@ -9,7 +9,7 @@ import 'package:app/controllers/inquiry_controller.dart';
 import 'package:app/controllers/manager_controller.dart';
 import 'package:app/controllers/mypage_controller.dart';
 import 'package:app/controllers/review_controller.dart';
-import 'package:app/widgets/appbar.dart';
+import 'package:app/widgets/appbar/appbar.dart';
 import 'package:app/widgets/button/button.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -17,8 +17,8 @@ import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 
-import '../widgets/modal/bottomup_modal2.dart';
-import 'loading.dart';
+import '../../widgets/modal/bottomup_modal2.dart';
+import '../../widgets/loading/loading.dart';
 
 class InquiryPage extends StatelessWidget {
   InquiryPage({Key? key}) : super(key: key);

@@ -1,7 +1,7 @@
 import 'package:app/configs/colors.dart';
 import 'package:app/configs/enum.dart';
 import 'package:app/controllers/auth_controller.dart';
-import 'package:app/controllers/reservation/step2/substep_controllers/date_info_controller.dart';
+import 'package:app/controllers/date_info_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:webview_flutter/webview_flutter.dart';

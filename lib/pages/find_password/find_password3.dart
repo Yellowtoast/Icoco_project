@@ -6,7 +6,7 @@ import 'package:app/controllers/auth_controller.dart';
 import 'package:app/controllers/password_controller.dart';
 import 'package:app/helpers/validator.dart';
 import 'package:app/widgets/button/button.dart';
-import 'package:app/widgets/appbar.dart';
+import 'package:app/widgets/appbar/appbar.dart';
 import 'package:app/widgets/textfield/textfield.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';

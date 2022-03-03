@@ -1,8 +1,8 @@
 import 'package:app/configs/enum.dart';
 import 'package:app/controllers/auth_controller.dart';
-import 'package:app/controllers/reservation/step1/voucher_controller.dart';
-import 'package:app/controllers/reservation/step2/substep_controllers/additional_fee_controller.dart';
-import 'package:app/controllers/reservation/step2/substep_controllers/date_info_controller.dart';
+import 'package:app/controllers/voucher_controller.dart';
+import 'package:app/controllers/additional_fee_controller.dart';
+import 'package:app/controllers/date_info_controller.dart';
 import 'package:app/helpers/enum_to_string.dart';
 import 'package:app/helpers/formatter.dart';
 import 'package:app/models/reservation.dart';
