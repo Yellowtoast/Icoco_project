@@ -121,7 +121,6 @@ class ReserveStep2_1_No extends StatelessWidget {
                                               child: Image.network(
                                                 companyController
                                                         .companyModelList[index]
-                                                        .value!
                                                         .thumbnail ??
                                                     "images/empty_profile.png",
                                                 fit: BoxFit.cover,
@@ -148,7 +147,7 @@ class ReserveStep2_1_No extends StatelessWidget {
                                               Text.rich(
                                                 TextSpan(
                                                   text:
-                                                      "${companyController.companyModelList[index].value!.companyName}\n",
+                                                      "${companyController.companyModelList[index].companyName}\n",
                                                   style: IcoTextStyle
                                                       .boldTextStyle19B,
                                                   children: <TextSpan>[
@@ -156,7 +155,6 @@ class ReserveStep2_1_No extends StatelessWidget {
                                                         text: companyController
                                                             .companyModelList[
                                                                 index]
-                                                            .value!
                                                             .address
                                                             .split("/")[0],
                                                         style: IcoTextStyle
@@ -202,11 +200,10 @@ class ReserveStep2_1_No extends StatelessWidget {
                                                           (companyController
                                                                       .companyModelList[
                                                                           index]
-                                                                      .value!
                                                                       .totalReviewRate ==
                                                                   0)
                                                               ? "0"
-                                                              : "${(companyController.companyModelList[index].value!.totalReviewRate ~/ companyController.companyModelList[index].value!.totalReview).toDouble()}",
+                                                              : "${(companyController.companyModelList[index].totalReviewRate ~/ companyController.companyModelList[index].totalReview).toDouble()}",
                                                           style: IcoTextStyle
                                                               .regularTextStyle12B,
                                                         ),
@@ -239,7 +236,7 @@ class ReserveStep2_1_No extends StatelessWidget {
                                                               .center,
                                                       children: [
                                                         Text(
-                                                          "리뷰 ${companyController.companyModelList[index].value!.totalReview}+",
+                                                          "리뷰 ${companyController.companyModelList[index].totalReview}+",
                                                           style: IcoTextStyle
                                                               .regularTextStyle12Grey4,
                                                         ),
@@ -263,7 +260,6 @@ class ReserveStep2_1_No extends StatelessWidget {
                                                       companyController
                                                           .companyModelList[
                                                               index]
-                                                          .value!
                                                           .uid!,
                                                       'company',
                                                       0,

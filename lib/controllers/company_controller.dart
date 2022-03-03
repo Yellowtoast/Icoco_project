@@ -1,3 +1,4 @@
+import 'package:app/controllers/reservation/step1/voucher_controller.dart';
 import 'package:app/models/company.dart';
 import 'package:app/models/reservation.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -5,15 +6,24 @@ import 'package:get/get.dart';
 
 class CompanyController extends GetxController {
   final FirebaseFirestore db = FirebaseFirestore.instance;
-  RxList<Rxn<CompanyModel>> companyModelList = RxList<Rxn<CompanyModel>>();
+  RxList<CompanyModel> companyModelList = RxList<CompanyModel>();
   Rxn<int> companySelected = Rxn<int>();
   RxBool isSelectedConpany = false.obs;
   Rxn<CompanyModel> companyModel = Rxn<CompanyModel>();
-  Rxn<String> chosenCompanyUid = Rxn<String>();
+  Rx<String> chosenCompanyUid = ''.obs;
+
+  @override
+  void onReady() {
+    ever(companySelected, (_) {
+      VoucherController voucherController = Get.find();
+      voucherController.companyUid.value =
+          companyModelList[companySelected.value!].uid!;
+    });
+    super.onReady();
+  }
 
   updateCompanyToModel(Rxn<ReservationModel?> model) {
-    model.value!.chosenCompany =
-        companyModelList[companySelected.value!].value!.uid;
+    model.value!.chosenCompany = companyModelList[companySelected.value!].uid;
   }
 
   Future<CompanyModel?> getFirebaseCompanyByUid(String? uid) async {
@@ -34,7 +44,7 @@ class CompanyController extends GetxController {
 
   Future<CompanyModel?> getCompanyAllDocsFirebase() async {
     List<dynamic> queryDocumentList = [];
-    RxList<Rxn<CompanyModel>> allCompanyList = RxList<Rxn<CompanyModel>>();
+    RxList<CompanyModel> allCompanyList = RxList<CompanyModel>();
     companyModelList.clear();
     try {
       var doc = await db
@@ -45,8 +55,8 @@ class CompanyController extends GetxController {
           queryDocumentList.add(doc);
         });
         queryDocumentList.forEach((element) {
-          Rxn<CompanyModel> model = Rxn<CompanyModel>();
-          model.value = CompanyModel.fromJson(element.data());
+          CompanyModel model;
+          model = CompanyModel.fromJson(element.data());
           companyModelList.add(model);
         });
         companyModelList.refresh();

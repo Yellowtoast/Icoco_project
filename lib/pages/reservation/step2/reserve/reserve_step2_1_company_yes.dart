@@ -88,18 +88,16 @@ class ReserveStep2_1_Yes extends StatelessWidget {
                                 itemNum: index,
                                 selectedItem: companyController.companySelected,
                                 mainTitle: companyController
-                                    .companyModelList[index].value!.companyName,
+                                    .companyModelList[index].companyName,
                                 subTitle: companyController
-                                    .companyModelList[index].value!.address,
+                                    .companyModelList[index].address,
                                 onTapArrow: () async {
                                   startLoadingIndicator();
 
                                   reviewController.finalReviewModelList =
                                       await reviewController.getJsonReviews(
                                           companyController
-                                              .companyModelList[index]
-                                              .value!
-                                              .uid!,
+                                              .companyModelList[index].uid!,
                                           'company',
                                           0,
                                           3,

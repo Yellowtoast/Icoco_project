@@ -26,21 +26,21 @@ class VoucherController extends GetxController {
   RxList<String> voucherType2List = ['가', '통합', '라'].obs;
   RxList<String> voucherType3List = ['1', '2', '3'].obs;
   RxBool showResult = false.obs;
-  List<int> userFeeList = [0, 0, 0, 0, 0];
-  List<int> govermentFeeList = [0, 0, 0, 0, 0];
-  List<int> depositFeeList = [0, 0, 0, 0, 0];
-  List<int> remainingFeeList = [0, 0, 0, 0, 0];
-  List<int> totalFeeList = [0, 0, 0, 0, 0];
+  List<dynamic> userFeeList = [0, 0, 0, 0, 0];
+  List<dynamic> govermentFeeList = [0, 0, 0, 0, 0];
+  List<dynamic> depositFeeList = [0, 0, 0, 0, 0];
+  List<dynamic> remainingFeeList = [0, 0, 0, 0, 0];
+  late List<dynamic> totalFeeList;
   TextEditingController frontRegNumController = TextEditingController();
   TextEditingController backRegNumController = TextEditingController();
-  Rxn<User?> firebaseAuthUser = Rxn<User?>();
-  late serviceDurationType maxSupportedWeek;
+  // late serviceDurationType maxSupportedWeek;
   RxBool isButtonValid = false.obs;
   Rxn<String> regNumErrorText = Rxn<String>();
   AuthController authController = Get.find();
   final FirebaseFirestore db = FirebaseFirestore.instance;
   late FeeModel feeModelCompany;
   late FeeModel feeModelDefault;
+  Rx<String> companyUid = ''.obs;
 
   @override
   void onInit() {
@@ -58,17 +58,18 @@ class VoucherController extends GetxController {
     // ever(voucherResult, setVoucherInfo);
   }
 
-  setVoucherInfo(String? _voucher, int additionalFee) {
+  setVoucherInfo(String? _voucher, int additionalFee) async {
     if (_voucher == null || _voucher == '') {
       print('no voucher info');
       return;
     } else {
       voucherResult.value = _voucher;
       if (_voucher != '일반서비스') {
-        splitVoucherResult(_voucher);
-        setDropDownList(null);
+        await splitVoucherResult(_voucher);
+        await setDropDownList(null);
       }
-      getVoucherCostInfo(_voucher, additionalFee);
+      print(companyUid.value);
+      await getVoucherCostInfo(_voucher, additionalFee, companyUid.value);
     }
   }
 
@@ -148,15 +149,24 @@ class VoucherController extends GetxController {
     }
   }
 
-  getVoucherCostInfo(String voucher, int additionalFee) async {
-    await getCompanyFeeInfoFirestore('51KRu3JuYAUKYKvLdEW2AGyCqr23');
-    depositFeeList.assignAll(depositFeePerWeek);
-    print(feeModelCompany.serviceFeeInfo[voucher]);
-    totalFeeList.assignAll(feeModelCompany.serviceFeeInfo[voucher]);
+  getVoucherCostInfo(
+      String voucher, int additionalFee, String companyUid) async {
+    depositFeeList = depositFeePerWeek.toList();
+    if (companyUid.isNotEmpty) {
+      await getCompanyFeeInfoFirestore(companyUid);
+      totalFeeList = feeModelCompany.serviceFeeInfo[voucher];
+      govermentFeeList = feeModelCompany.govermentFeeInfo[voucher];
+    } else {
+      await getDefaultFeeInfoFirestore();
+      totalFeeList = feeModelDefault.serviceFeeInfo[voucher];
+      govermentFeeList = feeModelDefault.govermentFeeInfo[voucher];
+    }
+
     for (int i = 0; i < 5; i++) {
       totalFeeList[i] = totalFeeList[i] + depositFeeList[i] + additionalFee;
     }
-    govermentFeeList.assignAll(feeModelCompany.govermentFeeInfo[voucher]!);
+
+    print(govermentFeeList);
     await calculateUserFee();
     await calculateRemainingFee();
     showResult.value = true;
@@ -184,22 +194,17 @@ class VoucherController extends GetxController {
 
   getDefaultFeeInfoFirestore() async {
     var documentSnapshot = await db.collection('Admin').doc('info').get();
-    FeeModel model = FeeModel.fromJson({
-      'companyId': 'default',
-      'govermentFeeInfo': documentSnapshot.data()!['govermentFeeInfo'],
-      'serviceFeeInfo': documentSnapshot.data()!['serviceFeeInfo'],
-    });
+    FeeModel model =
+        FeeModel.fromJson({'companyId': 'info', ...documentSnapshot.data()!});
     feeModelDefault = model;
     return model;
   }
 
   getFullRegNum() {
     String fullRegNum;
-
     fullRegNum = frontRegNumController.value.text +
         "-" +
         backRegNumController.value.text;
-
     return fullRegNum;
   }
 

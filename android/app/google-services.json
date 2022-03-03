@@ -9,7 +9,7 @@
       "client_info": {
         "mobilesdk_app_id": "1:25128848348:android:662e1d69c938973eae5d19",
         "android_client_info": {
-          "package_name": "com.example.app"
+          "package_name": "com.icoco.app"
         }
       },
       "oauth_client": [
@@ -31,10 +31,46 @@
               "client_type": 3
             },
             {
-              "client_id": "25128848348-f2kqm5som25subbev9pid6oo876tsbtf.apps.googleusercontent.com",
+              "client_id": "25128848348-54mmeeald0erd2nruk3v4u8it61oeumn.apps.googleusercontent.com",
               "client_type": 2,
               "ios_info": {
-                "bundle_id": "com.example.app"
+                "bundle_id": "com.icoco.app"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:25128848348:android:782a24df37b42d57ae5d19",
+        "android_client_info": {
+          "package_name": "com.icoco.app"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "25128848348-mduboo4la6pdurisilp5k3pqloddner5.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDEkFNLfx3gH1_V61kH9vLpTysR2C43vH8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "25128848348-mduboo4la6pdurisilp5k3pqloddner5.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "25128848348-54mmeeald0erd2nruk3v4u8it61oeumn.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.icoco.app"
               }
             }
           ]

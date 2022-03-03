@@ -36,7 +36,9 @@ class LoginPage extends StatelessWidget {
     return Form(
       key: _formKey,
       child: Scaffold(
-        appBar: IcoAppbar(title: '로그인'),
+        appBar: IcoAppbar(
+          title: '로그인',
+        ),
         body: SafeArea(
           child: Container(
             margin: const EdgeInsets.symmetric(horizontal: 20),
@@ -96,6 +98,7 @@ class LoginPage extends StatelessWidget {
                       children: [
                         IcoButton(
                             onPressed: () async {
+                              startLoadingIndicator();
                               await loginController.login(
                                   authController.firebaseAuthUser,
                                   authController.isLoggedIn);
@@ -119,7 +122,7 @@ class LoginPage extends StatelessWidget {
                           ),
                         ),
                         SizedBox(
-                          height: 25,
+                          height: 20,
                         )
                       ],
                     ),

@@ -32,7 +32,7 @@ class CompanyDetailPage extends StatelessWidget {
       return Scaffold(
         appBar: IcoAppbar(
           title:
-              "${companyController.companyModelList[companyNum].value!.companyName}",
+              "${companyController.companyModelList[companyNum].companyName}",
           usePop: true,
           backgroundColor: IcoColors.purple2,
         ),
@@ -71,7 +71,6 @@ class CompanyDetailPage extends StatelessWidget {
                                     child: Image.network(
                                       companyController
                                               .companyModelList[companyNum]
-                                              .value!
                                               .thumbnail ??
                                           'https://t1.daumcdn.net/cfile/tistory/2446863653FC18972F',
                                       width: 89,
@@ -89,14 +88,13 @@ class CompanyDetailPage extends StatelessWidget {
                                       Text.rich(
                                         TextSpan(
                                           text:
-                                              "${companyController.companyModelList[companyNum].value!.companyName}\n",
+                                              "${companyController.companyModelList[companyNum].companyName}\n",
                                           style: IcoTextStyle.boldTextStyle19B,
                                           children: <TextSpan>[
                                             TextSpan(
                                                 text: companyController
                                                     .companyModelList[
                                                         companyNum]
-                                                    .value!
                                                     .address
                                                     .split("/")[0],
                                                 style: IcoTextStyle
@@ -137,11 +135,10 @@ class CompanyDetailPage extends StatelessWidget {
                                                   (companyController
                                                               .companyModelList[
                                                                   companyNum]
-                                                              .value!
                                                               .totalReviewRate ==
                                                           0)
                                                       ? "0"
-                                                      : "${(companyController.companyModelList[companyNum].value!.totalReviewRate ~/ companyController.companyModelList[companyNum].value!.totalReview).toDouble()}",
+                                                      : "${(companyController.companyModelList[companyNum].totalReviewRate ~/ companyController.companyModelList[companyNum].totalReview).toDouble()}",
                                                   style: IcoTextStyle
                                                       .regularTextStyle12B,
                                                 ),
@@ -170,7 +167,7 @@ class CompanyDetailPage extends StatelessWidget {
                                                   MainAxisAlignment.center,
                                               children: [
                                                 Text(
-                                                  "리뷰 ${companyController.companyModelList[companyNum].value!.totalReview}+",
+                                                  "리뷰 ${companyController.companyModelList[companyNum].totalReview}+",
                                                   style: IcoTextStyle
                                                       .regularTextStyle12Grey4,
                                                 ),
@@ -242,7 +239,7 @@ class CompanyDetailPage extends StatelessWidget {
                         ),
                         Text(
                           companyController
-                              .companyModelList[companyNum].value!.companyName,
+                              .companyModelList[companyNum].companyName,
                           style: IcoTextStyle.regularTextStyle13Grey4,
                         ),
                       ],
@@ -260,8 +257,7 @@ class CompanyDetailPage extends StatelessWidget {
                           ),
                         ),
                         Text(
-                          companyController
-                              .companyModelList[companyNum].value!.phone,
+                          companyController.companyModelList[companyNum].phone,
                           style: IcoTextStyle.regularTextStyle13Grey4,
                         ),
                       ],
@@ -280,7 +276,7 @@ class CompanyDetailPage extends StatelessWidget {
                         ),
                         Text(
                           companyController
-                              .companyModelList[companyNum].value!.homepage!,
+                              .companyModelList[companyNum].homepage!,
                           style: IcoTextStyle.regularTextStyle13Grey4,
                         ),
                       ],
@@ -298,8 +294,7 @@ class CompanyDetailPage extends StatelessWidget {
                           ),
                         ),
                         Text(
-                          companyController
-                              .companyModelList[companyNum].value!.blog!,
+                          companyController.companyModelList[companyNum].blog!,
                           style: IcoTextStyle.regularTextStyle13Grey4,
                         ),
                       ],
@@ -318,7 +313,7 @@ class CompanyDetailPage extends StatelessWidget {
                         ),
                         Text(
                           companyController
-                              .companyModelList[companyNum].value!.momcafe!,
+                              .companyModelList[companyNum].momcafe!,
                           style: IcoTextStyle.regularTextStyle13Grey4,
                         ),
                       ],
@@ -661,7 +656,6 @@ class CompanyDetailPage extends StatelessWidget {
                                                 .finalReviewModelList!,
                                             companyController
                                                 .companyModelList[companyNum]
-                                                .value!
                                                 .uid!,
                                             '기말',
                                             'company',

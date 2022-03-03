@@ -1,5 +1,5 @@
 // MainActivity.kt
-package com.example.app
+package com.icoco.app
 
 import io.flutter.embedding.android.FlutterActivity
 

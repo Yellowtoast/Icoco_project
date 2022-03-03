@@ -24,11 +24,11 @@ class CostInfoSelectionBox extends StatelessWidget {
   }) : super(key: key);
   String title;
   TextStyle titleStyle;
-  List<int> totalFee;
-  List<int> userFee;
-  List<int> govermentFee;
-  List<int> depositFee;
-  List<int> remainingFee;
+  List<dynamic> totalFee;
+  List<dynamic> userFee;
+  List<dynamic> govermentFee;
+  List<dynamic> depositFee;
+  List<dynamic> remainingFee;
   Rx<bool> isVoucherUsed;
   int feeTypeIndex;
   Rxn<String> useDateSelected;

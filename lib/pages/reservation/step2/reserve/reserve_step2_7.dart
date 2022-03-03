@@ -14,14 +14,19 @@ import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:app/configs/enum.dart';
 
+import '../../../../controllers/company_controller.dart';
+
 class ReserveStep2_7 extends StatelessWidget {
   ReserveStep2_7({Key? key}) : super(key: key);
   VoucherController voucherController = Get.find();
   ServiceInfoController serviceInfoController = Get.find();
   DateInfoController dateInfoController = Get.find();
+  CompanyController companyController = Get.find();
 
   @override
   Widget build(BuildContext context) {
+    // voucherController.companyUid.value = companyController
+    //     .companyModelList[companyController.companySelected.value!].uid!;
     return Scaffold(
       floatingActionButton: Obx(() {
         return IcoButton(
