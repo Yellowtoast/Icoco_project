@@ -1,9 +1,13 @@
 // ignore_for_file: prefer_final_fields, prefer_collection_literals, avoid_print
 import 'package:app/controllers/auth_controller.dart';
+import 'package:app/widgets/loading/loading.dart';
 import 'package:app/widgets/modal/exit_icon_modal.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+
+import '../configs/routes.dart';
+import '../widgets/modal/bottomup_modal2.dart';
 
 class FCMController extends GetxController {
   static FCMController get to => Get.find();
@@ -91,13 +95,24 @@ class FCMController extends GetxController {
       RemoteMessage message) async {
     print("_onLaunch : ${message.data}");
 
-    exitIconModal(
-        message.notification?.title ?? 'title',
-        message.notification?.body ?? 'BODY',
-        '확인',
-        () => Get.back(),
-        'icons/checked.svg',
-        50);
+    // exitIconModal(
+    //     message.notification?.title ?? 'title',
+    //     message.notification?.body ?? 'BODY',
+    //     '확인',
+    //     () => Get.back(),
+    //     'icons/checked.svg',
+    //     50);
+
+    BottomUpModal2(
+        title: message.notification?.title ?? "산후도우미 변경 완료",
+        subtitle: message.notification?.body ??
+            "산후도우미 변경 요청으로\n다른 도우미님으로 변경되었습니다\n메인페이지에서 확인바랍니다.",
+        buttonText: "확인 완료",
+        onTap: () async {
+          AuthController authController = Get.find();
+          loading(() => authController.setModelInfo());
+          Get.offAllNamed(Routes.HOME);
+        });
   }
 
   Future<void> updateFCM(_fcmToken) async {

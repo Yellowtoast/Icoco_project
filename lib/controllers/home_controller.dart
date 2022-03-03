@@ -12,7 +12,6 @@ import 'package:app/pages/home/home_step6.dart';
 import 'package:app/pages/home/home_step7.dart';
 import 'package:app/pages/home/home_step8.dart';
 import 'package:app/pages/home/home_step9.dart';
-import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 class HomeController extends GetxController {

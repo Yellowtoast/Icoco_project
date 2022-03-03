@@ -8,7 +8,7 @@ class IcoBottomBar extends StatelessWidget {
   IcoBottomBar({Key? key, required this.selectedIndex, required this.onTap})
       : super(key: key);
 
-  Rx<int> selectedIndex;
+  int selectedIndex;
   Function(int)? onTap;
 
   @override
@@ -20,31 +20,31 @@ class IcoBottomBar extends StatelessWidget {
       unselectedFontSize: 11,
       selectedItemColor: IcoColors.primary,
       type: BottomNavigationBarType.fixed,
-      currentIndex: selectedIndex.value,
+      currentIndex: selectedIndex,
       showSelectedLabels: true,
       selectedLabelStyle: IcoTextStyle.boldTextStyle11P,
       onTap: onTap,
       items: <BottomNavigationBarItem>[
         BottomNavigationBarItem(
-          icon: (selectedIndex.value == 0)
+          icon: (selectedIndex == 0)
               ? SvgPicture.asset("icons/active_nav_item1.svg")
               : SvgPicture.asset("icons/inactive_nav_item1.svg"),
           label: '홈',
         ),
         BottomNavigationBarItem(
-          icon: (selectedIndex.value == 1)
+          icon: (selectedIndex == 1)
               ? SvgPicture.asset("icons/active_nav_item2.svg")
               : SvgPicture.asset("icons/inactive_nav_item2.svg"),
           label: '요금계산기',
         ),
         BottomNavigationBarItem(
-          icon: (selectedIndex.value == 2)
+          icon: (selectedIndex == 2)
               ? SvgPicture.asset("icons/active_nav_item3.svg")
               : SvgPicture.asset("icons/inactive_nav_item3.svg"),
           label: '이벤트',
         ),
         BottomNavigationBarItem(
-          icon: (selectedIndex.value == 3)
+          icon: (selectedIndex == 3)
               ? SvgPicture.asset("icons/active_nav_item4.svg")
               : SvgPicture.asset("icons/inactive_nav_item4.svg"),
           label: '마이페이지',

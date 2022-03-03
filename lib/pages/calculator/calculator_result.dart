@@ -36,9 +36,7 @@ class CalculatorResultPage extends StatelessWidget {
         floatingActionButton: IcoButton(
             width: IcoSize.width - 40,
             onPressed: () async {
-              startLoadingIndicator();
-              await authController.setModelInfo();
-              Get.back();
+              loading(() => authController.setModelInfo());
               Get.offAllNamed(Routes.HOME);
             },
             active: true.obs,

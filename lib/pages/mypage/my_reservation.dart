@@ -77,6 +77,7 @@ class MyReservationPage extends StatelessWidget {
                 height: 27,
               ),
               Container(
+                width: IcoSize.width,
                 padding: EdgeInsets.symmetric(horizontal: 20),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -107,6 +108,7 @@ class MyReservationPage extends StatelessWidget {
                       height: 11,
                     ),
                     Row(
+                      crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         SizedBox(
                           width: 105,
@@ -115,10 +117,12 @@ class MyReservationPage extends StatelessWidget {
                             style: IcoTextStyle.boldTextStyle13B,
                           ),
                         ),
-                        Text(
-                          authController.reservationModel.value!.address,
-                          style: IcoTextStyle.regularTextStyle13Grey4,
-                          overflow: TextOverflow.clip,
+                        Expanded(
+                          child: Text(
+                            authController.reservationModel.value!.address,
+                            style: IcoTextStyle.regularTextStyle13Grey4,
+                            overflow: TextOverflow.clip,
+                          ),
                         ),
                       ],
                     ),
@@ -134,6 +138,7 @@ class MyReservationPage extends StatelessWidget {
                 color: IcoColors.grey1,
               ),
               Container(
+                width: IcoSize.width,
                 padding: EdgeInsets.symmetric(horizontal: 20),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -494,6 +499,7 @@ class MyReservationPage extends StatelessWidget {
                       height: 34,
                     ),
                     Row(
+                      crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         SizedBox(
                           width: 105,
@@ -502,13 +508,17 @@ class MyReservationPage extends StatelessWidget {
                             style: IcoTextStyle.boldTextStyle13B,
                           ),
                         ),
-                        Text(
-                          (authController.reservationModel.value!.requirement ==
-                                  '')
-                              ? '입력안함'
-                              : authController
-                                  .reservationModel.value!.requirement!,
-                          style: IcoTextStyle.regularTextStyle13Grey4,
+                        Expanded(
+                          child: Text(
+                            (authController
+                                        .reservationModel.value!.requirement ==
+                                    '')
+                                ? '입력안함'
+                                : authController
+                                    .reservationModel.value!.requirement!,
+                            style: IcoTextStyle.regularTextStyle13Grey4,
+                            overflow: TextOverflow.clip,
+                          ),
                         ),
                       ],
                     ),
@@ -516,6 +526,7 @@ class MyReservationPage extends StatelessWidget {
                       height: 11,
                     ),
                     Row(
+                      crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         SizedBox(
                           width: 105,
@@ -524,10 +535,12 @@ class MyReservationPage extends StatelessWidget {
                             style: IcoTextStyle.boldTextStyle13B,
                           ),
                         ),
-                        Text(
-                          authController.reservationModel.value!.address,
-                          style: IcoTextStyle.regularTextStyle13Grey4,
-                          overflow: TextOverflow.clip,
+                        Expanded(
+                          child: Text(
+                            authController.reservationModel.value!.address,
+                            style: IcoTextStyle.regularTextStyle13Grey4,
+                            overflow: TextOverflow.clip,
+                          ),
                         ),
                       ],
                     ),

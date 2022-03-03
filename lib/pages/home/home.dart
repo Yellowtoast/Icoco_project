@@ -1,5 +1,6 @@
 // ignore_for_file: prefer_const_constructors
 import 'package:app/controllers/auth_controller.dart';
+import 'package:app/controllers/autoscroll_controller.dart';
 import 'package:app/controllers/voucher_controller.dart';
 import 'package:app/pages/home/home_skeleton.dart';
 import 'package:app/widgets/tabbar/bottom_tabbar.dart';
@@ -16,21 +17,21 @@ class HomePage extends StatelessWidget {
   AuthController authController = Get.find();
   VoucherController voucherController = Get.find();
 
+  Rx<int> navBarIndex = 0.obs;
+
   @override
   Widget build(BuildContext context) {
     return Obx(() {
       return Scaffold(
           bottomNavigationBar: IcoBottomBar(
-              selectedIndex: navBarIndex,
+              selectedIndex: navBarIndex.value,
               onTap: (value) async {
                 navBarIndex.value = value;
-                if (value == 0) {}
               }),
           body: _homePagechildren[navBarIndex.value]);
     });
   }
 
-  Rx<int> navBarIndex = 0.obs;
   final List<Widget> _homePagechildren = [
     HomeSkeletonPage(),
     CalculatorPage(),

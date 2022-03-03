@@ -119,11 +119,10 @@ class TipPage extends StatelessWidget {
                                                     .thumbnails[0],
                                                 errorBuilder: (context, error,
                                                         stackTrace) =>
-                                                    Image.asset(
-                                                  "images/empty_profile.png",
-                                                  width: 28,
-                                                  height: 28,
-                                                  fit: BoxFit.cover,
+                                                    Container(
+                                                  height: 375,
+                                                  width: IcoSize.width,
+                                                  color: IcoColors.grey1,
                                                 ),
                                               ),
                                             ),

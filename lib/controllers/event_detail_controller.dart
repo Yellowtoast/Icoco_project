@@ -25,7 +25,7 @@ class EventDetailController extends GetxController {
   @override
   void onReady() async {
     super.onReady();
-    initRequest();
+    loading(() => initRequest());
   }
 
   @override
@@ -34,7 +34,6 @@ class EventDetailController extends GetxController {
   }
 
   Future<void> initRequest() async {
-    startLoadingIndicator();
     var eventId = pageArguments["eventId"];
     var querySanpshot = await db.collection('Event').doc(eventId).get();
 
@@ -52,7 +51,5 @@ class EventDetailController extends GetxController {
     status.value = event.status;
     thumbnail.value = event.thumbnail;
     title.value = event.title;
-
-    finishLoadingIndicator();
   }
 }

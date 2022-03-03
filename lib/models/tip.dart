@@ -28,7 +28,7 @@ class TipModel {
         title: data['title'] ?? '',
         contents: data['contents'] ?? '',
         date: DateTime.fromMillisecondsSinceEpoch(data['date']),
-        thumbnails: data['thumbnails'] ?? [],
+        thumbnails: data['thumbnails'] ?? ['nothumbnails'],
         tags: data['tags'] ?? [],
         profileImage: data['profileImage'] ?? emptyProfileUrl);
   }

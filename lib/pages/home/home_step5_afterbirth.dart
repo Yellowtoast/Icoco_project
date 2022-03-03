@@ -11,11 +11,14 @@ import 'package:app/pages/reservation/step3/remaining_fee_status.dart';
 import 'package:app/pages/reservation/step1/substep_address/address1.dart';
 import 'package:app/pages/reservation/step2/reserve/reserve_step2_1.dart';
 import 'package:app/widgets/button/button.dart';
+import 'package:app/widgets/button/grey_border_button.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 
 import '../../widgets/button/contents_button/costinfo_select_button.dart';
+import '../mypage/my_reservation.dart';
+import 'home_step8.dart';
 
 class HomeStep5Items_2 extends StatelessWidget {
   HomeStep5Items_2({Key? key}) : super(key: key);
@@ -123,15 +126,12 @@ class HomeStep5Items_2 extends StatelessWidget {
           Row(
             children: [
               Expanded(
-                child: IcoButton(
-                    height: 50,
-                    buttonColor: IcoColors.white,
-                    onPressed: () {},
-                    active: true.obs,
-                    border: true,
-                    borderColor: IcoColors.grey2,
-                    textStyle: IcoTextStyle.regularTextStyle14B,
-                    text: "내 예약정보 보기"),
+                child: GreyBorderButton(
+                  onTap: () {
+                    Get.to(MyReservationPage());
+                  },
+                  width: double.infinity,
+                ),
               ),
             ],
           )

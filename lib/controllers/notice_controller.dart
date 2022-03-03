@@ -12,21 +12,20 @@ class NoticeController extends GetxController {
   RxInt offset = 0.obs;
   RxInt limitNumber = 10.obs;
   RxList<NoticeModel> noticeModelList = RxList<NoticeModel>();
-  RxBool isPageLoading = false.obs;
+
   var scrollController = ScrollController();
-  var isLoading = false.obs;
+  var isListLoading = false.obs;
+  var isPageLoading = true.obs;
   var hasMore = false.obs;
   var isShow = true.obs;
-  RxBool pageInit = false.obs;
 
   @override
   void onReady() async {
-    startLoadingIndicator();
-    await getJsonNoticeData(offset, limitNumber.value);
-    finishLoadingIndicator();
-    getDataByScrollEvent();
-
     super.onReady();
+    loading(
+      () => getJsonNoticeData(offset, limitNumber.value),
+    );
+    await getDataByScrollEvent();
   }
 
   getDataByScrollEvent() {
@@ -34,7 +33,9 @@ class NoticeController extends GetxController {
       if (scrollController.position.pixels ==
               scrollController.position.maxScrollExtent &&
           hasMore.value) {
-        getJsonNoticeData(offset, limitNumber.value);
+        isListLoading.value = true;
+        await getJsonNoticeData(offset, limitNumber.value);
+        isListLoading.value = false;
       }
       final direction = scrollController.position.userScrollDirection;
       if (direction == ScrollDirection.forward) {
@@ -46,11 +47,9 @@ class NoticeController extends GetxController {
   }
 
   getJsonNoticeData(RxInt offset, int limitNumber) async {
-    isLoading.value = true;
     List<dynamic> newList = [];
     var currentUser = await _authController.getUser;
     String userToken = await currentUser.getIdToken();
-
     var queryParameters = {
       "offset": offset.value.toString(),
       "limitNumber": limitNumber.toString(),
@@ -67,15 +66,15 @@ class NoticeController extends GetxController {
       var responseObject = jsonDecode(response.body);
       var responseList = responseObject['data'];
       for (var eventData in responseList) {
-        var res = eventData.cast<dynamic, dynamic>();
         NoticeModel noticeModel;
-        noticeModel = NoticeModel.fromJson(res);
+        noticeModel = NoticeModel.fromJson(eventData);
         newList.add(noticeModel);
       }
       offset.value += newList.length;
-      isLoading.value = false;
+
       hasMore.value = newList.length >= limitNumber;
       noticeModelList.value = [...noticeModelList, ...newList];
+      isListLoading.value = false;
     } catch (e) {
       return [].obs;
     }

@@ -1,5 +1,6 @@
 import 'package:app/configs/constants.dart';
 import 'package:app/configs/routes.dart';
+import 'package:app/configs/size.dart';
 import 'package:app/controllers/event_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -124,32 +125,32 @@ class EmptyListPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ConstrainedBox(
-      constraints: BoxConstraints(maxHeight: 700, minHeight: 400),
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        crossAxisAlignment: CrossAxisAlignment.center,
-        children: [
-          Image.asset(
-            'images/failed_human_grey.png',
-            height: 140,
-          ),
-          SizedBox(
-            height: 12,
-          ),
-          Text(
-            title,
-            style: IcoTextStyle.boldTextStyle20Grey4,
-          ),
-          SizedBox(
-            height: 6,
-          ),
-          Text(
-            subtitle,
-            style: IcoTextStyle.mediumTextStyle14Grey4,
-          )
-        ],
-      ),
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.center,
+      crossAxisAlignment: CrossAxisAlignment.center,
+      children: [
+        SizedBox(
+          height: IcoSize.height / 4.5,
+        ),
+        Image.asset(
+          'images/failed_human_grey.png',
+          height: 140,
+        ),
+        SizedBox(
+          height: 12,
+        ),
+        Text(
+          title,
+          style: IcoTextStyle.boldTextStyle20Grey4,
+        ),
+        SizedBox(
+          height: 6,
+        ),
+        Text(
+          subtitle,
+          style: IcoTextStyle.mediumTextStyle14Grey4,
+        )
+      ],
     );
   }
 }

@@ -16,6 +16,9 @@ import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 
+import '../../widgets/button/grey_border_button.dart';
+import '../mypage/my_reservation.dart';
+
 class HomeStep8Items extends StatelessWidget {
   HomeStep8Items({Key? key}) : super(key: key);
   HomeController homeController = Get.find();
@@ -251,18 +254,12 @@ class HomeStep8Items extends StatelessWidget {
           Row(
             children: [
               Expanded(
-                child: IcoButton(
-                    height: 50,
-                    buttonColor: IcoColors.white,
-                    onPressed: () {
-                      // reviewController.selectFile(
-                      //     ImageSource.gallery, 'manager/profileImage/');
-                    },
-                    active: true.obs,
-                    border: true,
-                    borderColor: IcoColors.grey2,
-                    textStyle: IcoTextStyle.regularTextStyle14B,
-                    text: "내 예약정보 보기"),
+                child: GreyBorderButton(
+                  onTap: () {
+                    Get.to(MyReservationPage());
+                  },
+                  width: double.infinity,
+                ),
               ),
             ],
           )
