@@ -6,8 +6,15 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 
-Future<dynamic> ExitIconModal() {
-  void Function() onPressed;
+Future<dynamic> exitIconModal(String title, String subtitle, String? buttonText,
+    void Function()? onPressed, String? iconSrc, double? iconHeight) {
+  void Function()? _onPressed = onPressed;
+  String? _buttonText = buttonText;
+  String _title = title;
+  String _subtitle = subtitle;
+  String? _iconSrc = iconSrc;
+  double? _iconHeight = iconHeight;
+
   return Get.dialog(
     Dialog(
       backgroundColor: Colors.transparent,
@@ -19,7 +26,7 @@ Future<dynamic> ExitIconModal() {
               Container(
                 padding: EdgeInsets.fromLTRB(20, 30, 20, 20),
                 width: 335,
-                height: 328,
+                // height: 328,
                 decoration: BoxDecoration(
                   color: IcoColors.white,
                   borderRadius: BorderRadius.circular(10),
@@ -29,15 +36,14 @@ Future<dynamic> ExitIconModal() {
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
                     SvgPicture.asset(
-                      "icons/modal_call.svg",
-                      height: 66,
-                      width: 66,
+                      _iconSrc ?? "icons/modal_call.svg",
+                      height: _iconHeight ?? 66,
                     ),
                     SizedBox(
-                      height: 7,
+                      height: 10,
                     ),
                     Text(
-                      "전화 연결을 통해\n일정을 수정해주세요",
+                      _title ?? "전화 연결을 통해\n일정을 수정해주세요",
                       textAlign: TextAlign.center,
                       style: IcoTextStyle.boldTextStyle22B,
                     ),
@@ -45,7 +51,7 @@ Future<dynamic> ExitIconModal() {
                       height: 11,
                     ),
                     Text(
-                      "아이코코 고객센터를 통해\n서비스 일정을 수정해주세요",
+                      _subtitle ?? "아이코코 고객센터를 통해\n서비스 일정을 수정해주세요",
                       textAlign: TextAlign.center,
                       style: IcoTextStyle.mediumTextStyle14B,
                     ),
@@ -59,10 +65,11 @@ Future<dynamic> ExitIconModal() {
                           child: IcoButton(
                               width: 292,
                               height: 50,
-                              onPressed: () => Get.back(result: true),
+                              onPressed:
+                                  _onPressed ?? () => Get.back(result: true),
                               active: true.obs,
                               textStyle: IcoTextStyle.buttonTextStyleW,
-                              text: "허용"),
+                              text: _buttonText ?? '확인'),
                         ),
                       ],
                     ),
@@ -72,8 +79,8 @@ Future<dynamic> ExitIconModal() {
             ],
           ),
           Positioned(
-            right: 21,
-            top: 21,
+            right: 15,
+            top: 15,
             child: IconButton(
                 onPressed: () {},
                 icon: SvgPicture.asset(

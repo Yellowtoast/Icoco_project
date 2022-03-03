@@ -16,7 +16,6 @@ class SignupStep4Page extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    _fcmController.getPermisstionFromUser();
     return Scaffold(
       appBar: IcoAppbar(title: "알림 동의"),
       body: SafeArea(
@@ -89,13 +88,14 @@ class SignupStep4Page extends StatelessWidget {
                 alignment: Alignment.bottomCenter,
                 child: IcoButton(
                     icon: false,
-                    onPressed: () {
+                    onPressed: () async {
+                      await _fcmController.getPermisstionFromUser();
                       Get.toNamed(Routes.SIGNUP_STEP5);
                     },
                     active: true.obs,
                     buttonColor: IcoColors.primary,
                     textStyle: IcoTextStyle.buttonTextStyleW,
-                    text: "일반서비스 신청"),
+                    text: "알람 허용하기"),
               ),
               SizedBox(
                 height: 20,

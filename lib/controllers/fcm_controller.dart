@@ -1,6 +1,8 @@
 // ignore_for_file: prefer_final_fields, prefer_collection_literals, avoid_print
 import 'package:app/controllers/auth_controller.dart';
+import 'package:app/widgets/modal/exit_icon_modal.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 class FCMController extends GetxController {
@@ -8,6 +10,7 @@ class FCMController extends GetxController {
   FirebaseMessaging _messaging = FirebaseMessaging.instance;
   Rx<String> fcmToken = ''.obs;
   RxMap<String, dynamic> message = Map<String, dynamic>().obs;
+  late Rx<NotificationSettings> _settings;
 
   @override
   void onInit() {
@@ -18,15 +21,17 @@ class FCMController extends GetxController {
   }
 
   Future<void> getPermisstionFromUser() async {
-    NotificationSettings _settings = await _messaging.requestPermission(
+    _settings.value = await _messaging.requestPermission(
       alert: true,
-      announcement: false,
       badge: true,
-      carPlay: false,
-      criticalAlert: false,
-      provisional: false,
       sound: true,
     );
+
+    if (_settings.value.authorizationStatus == AuthorizationStatus.authorized) {
+      print('User granted permission');
+    } else {
+      print('User declined or has not accepted permission');
+    }
   }
 
   Future<String?> _getToken() async {
@@ -43,31 +48,53 @@ class FCMController extends GetxController {
   }
 
   Future<void> _initNotification() async {
-    await _messaging.setForegroundNotificationPresentationOptions(
-      alert: true,
-      badge: true,
-      sound: true,
-    );
+    // await _messaging.setForegroundNotificationPresentationOptions(
+    //   alert: true,
+    //   badge: true,
+    //   sound: true,
+    // );
 
-    FirebaseMessaging.onMessage.listen((RemoteMessage message) async {
-      _onMessage(message);
+    FirebaseMessaging.onMessage.listen((RemoteMessage remoteMessage) async {
+      _onMessage(remoteMessage);
     });
 
-    FirebaseMessaging.onMessageOpenedApp.listen((RemoteMessage message) {
-      print(message);
+    FirebaseMessaging.onMessageOpenedApp.listen((RemoteMessage remoteMessage) {
+      Get.dialog(Container(
+        color: Colors.black,
+        width: 20,
+        height: 20,
+        child: Text(remoteMessage.data.toString()),
+      ));
     });
 
     FirebaseMessaging.onBackgroundMessage(_firebaseMessagingBackgroundHandler);
   }
 
   Future<void>? _onMessage(RemoteMessage message) {
+    print('FCM 메세지 도착');
     print("_onMessage : ${message.data}");
+
+    exitIconModal(
+        message.notification?.title ?? 'title',
+        message.notification?.body ?? 'BODY',
+        '확인',
+        () => Get.back(),
+        'icons/checked.svg',
+        50);
     return null;
   }
 
   Future<void> _firebaseMessagingBackgroundHandler(
       RemoteMessage message) async {
     print("_onLaunch : ${message.data}");
+
+    exitIconModal(
+        message.notification?.title ?? 'title',
+        message.notification?.body ?? 'BODY',
+        '확인',
+        () => Get.back(),
+        'icons/checked.svg',
+        50);
   }
 
   Future<void> updateFCM(_fcmToken) async {
