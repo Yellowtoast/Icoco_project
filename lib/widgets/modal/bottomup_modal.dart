@@ -23,7 +23,7 @@ class BottomUpModal extends StatelessWidget {
     AddressController addressController = Get.put(AddressController());
     AuthController authController = Get.find();
     return Container(
-      height: IcoSize.height - 90,
+      height: IcoSize.height - 100,
       decoration: BoxDecoration(
         color: IcoColors.white,
         borderRadius: BorderRadius.only(

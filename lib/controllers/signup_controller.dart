@@ -18,7 +18,7 @@ class SignupController extends GetxController {
   final FirebaseAuth _auth = FirebaseAuth.instance;
   final FirebaseFirestore db = FirebaseFirestore.instance;
   String regNum = '';
-  FCMController fcmController = Get.find();
+
   Rxn<UserModel> userModel = Rxn<UserModel>();
   TextEditingController emailController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
@@ -38,7 +38,8 @@ class SignupController extends GetxController {
   Rxn<String> regNumErrorText = Rxn<String>();
   late String phoneNumber;
   RxInt codeSentTimes = 0.obs;
-  bool eventAlarm = false;
+  RxBool eventAlarm = false.obs;
+  RxBool pushAlarm = false.obs;
   bool isDuplicateEmail = false;
   RxBool isButtonValid = false.obs;
   Rxn<bool> isTimeOut = Rxn<bool>();
@@ -163,14 +164,15 @@ class SignupController extends GetxController {
 
   Future<UserModel> createUserFirestore(String _email, String _uid) async {
     regNum = birthController.text + genderController.text;
+    FCMController fcmController = Get.find();
     UserModel _newUser = UserModel(
       uid: _uid,
       email: _email,
       userName: nameController.value.text,
       phone: phoneController.value.text,
       regNum: regNum,
-      eventAlarm: eventAlarm,
-      pushAlarm: true,
+      maketingAlarm: eventAlarm.value,
+      pushAlarm: fcmController.pushAllowed.value,
       fcm: fcmController.fcmToken.value,
     );
     userModel.value = _newUser;

@@ -6,7 +6,7 @@ class UserModel {
   final String regNum;
   int userStep;
   String fcm;
-  bool eventAlarm;
+  bool maketingAlarm;
   bool pushAlarm;
 
   UserModel({
@@ -16,8 +16,8 @@ class UserModel {
     required this.phone,
     required this.regNum,
     required this.fcm,
-    required this.eventAlarm,
-    this.pushAlarm = true,
+    required this.maketingAlarm,
+    required this.pushAlarm,
     this.userStep = 1,
   });
 
@@ -30,7 +30,7 @@ class UserModel {
       regNum: data['regNum'] ?? '',
       userStep: data['userStep'] ?? 1,
       fcm: data['fcm'] ?? '',
-      eventAlarm: data['eventAlarm'] ?? true,
+      maketingAlarm: data['eventAlarm'] ?? true,
       pushAlarm: data['pushAlarm'] ?? true,
     );
   }
@@ -43,7 +43,7 @@ class UserModel {
         "regNum": regNum,
         "userStep": userStep,
         'fcm': fcm,
-        'eventAlarm': eventAlarm,
+        'eventAlarm': maketingAlarm,
         'pushAlarm': pushAlarm,
       };
 }

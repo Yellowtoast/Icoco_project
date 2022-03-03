@@ -28,7 +28,6 @@ class AuthController extends GetxController {
   Rxn<UserModel> userModel = Rxn<UserModel>();
   Rxn<ReservationModel> reservationModel = Rxn<ReservationModel>();
   RxBool isJustLoaded = true.obs;
-  bool isMarketingAllowed = false;
   late Rxn<dynamic> homeModel;
   Rx<bool> openPopup = false.obs;
   Rx<bool> isLoggedIn = true.obs;
@@ -204,7 +203,6 @@ class AuthController extends GetxController {
     ReservationModel _newReservationModel = ReservationModel(
       address: address,
       email: userModel.email,
-      isMarketingAllowed: userModel.eventAlarm,
       userName: userModel.userName,
       phone: userModel.phone,
       fullRegNum: fullRegNum,
@@ -218,7 +216,6 @@ class AuthController extends GetxController {
       voucher: voucher,
     );
     reservationModel.value = _newReservationModel;
-
     db
         .doc('/Reservation/${reservationNumber.value}')
         .set(_newReservationModel.toJson());

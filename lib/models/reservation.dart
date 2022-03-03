@@ -4,7 +4,6 @@ class ReservationModel {
   final String email;
 
   String phone;
-  final bool isMarketingAllowed;
   final String reservationNumber;
   String? status;
   String address;
@@ -69,7 +68,6 @@ class ReservationModel {
     required this.email,
     required this.userName,
     required this.phone,
-    required this.isMarketingAllowed,
     required this.address,
     required this.userStep,
     required this.reservationNumber,
@@ -135,7 +133,6 @@ class ReservationModel {
       status: data['status'],
       reservationRoute: data['reservationRoute'],
       reservationNumber: data['reservationNumber'] ?? '',
-      isMarketingAllowed: data['isMarketingAllowed'] ?? false,
       chosenCompany: data['chosenCompany'] ?? '',
       isBirth: data['isBirth'] ?? false,
       birthDate: data['birthExpectedDate'] ?? '',
@@ -195,7 +192,6 @@ class ReservationModel {
         "status": status,
         "reservationRoute": reservationRoute,
         "reservationNumber": reservationNumber,
-        "isMarketingAllowed": isMarketingAllowed,
         "chosenCompany": chosenCompany,
         "isBirth": isBirth,
         "birthExpectedDate": birthDate,

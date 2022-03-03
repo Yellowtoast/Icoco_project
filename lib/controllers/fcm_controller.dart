@@ -11,6 +11,7 @@ class FCMController extends GetxController {
   Rx<String> fcmToken = ''.obs;
   RxMap<String, dynamic> message = Map<String, dynamic>().obs;
   late Rx<NotificationSettings> _settings;
+  RxBool pushAllowed = false.obs;
 
   @override
   void onInit() {
@@ -29,8 +30,10 @@ class FCMController extends GetxController {
 
     if (_settings.value.authorizationStatus == AuthorizationStatus.authorized) {
       print('User granted permission');
+      pushAllowed.value = true;
     } else {
       print('User declined or has not accepted permission');
+      pushAllowed.value = false;
     }
   }
 

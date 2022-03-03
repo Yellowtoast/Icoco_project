@@ -4,6 +4,7 @@ import 'package:app/models/reservation.dart';
 import 'package:app/models/review.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:extended_masked_text/extended_masked_text.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -16,15 +17,22 @@ class MypageController extends GetxController {
   List<String> addressList = [];
   RxList<ReviewModel>? middleReviewModelList = RxList<ReviewModel>();
   RxList<ReviewModel>? finalReviewModelList = RxList<ReviewModel>();
+  Rxn<User> firebaseAuthUser = Rxn<User>();
 
   @override
-  void onInit() {
+  Future<void> onInit() async {
+    firebaseAuthUser.value = await authController.getUser;
     super.onInit();
   }
 
   @override
   void onReady() {
     super.onReady();
+  }
+
+  void updateUserInfoFireStore(Map<String, dynamic> userInfo) {
+    db.doc('/User/${firebaseAuthUser.value!.email}').update(userInfo);
+    update();
   }
 
   getMyPreviousReview(
