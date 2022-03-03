@@ -1,16 +1,11 @@
-import 'package:app/bindings/notice_bindings.dart';
 import 'package:app/configs/colors.dart';
-import 'package:app/configs/constants.dart';
 import 'package:app/configs/routes.dart';
 import 'package:app/configs/size.dart';
 import 'package:app/configs/text_styles.dart';
 import 'package:app/controllers/auth_controller.dart';
 import 'package:app/controllers/event_controller.dart';
 import 'package:app/controllers/notice_controller.dart';
-
-import 'package:app/pages/loading.dart';
-import 'package:app/pages/notice.dart';
-import 'package:app/pages/tip_page.dart';
+import 'package:app/widgets/loading/loading.dart';
 import 'package:app/widgets/modal/bottomup_modal2.dart';
 import 'package:app/widgets/modal/info_modal.dart';
 import 'package:flutter/material.dart';
@@ -18,7 +13,9 @@ import 'package:get/get.dart';
 import 'package:app/controllers/home_controller.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:scroll_to_index/scroll_to_index.dart';
+import 'package:http/http.dart';
+
+import '../../controllers/autoscroll_controller.dart';
 
 class HomeSkeletonPage extends StatelessWidget {
   HomeSkeletonPage({Key? key}) : super(key: key);
@@ -29,15 +26,17 @@ class HomeSkeletonPage extends StatelessWidget {
   EventController _eventController =
       Get.put(EventController(), tag: 'fromHome');
 
-  AutoScrollController autoScrollController = AutoScrollController(
-      viewportBoundaryGetter: () => Rect.fromLTRB(0, 0, 0, Get.bottomBarHeight),
-      axis: Axis.horizontal,
-      suggestedRowHeight: 600);
+  AutoScrollController _autoScrollController = Get.put(AutoScrollController());
 
-  startAutoScroller() => autoScrollController.scrollToIndex(
-      homeController.homeInfoModel.value.userStep - 1,
-      preferPosition: AutoScrollPosition.begin,
-      duration: Duration(milliseconds: 100));
+  // AutoScrollController autoScrollController = AutoScrollController(
+  //     viewportBoundaryGetter: () => Rect.fromLTRB(0, 0, 0, Get.bottomBarHeight),
+  //     axis: Axis.horizontal,
+  //     suggestedRowHeight: 600);
+
+  // startAutoScroller() => autoScrollController.scrollToIndex(
+  //     homeController.homeInfoModel.value.userStep - 1,
+  //     preferPosition: AutoScrollPosition.begin,
+  //     duration: Duration(milliseconds: 100));
 
   Widget sizeWidthBox(double width) => SizedBox(
         width: width,
@@ -196,74 +195,47 @@ class HomeSkeletonPage extends StatelessWidget {
                     ),
                   ),
                   sizeHeightBox(14),
-                  Container(
-                    height: 65,
-                    padding: const EdgeInsets.fromLTRB(0, 0, 0, 0),
-                    child: Row(
-                      children: [
-                        Expanded(
-                          child: ListView.builder(
-                            scrollDirection: Axis.horizontal,
-                            controller: autoScrollController,
-                            shrinkWrap: true,
-                            itemCount: 9,
-                            itemBuilder: (BuildContext context, int index) {
-                              return AutoScrollTag(
-                                key: ValueKey(3),
-                                controller: autoScrollController,
-                                index: index,
-                                child: Row(
-                                  children: [
-                                    SizedBox(
-                                      width: (index == 0) ? 20 : 8,
-                                    ),
-                                    SvgPicture.asset((homeController
-                                                    .homeInfoModel
-                                                    .value
-                                                    .userStep -
-                                                1 ==
-                                            index)
-                                        ? "icons/active_step${index + 1}.svg"
-                                        : "icons/inactive_step${index + 1}.svg"),
-                                    SizedBox(
-                                      width: (index == 8) ? 20 : 0,
-                                    ),
-                                  ],
+                  GetBuilder<AutoScrollController>(
+                      init: _autoScrollController,
+                      builder: (controller) {
+                        return Container(
+                          height: 65,
+                          padding: const EdgeInsets.fromLTRB(0, 0, 0, 0),
+                          child: Row(
+                            children: [
+                              Expanded(
+                                child: ListView.builder(
+                                  scrollDirection: Axis.horizontal,
+                                  controller: controller.scrollController,
+                                  shrinkWrap: true,
+                                  itemCount: 9,
+                                  itemBuilder:
+                                      (BuildContext context, int index) {
+                                    return Row(
+                                      children: [
+                                        SizedBox(
+                                          width: (index == 0) ? 20 : 8,
+                                        ),
+                                        SvgPicture.asset((homeController
+                                                        .homeInfoModel
+                                                        .value
+                                                        .userStep -
+                                                    1 ==
+                                                index)
+                                            ? "icons/active_step${index + 1}.svg"
+                                            : "icons/inactive_step${index + 1}.svg"),
+                                        SizedBox(
+                                          width: (index == 8) ? 20 : 0,
+                                        ),
+                                      ],
+                                    );
+                                  },
                                 ),
-                              );
-                            },
+                              ),
+                            ],
                           ),
-                        ),
-
-                        // Expanded(
-                        //   child: ListView.builder(
-                        //     scrollDirection: Axis.horizontal,
-                        //     controller: autoScrollController,
-                        //     shrinkWrap: true,
-                        //     itemCount: 9,
-                        //     itemBuilder: (BuildContext context, int index) {
-                        //       return Row(
-                        //         children: [
-                        //           SizedBox(
-                        //             width: (index == 0) ? 20 : 8,
-                        //           ),
-                        //           SvgPicture.asset((homeController.homeInfoModel
-                        //                           .value.userStep -
-                        //                       1 ==
-                        //                   index)
-                        //               ? "icons/active_step${index + 1}.svg"
-                        //               : "icons/inactive_step${index + 1}.svg"),
-                        //           SizedBox(
-                        //             width: (index == 8) ? 20 : 0,
-                        //           ),
-                        //         ],
-                        //       );
-                        //     },
-                        //   ),
-                        // ),
-                      ],
-                    ),
-                  ),
+                        );
+                      }),
                   sizeHeightBox(18),
                   Container(
                     width: Get.width - 40,

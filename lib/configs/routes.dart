@@ -8,15 +8,15 @@ import 'package:app/bindings/init_bindings.dart';
 import 'package:app/bindings/home_binding.dart';
 import 'package:app/bindings/login_binding.dart';
 import 'package:app/bindings/signup_binding.dart';
-import 'package:app/pages/calculator.dart';
-import 'package:app/pages/calculator_result.dart';
+import 'package:app/pages/calculator/calculator.dart';
+import 'package:app/pages/calculator/calculator_result.dart';
 import 'package:app/pages/event/event.dart';
 import 'package:app/pages/event/event_detail.dart';
 import 'package:app/pages/home/home.dart';
-import 'package:app/pages/login.dart';
+import 'package:app/pages/login/login.dart';
 import 'package:app/pages/manager/manager_detail.dart';
-import 'package:app/pages/notice.dart';
-import 'package:app/pages/notice_detail.dart';
+import 'package:app/pages/notice/notice.dart';
+import 'package:app/pages/notice/notice_detail.dart';
 import 'package:app/pages/reservation/step1/substep_address/address1.dart';
 import 'package:app/pages/reservation/step1/substep_address/address2.dart';
 import 'package:app/pages/reservation/step1/substep_address/address3.dart';
@@ -46,13 +46,13 @@ import 'package:app/pages/signup/signup_step3.dart';
 import 'package:app/pages/signup/signup_step4.dart';
 import 'package:app/pages/signup/signup_step5.dart';
 import 'package:app/pages/signup/signup_step6_intro.dart';
-import 'package:app/pages/splash.dart';
-import 'package:app/pages/start.dart';
-import 'package:app/pages/tip_page.dart';
+import 'package:app/pages/splash/splash.dart';
+import 'package:app/pages/start/start.dart';
+import 'package:app/pages/tip/tip_page.dart';
 import 'package:app/widgets/modal/result_modal.dart';
 import 'package:get/get.dart';
 
-import '../pages/tip_detail.dart';
+import '../pages/tip/tip_detail.dart';
 
 class Routes {
   static const SPLASH = '/';

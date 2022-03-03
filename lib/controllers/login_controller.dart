@@ -1,5 +1,5 @@
 import 'package:app/controllers/auth_controller.dart';
-import 'package:app/pages/loading.dart';
+import 'package:app/widgets/loading/loading.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';

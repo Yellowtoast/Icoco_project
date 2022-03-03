@@ -9,8 +9,8 @@ import 'package:app/controllers/manager_controller.dart';
 import 'package:app/controllers/review_controller.dart';
 import 'package:app/helpers/formatter.dart';
 import 'package:app/pages/event/event.dart';
-import 'package:app/pages/inquiry_page.dart';
-import 'package:app/widgets/appbar.dart';
+import 'package:app/pages/inquiry/inquiry_page.dart';
+import 'package:app/widgets/appbar/appbar.dart';
 import 'package:app/widgets/button/button.dart';
 import 'package:app/widgets/modal/bottomup_modal2.dart';
 import 'package:app/widgets/modal/option_modal.dart';
@@ -22,8 +22,8 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 
-import '../empty_page.dart';
-import '../refund.dart';
+import '../guide_page/empty_content_page.dart';
+import '../refund/refund.dart';
 
 class ManagerDetailPage extends StatelessWidget {
   int managerNum = Get.arguments;

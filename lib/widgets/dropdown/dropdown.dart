@@ -1,6 +1,6 @@
 import 'package:app/configs/colors.dart';
 import 'package:app/configs/text_styles.dart';
-import 'package:app/controllers/reservation/step1/voucher_controller.dart';
+import 'package:app/controllers/voucher_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';

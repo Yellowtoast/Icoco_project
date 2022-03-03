@@ -2,13 +2,13 @@ import 'package:app/configs/colors.dart';
 import 'package:app/configs/routes.dart';
 import 'package:app/configs/size.dart';
 import 'package:app/configs/text_styles.dart';
-import 'package:app/controllers/reservation/step1/voucher_controller.dart';
-import 'package:app/controllers/reservation/step2/substep_controllers/date_info_controller.dart';
-import 'package:app/controllers/reservation/step2/substep_controllers/service_info_controller.dart';
+import 'package:app/controllers/voucher_controller.dart';
+import 'package:app/controllers/date_info_controller.dart';
+import 'package:app/controllers/service_info_controller.dart';
 import 'package:app/widgets/button/button.dart';
-import 'package:app/widgets/cost_info_selection_box.dart';
+import 'package:app/widgets/button/contents_button/costinfo_select_button.dart';
 import 'package:app/widgets/dropdown/voucher_dropdown.dart';
-import 'package:app/widgets/appbar.dart';
+import 'package:app/widgets/appbar/appbar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
@@ -73,7 +73,7 @@ class ReserveStep2_7_Novoucher extends StatelessWidget {
                               dateInfoController.voucherDurationSelected.value =
                                   "${index + 1}주";
                             },
-                            child: CostInfoSelectionBox(
+                            child: CostInfoSelectButton(
                               feeTypeIndex: index,
                               isVoucherUsed:
                                   (voucherController.isVoucherUsed.value ==

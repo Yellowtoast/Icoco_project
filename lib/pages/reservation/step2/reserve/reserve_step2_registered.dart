@@ -2,13 +2,13 @@ import 'package:app/configs/colors.dart';
 import 'package:app/configs/routes.dart';
 import 'package:app/configs/text_styles.dart';
 import 'package:app/controllers/auth_controller.dart';
-import 'package:app/controllers/reservation/step2/substep_controllers/date_info_controller.dart';
-import 'package:app/controllers/reservation/step2/substep_controllers/service_info_controller.dart';
+import 'package:app/controllers/date_info_controller.dart';
+import 'package:app/controllers/service_info_controller.dart';
 
-import 'package:app/pages/fee_guide.dart';
+import 'package:app/pages/guide_page/fee_guide.dart';
 import 'package:app/pages/reservation/step1/substep_voucher/voucher_unused/service_fee_info.dart';
 import 'package:app/widgets/button/button.dart';
-import 'package:app/widgets/appbar.dart';
+import 'package:app/widgets/appbar/appbar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';

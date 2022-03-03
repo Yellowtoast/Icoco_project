@@ -1,6 +1,6 @@
 import 'package:app/configs/insurance_standards.dart';
 import 'package:app/controllers/auth_controller.dart';
-import 'package:app/helpers/calc_date.dart';
+import 'package:app/helpers/date_calculator.dart';
 import 'package:app/helpers/formatter.dart';
 import 'package:app/models/refund.dart';
 import 'package:app/models/reservation.dart';

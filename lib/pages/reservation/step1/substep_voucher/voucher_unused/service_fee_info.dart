@@ -5,20 +5,20 @@ import 'package:app/configs/steps.dart';
 import 'package:app/configs/table_contents.dart';
 import 'package:app/configs/text_styles.dart';
 import 'package:app/controllers/auth_controller.dart';
-import 'package:app/controllers/reservation/step1/address_controller.dart';
-import 'package:app/controllers/reservation/step1/voucher_controller.dart';
+import 'package:app/controllers/address_controller.dart';
+import 'package:app/controllers/voucher_controller.dart';
 import 'package:app/pages/reservation/step1/substep_voucher/voucher_signed/voucher_signed2.dart';
 import 'package:app/widgets/button/button.dart';
-import 'package:app/widgets/cost_info_box.dart';
+import 'package:app/widgets/info_box/cost_info_box.dart';
 import 'package:app/widgets/divider/mydivider.dart';
 import 'package:app/widgets/dropdown/voucher_dropdown.dart';
-import 'package:app/widgets/appbar.dart';
+import 'package:app/widgets/appbar/appbar.dart';
 import 'package:dotted_line/dotted_line.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 
-import '../../../../loading.dart';
+import '../../../../../widgets/loading/loading.dart';
 
 class ServiceFeeInfoPage extends StatelessWidget {
   ServiceFeeInfoPage({Key? key}) : super(key: key);

@@ -2,14 +2,14 @@
 
 import 'package:app/configs/colors.dart';
 import 'package:app/controllers/auth_controller.dart';
-import 'package:app/controllers/reservation/step1/voucher_controller.dart';
+import 'package:app/controllers/voucher_controller.dart';
 
 import 'package:app/helpers/formatter.dart';
 import 'package:app/configs/routes.dart';
 import 'package:app/configs/size.dart';
 import 'package:app/configs/text_styles.dart';
 
-import 'package:app/controllers/reservation/step2/substep_controllers/additional_fee_controller.dart';
+import 'package:app/controllers/additional_fee_controller.dart';
 import 'package:app/models/reservation.dart';
 import 'package:app/pages/reservation/step2/reserve/reserve_step2_7_novoucher.dart';
 import 'package:app/widgets/button/button.dart';

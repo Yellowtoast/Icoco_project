@@ -1,12 +1,12 @@
 // ignore_for_file: prefer_const_constructors
 import 'package:app/controllers/auth_controller.dart';
-import 'package:app/controllers/reservation/step1/voucher_controller.dart';
+import 'package:app/controllers/voucher_controller.dart';
 import 'package:app/pages/home/home_skeleton.dart';
-import 'package:app/widgets/bottom_tabbar.dart';
+import 'package:app/widgets/tabbar/bottom_tabbar.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:app/controllers/home_controller.dart';
-import '../calculator.dart';
+import '../calculator/calculator.dart';
 import '../event/event.dart';
 import '../mypage/mypage.dart';
 

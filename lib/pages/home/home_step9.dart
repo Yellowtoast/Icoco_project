@@ -9,7 +9,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
-import '../loading.dart';
+import '../../widgets/loading/loading.dart';
 
 class HomeStep9Items extends StatelessWidget {
   HomeStep9Items({Key? key}) : super(key: key);

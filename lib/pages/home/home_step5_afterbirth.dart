@@ -4,9 +4,9 @@ import 'package:app/configs/text_styles.dart';
 import 'package:app/controllers/auth_controller.dart';
 import 'package:app/controllers/manager_controller.dart';
 import 'package:app/controllers/home_controller.dart';
-import 'package:app/controllers/reservation/step1/voucher_controller.dart';
+import 'package:app/controllers/voucher_controller.dart';
 
-import 'package:app/helpers/calc_date.dart';
+import 'package:app/helpers/date_calculator.dart';
 import 'package:app/pages/reservation/step3/remaining_fee_status.dart';
 import 'package:app/pages/reservation/step1/substep_address/address1.dart';
 import 'package:app/pages/reservation/step2/reserve/reserve_step2_1.dart';
@@ -15,7 +15,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 
-import '../../widgets/cost_info_selection_box.dart';
+import '../../widgets/button/contents_button/costinfo_select_button.dart';
 
 class HomeStep5Items_2 extends StatelessWidget {
   HomeStep5Items_2({Key? key}) : super(key: key);

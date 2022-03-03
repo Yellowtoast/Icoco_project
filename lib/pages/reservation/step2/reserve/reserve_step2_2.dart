@@ -1,10 +1,10 @@
 import 'package:app/configs/colors.dart';
 import 'package:app/configs/routes.dart';
 import 'package:app/configs/text_styles.dart';
-import 'package:app/controllers/reservation/step1/address_controller.dart';
+import 'package:app/controllers/address_controller.dart';
 import 'package:app/controllers/auth_controller.dart';
-import 'package:app/controllers/reservation/step1/voucher_controller.dart';
-import 'package:app/controllers/reservation/step2/substep_controllers/date_info_controller.dart';
+import 'package:app/controllers/voucher_controller.dart';
+import 'package:app/controllers/date_info_controller.dart';
 
 import 'package:app/pages/reservation/step1/substep_address/address1.dart';
 import 'package:app/pages/reservation/step1/substep_voucher/voucher_signed/voucher_signed1.dart';
@@ -12,7 +12,7 @@ import 'package:app/pages/reservation/step1/substep_voucher/voucher_signed/vouch
 import 'package:app/pages/reservation/step2/reserve/reserve_step2_3_beforebirth.dart';
 import 'package:app/pages/reservation/step2/reserve/reserve_step2_3_afterbirth.dart';
 import 'package:app/widgets/button/button.dart';
-import 'package:app/widgets/appbar.dart';
+import 'package:app/widgets/appbar/appbar.dart';
 import 'package:app/widgets/textfield/regnum_textfield.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';

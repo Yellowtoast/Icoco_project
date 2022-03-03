@@ -5,16 +5,16 @@ import 'package:app/configs/routes.dart';
 import 'package:app/configs/text_styles.dart';
 import 'package:app/controllers/auth_controller.dart';
 import 'package:app/controllers/home_controller.dart';
-import 'package:app/controllers/reservation/step1/voucher_controller.dart';
+import 'package:app/controllers/voucher_controller.dart';
 
-import 'package:app/pages/fee_guide.dart';
+import 'package:app/pages/guide_page/fee_guide.dart';
 import 'package:app/pages/reservation/step3/remaining_fee_status.dart';
 
 import 'package:app/widgets/button/button.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-import '../../widgets/cost_info_selection_box.dart';
+import '../../widgets/button/contents_button/costinfo_select_button.dart';
 
 class HomeStep3Items extends StatelessWidget {
   HomeStep3Items({Key? key}) : super(key: key);

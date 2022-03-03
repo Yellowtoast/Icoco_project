@@ -5,9 +5,9 @@ import 'package:app/configs/text_styles.dart';
 import 'package:app/controllers/auth_controller.dart';
 import 'package:app/controllers/company_controller.dart';
 import 'package:app/controllers/home_controller.dart';
-import 'package:app/controllers/reservation/step1/address_controller.dart';
+import 'package:app/controllers/address_controller.dart';
 
-import 'package:app/controllers/reservation/step1/voucher_controller.dart';
+import 'package:app/controllers/voucher_controller.dart';
 import 'package:app/controllers/review_controller.dart';
 import 'package:app/pages/company/company_detail.dart';
 
@@ -15,13 +15,13 @@ import 'package:app/pages/reservation/step1/substep_voucher/voucher_signed/vouch
 
 import 'package:app/pages/reservation/step2/reserve/reserve_step2_2.dart';
 import 'package:app/widgets/button/button.dart';
-import 'package:app/widgets/appbar.dart';
+import 'package:app/widgets/appbar/appbar.dart';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 
-import '../../../loading.dart';
+import '../../../../widgets/loading/loading.dart';
 
 class ReserveStep2_1_No extends StatelessWidget {
   ReserveStep2_1_No({Key? key}) : super(key: key);

@@ -3,14 +3,14 @@ import 'package:app/configs/routes.dart';
 import 'package:app/configs/size.dart';
 import 'package:app/configs/text_styles.dart';
 import 'package:app/controllers/auth_controller.dart';
-import 'package:app/controllers/reservation/step1/address_controller.dart';
+import 'package:app/controllers/address_controller.dart';
 
 import 'package:app/pages/reservation/step1/substep_address/address3.dart';
 import 'package:app/pages/reservation/step1/substep_voucher/voucher1.dart';
 import 'package:app/pages/reservation/step1/substep_address/address2.dart';
 import 'package:app/pages/reservation/step2/reserve/reserve_step2_1.dart';
 import 'package:app/widgets/button/button.dart';
-import 'package:app/widgets/appbar.dart';
+import 'package:app/widgets/appbar/appbar.dart';
 import 'package:app/widgets/textfield/textfield.dart';
 import 'package:daum_postcode_search/data_model.dart';
 import 'package:daum_postcode_search/daum_postcode_search.dart';

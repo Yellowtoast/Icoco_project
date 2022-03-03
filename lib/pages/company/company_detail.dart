@@ -6,7 +6,7 @@ import 'package:app/controllers/auth_controller.dart';
 import 'package:app/controllers/company_controller.dart';
 import 'package:app/controllers/review_controller.dart';
 import 'package:app/helpers/formatter.dart';
-import 'package:app/widgets/appbar.dart';
+import 'package:app/widgets/appbar/appbar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';

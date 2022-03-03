@@ -5,7 +5,7 @@ import 'package:app/configs/routes.dart';
 import 'package:app/helpers/formatter.dart';
 import 'package:app/models/reservation.dart';
 import 'package:app/models/user.dart';
-import 'package:app/pages/loading.dart';
+import 'package:app/widgets/loading/loading.dart';
 import 'package:dart_jsonwebtoken/dart_jsonwebtoken.dart';
 import 'package:flutter/foundation.dart';
 import 'package:hive/hive.dart';

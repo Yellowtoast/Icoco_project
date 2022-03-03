@@ -5,8 +5,8 @@ import 'package:app/configs/routes.dart';
 import 'package:app/configs/terms.dart';
 import 'package:app/configs/text_styles.dart';
 import 'package:app/widgets/button/button.dart';
-import 'package:app/widgets/content_button.dart';
-import 'package:app/widgets/appbar.dart';
+import 'package:app/widgets/button/small_text_button.dart';
+import 'package:app/widgets/appbar/appbar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
@@ -211,7 +211,7 @@ class _SignupStep1PageState extends State<SignupStep1Page> {
                                   ),
                                 ),
                               ),
-                              ContentsButton(),
+                              SmallTextButton(),
                             ],
                           ),
                         );

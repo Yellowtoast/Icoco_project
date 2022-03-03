@@ -11,7 +11,7 @@ import 'package:app/helpers/formatter.dart';
 import 'package:app/helpers/validator.dart';
 import 'package:app/pages/signup/signup_step4.dart';
 import 'package:app/widgets/button/button.dart';
-import 'package:app/widgets/appbar.dart';
+import 'package:app/widgets/appbar/appbar.dart';
 import 'package:app/widgets/modal/warning_modal.dart';
 import 'package:app/widgets/textfield/regnum_textfield.dart';
 import 'package:app/widgets/textfield/textfield.dart';

@@ -6,12 +6,17 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 
-Future<dynamic> exitIconModal(String title, String subtitle, String? buttonText,
-    void Function()? onPressed, String? iconSrc, double? iconHeight) {
+Future<dynamic> exitIconModal(
+    String? title,
+    String? subtitle,
+    String? buttonText,
+    void Function()? onPressed,
+    String? iconSrc,
+    double? iconHeight) {
   void Function()? _onPressed = onPressed;
   String? _buttonText = buttonText;
-  String _title = title;
-  String _subtitle = subtitle;
+  String? _title = title;
+  String? _subtitle = subtitle;
   String? _iconSrc = iconSrc;
   double? _iconHeight = iconHeight;
 

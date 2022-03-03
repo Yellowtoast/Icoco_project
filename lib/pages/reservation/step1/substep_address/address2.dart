@@ -1,4 +1,4 @@
-import 'package:app/widgets/appbar.dart';
+import 'package:app/widgets/appbar/appbar.dart';
 import 'package:daum_postcode_search/daum_postcode_search.dart';
 import 'package:flutter/material.dart';
 

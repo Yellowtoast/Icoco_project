@@ -5,12 +5,12 @@ import 'package:app/helpers/formatter.dart';
 import 'package:app/configs/routes.dart';
 import 'package:app/configs/text_styles.dart';
 import 'package:app/controllers/home_controller.dart';
-import 'package:app/pages/fee_guide.dart';
+import 'package:app/pages/guide_page/fee_guide.dart';
 import 'package:app/widgets/button/button.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-import '../../widgets/cost_info_selection_box.dart';
+import '../../widgets/button/contents_button/costinfo_select_button.dart';
 
 class HomeStep4Items extends StatelessWidget {
   HomeStep4Items({Key? key}) : super(key: key);

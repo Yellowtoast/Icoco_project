@@ -12,7 +12,7 @@ import 'package:app/helpers/formatter.dart';
 import 'package:app/helpers/validator.dart';
 
 import 'package:app/widgets/button/button.dart';
-import 'package:app/widgets/appbar.dart';
+import 'package:app/widgets/appbar/appbar.dart';
 import 'package:app/widgets/textfield/regnum_textfield.dart';
 import 'package:app/widgets/textfield/textfield.dart';
 

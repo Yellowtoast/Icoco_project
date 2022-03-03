@@ -3,7 +3,7 @@ import 'package:get/get.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 import 'package:app/models/event.dart';
-import 'package:app/pages/loading.dart';
+import 'package:app/widgets/loading/loading.dart';
 
 class EventDetailController extends GetxController {
   var pageArguments = Get.arguments;

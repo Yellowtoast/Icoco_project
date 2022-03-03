@@ -5,7 +5,7 @@ import 'package:app/configs/steps.dart';
 import 'package:app/configs/text_styles.dart';
 import 'package:app/controllers/auth_controller.dart';
 import 'package:app/controllers/signup_controller.dart';
-import 'package:app/widgets/appbar.dart';
+import 'package:app/widgets/appbar/appbar.dart';
 import 'package:app/widgets/button/button.dart';
 import 'package:app/widgets/modal/option_modal.dart';
 import 'package:flutter/material.dart';
@@ -13,7 +13,7 @@ import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 
-import '../loading.dart';
+import '../../widgets/loading/loading.dart';
 
 class SignupStep6Page extends StatelessWidget {
   SignupStep6Page({Key? key}) : super(key: key);

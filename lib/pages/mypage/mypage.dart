@@ -7,8 +7,8 @@ import 'package:app/controllers/manager_controller.dart';
 import 'package:app/controllers/mypage_controller.dart';
 import 'package:app/controllers/review_controller.dart';
 import 'package:app/helpers/loading.dart';
-import 'package:app/pages/loading.dart';
-import 'package:app/pages/inquiry_page.dart';
+import 'package:app/widgets/loading/loading.dart';
+import 'package:app/pages/inquiry/inquiry_page.dart';
 import 'package:app/pages/mypage/my_review.dart';
 import 'package:app/pages/mypage/my_reservation.dart';
 import 'package:flutter/cupertino.dart';
@@ -16,7 +16,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 
-import '../empty_page.dart';
+import '../guide_page/empty_content_page.dart';
 import 'edit/edit.dart';
 
 class MyPage extends StatelessWidget {

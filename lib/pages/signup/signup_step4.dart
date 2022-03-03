@@ -4,7 +4,7 @@ import 'package:app/configs/size.dart';
 import 'package:app/configs/text_styles.dart';
 import 'package:app/controllers/fcm_controller.dart';
 import 'package:app/pages/signup/signup_step5.dart';
-import 'package:app/widgets/appbar.dart';
+import 'package:app/widgets/appbar/appbar.dart';
 import 'package:app/widgets/button/button.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';

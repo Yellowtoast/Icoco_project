@@ -1,4 +1,4 @@
-import 'package:app/controllers/reservation/step1/voucher_controller.dart';
+import 'package:app/controllers/voucher_controller.dart';
 import 'package:app/models/company.dart';
 import 'package:app/models/reservation.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';

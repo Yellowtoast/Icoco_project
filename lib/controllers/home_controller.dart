@@ -25,7 +25,7 @@ class HomeController extends GetxController {
   RxInt noticeLength = 0.obs;
   RxInt eventLength = 0.obs;
   RxInt totalInfoLength = 0.obs;
-  ScrollController _scrollController = ScrollController();
+  RxInt userStep = 1.obs;
 
   @override
   void onInit() {
@@ -57,6 +57,8 @@ class HomeController extends GetxController {
 
       homeInfoModel = reservationModel;
     }
+
+    userStep.value = homeInfoModel.value.userStep;
     setStep();
   }
 

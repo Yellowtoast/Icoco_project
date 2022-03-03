@@ -6,9 +6,9 @@ import 'package:app/controllers/auth_controller.dart';
 import 'package:app/controllers/manager_controller.dart';
 
 import 'package:app/controllers/review_controller.dart';
-import 'package:app/pages/loading.dart';
+import 'package:app/widgets/loading/loading.dart';
 import 'package:app/pages/review/midterm_review.dart';
-import 'package:app/widgets/appbar.dart';
+import 'package:app/widgets/appbar/appbar.dart';
 import 'package:app/widgets/button/button.dart';
 import 'package:app/widgets/modal/exit_icon_modal.dart';
 import 'package:app/widgets/modal/option_modal.dart';

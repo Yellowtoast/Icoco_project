@@ -11,7 +11,7 @@ import 'package:app/helpers/formatter.dart';
 import 'package:app/helpers/loading.dart';
 import 'package:app/pages/home/home_skeleton.dart';
 import 'package:app/pages/reservation/step2/reserve/reserve_step2_4.dart';
-import 'package:app/widgets/appbar.dart';
+import 'package:app/widgets/appbar/appbar.dart';
 import 'package:app/widgets/button/button.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -19,7 +19,7 @@ import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 
-import '../loading.dart';
+import '../../widgets/loading/loading.dart';
 
 class MyReviewPage extends StatelessWidget {
   MyReviewPage({Key? key}) : super(key: key);

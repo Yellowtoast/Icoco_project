@@ -5,13 +5,13 @@ import 'package:app/controllers/auth_controller.dart';
 
 import 'package:app/models/reservation.dart';
 import 'package:app/widgets/button/button.dart';
-import 'package:app/widgets/appbar.dart';
+import 'package:app/widgets/appbar/appbar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 
-import '../../../../controllers/reservation/step2/substep_controllers/date_info_controller.dart';
-import '../../../../controllers/reservation/step2/substep_controllers/service_info_controller.dart';
+import '../../../../controllers/date_info_controller.dart';
+import '../../../../controllers/service_info_controller.dart';
 
 class ReserveStep2_Finished extends StatelessWidget {
   ReserveStep2_Finished({Key? key}) : super(key: key);

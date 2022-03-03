@@ -8,7 +8,7 @@ import 'package:app/controllers/signup_controller.dart';
 import 'package:app/helpers/validator.dart';
 import 'package:app/pages/mypage/edit/edit_phone.dart';
 import 'package:app/widgets/button/button.dart';
-import 'package:app/widgets/appbar.dart';
+import 'package:app/widgets/appbar/appbar.dart';
 import 'package:app/widgets/modal/bottomup_modal2.dart';
 import 'package:app/widgets/modal/option_modal.dart';
 import 'package:app/widgets/textfield/textfield.dart';

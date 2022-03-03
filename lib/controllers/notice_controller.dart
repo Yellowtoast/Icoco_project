@@ -1,7 +1,7 @@
 import 'dart:convert';
 import 'package:app/controllers/auth_controller.dart';
 import 'package:app/models/notice.dart';
-import 'package:app/pages/loading.dart';
+import 'package:app/widgets/loading/loading.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/rendering.dart';
 import 'package:http/http.dart' as http;
