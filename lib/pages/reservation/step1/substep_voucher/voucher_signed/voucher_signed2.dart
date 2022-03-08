@@ -144,17 +144,19 @@ class _VoucherSignedStep2State extends State<VoucherSignedStep2> {
                               buttonColor: IcoColors.primary,
                               textStyle: IcoTextStyle.buttonTextStyleW,
                               text: "다음으로"),
-                          SizedBox(
-                            height: 5,
-                          ),
-                          GestureDetector(
-                            onTap: () async {
-                              await authController.setModelInfo();
-                              Get.offAllNamed(Routes.HOME);
-                            },
-                            child: Text.rich(
-                              TextSpan(
-                                text: "메인화면으로 이동",
+                          Container(
+                            decoration: BoxDecoration(
+                              border: Border(
+                                bottom: BorderSide(color: IcoColors.grey3),
+                              ),
+                            ),
+                            child: GestureDetector(
+                              onTap: () async {
+                                await authController.setModelInfo();
+                                Get.offAllNamed(Routes.HOME);
+                              },
+                              child: Text(
+                                "메인화면으로 이동",
                                 style: IcoTextStyle.mediumLinedTextStyle14G,
                               ),
                             ),

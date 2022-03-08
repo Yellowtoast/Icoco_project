@@ -153,7 +153,7 @@ class SignupStep2Page extends StatelessWidget {
                         ),
                         IcoButton(
                             onPressed: () async {
-                              signupController.eventAlarm =
+                              signupController.eventAlarm.value =
                                   await IcoOptionModal();
                               signupController.isButtonValid.value = false;
                               Get.toNamed(

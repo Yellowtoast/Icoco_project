@@ -1,15 +1,8 @@
-import 'package:app/configs/enum.dart';
-import 'package:app/configs/purplebook.dart';
-import 'package:app/configs/steps.dart';
 import 'package:app/controllers/auth_controller.dart';
-import 'package:app/controllers/home_controller.dart';
-import 'package:app/helpers/validator.dart';
 import 'package:app/configs/voucher_fee.dart';
 import 'package:app/models/fee_info.dart';
 import 'package:app/models/reservation.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:dart_jsonwebtoken/dart_jsonwebtoken.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -162,13 +155,16 @@ class VoucherController extends GetxController {
       govermentFeeList = feeModelDefault.govermentFeeInfo[voucher];
     }
 
+    totalFeeList = totalFeeList.map((e) => (e == null) ? 0 : e).toList();
+    govermentFeeList =
+        govermentFeeList.map((e) => (e == null) ? 0 : e).toList();
+
     for (int i = 0; i < 5; i++) {
       totalFeeList[i] = totalFeeList[i] + depositFeeList[i] + additionalFee;
     }
-
-    print(govermentFeeList);
     await calculateUserFee();
     await calculateRemainingFee();
+    update();
     showResult.value = true;
   }
 

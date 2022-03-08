@@ -14,7 +14,7 @@ class FCMController extends GetxController {
   FirebaseMessaging _messaging = FirebaseMessaging.instance;
   Rx<String> fcmToken = ''.obs;
   RxMap<String, dynamic> message = Map<String, dynamic>().obs;
-  late Rx<NotificationSettings> _settings;
+  Rxn<NotificationSettings> _settings = Rxn<NotificationSettings>();
   RxBool pushAllowed = false.obs;
 
   @override
@@ -32,7 +32,8 @@ class FCMController extends GetxController {
       sound: true,
     );
 
-    if (_settings.value.authorizationStatus == AuthorizationStatus.authorized) {
+    if (_settings.value?.authorizationStatus ==
+        AuthorizationStatus.authorized) {
       print('User granted permission');
       pushAllowed.value = true;
     } else {

@@ -49,6 +49,7 @@ class VoucherDropdown extends StatelessWidget {
           style: const TextStyle(color: Colors.deepPurple),
           underline: Container(height: 0),
           onChanged: (String? newValue) {
+            voucherController.showResult.value = false;
             selectedVoucherType.value = newValue!;
             voucherController.setDropDownList(selectedVoucherType);
             if (voucherController.checkVoucherValid()) {
@@ -58,16 +59,6 @@ class VoucherDropdown extends StatelessWidget {
                   voucherController.voucherResult.value,
                   additionalFeeController.totalAdditionalFee);
             }
-
-            // if (selectedVoucherType.value == 'A' ||
-            //     selectedVoucherType.value == 'B' ||
-            //     selectedVoucherType.value == 'C') {
-            //   voucherController.voucherType2.value = null;
-            //   voucherController.voucherType3.value = null;
-            // }
-
-            // voucherController
-            //     .getVoucherCostInfo(voucherController.voucherResult.value!);
           },
           items: (voucherController.voucherType1.value == 'C' &&
                   dropDownList![0] == '')

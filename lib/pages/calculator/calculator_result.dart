@@ -199,7 +199,7 @@ class CalculatorResultPage extends StatelessWidget {
                                     width: IcoSize.width - 40,
                                   ),
                                   SizedBox(
-                                    height: 150,
+                                    height: 120,
                                   ),
                                 ],
                               ),

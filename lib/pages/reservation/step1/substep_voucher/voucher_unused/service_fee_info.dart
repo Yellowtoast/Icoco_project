@@ -157,26 +157,28 @@ class ServiceFeeInfoPage extends StatelessWidget {
                           buttonColor: IcoColors.primary,
                           textStyle: IcoTextStyle.buttonTextStyleW,
                           text: "일반서비스 신청"),
-                      SizedBox(
-                        height: 5,
-                      ),
-                      Center(
-                        child: GestureDetector(
-                          onTap: () async {
-                            await authController.setModelInfo();
-                            Get.offAllNamed(Routes.HOME);
-                          },
-                          child: Text.rich(
-                            TextSpan(
-                              text: "메인화면으로 이동",
+                      GestureDetector(
+                        onTap: () async {
+                          await authController.setModelInfo();
+                          Get.offAllNamed(Routes.HOME);
+                        },
+                        child: Center(
+                          child: Container(
+                            decoration: BoxDecoration(
+                              border: Border(
+                                bottom: BorderSide(color: IcoColors.grey3),
+                              ),
+                            ),
+                            alignment: Alignment.bottomCenter,
+                            height: 30,
+                            width: 115,
+                            child: Text(
+                              "메인화면으로 이동",
                               style: IcoTextStyle.mediumLinedTextStyle14G,
                             ),
                           ),
                         ),
                       ),
-                      SizedBox(
-                        height: 25,
-                      )
                     ],
                   ),
                 ),

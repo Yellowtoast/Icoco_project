@@ -801,8 +801,9 @@ class _HomeSkeleton2State extends State<HomeSkeletonPage> {
                   SizedBox(
                     height: 15,
                   ),
-                  (homeController.reservationModel.value!.isBirth == false &&
-                          homeController.userStep.value > 2)
+                  (homeController.userStep.value > 2 &&
+                          homeController.reservationModel.value!.isBirth ==
+                              false)
                       ? HomeNotifyButton(
                           iconUrl: 'icons/baby.svg',
                           onTap: () {
