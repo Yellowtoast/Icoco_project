@@ -132,7 +132,7 @@ Future<dynamic> DepositCostStatusPopup() {
                                   width: 11,
                                 ),
                                 Text(
-                                  "${decimalFormat.format(reservationModel.value!.userCost)} 원",
+                                  "${decimalFormat.format(reservationModel.value!.balanceCost)} 원",
                                   style: IcoTextStyle.boldTextStyle16P,
                                 )
                               ],

@@ -19,6 +19,7 @@ class DateInfoController extends GetxController {
   Rx<bool> step1Finished = false.obs;
   Rx<bool> step2Finished = false.obs;
   Rx<bool> step3Finished = false.obs;
+  Rx<bool> step4Finished = false.obs;
   Rx<bool> isBirthDateSelected = false.obs;
   Rx<bool> isHospitalDateSelected = false.obs;
   Rx<bool> isCareCenterDateSelected = false.obs;
@@ -26,10 +27,14 @@ class DateInfoController extends GetxController {
   Rxn<String> careCenterDuration = Rxn<String>();
   List<String> serviceDurationTypeList = ['1주', '2주', '3주', '4주', '5주'];
   Rxn<String> serviceDurationSelected = Rxn<String>();
-  Rxn<String> voucherDurationSelected = Rxn<String>();
+
   Rxn<DateTime> serviceStartDate = Rxn<DateTime>();
   Rxn<DateTime> serviceEndDate = Rxn<DateTime>();
   Rxn<int> serviceDurationInt = Rxn<int>();
+  Rx<bool> step1 = false.obs;
+  Rx<bool> step2 = false.obs;
+  Rx<bool> step3 = false.obs;
+  Rx<bool> step4 = false.obs;
 
   @override
   void onInit() {
@@ -166,9 +171,6 @@ class DateInfoController extends GetxController {
     //출산 전 : 서비스 시작일 받지 않음, 서비스 이용기간(주수)데이터만 받음
     //출산 후 : 서비스 시작일 + 서비스 이용기간(주수)데이터 받음
 
-    if (voucherDurationSelected.value != null) {
-      serviceDurationSelected.value = voucherDurationSelected.value;
-    }
     model.value!.serviceDuration = serviceDurationSelected.value;
     if (serviceStartDate.value != null) {
       setServiceEndDate(serviceDurationSelected.value);

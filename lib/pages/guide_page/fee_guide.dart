@@ -3,6 +3,7 @@ import 'package:app/configs/routes.dart';
 import 'package:app/configs/size.dart';
 import 'package:app/configs/text_styles.dart';
 import 'package:app/controllers/auth_controller.dart';
+import 'package:app/controllers/intro_page_controller.dart';
 import 'package:app/widgets/appbar/appbar.dart';
 import 'package:app/widgets/button/button.dart';
 import 'package:dotted_decoration/dotted_decoration.dart';
@@ -20,8 +21,10 @@ class FeeGuidePages extends StatelessWidget {
   FeeGuidePages({Key? key}) : super(key: key);
   Rx<int> pageIndex = 0.obs;
   AuthController authController = AuthController();
+
   @override
   Widget build(BuildContext context) {
+    IntroPageController introPageController = Get.put(IntroPageController());
     return Obx(() {
       return Scaffold(
           floatingActionButtonLocation:

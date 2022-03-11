@@ -15,6 +15,7 @@ import 'package:app/pages/find_password/find_password2.dart';
 
 import 'package:app/widgets/button/button.dart';
 import 'package:app/widgets/appbar/appbar.dart';
+import 'package:app/widgets/snackbar/snackbar.dart';
 import 'package:app/widgets/textfield/regnum_textfield.dart';
 import 'package:app/widgets/textfield/textfield.dart';
 
@@ -82,6 +83,7 @@ class FindPasswordPage1 extends StatelessWidget {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         IcoTextFormField(
+                          keyboardType: TextInputType.text,
                           width: IcoSize.width,
                           hintText: "본인 명의 이름을 입력해주세요",
                           textFieldLabel: "본명",
@@ -137,6 +139,7 @@ class FindPasswordPage1 extends StatelessWidget {
                                       value.replaceAll('-', '');
                                 }
                               },
+                              keyboardType: TextInputType.phone,
                             ),
                             SizedBox(
                               width: 8,
@@ -144,11 +147,14 @@ class FindPasswordPage1 extends StatelessWidget {
                             IcoButton(
                                 height: 50,
                                 width: 106,
-                                onPressed: () {
+                                onPressed: () async {
                                   passwordController.codeSendButtonValid.value =
                                       false;
+
+                                  await passwordController
+                                      .sendAuthCodeMessage();
+                                  openSnackbar("인증번호 전송 완료", null);
                                   passwordController.startAuthCodeTimer(180);
-                                  passwordController.sendAuthCodeMessage();
                                 },
                                 active: passwordController.codeSendButtonValid,
                                 textStyle: IcoTextStyle.boldTextStyle14W,
@@ -164,6 +170,7 @@ class FindPasswordPage1 extends StatelessWidget {
                         Stack(
                           children: [
                             IcoTextFormField(
+                              keyboardType: TextInputType.number,
                               width: IcoSize.width,
                               maxLength: 5,
                               hintText: "메시지로 전송된 번호를 입력해주세요",

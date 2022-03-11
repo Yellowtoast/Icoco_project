@@ -21,9 +21,9 @@ import 'package:get/get.dart';
 
 class ReserveStep2_3_AfterBirth extends StatelessWidget {
   ReserveStep2_3_AfterBirth({Key? key}) : super(key: key);
-  DateInfoController dateInfoController = Get.put(DateInfoController());
+  DateInfoController dateInfoController = Get.find();
   AuthController authController = Get.find();
-  VoucherController voucherController = Get.put(VoucherController());
+  VoucherController voucherController = Get.find();
 
   @override
   Widget build(BuildContext context) {

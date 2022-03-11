@@ -66,6 +66,7 @@ class LoginPage extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       IcoTextFormField(
+                        keyboardType: TextInputType.emailAddress,
                         width: double.infinity,
                         hintText: "이메일을 입력하세요",
                         textFieldLabel: "이메일",
@@ -77,6 +78,7 @@ class LoginPage extends StatelessWidget {
                         },
                       ),
                       IcoTextFormField(
+                        keyboardType: TextInputType.text,
                         width: double.infinity,
                         obscureText: true,
                         hintText: "8~12자 / 영문숫자조합",

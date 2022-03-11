@@ -82,20 +82,6 @@ class FCMController extends GetxController {
     print('FCM 메세지 도착');
     print("_onMessage : ${message.data}");
 
-    exitIconModal(
-        message.notification?.title ?? 'title',
-        message.notification?.body ?? 'BODY',
-        '확인',
-        () => Get.back(),
-        'icons/checked.svg',
-        50);
-    return null;
-  }
-
-  Future<void> _firebaseMessagingBackgroundHandler(
-      RemoteMessage message) async {
-    print("_onLaunch : ${message.data}");
-
     // exitIconModal(
     //     message.notification?.title ?? 'title',
     //     message.notification?.body ?? 'BODY',
@@ -111,7 +97,24 @@ class FCMController extends GetxController {
         buttonText: "확인 완료",
         onTap: () async {
           AuthController authController = Get.find();
-          loading(() => authController.setModelInfo());
+          loading(await authController.setModelInfo());
+          Get.offAllNamed(Routes.HOME);
+        });
+    return null;
+  }
+
+  Future<void> _firebaseMessagingBackgroundHandler(
+      RemoteMessage message) async {
+    print("_onLaunch : ${message.data}");
+
+    BottomUpModal2(
+        title: message.notification?.title ?? "산후도우미 변경 완료",
+        subtitle: message.notification?.body ??
+            "산후도우미 변경 요청으로\n다른 도우미님으로 변경되었습니다\n메인페이지에서 확인바랍니다.",
+        buttonText: "확인 완료",
+        onTap: () async {
+          AuthController authController = Get.find();
+          loading(await authController.setModelInfo());
           Get.offAllNamed(Routes.HOME);
         });
   }

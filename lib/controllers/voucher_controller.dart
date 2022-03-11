@@ -15,7 +15,7 @@ class VoucherController extends GetxController {
   RxBool hasPreviousVoucher = false.obs;
   RxBool isVoucherUsed = false.obs;
   Rxn<bool> isVoucherValid = Rxn<bool>();
-  RxList<String> voucherType1List = ['A', 'B', 'C'].obs;
+  RxList<String> voucherType1List = ['A', 'B', 'C', '일반'].obs;
   RxList<String> voucherType2List = ['가', '통합', '라'].obs;
   RxList<String> voucherType3List = ['1', '2', '3'].obs;
   RxBool showResult = false.obs;
@@ -85,35 +85,46 @@ class VoucherController extends GetxController {
   }
 
   setDropDownList(Rxn<String>? voucherItem) {
-    if (voucherItem == null) {
-      //바우처 선택 액션이 취해지지 않은 상태에서 해당 함수가 실행된다면
-      //기존에 있던 바우처 정보를 불러와야 함 -> 드롭다운도 세팅되어 있는 상태여야 함
-
-      if (voucherType1.value == 'A') {
-        voucherType3List.value = ['1', '2', '3'];
-      } else if (voucherType1.value == 'B') {
-        voucherType3List.value = ['1', '2'];
-      } else if (voucherType1.value == 'C') {
-        voucherType3List.value = [''];
-      }
-    } else {
-      if (voucherItem.value == 'A' ||
-          voucherItem.value == 'B' ||
-          voucherItem.value == 'C') {
-        if (voucherType1.value == 'A') {
-          voucherType3List.value = ['1', '2', '3'];
-        } else if (voucherType1.value == 'B') {
-          voucherType3List.value = ['1', '2'];
-        } else if (voucherType1.value == 'C') {
-          voucherType3List.value = [''];
-        }
-        showResult.value = false;
-        voucherType2.value = null;
-        voucherType3.value = null;
-      } else {
-        return;
-      }
+    if (voucherType1.value == 'A') {
+      voucherType3List.value = ['1', '2', '3'];
+    } else if (voucherType1.value == 'B') {
+      voucherType3List.value = ['1', '2'];
+    } else if (voucherType1.value == 'C') {
+      voucherType3List.value = [''];
+    } else if (voucherType1.value == '일반') {
+      voucherType3List.value = ['단태아', '쌍태아', '삼태아'];
     }
+
+    if (voucherItem != null &&
+        (voucherItem.value == 'A' ||
+            voucherItem.value == 'B' ||
+            voucherItem.value == 'C' ||
+            voucherItem.value == '일반')) {
+      showResult.value = false;
+      voucherType2.value = null;
+      voucherType3.value = null;
+    }
+    // if (voucherItem == null) {
+    //   //바우처 선택 액션이 취해지지 않은 상태에서 해당 함수가 실행된다면
+    //   //기존에 있던 바우처 정보를 불러와야 함 -> 드롭다운도 세팅되어 있는 상태여야 함
+
+    //   if (voucherType1.value == 'A') {
+    //     voucherType3List.value = ['1', '2', '3'];
+    //   } else if (voucherType1.value == 'B') {
+    //     voucherType3List.value = ['1', '2'];
+    //   } else if (voucherType1.value == 'C') {
+    //     voucherType3List.value = [''];
+    //   }
+    // } else {
+    //   if (voucherItem.value == 'A' ||
+    //       voucherItem.value == 'B' ||
+    //       voucherItem.value == 'C') {
+
+    //     showResult.value = false;
+    //     voucherType2.value = null;
+    //     voucherType3.value = null;
+    //   }
+    // }
   }
 
   makeFullVoucherResult() {
@@ -160,7 +171,7 @@ class VoucherController extends GetxController {
         govermentFeeList.map((e) => (e == null) ? 0 : e).toList();
 
     for (int i = 0; i < 5; i++) {
-      totalFeeList[i] = totalFeeList[i] + depositFeeList[i] + additionalFee;
+      totalFeeList[i] = totalFeeList[i] + additionalFee;
     }
     await calculateUserFee();
     await calculateRemainingFee();

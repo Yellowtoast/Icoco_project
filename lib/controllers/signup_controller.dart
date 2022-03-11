@@ -217,6 +217,7 @@ class SignupController extends GetxController {
         ),
         headers: {'x-access-token': token},
       );
+
       print(res.statusCode);
 
       // return;

@@ -5,7 +5,7 @@ final RegExp numberRegExp = RegExp(r'^[0-9]');
 final RegExp alphabetRegExp = RegExp(r'[a-zA-Z]');
 final RegExp specialRegExp = RegExp(r'^[_\-=@,\.;]+$');
 final RegExp passwordRegExp =
-    RegExp(r'^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,12}$');
+    RegExp(r'^(?=.*[a-zA-Z])((?=.*\d)|(?=.*\W)).{8,20}$');
 
 final RegExp phoneRegExp =
     RegExp(r'^(01[016789]{1}|02|0[3-9]{1}[0-9]{1})-?[0-9]{3,4}-?[0-9]{4}$');
@@ -30,7 +30,7 @@ validatePassword(
     passwordErrorText.value = null;
   } else if (!passwordRegExp.hasMatch(password)) {
     stepCheck.value = false;
-    passwordErrorText.value = '8~12자 / 영문숫자조합';
+    passwordErrorText.value = '8~12자 / 영문, 숫자 혹은 특수문자';
   } else {
     stepCheck.value = true;
     passwordErrorText.value = null;

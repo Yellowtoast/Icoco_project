@@ -212,7 +212,7 @@ class RemainingFeeStatus extends StatelessWidget {
                           style: IcoTextStyle.boldTextStyle13P,
                         ),
                         Text(
-                          "+ ${numFormat.format(authController.reservationModel.value!.balanceCost! - authController.reservationModel.value!.completedBalanceCost! + authController.reservationModel.value!.extraCost!)} 원 미입금",
+                          "+ ${numFormat.format(authController.reservationModel.value!.balanceCost! - authController.reservationModel.value!.completedBalanceCost!)} 원 미입금",
                           style: IcoTextStyle.boldTextStyle16P,
                         ),
                       ],
@@ -234,7 +234,7 @@ class RemainingFeeStatus extends StatelessWidget {
                           style: IcoTextStyle.mediumTextStyle13Grey4,
                         ),
                         Text(
-                          "${numFormat.format(authController.reservationModel.value!.userCost! + authController.reservationModel.value!.extraCost! - authController.reservationModel.value!.depositCost! - authController.reservationModel.value!.completedBalanceCost! + ((authController.reservationModel.value!.isFinishedDeposit! == '입금완료') ? 0 : authController.reservationModel.value!.completedBalanceCost!))} 원 미입금",
+                          "${numFormat.format(authController.reservationModel.value!.balanceCost! - authController.reservationModel.value!.completedBalanceCost!)} 원 미입금",
                           style: IcoTextStyle.mediumTextStyle16Grey4,
                         ),
                       ],
@@ -366,7 +366,7 @@ class RemainingFeeStatus extends StatelessWidget {
                                       style: IcoTextStyle.boldTextStyle13Grey4,
                                     ),
                                     Text(
-                                      "${numFormat.format(authController.reservationModel.value!.balanceCost!.toInt() + authController.reservationModel.value!.extraCost!.toInt())} 원",
+                                      "${numFormat.format(authController.reservationModel.value!.balanceCost)} 원",
                                       style: IcoTextStyle.boldTextStyle16B,
                                     )
                                   ],

@@ -67,63 +67,56 @@ class ReserveStep2_4 extends StatelessWidget {
                         SizedBox(
                           height: 9,
                         ),
-                        Container(
-                          decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(10),
-                              border: Border.all(color: IcoColors.grey2)),
-                          child: Row(
-                            children: [
-                              TextRadioButton(
-                                item: lactationType.BREAST_FEEDING,
-                                itemTitle: "모유",
-                                selectedItem:
-                                    serviceInfoController.lactationTypeSelected,
-                                radiusTopRight: false,
-                                radiusBottomRight: false,
-                                hasBorder: false,
-                                onTap: () {
-                                  serviceInfoController.lactationTypeSelected
-                                      .value = lactationType.BREAST_FEEDING;
-                                },
-                                activeBorderColor: IcoColors.primary,
-                                inactiveBorderColor: IcoColors.grey2,
-                              ),
-                              OptionDividerLine(),
-                              TextRadioButton(
-                                item: lactationType.BOTTLE_FEEDING,
-                                itemTitle: "분유",
-                                selectedItem:
-                                    serviceInfoController.lactationTypeSelected,
-                                radiusTopRight: false,
-                                radiusBottomRight: false,
-                                radiusTopLeft: false,
-                                radiusBottomLeft: false,
-                                hasBorder: false,
-                                onTap: () {
-                                  serviceInfoController.lactationTypeSelected
-                                      .value = lactationType.BOTTLE_FEEDING;
-                                },
-                                activeBorderColor: IcoColors.primary,
-                                inactiveBorderColor: IcoColors.grey2,
-                              ),
-                              OptionDividerLine(),
-                              TextRadioButton(
-                                item: lactationType.MIX_FEEDING,
-                                itemTitle: "혼합형",
-                                radiusTopLeft: false,
-                                radiusBottomLeft: false,
-                                hasBorder: false,
-                                selectedItem:
-                                    serviceInfoController.lactationTypeSelected,
-                                onTap: () {
-                                  serviceInfoController.lactationTypeSelected
-                                      .value = lactationType.MIX_FEEDING;
-                                },
-                                activeBorderColor: IcoColors.primary,
-                                inactiveBorderColor: IcoColors.grey2,
-                              ),
-                            ],
-                          ),
+                        Row(
+                          children: [
+                            TextRadioButton(
+                              item: lactationType.BREAST_FEEDING,
+                              itemTitle: "모유",
+                              selectedItem:
+                                  serviceInfoController.lactationTypeSelected,
+                              radiusTopRight: false,
+                              radiusBottomRight: false,
+                              hasBorder: false,
+                              onTap: () {
+                                serviceInfoController.lactationTypeSelected
+                                    .value = lactationType.BREAST_FEEDING;
+                              },
+                              activeBorderColor: IcoColors.primary,
+                              inactiveBorderColor: IcoColors.grey2,
+                            ),
+                            TextRadioButton(
+                              item: lactationType.BOTTLE_FEEDING,
+                              itemTitle: "분유",
+                              selectedItem:
+                                  serviceInfoController.lactationTypeSelected,
+                              radiusTopRight: false,
+                              radiusBottomRight: false,
+                              radiusTopLeft: false,
+                              radiusBottomLeft: false,
+                              hasBorder: false,
+                              onTap: () {
+                                serviceInfoController.lactationTypeSelected
+                                    .value = lactationType.BOTTLE_FEEDING;
+                              },
+                              activeBorderColor: IcoColors.primary,
+                              inactiveBorderColor: IcoColors.grey2,
+                            ),
+                            TextRadioButton(
+                              item: lactationType.MIX_FEEDING,
+                              itemTitle: "혼합형",
+                              radiusTopLeft: false,
+                              radiusBottomLeft: false,
+                              hasBorder: false,
+                              selectedItem:
+                                  serviceInfoController.lactationTypeSelected,
+                              onTap: () {
+                                serviceInfoController.lactationTypeSelected
+                                    .value = lactationType.MIX_FEEDING;
+                              },
+                              activeBorderColor: IcoColors.primary,
+                              inactiveBorderColor: IcoColors.grey2,
+                            ),
+                          ],
                         ),
                       ],
                     ),
@@ -151,63 +144,56 @@ class ReserveStep2_4 extends StatelessWidget {
                         SizedBox(
                           height: 9,
                         ),
-                        Container(
-                          decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(10),
-                              border: Border.all(color: IcoColors.grey2)),
-                          child: Row(
-                            children: [
-                              TextRadioButton(
-                                item: carePlaceType.OWN_HOUSE,
-                                itemTitle: "자가",
-                                selectedItem:
-                                    serviceInfoController.carePlaceTypeSelected,
-                                radiusTopRight: false,
-                                radiusBottomRight: false,
-                                hasBorder: false,
-                                onTap: () {
-                                  serviceInfoController.carePlaceTypeSelected
-                                      .value = carePlaceType.OWN_HOUSE;
-                                },
-                                activeBorderColor: IcoColors.primary,
-                                inactiveBorderColor: IcoColors.grey2,
-                              ),
-                              OptionDividerLine(),
-                              TextRadioButton(
-                                item: carePlaceType.PARENTS_HOUSE,
-                                itemTitle: "친정댁",
-                                selectedItem:
-                                    serviceInfoController.carePlaceTypeSelected,
-                                radiusTopRight: false,
-                                radiusBottomRight: false,
-                                radiusTopLeft: false,
-                                radiusBottomLeft: false,
-                                hasBorder: false,
-                                onTap: () {
-                                  serviceInfoController.carePlaceTypeSelected
-                                      .value = carePlaceType.PARENTS_HOUSE;
-                                },
-                                activeBorderColor: IcoColors.primary,
-                                inactiveBorderColor: IcoColors.grey2,
-                              ),
-                              OptionDividerLine(),
-                              TextRadioButton(
-                                item: carePlaceType.IN_LAW_HOUSE,
-                                itemTitle: "시댁",
-                                radiusTopLeft: false,
-                                radiusBottomLeft: false,
-                                hasBorder: false,
-                                selectedItem:
-                                    serviceInfoController.carePlaceTypeSelected,
-                                onTap: () {
-                                  serviceInfoController.carePlaceTypeSelected
-                                      .value = carePlaceType.IN_LAW_HOUSE;
-                                },
-                                activeBorderColor: IcoColors.primary,
-                                inactiveBorderColor: IcoColors.grey2,
-                              ),
-                            ],
-                          ),
+                        Row(
+                          children: [
+                            TextRadioButton(
+                              item: carePlaceType.OWN_HOUSE,
+                              itemTitle: "자가",
+                              selectedItem:
+                                  serviceInfoController.carePlaceTypeSelected,
+                              radiusTopRight: false,
+                              radiusBottomRight: false,
+                              hasBorder: false,
+                              onTap: () {
+                                serviceInfoController.carePlaceTypeSelected
+                                    .value = carePlaceType.OWN_HOUSE;
+                              },
+                              activeBorderColor: IcoColors.primary,
+                              inactiveBorderColor: IcoColors.grey2,
+                            ),
+                            TextRadioButton(
+                              item: carePlaceType.PARENTS_HOUSE,
+                              itemTitle: "친정댁",
+                              selectedItem:
+                                  serviceInfoController.carePlaceTypeSelected,
+                              radiusTopRight: false,
+                              radiusBottomRight: false,
+                              radiusTopLeft: false,
+                              radiusBottomLeft: false,
+                              hasBorder: false,
+                              onTap: () {
+                                serviceInfoController.carePlaceTypeSelected
+                                    .value = carePlaceType.PARENTS_HOUSE;
+                              },
+                              activeBorderColor: IcoColors.primary,
+                              inactiveBorderColor: IcoColors.grey2,
+                            ),
+                            TextRadioButton(
+                              item: carePlaceType.IN_LAW_HOUSE,
+                              itemTitle: "시댁",
+                              radiusTopLeft: false,
+                              radiusBottomLeft: false,
+                              hasBorder: false,
+                              selectedItem:
+                                  serviceInfoController.carePlaceTypeSelected,
+                              onTap: () {
+                                serviceInfoController.carePlaceTypeSelected
+                                    .value = carePlaceType.IN_LAW_HOUSE;
+                              },
+                              activeBorderColor: IcoColors.primary,
+                              inactiveBorderColor: IcoColors.grey2,
+                            ),
+                          ],
                         ),
                       ],
                     ),
@@ -235,85 +221,80 @@ class ReserveStep2_4 extends StatelessWidget {
                         SizedBox(
                           height: 9,
                         ),
-                        Container(
-                          decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(10),
-                              border: Border.all(color: IcoColors.grey2)),
-                          child: Row(
-                            children: [
-                              TextRadioButton(
-                                item: petType.DOG,
-                                itemTitle: "강아지",
-                                selectedItem:
-                                    serviceInfoController.petTypeSelected,
-                                radiusTopRight: false,
-                                radiusBottomRight: false,
-                                hasBorder: false,
-                                onTap: () {
-                                  serviceInfoController.petTypeSelected.value =
-                                      petType.DOG;
-                                  serviceInfoController.setPetType();
-                                },
-                                activeBorderColor: IcoColors.primary,
-                                inactiveBorderColor: IcoColors.grey2,
-                              ),
-                              OptionDividerLine(),
-                              TextRadioButton(
-                                item: petType.CAT,
-                                itemTitle: "고양이",
-                                selectedItem:
-                                    serviceInfoController.petTypeSelected,
-                                radiusTopRight: false,
-                                radiusBottomRight: false,
-                                radiusTopLeft: false,
-                                radiusBottomLeft: false,
-                                hasBorder: false,
-                                onTap: () {
-                                  serviceInfoController.petTypeSelected.value =
-                                      petType.CAT;
-                                  serviceInfoController.setPetType();
-                                },
-                                activeBorderColor: IcoColors.primary,
-                                inactiveBorderColor: IcoColors.grey2,
-                              ),
-                              OptionDividerLine(),
-                              TextRadioButton(
-                                item: petType.ETC,
-                                itemTitle: "기타",
-                                radiusTopRight: false,
-                                radiusBottomRight: false,
-                                radiusTopLeft: false,
-                                radiusBottomLeft: false,
-                                hasBorder: false,
-                                selectedItem:
-                                    serviceInfoController.petTypeSelected,
-                                onTap: () {
-                                  serviceInfoController.petTypeSelected.value =
-                                      petType.ETC;
-                                  serviceInfoController.setPetType();
-                                },
-                                activeBorderColor: IcoColors.primary,
-                                inactiveBorderColor: IcoColors.grey2,
-                              ),
-                              OptionDividerLine(),
-                              TextRadioButton(
-                                item: petType.NONE,
-                                itemTitle: "없음",
-                                radiusTopLeft: false,
-                                radiusBottomLeft: false,
-                                hasBorder: false,
-                                selectedItem:
-                                    serviceInfoController.petTypeSelected,
-                                onTap: () {
-                                  serviceInfoController.petTypeSelected.value =
-                                      petType.NONE;
-                                  serviceInfoController.setPetType();
-                                },
-                                activeBorderColor: IcoColors.primary,
-                                inactiveBorderColor: IcoColors.grey2,
-                              ),
-                            ],
-                          ),
+                        Row(
+                          children: [
+                            TextRadioButton(
+                              item: petType.DOG,
+                              itemTitle: "강아지",
+                              selectedItem:
+                                  serviceInfoController.petTypeSelected,
+                              radiusTopRight: false,
+                              radiusBottomRight: false,
+                              hasBorder: false,
+                              onTap: () {
+                                serviceInfoController.petTypeSelected.value =
+                                    petType.DOG;
+                                serviceInfoController.setPetType();
+                              },
+                              activeBorderColor: IcoColors.primary,
+                              inactiveBorderColor: IcoColors.grey2,
+                            ),
+                            OptionDividerLine(),
+                            TextRadioButton(
+                              item: petType.CAT,
+                              itemTitle: "고양이",
+                              selectedItem:
+                                  serviceInfoController.petTypeSelected,
+                              radiusTopRight: false,
+                              radiusBottomRight: false,
+                              radiusTopLeft: false,
+                              radiusBottomLeft: false,
+                              hasBorder: false,
+                              onTap: () {
+                                serviceInfoController.petTypeSelected.value =
+                                    petType.CAT;
+                                serviceInfoController.setPetType();
+                              },
+                              activeBorderColor: IcoColors.primary,
+                              inactiveBorderColor: IcoColors.grey2,
+                            ),
+                            OptionDividerLine(),
+                            TextRadioButton(
+                              item: petType.ETC,
+                              itemTitle: "기타",
+                              radiusTopRight: false,
+                              radiusBottomRight: false,
+                              radiusTopLeft: false,
+                              radiusBottomLeft: false,
+                              hasBorder: false,
+                              selectedItem:
+                                  serviceInfoController.petTypeSelected,
+                              onTap: () {
+                                serviceInfoController.petTypeSelected.value =
+                                    petType.ETC;
+                                serviceInfoController.setPetType();
+                              },
+                              activeBorderColor: IcoColors.primary,
+                              inactiveBorderColor: IcoColors.grey2,
+                            ),
+                            OptionDividerLine(),
+                            TextRadioButton(
+                              item: petType.NONE,
+                              itemTitle: "없음",
+                              radiusTopLeft: false,
+                              radiusBottomLeft: false,
+                              hasBorder: false,
+                              selectedItem:
+                                  serviceInfoController.petTypeSelected,
+                              onTap: () {
+                                serviceInfoController.petTypeSelected.value =
+                                    petType.NONE;
+                                serviceInfoController.setPetType();
+                              },
+                              activeBorderColor: IcoColors.primary,
+                              inactiveBorderColor: IcoColors.grey2,
+                            ),
+                          ],
                         ),
                       ],
                     ),

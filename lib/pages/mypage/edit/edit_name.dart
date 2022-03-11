@@ -19,6 +19,8 @@ import 'package:app/widgets/textfield/textfield.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
+import '../../../widgets/snackbar/snackbar.dart';
+
 class EditNamePage extends StatelessWidget {
   EditNamePage({Key? key}) : super(key: key);
   SignupController signupController = Get.put(SignupController());
@@ -95,6 +97,7 @@ class EditNamePage extends StatelessWidget {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         IcoTextFormField(
+                          keyboardType: TextInputType.text,
                           width: IcoSize.width,
                           hintText: "본인 명의 이름을 입력해주세요",
                           textFieldLabel: "본명",
@@ -127,6 +130,7 @@ class EditNamePage extends StatelessWidget {
                         Row(
                           children: [
                             IcoTextFormField(
+                              keyboardType: TextInputType.phone,
                               width: IcoSize.width - 40 - 106 - 8,
                               maxLength: 13,
                               hintText: "-없이 입력해주세요",
@@ -154,11 +158,13 @@ class EditNamePage extends StatelessWidget {
                             IcoButton(
                                 height: 50,
                                 width: 106,
-                                onPressed: () {
+                                onPressed: () async {
                                   signupController.codeSendButtonValid.value =
                                       false;
+                                  await signupController.sendAuthCodeMessage();
+                                  openSnackbar(
+                                      "인증번호 전송 완료", "전송된 인증번호를 입력해주세요");
                                   signupController.startAuthCodeTimer(180);
-                                  signupController.sendAuthCodeMessage();
                                 },
                                 active: signupController.codeSendButtonValid,
                                 textStyle: IcoTextStyle.boldTextStyle14W,
@@ -173,6 +179,7 @@ class EditNamePage extends StatelessWidget {
                         Stack(
                           children: [
                             IcoTextFormField(
+                              keyboardType: TextInputType.number,
                               width: IcoSize.width,
                               maxLength: 5,
                               hintText: "메시지로 전송된 번호를 입력해주세요",

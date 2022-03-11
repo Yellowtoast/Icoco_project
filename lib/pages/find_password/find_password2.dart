@@ -55,6 +55,7 @@ class FindPasswordPage2 extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       IcoTextFormField(
+                        keyboardType: TextInputType.text,
                         width: double.infinity,
                         obscureText: true,
                         hintText: "8~12자 / 영문숫자조합",
@@ -70,6 +71,7 @@ class FindPasswordPage2 extends StatelessWidget {
                         },
                       ),
                       IcoTextFormField(
+                        keyboardType: TextInputType.text,
                         width: double.infinity,
                         obscureText: true,
                         hintText: "8~12자 / 영문숫자조합",

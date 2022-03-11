@@ -77,6 +77,9 @@ BottomResultModal() {
                                 style: IcoTextStyle.boldTextStyle15B,
                               ),
                             ),
+                            SizedBox(
+                              width: 5,
+                            ),
                             Expanded(
                               child: Text(
                                   additionalFeeController.preschooler

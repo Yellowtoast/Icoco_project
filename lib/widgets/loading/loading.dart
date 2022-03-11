@@ -10,11 +10,11 @@ startLoadingIndicator() {
         mainAxisAlignment: MainAxisAlignment.center,
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-          Lottie.asset('assets/loading2.json',
-              repeat: true, reverse: true, animate: true, width: 90),
+          Lottie.asset('assets/loading.json',
+              repeat: true, reverse: true, animate: true, width: 330),
         ],
       ),
-      barrierColor: Colors.white30,
+      barrierColor: Color.fromARGB(119, 255, 255, 255),
       barrierDismissible: false);
 }
 
@@ -24,14 +24,14 @@ finishLoadingIndicator() {
 
 loading(Future<dynamic> Function() function) {
   return Get.showOverlay(
-    opacityColor: Colors.white30,
+    opacityColor: Color.fromARGB(119, 255, 255, 255),
     asyncFunction: function,
     loadingWidget: Column(
       mainAxisAlignment: MainAxisAlignment.center,
       crossAxisAlignment: CrossAxisAlignment.center,
       children: [
-        Lottie.asset('assets/loading2.json',
-            repeat: true, reverse: true, animate: true, width: 90),
+        Lottie.asset('assets/loading.json',
+            repeat: true, reverse: true, animate: true, width: 330),
       ],
     ),
   );

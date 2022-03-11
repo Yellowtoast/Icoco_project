@@ -165,7 +165,7 @@ class VoucherSignedStep1 extends StatelessWidget {
                                       MainAxisAlignment.spaceBetween,
                                   children: [
                                     Text(
-                                      "소득유형",
+                                      "등급유형",
                                       style: IcoTextStyle.boldTextStyle13P,
                                     ),
                                     Text(

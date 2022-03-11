@@ -599,14 +599,14 @@ class MyReservationPage extends StatelessWidget {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Text(
-                              '미취학 아동 ${authController.reservationModel.value!.allAdditionalFamily!['kindergartener']}명',
+                              '24개월 미만 ${authController.reservationModel.value!.allAdditionalFamily!['preschooler']}명',
                               style: IcoTextStyle.regularTextStyle13Grey4,
                             ),
                             SizedBox(
                               height: 5,
                             ),
                             Text(
-                              '유치원/어린이집 ${authController.reservationModel.value!.allAdditionalFamily!['kindergartener']}명',
+                              '미취학 아동 ${authController.reservationModel.value!.allAdditionalFamily!['kindergartener']}명',
                               style: IcoTextStyle.regularTextStyle13Grey4,
                             ),
                             SizedBox(

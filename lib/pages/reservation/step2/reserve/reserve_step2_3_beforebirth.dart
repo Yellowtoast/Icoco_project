@@ -17,7 +17,7 @@ import 'package:get/get.dart';
 
 class ReserveStep2_3_BeforeBirth extends StatelessWidget {
   ReserveStep2_3_BeforeBirth({Key? key}) : super(key: key);
-  DateInfoController dateInfoController = Get.put(DateInfoController());
+  DateInfoController dateInfoController = Get.find();
   AuthController authController = Get.find();
 
   List<String> careCenterDurationList = [
@@ -30,10 +30,7 @@ class ReserveStep2_3_BeforeBirth extends StatelessWidget {
     '7주',
     '8주'
   ];
-  Rx<bool> step1 = false.obs;
-  Rx<bool> step2 = false.obs;
-  Rx<bool> step3 = false.obs;
-  Rx<bool> step4 = false.obs;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -88,7 +85,7 @@ class ReserveStep2_3_BeforeBirth extends StatelessWidget {
                                   dateInfoController.birthDate,
                                   dateInfoController.isBirthDateSelected,
                                   DateTime.now(),
-                                  step1,
+                                  dateInfoController.step1,
                                   null);
                             },
                           ),
@@ -120,8 +117,8 @@ class ReserveStep2_3_BeforeBirth extends StatelessWidget {
                                   dateInfoController.useCareCenterSelected
                                       .value = usageType.YES;
 
-                                  step2.value = true;
-                                  step3.value = false;
+                                  dateInfoController.step2.value = true;
+                                  dateInfoController.step3.value = false;
                                 },
                                 activeBorderColor: IcoColors.primary,
                                 inactiveBorderColor: IcoColors.grey2,
@@ -139,8 +136,8 @@ class ReserveStep2_3_BeforeBirth extends StatelessWidget {
                                       null;
                                   dateInfoController.useCareCenterSelected
                                       .value = usageType.NO;
-                                  step2.value = true;
-                                  step3.value = true;
+                                  dateInfoController.step2.value = true;
+                                  dateInfoController.step3.value = true;
                                 },
                                 activeBorderColor: IcoColors.primary,
                                 inactiveBorderColor: IcoColors.grey2,
@@ -179,7 +176,7 @@ class ReserveStep2_3_BeforeBirth extends StatelessWidget {
                                     onChanged: (String? newValue) {
                                       dateInfoController
                                           .careCenterDuration.value = newValue;
-                                      step3.value = true;
+                                      dateInfoController.step3.value = true;
                                     },
                                     items: careCenterDurationList
                                         .map<DropdownMenuItem<String>>(
@@ -229,7 +226,7 @@ class ReserveStep2_3_BeforeBirth extends StatelessWidget {
                                 dateInfoController
                                     .serviceDurationSelected.value = newValue;
 
-                                step4.value = true;
+                                dateInfoController.step4.value = true;
                               },
                               hintText: "이용주수를 선택해주세요",
                               dropDownList:
@@ -238,7 +235,7 @@ class ReserveStep2_3_BeforeBirth extends StatelessWidget {
                                   dateInfoController.serviceDurationSelected,
                               selectedTextStyle:
                                   IcoTextStyle.mediumTextStyle16B,
-                              stepFinished: step4,
+                              stepFinished: dateInfoController.step4,
                             ),
                           ),
                         ],
@@ -257,10 +254,10 @@ class ReserveStep2_3_BeforeBirth extends StatelessWidget {
 
                         Get.toNamed(Routes.RESERVE_STEP2_5);
                       },
-                      active: (step1.value &&
-                              step2.value &&
-                              step3.value &&
-                              step4.value)
+                      active: (dateInfoController.step1.value &&
+                              dateInfoController.step2.value &&
+                              dateInfoController.step3.value &&
+                              dateInfoController.step4.value)
                           ? true.obs
                           : false.obs,
                       textStyle: IcoTextStyle.buttonTextStyleW,

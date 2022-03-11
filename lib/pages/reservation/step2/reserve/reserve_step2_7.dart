@@ -34,7 +34,7 @@ class ReserveStep2_7 extends StatelessWidget {
             onPressed: () async {
               Get.toNamed(Routes.RESERVE_STEP2_REGISTERED);
             },
-            active: (dateInfoController.voucherDurationSelected.value == null)
+            active: (dateInfoController.serviceDurationSelected.value == null)
                 ? false.obs
                 : true.obs,
             textStyle: IcoTextStyle.buttonTextStyleW,
@@ -136,37 +136,38 @@ class ReserveStep2_7 extends StatelessWidget {
                 : Expanded(
                     child: ListView.builder(
                         shrinkWrap: true,
-                        itemCount: dateInfoController.serviceDurationInt.value,
+                        itemCount: 5,
                         itemBuilder: (BuildContext context, int index) {
                           return Column(
                             children: [
-                              SizedBox(
-                                height: 20,
-                              ),
-                              InkWell(
-                                onTap: () {
-                                  dateInfoController.voucherDurationSelected
-                                      .value = "${index + 1}주";
-                                },
-                                child: CostInfoSelectButton(
-                                  feeTypeIndex: index,
-                                  isVoucherUsed:
-                                      (voucherController.isVoucherUsed.value ==
-                                              true)
-                                          ? false.obs
-                                          : true.obs,
-                                  totalFee: voucherController.totalFeeList,
-                                  userFee: voucherController.userFeeList,
-                                  govermentFee:
-                                      voucherController.govermentFeeList,
-                                  depositFee: voucherController.depositFeeList,
-                                  remainingFee:
-                                      voucherController.remainingFeeList,
-                                  title: "${index + 1}주 사용",
-                                  titleStyle: IcoTextStyle.boldTextStyle18B,
-                                  itemValue: "${index + 1}주",
-                                  useDateSelected: dateInfoController
-                                      .voucherDurationSelected,
+                              Container(
+                                margin: EdgeInsets.symmetric(vertical: 10),
+                                child: InkWell(
+                                  onTap: () {
+                                    dateInfoController.serviceDurationSelected
+                                        .value = "${index + 1}주";
+                                  },
+                                  child: CostInfoSelectButton(
+                                    feeTypeIndex: index,
+                                    isVoucherUsed: (voucherController
+                                                .isVoucherUsed.value ==
+                                            true)
+                                        ? false.obs
+                                        : true.obs,
+                                    totalFee: voucherController.totalFeeList,
+                                    userFee: voucherController.userFeeList,
+                                    govermentFee:
+                                        voucherController.govermentFeeList,
+                                    depositFee:
+                                        voucherController.depositFeeList,
+                                    remainingFee:
+                                        voucherController.remainingFeeList,
+                                    title: "${index + 1}주 사용",
+                                    titleStyle: IcoTextStyle.boldTextStyle18B,
+                                    itemValue: "${index + 1}주",
+                                    useDateSelected: dateInfoController
+                                        .serviceDurationSelected,
+                                  ),
                                 ),
                               ),
                             ],

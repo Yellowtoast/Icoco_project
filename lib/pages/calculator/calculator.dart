@@ -517,6 +517,17 @@ class CalculatorPage extends StatelessWidget {
                               );
                             }).toList(),
                             dropdownElevation: 0,
+                            dropdownDecoration: BoxDecoration(
+                                color: IcoColors.white,
+                                boxShadow: [
+                                  BoxShadow(
+                                    spreadRadius: 1,
+                                    color: IcoColors.grey2,
+                                  )
+                                ],
+                                borderRadius: BorderRadius.only(
+                                    bottomLeft: Radius.circular(10),
+                                    bottomRight: Radius.circular(10))),
                             onChanged: (item) {
                               calculatorController.numberOfChildSelected.value =
                                   item.toString();

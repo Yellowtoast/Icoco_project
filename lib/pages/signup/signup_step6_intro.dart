@@ -23,6 +23,7 @@ class SignupStep6Page extends StatelessWidget {
   PageController pageController = PageController(
     initialPage: 0,
   );
+
   List<Color> backgroundColorSet = [
     IcoColors.purple2,
     IcoColors.purple2,

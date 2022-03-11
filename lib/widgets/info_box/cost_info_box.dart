@@ -92,7 +92,7 @@ class CostInfoBox extends StatelessWidget {
                       ),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        crossAxisAlignment: CrossAxisAlignment.start,
+                        crossAxisAlignment: CrossAxisAlignment.center,
                         children: [
                           Text("본인부담금",
                               style: IcoTextStyle.mediumTextStyle13Grey4),

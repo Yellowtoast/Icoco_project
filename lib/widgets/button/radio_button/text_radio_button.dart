@@ -47,7 +47,7 @@ class TextRadioButton extends StatelessWidget {
               decoration: BoxDecoration(
                 boxShadow: [
                   BoxShadow(
-                      color: (selectedItem.value == item)
+                      color: (hasBorder && selectedItem == item)
                           ? activeBorderColor
                           : inactiveBorderColor,
                       spreadRadius: 1)

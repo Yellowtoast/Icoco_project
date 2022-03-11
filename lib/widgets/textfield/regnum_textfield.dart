@@ -73,7 +73,7 @@ class IcoRegNumField extends StatelessWidget {
                             decoration: InputDecoration(
                               counterText: '',
                               contentPadding:
-                                  EdgeInsets.symmetric(horizontal: 15),
+                                  EdgeInsets.symmetric(horizontal: 12),
                               hintText: frontHintText,
                               errorText: errorText!.value,
                               hintStyle: IcoTextStyle.mediumTextStyle16Grey3,
@@ -101,42 +101,39 @@ class IcoRegNumField extends StatelessWidget {
                           width: 28,
                           child: SvgPicture.asset("icons/line.svg"),
                         ),
-                        Expanded(
-                          child: SizedBox(
-                            height: 50,
-                            width: width,
-                            child: TextFormField(
-                              keyboardType: TextInputType.number,
-                              onTap: () {},
-                              maxLength: 7,
-                              obscureText: obscureText,
-                              controller: backTextController,
-                              onChanged: onChanged,
-                              decoration: InputDecoration(
-                                counterText: '',
-                                contentPadding:
-                                    EdgeInsets.symmetric(horizontal: 15),
-                                errorText: errorText!.value,
-                                hintText: backHintText,
-                                hintStyle: IcoTextStyle.mediumTextStyle16Grey3,
-                                errorStyle: TextStyle(
-                                    height: 0, color: Colors.transparent),
-                                focusedBorder: OutlineInputBorder(
-                                  borderRadius:
-                                      BorderRadius.all(Radius.circular(10.0)),
-                                  borderSide:
-                                      BorderSide(color: IcoColors.primary),
-                                ),
-                                enabledBorder: OutlineInputBorder(
-                                  borderRadius:
-                                      BorderRadius.all(Radius.circular(10.0)),
-                                  borderSide:
-                                      BorderSide(color: IcoColors.grey2),
-                                ),
-                                border: OutlineInputBorder(
-                                  borderRadius:
-                                      BorderRadius.all(Radius.circular(10.0)),
-                                ),
+                        SizedBox(
+                          height: 50,
+                          width: 40,
+                          child: TextFormField(
+                            keyboardType: TextInputType.number,
+                            onTap: () {},
+                            maxLength: 7,
+                            obscureText: obscureText,
+                            controller: backTextController,
+                            onChanged: onChanged,
+                            decoration: InputDecoration(
+                              counterText: '',
+                              contentPadding:
+                                  EdgeInsets.symmetric(horizontal: 10),
+                              errorText: errorText!.value,
+                              hintText: backHintText,
+                              hintStyle: IcoTextStyle.mediumTextStyle16Grey3,
+                              errorStyle: TextStyle(
+                                  height: 0, color: Colors.transparent),
+                              focusedBorder: OutlineInputBorder(
+                                borderRadius:
+                                    BorderRadius.all(Radius.circular(10.0)),
+                                borderSide:
+                                    BorderSide(color: IcoColors.primary),
+                              ),
+                              enabledBorder: OutlineInputBorder(
+                                borderRadius:
+                                    BorderRadius.all(Radius.circular(10.0)),
+                                borderSide: BorderSide(color: IcoColors.grey2),
+                              ),
+                              border: OutlineInputBorder(
+                                borderRadius:
+                                    BorderRadius.all(Radius.circular(10.0)),
                               ),
                             ),
                           ),
@@ -145,7 +142,6 @@ class IcoRegNumField extends StatelessWidget {
                           width: 15,
                         ),
                         SizedBox(
-                          width: 90,
                           child: SvgPicture.asset("icons/secureNumIcon.svg"),
                         ),
                       ],

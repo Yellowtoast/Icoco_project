@@ -20,7 +20,7 @@ class IcoTextFormField extends StatelessWidget {
     this.errorText,
     this.isErrorTextLabel = true,
     this.maxLength = 30,
-    this.keyboardType = TextInputType.text,
+    required this.keyboardType,
     this.showErrorText = true,
     this.textInputFormatter,
   }) : super(key: key);

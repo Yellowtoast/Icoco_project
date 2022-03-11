@@ -95,6 +95,7 @@ class EditPhonePage extends StatelessWidget {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         IcoTextFormField(
+                          keyboardType: TextInputType.text,
                           width: IcoSize.width,
                           hintText: "본인 명의 이름을 입력해주세요",
                           textFieldLabel: "본명",
@@ -127,6 +128,7 @@ class EditPhonePage extends StatelessWidget {
                         Row(
                           children: [
                             IcoTextFormField(
+                              keyboardType: TextInputType.phone,
                               width: IcoSize.width - 40 - 106 - 8,
                               maxLength: 13,
                               hintText: "-없이 입력해주세요",
@@ -154,11 +156,13 @@ class EditPhonePage extends StatelessWidget {
                             IcoButton(
                                 height: 50,
                                 width: 106,
-                                onPressed: () {
+                                onPressed: () async {
                                   signupController.codeSendButtonValid.value =
                                       false;
+
+                                  await signupController.sendAuthCodeMessage();
+
                                   signupController.startAuthCodeTimer(180);
-                                  signupController.sendAuthCodeMessage();
                                 },
                                 active: signupController.codeSendButtonValid,
                                 textStyle: IcoTextStyle.boldTextStyle14W,
@@ -173,6 +177,7 @@ class EditPhonePage extends StatelessWidget {
                         Stack(
                           children: [
                             IcoTextFormField(
+                              keyboardType: TextInputType.number,
                               width: IcoSize.width,
                               maxLength: 5,
                               hintText: "메시지로 전송된 번호를 입력해주세요",

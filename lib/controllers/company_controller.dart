@@ -49,15 +49,14 @@ class CompanyController extends GetxController {
     try {
       var doc = await db
           .collection('Company')
+          .where('isInfoFilled', isEqualTo: true)
           .get()
           .then((QuerySnapshot querySnapshot) {
         querySnapshot.docs.forEach((doc) {
           queryDocumentList.add(doc);
         });
         queryDocumentList.forEach((element) {
-          CompanyModel model;
-          model = CompanyModel.fromJson(element.data());
-          companyModelList.add(model);
+          companyModelList.add(CompanyModel.fromJson(element.data()));
         });
         companyModelList.refresh();
       });

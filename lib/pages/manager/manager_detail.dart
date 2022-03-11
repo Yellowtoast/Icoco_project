@@ -261,7 +261,7 @@ class ManagerDetailPage extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        "관리자 정보",
+                        "관리사 정보",
                         style: IcoTextStyle.boldTextStyle14B,
                       ),
                       const SizedBox(

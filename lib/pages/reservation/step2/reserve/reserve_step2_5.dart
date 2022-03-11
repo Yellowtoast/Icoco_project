@@ -156,7 +156,7 @@ class ReserveStep2_5 extends StatelessWidget {
                     SizedBox(
                       height: 24,
                     ),
-                    Text("미취학 아동", style: IcoTextStyle.boldTextStyle13B),
+                    Text("24개월 미만", style: IcoTextStyle.boldTextStyle13B),
                     SizedBox(
                       height: 4,
                     ),
@@ -198,7 +198,7 @@ class ReserveStep2_5 extends StatelessWidget {
                     SizedBox(
                       height: 24,
                     ),
-                    Text("유치원/어린이집", style: IcoTextStyle.boldTextStyle13B),
+                    Text("미취학 아동", style: IcoTextStyle.boldTextStyle13B),
                     SizedBox(
                       height: 4,
                     ),
