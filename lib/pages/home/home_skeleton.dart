@@ -525,8 +525,10 @@ import '../../controllers/autoscroll_controller.dart';
 import '../../controllers/event_controller.dart';
 import '../../controllers/home_controller.dart';
 import '../../controllers/notice_controller.dart';
+import '../../widgets/button/grey_border_button.dart';
 import '../../widgets/loading/loading.dart';
 import '../../widgets/modal/info_modal.dart';
+import '../mypage/my_reservation.dart';
 import 'home_skeleton.dart';
 
 class HomeSkeletonPage extends StatefulWidget {
@@ -783,18 +785,29 @@ class _HomeSkeleton2State extends State<HomeSkeletonPage> {
                             ),
                             sizeWidthBox(5),
                             Text(
-                              homeController.userStepTitle.value ?? "",
+                              (homeController.statusRefund.value)
+                                  ? '환불 진행중'
+                                  : homeController.userStepTitle.value ?? "",
                               style: IcoTextStyle.boldTextStyle14P,
                             )
                           ],
                         ),
                         sizeHeightBox(10),
                         Text(
-                          homeController.userStepInfo.value ?? "",
+                          (homeController.statusRefund.value)
+                              ? '환불요청을 검토중입니다'
+                              : homeController.userStepInfo.value ?? "",
                           style: IcoTextStyle.headingStyleBold,
                         ),
                         sizeHeightBox(20),
-                        homeController.setWidgetsForStep,
+                        (homeController.statusRefund.value)
+                            ? GreyBorderButton(
+                                onTap: () {
+                                  Get.to(MyReservationPage());
+                                },
+                                width: double.infinity,
+                              )
+                            : homeController.setWidgetsForStep,
                       ],
                     ),
                   ),

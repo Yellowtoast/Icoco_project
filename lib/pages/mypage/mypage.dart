@@ -16,6 +16,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 
+import '../../configs/routes.dart';
 import '../guide_page/empty_content_page.dart';
 import 'edit/edit.dart';
 
@@ -71,7 +72,7 @@ class MyPage extends StatelessWidget {
           ),
           InkWell(
             onTap: () {
-              Get.to(EditUserInfoPage());
+              Get.toNamed(Routes.MYPAGE_EDIT);
             },
             child: SizedBox(
               height: 55,

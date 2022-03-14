@@ -10,6 +10,6 @@ Map<String, bool> policyCheckList = {
   '아이코코 이용약관': false,
   '개인정보 수집 및 이용 안내': false,
   '산후도우미 파견업체 전달을 위한 개인정보\n3자 제공동의': false,
-  '파견 및 혜택정보 푸시 서비스 동의': false,
+  '중요정보 푸시서비스 동의': false,
   '마케팅 서비스 동의': false,
 };

@@ -100,7 +100,6 @@ class LoginPage extends StatelessWidget {
                       children: [
                         IcoButton(
                             onPressed: () async {
-                              startLoadingIndicator();
                               await loginController.login(
                                   authController.firebaseAuthUser,
                                   authController.isLoggedIn);

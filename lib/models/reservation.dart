@@ -53,8 +53,8 @@ class ReservationModel {
   bool? finalReviewFinished = false;
   bool? changeManager = false;
   List<dynamic>? changeManagerList = [];
-  bool? refundRequested;
-  bool? refundAccepted;
+  bool refundRequested;
+  bool refundAccepted;
   String? refundBank;
   String? refundAccountNumber;
   String? refundAccountHolder;
@@ -118,6 +118,8 @@ class ReservationModel {
     this.changeManagerList,
     this.completedBalanceCost,
     this.isFirstDispatchManager = true,
+    this.refundAccepted = false,
+    this.refundRequested = false,
   });
 
   factory ReservationModel.fromJson(Map data) {
@@ -177,6 +179,8 @@ class ReservationModel {
       changeManager: data['changeManager'] ?? false,
       changeManagerList: data['changeManagerList'] ?? [],
       completedBalanceCost: data['completedBalanceCost'] ?? 0,
+      refundRequested: data['refundRequested'] ?? false,
+      refundAccepted: data['refundAccepted'] ?? false,
     );
   }
 

@@ -65,8 +65,12 @@ class AddressPage1 extends StatelessWidget {
       appBar: IcoAppbar(
         title: "주소 입력",
         tapFunction: () {
-          authController.setModelInfo();
-          Get.offAllNamed(Routes.HOME);
+          if (command == '수정') {
+            Get.back();
+          } else {
+            authController.setModelInfo();
+            Get.offAllNamed(Routes.HOME);
+          }
         },
       ),
       body: SafeArea(
@@ -176,13 +180,20 @@ class AddressPage1 extends StatelessWidget {
                       mainAxisAlignment: MainAxisAlignment.end,
                       children: [
                         IcoButton(
-                            onPressed: () async {
+                            onPressed: () {
                               addressController.setCompleteAddress();
                               if (addressController.sido.value == '대구') {
                                 if (command == '수정') {
                                   authController = Get.find();
                                   addressController.updateAddressToModel(
                                       authController.reservationModel);
+                                  authController.updateSingleDataFirestore(
+                                      authController.reservationModel.value!
+                                          .reservationNumber,
+                                      {
+                                        'address': addressController
+                                            .completeAddress.value
+                                      });
                                   Get.back(
                                       result: authController
                                           .reservationModel.value!.address);

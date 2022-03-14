@@ -146,7 +146,7 @@ class BottomUpModal extends StatelessWidget {
                           ),
                         ),
                         alignment: Alignment.bottomCenter,
-                        height: 30,
+                        height: 35,
                         width: 115,
                         child: Text(
                           "메인화면으로 이동",

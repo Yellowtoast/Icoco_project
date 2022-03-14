@@ -42,7 +42,7 @@ class CompanyController extends GetxController {
     }
   }
 
-  Future<CompanyModel?> getCompanyAllDocsFirebase() async {
+  getCompanyAllDocsFirebase() async {
     List<dynamic> queryDocumentList = [];
     RxList<CompanyModel> allCompanyList = RxList<CompanyModel>();
     companyModelList.clear();

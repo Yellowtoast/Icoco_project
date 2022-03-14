@@ -92,7 +92,8 @@ class CalculatorResultPage extends StatelessWidget {
                                   color: Colors.white,
                                   boxShadow: [
                                     BoxShadow(
-                                        color: IcoColors.grey3,
+                                        color:
+                                            Color.fromARGB(168, 183, 183, 183),
                                         blurRadius: 15,
                                         offset: Offset(0, 1)),
                                   ]),

@@ -4,6 +4,7 @@ import 'package:app/configs/size.dart';
 import 'package:app/configs/steps.dart';
 import 'package:app/configs/text_styles.dart';
 import 'package:app/controllers/auth_controller.dart';
+import 'package:app/controllers/intro_page_controller.dart';
 import 'package:app/controllers/signup_controller.dart';
 import 'package:app/widgets/appbar/appbar.dart';
 import 'package:app/widgets/button/button.dart';
@@ -30,6 +31,9 @@ class SignupStep6Page extends StatelessWidget {
     IcoColors.purple2,
     IcoColors.white
   ];
+
+  IntroPageController _introPageController = Get.put(IntroPageController());
+
   @override
   Widget build(BuildContext context) {
     return Obx(() {

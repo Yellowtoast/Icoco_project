@@ -15,6 +15,7 @@ import 'package:app/pages/event/event_detail.dart';
 import 'package:app/pages/home/home.dart';
 import 'package:app/pages/login/login.dart';
 import 'package:app/pages/manager/manager_detail.dart';
+import 'package:app/pages/mypage/edit/edit_phone.dart';
 import 'package:app/pages/notice/notice.dart';
 import 'package:app/pages/notice/notice_detail.dart';
 import 'package:app/pages/reservation/step1/substep_address/address1.dart';
@@ -52,6 +53,8 @@ import 'package:app/pages/tip/tip_page.dart';
 import 'package:app/widgets/modal/result_modal.dart';
 import 'package:get/get.dart';
 
+import '../pages/mypage/edit/edit.dart';
+import '../pages/mypage/edit/edit_name.dart';
 import '../pages/tip/tip_detail.dart';
 
 class Routes {
@@ -113,7 +116,9 @@ class Routes {
   static const NOTICE_DETAIL = '/notice/detail';
   static const TIP = '/tip';
   static const TIP_DETAIL = '/tip/detail';
-
+  static const MYPAGE_EDIT_NAME = '/mypage/edit/name';
+  static const MYPAGE_EDIT_PHONE = '/mypage/edit/phone';
+  static const MYPAGE_EDIT = '/mypage/edit';
   static final pages = [
     GetPage(
         name: Routes.SPLASH,
@@ -294,6 +299,18 @@ class Routes {
     GetPage(
         name: Routes.TIP_DETAIL,
         page: () => TipDetailPage(),
+        transition: Transition.rightToLeft),
+    GetPage(
+        name: Routes.MYPAGE_EDIT_NAME,
+        page: () => EditNamePage(),
+        transition: Transition.rightToLeft),
+    GetPage(
+        name: Routes.MYPAGE_EDIT_PHONE,
+        page: () => EditPhonePage(),
+        transition: Transition.rightToLeft),
+    GetPage(
+        name: Routes.MYPAGE_EDIT,
+        page: () => EditUserInfoPage(),
         transition: Transition.rightToLeft),
   ];
 }

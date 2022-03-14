@@ -25,6 +25,7 @@ class HomeController extends GetxController {
   RxInt eventLength = 0.obs;
   RxInt totalInfoLength = 0.obs;
   RxInt userStep = 1.obs;
+  RxBool statusRefund = false.obs;
 
   @override
   void onInit() {
@@ -55,6 +56,10 @@ class HomeController extends GetxController {
       reservationNumber.value = reservationModel.value!.reservationNumber;
 
       homeInfoModel = reservationModel;
+      statusRefund.value = (!reservationModel.value!.refundAccepted &&
+              reservationModel.value!.refundRequested)
+          ? true
+          : false;
     }
 
     userStep.value = homeInfoModel.value.userStep;

@@ -74,9 +74,8 @@ class FinalReviewPage extends StatelessWidget {
                           (managerController.managerModelList.length > 1)
                               ? Text("님의 이런부분이 좋았어요!",
                                   style: IcoTextStyle.boldTextStyle17B)
-                              : Text(
-                                  "관리사님의 이런부분이 좋았어요!",
-                                ),
+                              : Text("관리사님의 이런부분이 좋았어요!",
+                                  style: IcoTextStyle.boldTextStyle17B),
                           SizedBox(
                             width: 5,
                           ),
@@ -259,11 +258,19 @@ class FinalReviewPage extends StatelessWidget {
                   children: [
                     Padding(
                       padding: const EdgeInsets.symmetric(horizontal: 20),
-                      child:
+                      child: Row(
+                        children: [
                           Text("사진올리기", style: IcoTextStyle.boldTextStyle17B),
+                          SizedBox(
+                            width: 6,
+                          ),
+                          Text("${reviewController.imageFileList.length}/5",
+                              style: IcoTextStyle.boldTextStyle15Grey4),
+                        ],
+                      ),
                     ),
                     SizedBox(
-                      height: 12,
+                      height: 15,
                     ),
                     SizedBox(
                       height: 221,

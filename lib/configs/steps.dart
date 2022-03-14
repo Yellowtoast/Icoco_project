@@ -1,8 +1,3 @@
-import 'package:app/controllers/auth_controller.dart';
-import 'package:app/controllers/home_controller.dart';
-import 'package:app/models/reservation.dart';
-import 'package:get/get.dart';
-
 Map<int, String> stepTitle = {
   1: "바우처조회",
   2: "예약신청",
@@ -20,7 +15,7 @@ Map<String, String> stepInfo = {
   "2": "어려운 산후도우미 예약\n쉽고 빠르게 신청하기",
   "3-1": "예약금 입금이 완료되어야\n예약이 완료됩니다",
   "3-2": "예약금 입금내역을\n확인중입니다",
-  "4": "아직 잔금 입금이\n완료되지 않았습니다",
+  "4": "잔금 입금을\n완료해주세요",
   "5-1": "산모님께 맞는 산후도우미를\n배정하는 중입니다",
   "5-2": "출산 후 정확한 일정으로\n예약을 도와드릴게요",
   "6": "산후도우미가\n파견 대기중입니다",

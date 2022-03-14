@@ -15,6 +15,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 
+import '../../../step3/deposit_fee_status.dart';
+
 class VoucherSignedStep2 extends StatefulWidget {
   const VoucherSignedStep2({Key? key}) : super(key: key);
 
@@ -144,26 +146,12 @@ class _VoucherSignedStep2State extends State<VoucherSignedStep2> {
                               buttonColor: IcoColors.primary,
                               textStyle: IcoTextStyle.buttonTextStyleW,
                               text: "다음으로"),
-                          Container(
-                            decoration: BoxDecoration(
-                              border: Border(
-                                bottom: BorderSide(color: IcoColors.grey3),
-                              ),
-                            ),
-                            child: GestureDetector(
+                          UnderlinedTextButton(
                               onTap: () async {
                                 await authController.setModelInfo();
                                 Get.offAllNamed(Routes.HOME);
                               },
-                              child: Text(
-                                "메인화면으로 이동",
-                                style: IcoTextStyle.mediumLinedTextStyle14G,
-                              ),
-                            ),
-                          ),
-                          SizedBox(
-                            height: 25,
-                          )
+                              text: '메인화면으로 이동'),
                         ],
                       ),
                     ),

@@ -139,7 +139,7 @@ class VoucherSignedStep1 extends StatelessWidget {
                                 color: Colors.white,
                                 boxShadow: [
                                   BoxShadow(
-                                      color: IcoColors.grey3,
+                                      color: Color.fromARGB(168, 183, 183, 183),
                                       blurRadius: 15,
                                       offset: Offset(0, 1)),
                                 ]),
@@ -240,12 +240,40 @@ class VoucherSignedStep1 extends StatelessWidget {
                                 SizedBox(
                                   height: 20,
                                 ),
-                                Image.asset(
-                                  "images/overcost_caution.png",
+                                Container(
+                                  alignment: Alignment.center,
                                   width: IcoSize.width - 40,
+                                  height: 50,
+                                  decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(10),
+                                    color: IcoColors.grey1,
+                                  ),
+                                  child: Text.rich(
+                                    TextSpan(
+                                        style: IcoTextStyle.boldTextStyle22B,
+                                        children: [
+                                          TextSpan(
+                                              text: '정부지원금',
+                                              style: IcoTextStyle
+                                                  .boldTextStyle15P),
+                                          TextSpan(
+                                              text: '은',
+                                              style: IcoTextStyle
+                                                  .boldTextStyle15B),
+                                          TextSpan(
+                                              text: ' 3주차',
+                                              style: IcoTextStyle
+                                                  .boldTextStyle15P),
+                                          TextSpan(
+                                              text: '까지만 적용됩니다.',
+                                              style: IcoTextStyle
+                                                  .boldTextStyle15B),
+                                        ]),
+                                    textAlign: TextAlign.center,
+                                  ),
                                 ),
                                 SizedBox(
-                                  height: 150,
+                                  height: 120,
                                 ),
                               ],
                             ),

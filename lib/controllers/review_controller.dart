@@ -1,4 +1,5 @@
 import 'dart:io';
+import 'package:app/configs/colors.dart';
 import 'package:app/controllers/auth_controller.dart';
 import 'package:app/models/manager.dart';
 import 'package:app/models/review.dart';
@@ -303,13 +304,31 @@ class ReviewController extends GetxController {
     reviewListWithPicture!.refresh();
   }
 
-  Future<String?> selectFile(
-      ImageSource inputSource, String uploadPath, int managerNum) async {
+  selectFile(ImageSource inputSource, String uploadPath, int managerNum) async {
     final picker = ImagePicker();
     List<XFile>? pickedImages;
 
     try {
       pickedImages = await picker.pickMultiImage(imageQuality: 60);
+      if (pickedImages == null) {
+        Get.snackbar('선택된 이미지가 없습니다', '첨부된 이미지가 없습니다',
+            snackPosition: SnackPosition.BOTTOM,
+            margin: EdgeInsets.symmetric(vertical: 40, horizontal: 20),
+            backgroundColor: Color.fromARGB(168, 0, 0, 0),
+            colorText: IcoColors.white,
+            borderRadius: 5,
+            duration: Duration(milliseconds: 1600));
+        return;
+      } else if ((pickedImages.length + imageFileList.length) > 5) {
+        Get.snackbar('최대 5개 이미지만 선택 가능', '5개 이하의 이미지를 첨부해주세요',
+            snackPosition: SnackPosition.BOTTOM,
+            margin: EdgeInsets.symmetric(vertical: 40, horizontal: 20),
+            backgroundColor: Color.fromARGB(168, 0, 0, 0),
+            colorText: IcoColors.white,
+            borderRadius: 5,
+            duration: Duration(milliseconds: 1600));
+        return;
+      }
       pickedImageToFile(pickedImages);
     } catch (err) {
       print('image selection failed');

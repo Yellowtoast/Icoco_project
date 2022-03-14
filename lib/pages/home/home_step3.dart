@@ -155,7 +155,7 @@ class HomeStep3Items extends StatelessWidget {
                     height: 50,
                     active: true.obs,
                     textStyle: IcoTextStyle.buttonTextStyleW,
-                    text: "입금 현황"),
+                    text: "입금 알리기"),
               ),
             ],
           )

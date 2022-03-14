@@ -21,7 +21,7 @@ class DepositFeeStatus extends StatelessWidget {
     return Scaffold(
       backgroundColor: IcoColors.white,
       appBar: IcoAppbar(
-        title: "입금 현황",
+        title: "입금 알리기",
         tapFunction: () {
           Get.offAllNamed(Routes.HOME);
         },
@@ -325,28 +325,14 @@ class DepositFeeStatus extends StatelessWidget {
                         text: (authController.reservationModel.value!
                                     .notifyDepositCost ==
                                 true)
-                            ? "예약금 입금 확인중"
+                            ? "예약금 입금을 확인중입니다"
                             : "예약금 입금 완료"),
-                    GestureDetector(
-                      onTap: () async {
-                        await authController.setModelInfo();
-                        Get.offAllNamed(Routes.HOME);
-                      },
-                      child: Container(
-                        decoration: BoxDecoration(
-                          border: Border(
-                            bottom: BorderSide(color: IcoColors.grey3),
-                          ),
-                        ),
-                        alignment: Alignment.bottomCenter,
-                        height: 30,
-                        width: 115,
-                        child: Text(
-                          "메인화면으로 이동",
-                          style: IcoTextStyle.mediumLinedTextStyle14G,
-                        ),
-                      ),
-                    ),
+                    UnderlinedTextButton(
+                        onTap: () async {
+                          await authController.setModelInfo();
+                          Get.offAllNamed(Routes.HOME);
+                        },
+                        text: '메인화면으로 이동'),
                     // SizedBox(
                     //   height: 25,
                     // )
@@ -356,6 +342,38 @@ class DepositFeeStatus extends StatelessWidget {
             ),
           );
         }),
+      ),
+    );
+  }
+}
+
+class UnderlinedTextButton extends StatelessWidget {
+  UnderlinedTextButton({
+    Key? key,
+    required this.onTap,
+    required this.text,
+  }) : super(key: key);
+
+  void Function()? onTap;
+  String text;
+
+  @override
+  Widget build(BuildContext context) {
+    return GestureDetector(
+      onTap: onTap,
+      child: Container(
+        decoration: BoxDecoration(
+          border: Border(
+            bottom: BorderSide(color: IcoColors.grey3),
+          ),
+        ),
+        alignment: Alignment.bottomCenter,
+        height: 30,
+        width: 115,
+        child: Text(
+          text,
+          style: IcoTextStyle.mediumLinedTextStyle14G,
+        ),
       ),
     );
   }

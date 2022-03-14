@@ -127,10 +127,8 @@ class ReserveStep2_1 extends StatelessWidget {
                         Expanded(
                           child: InkWell(
                             onTap: () async {
-                              startLoadingIndicator();
-                              await companyController
-                                  .getCompanyAllDocsFirebase();
-                              finishLoadingIndicator();
+                              loading((() => companyController
+                                  .getCompanyAllDocsFirebase()));
                               Get.toNamed(Routes.RESERVE_STEP2_COMPANY_YES);
                             },
                             child: Container(
@@ -184,11 +182,9 @@ class ReserveStep2_1 extends StatelessWidget {
                         Expanded(
                           child: InkWell(
                             onTap: () async {
-                              startLoadingIndicator();
+                              loading((() => companyController
+                                  .getCompanyAllDocsFirebase()));
 
-                              await companyController
-                                  .getCompanyAllDocsFirebase();
-                              finishLoadingIndicator();
                               Get.toNamed(Routes.RESERVE_STEP2_COMPANY_NO);
                             },
                             child: Container(

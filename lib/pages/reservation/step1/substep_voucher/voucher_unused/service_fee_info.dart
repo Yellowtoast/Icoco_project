@@ -19,6 +19,7 @@ import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 
 import '../../../../../widgets/loading/loading.dart';
+import '../../../step3/deposit_fee_status.dart';
 
 class ServiceFeeInfoPage extends StatelessWidget {
   ServiceFeeInfoPage({Key? key}) : super(key: key);
@@ -157,28 +158,12 @@ class ServiceFeeInfoPage extends StatelessWidget {
                           buttonColor: IcoColors.primary,
                           textStyle: IcoTextStyle.buttonTextStyleW,
                           text: "일반서비스 신청"),
-                      GestureDetector(
-                        onTap: () async {
-                          await authController.setModelInfo();
-                          Get.offAllNamed(Routes.HOME);
-                        },
-                        child: Center(
-                          child: Container(
-                            decoration: BoxDecoration(
-                              border: Border(
-                                bottom: BorderSide(color: IcoColors.grey3),
-                              ),
-                            ),
-                            alignment: Alignment.bottomCenter,
-                            height: 30,
-                            width: 115,
-                            child: Text(
-                              "메인화면으로 이동",
-                              style: IcoTextStyle.mediumLinedTextStyle14G,
-                            ),
-                          ),
-                        ),
-                      ),
+                      UnderlinedTextButton(
+                          onTap: () async {
+                            await authController.setModelInfo();
+                            Get.offAllNamed(Routes.HOME);
+                          },
+                          text: '메인화면으로 이동'),
                     ],
                   ),
                 ),

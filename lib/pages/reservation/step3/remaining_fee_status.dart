@@ -14,6 +14,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 
+import 'deposit_fee_status.dart';
+
 class RemainingFeeStatus extends StatelessWidget {
   RemainingFeeStatus({Key? key}) : super(key: key);
   AuthController authController = Get.find();
@@ -23,7 +25,7 @@ class RemainingFeeStatus extends StatelessWidget {
     return Scaffold(
       backgroundColor: IcoColors.white,
       appBar: IcoAppbar(
-        title: "입금 현황",
+        title: "입금 알리기",
         tapFunction: () async {
           AuthController authController = Get.find();
           await authController.setModelInfo();
@@ -453,28 +455,14 @@ class RemainingFeeStatus extends StatelessWidget {
                       text: (authController
                                   .reservationModel.value!.notifyBalanceCost ==
                               true)
-                          ? "잔금 입금 확인중"
+                          ? "잔금 입금을 확인중입니다"
                           : "잔금 입금 완료"),
-                  GestureDetector(
-                    onTap: () async {
-                      await authController.setModelInfo();
-                      Get.offAllNamed(Routes.HOME);
-                    },
-                    child: Container(
-                      decoration: BoxDecoration(
-                        border: Border(
-                          bottom: BorderSide(color: IcoColors.grey3),
-                        ),
-                      ),
-                      alignment: Alignment.bottomCenter,
-                      height: 30,
-                      width: 115,
-                      child: Text(
-                        "메인화면으로 이동",
-                        style: IcoTextStyle.mediumLinedTextStyle14G,
-                      ),
-                    ),
-                  ),
+                  UnderlinedTextButton(
+                      onTap: () async {
+                        await authController.setModelInfo();
+                        Get.offAllNamed(Routes.HOME);
+                      },
+                      text: '메인화면으로 이동'),
                 ],
               ),
             ],

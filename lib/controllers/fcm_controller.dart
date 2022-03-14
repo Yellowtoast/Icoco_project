@@ -5,6 +5,7 @@ import 'package:app/widgets/modal/exit_icon_modal.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:permission_handler/permission_handler.dart';
 
 import '../configs/routes.dart';
 import '../widgets/modal/bottomup_modal2.dart';
@@ -16,6 +17,7 @@ class FCMController extends GetxController {
   RxMap<String, dynamic> message = Map<String, dynamic>().obs;
   Rxn<NotificationSettings> _settings = Rxn<NotificationSettings>();
   RxBool pushAllowed = false.obs;
+  RxBool proceedSignup = false.obs;
 
   @override
   void onInit() {
@@ -25,21 +27,26 @@ class FCMController extends GetxController {
     super.onInit();
   }
 
-  Future<void> getPermisstionFromUser() async {
-    _settings.value = await _messaging.requestPermission(
-      alert: true,
-      badge: true,
-      sound: true,
-    );
+  Future<void> getPermissionFromUser() async {
+    Map<Permission, PermissionStatus> statuses = await [
+      Permission.notification,
+    ].request();
 
-    if (_settings.value?.authorizationStatus ==
-        AuthorizationStatus.authorized) {
+    if (statuses[Permission.notification] == PermissionStatus.granted) {
       print('User granted permission');
       pushAllowed.value = true;
+      proceedSignup.value = true;
     } else {
       print('User declined or has not accepted permission');
       pushAllowed.value = false;
+      proceedSignup.value = false;
     }
+
+    _settings.value = await _messaging.requestPermission(
+      alert: pushAllowed.value,
+      badge: pushAllowed.value,
+      sound: pushAllowed.value,
+    );
   }
 
   Future<String?> _getToken() async {

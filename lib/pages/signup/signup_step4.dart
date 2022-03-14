@@ -89,8 +89,10 @@ class SignupStep4Page extends StatelessWidget {
                 child: IcoButton(
                     icon: false,
                     onPressed: () async {
-                      await _fcmController.getPermisstionFromUser();
-                      Get.toNamed(Routes.SIGNUP_STEP5);
+                      await _fcmController.getPermissionFromUser();
+                      if (_fcmController.proceedSignup.value) {
+                        Get.toNamed(Routes.SIGNUP_STEP5);
+                      }
                     },
                     active: true.obs,
                     buttonColor: IcoColors.primary,

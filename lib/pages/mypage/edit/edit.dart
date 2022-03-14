@@ -25,9 +25,10 @@ class EditUserInfoPage extends StatelessWidget {
   EditUserInfoPage({Key? key}) : super(key: key);
   AuthController authController = Get.find();
   MypageController mypageController = Get.find();
+  Rx<String> fullAddress = ''.obs;
+
   @override
   Widget build(BuildContext context) {
-    Rxn<String> fullAddress = Rxn<String>();
     if (authController.reservationModel.value != null) {
       fullAddress.value = authController.homeModel.value.address;
     }
@@ -58,7 +59,7 @@ class EditUserInfoPage extends StatelessWidget {
                       title: '본명',
                       value: '${authController.homeModel.value.userName}',
                       onTap: () {
-                        Get.to(EditNamePage());
+                        Get.toNamed(Routes.MYPAGE_EDIT_NAME);
                       }),
                   SizedBox(
                     height: 25,
@@ -67,7 +68,7 @@ class EditUserInfoPage extends StatelessWidget {
                       title: '휴대폰 번호',
                       value: '${authController.homeModel.value.phone}',
                       onTap: () {
-                        Get.to(EditPhonePage());
+                        Get.toNamed(Routes.MYPAGE_EDIT_PHONE);
                       }),
                   SizedBox(
                     height: 25,
@@ -82,21 +83,20 @@ class EditUserInfoPage extends StatelessWidget {
                   ),
                   EditTextButton(
                       title: '주소',
-                      value: (fullAddress.value == null)
+                      value: (authController.reservationModel.value == null)
                           ? '주소 없음'
-                          : fullAddress.value!.split("/")[0],
+                          : fullAddress.value.split("/")[0],
                       onTap: () async {
-                        var address = await Get.toNamed(Routes.ADDRESS_1,
+                        fullAddress.value = await Get.toNamed(Routes.ADDRESS_1,
                             arguments: '수정');
-                        fullAddress.value = address;
                       }),
                   SizedBox(
                     height: 9,
                   ),
                   EditTextButton(
-                    value: (fullAddress.value == null)
+                    value: (authController.reservationModel.value == null)
                         ? ''
-                        : fullAddress.value!.split("/")[1],
+                        : fullAddress.value.split("/")[1],
                     isEditable: false,
                   ),
                   SizedBox(
@@ -119,6 +119,7 @@ class EditUserInfoPage extends StatelessWidget {
                           onChanged: (value) {
                             mypageController
                                 .updateUserInfoFireStore({'eventAlarm': value});
+                            mypageController.allowEvent.value = value;
                           },
                         ),
                       ],
@@ -145,6 +146,8 @@ class EditUserInfoPage extends StatelessWidget {
                           onChanged: (value) {
                             mypageController
                                 .updateUserInfoFireStore({'pushAlarm': value});
+
+                            mypageController.allowPushAlarm.value = value;
                           },
                         ),
                       ],

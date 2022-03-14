@@ -98,10 +98,3 @@ class RefundController extends GetxController {
     update();
   }
 }
-  // calculateServiceDaysLeft() {
-  //   serviceDaysLeft = calcDifferenceBetweenDates(
-  //       dateFormatWithDot.format(DateTime.now()),
-  //       authController.reservationModel.value!.serviceEndDate!);
-  // }
-
-
