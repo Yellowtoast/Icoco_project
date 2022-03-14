@@ -13,7 +13,9 @@ IcoOptionModal(
     String option2 = '허용',
     String iconUrl = "icons/modal_mail.svg",
     double iconHeight = 55,
-    double iconWidth = 44}) {
+    bool useIcon = true,
+    double iconWidth = 44,
+    barrierDismissible = false}) {
   void Function() onPressed;
   return Get.dialog(
       Dialog(
@@ -33,11 +35,13 @@ IcoOptionModal(
                 mainAxisAlignment: MainAxisAlignment.center,
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
-                  SvgPicture.asset(
-                    iconUrl,
-                    height: iconHeight,
-                    width: iconWidth,
-                  ),
+                  (useIcon)
+                      ? SvgPicture.asset(
+                          iconUrl,
+                          height: iconHeight,
+                          width: iconWidth,
+                        )
+                      : SizedBox(),
                   SizedBox(
                     height: 10,
                   ),
@@ -91,7 +95,7 @@ IcoOptionModal(
           ],
         ),
       ),
-      barrierDismissible: false);
+      barrierDismissible: barrierDismissible);
 }
 
 IcoOptionModal2() {

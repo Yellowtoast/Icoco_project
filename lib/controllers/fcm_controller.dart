@@ -1,4 +1,6 @@
 // ignore_for_file: prefer_final_fields, prefer_collection_literals, avoid_print
+import 'dart:io';
+
 import 'package:app/controllers/auth_controller.dart';
 import 'package:app/widgets/loading/loading.dart';
 import 'package:app/widgets/modal/exit_icon_modal.dart';
@@ -9,6 +11,7 @@ import 'package:permission_handler/permission_handler.dart';
 
 import '../configs/routes.dart';
 import '../widgets/modal/bottomup_modal2.dart';
+import '../widgets/modal/option_modal.dart';
 
 class FCMController extends GetxController {
   static FCMController get to => Get.find();
@@ -30,7 +33,22 @@ class FCMController extends GetxController {
   Future<void> getPermissionFromUser() async {
     Map<Permission, PermissionStatus> statuses = await [
       Permission.notification,
+      // Permission.camera,
+      Permission.reminders
     ].request();
+
+    if (!Platform.isIOS) {
+      var granted = await IcoOptionModal(
+          title: '아이코코 푸시알림 동의',
+          subtitle: '사운드 및 아이콘 배지가 알림에 포함될 수 있습니다. 마이페이지에서 이를 변경할 수 있습니다.',
+          useIcon: false,
+          barrierDismissible: true);
+      if (granted) {
+        statuses[Permission.notification] = PermissionStatus.granted;
+      } else {
+        statuses[Permission.notification] = PermissionStatus.denied;
+      }
+    }
 
     if (statuses[Permission.notification] == PermissionStatus.granted) {
       print('User granted permission');

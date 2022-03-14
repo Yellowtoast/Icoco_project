@@ -95,20 +95,20 @@ class PasswordController extends GetxController {
     try {
       await getNewCodeNum();
       print(authCode);
-      late String to = phoneNumber;
-      late String text = '아이코코 인증번호 $authCode을 입력해주세요.';
-      final jwt = JWT(
-        {"to": to, "text": text},
-      );
-      var token = jwt.sign(SecretKey(JWT_KEY));
-      codeSentTimes++;
-      var res = await http.get(
-        Uri.parse(
-          'https://icoco2022-erpweb.vercel.app/api/sendMessage',
-        ),
-        headers: {'x-access-token': token},
-      );
-      print(res.statusCode);
+      // late String to = phoneNumber;
+      // late String text = '아이코코 인증번호 $authCode을 입력해주세요.';
+      // final jwt = JWT(
+      //   {"to": to, "text": text},
+      // );
+      // var token = jwt.sign(SecretKey(JWT_KEY));
+      // codeSentTimes++;
+      // var res = await http.get(
+      //   Uri.parse(
+      //     'https://icoco2022-erpweb.vercel.app/api/sendMessage',
+      //   ),
+      //   headers: {'x-access-token': token},
+      // );
+      // print(res.statusCode);
 
       return;
     } catch (e) {

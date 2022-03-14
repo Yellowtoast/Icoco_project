@@ -7,10 +7,13 @@ import 'package:app/configs/text_styles.dart';
 import 'package:app/widgets/button/button.dart';
 import 'package:app/widgets/button/small_text_button.dart';
 import 'package:app/widgets/appbar/appbar.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
+
+import '../../widgets/modal/option_modal.dart';
 
 class SignupStep1Page extends StatefulWidget {
   const SignupStep1Page({Key? key}) : super(key: key);
@@ -232,6 +235,31 @@ class _SignupStep1PageState extends State<SignupStep1Page> {
                         textStyle: IcoTextStyle.buttonTextStyleW,
                         text: "다음으로",
                         onPressed: () {
+                          // Get.dialog(CupertinoAlertDialog(
+                          //   title: Text(
+                          //     "'아이코코'에서 알림을 보내고자 합니다.",
+                          //   ),
+                          //   content: const Text(
+                          //       '경고, 사운드 및 아이콘 배지가 알림에 포함될 수 있습니다. 설정에서 이를 구성할 수 있습니다.'),
+                          //   actions: <CupertinoDialogAction>[
+                          //     CupertinoDialogAction(
+                          //       child: const Text(
+                          //         '허용안함',
+                          //       ),
+                          //       onPressed: () {
+                          //         Get.back();
+                          //       },
+                          //     ),
+                          //     CupertinoDialogAction(
+                          //       child: const Text('허용',style: TextStyle(color: ),),
+                          //       isDestructiveAction: true,
+                          //       onPressed: () {
+                          //         // Do something destructive.
+                          //       },
+                          //     )
+                          //   ],
+                          // ));
+
                           Get.toNamed(Routes.SIGNUP_STEP2);
                         },
                       ),

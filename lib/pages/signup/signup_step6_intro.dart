@@ -181,7 +181,7 @@ class SignupStep6Page extends StatelessWidget {
                       Column(
                         children: [
                           SizedBox(
-                            height: 15,
+                            height: 30,
                           ),
                           Text.rich(
                             TextSpan(
@@ -207,7 +207,7 @@ class SignupStep6Page extends StatelessWidget {
                       ),
                       Image.asset(
                         "images/intro_3.png",
-                        width: IcoSize.width - 70,
+                        height: IcoSize.height - 80,
                       ),
                     ],
                   ),

@@ -7,7 +7,7 @@ import '../../configs/colors.dart';
 openSnackbar(String? title, String? subtitle) {
   return Get.snackbar(title ?? "인증번호 전송 완료", subtitle ?? "",
       snackPosition: SnackPosition.BOTTOM,
-      backgroundColor: Color.fromARGB(129, 0, 0, 0),
+      backgroundColor: Color.fromARGB(152, 0, 0, 0),
       colorText: IcoColors.white,
       duration: Duration(seconds: 3),
       borderRadius: 8,
