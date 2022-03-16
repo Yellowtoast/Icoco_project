@@ -5,6 +5,7 @@ import 'package:app/controllers/auth_controller.dart';
 import 'package:app/widgets/loading/loading.dart';
 import 'package:app/widgets/modal/exit_icon_modal.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:permission_handler/permission_handler.dart';
@@ -48,6 +49,15 @@ class FCMController extends GetxController {
       } else {
         statuses[Permission.notification] = PermissionStatus.denied;
       }
+    } else {
+      Get.dialog(CupertinoAlertDialog(
+        title: Text(''),
+        content: Text(''),
+        actions: [
+          CupertinoDialogAction(child: Text('')),
+          CupertinoDialogAction(child: Text(''))
+        ],
+      ));
     }
 
     if (statuses[Permission.notification] == PermissionStatus.granted) {
