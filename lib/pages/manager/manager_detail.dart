@@ -144,7 +144,8 @@ class ManagerDetailPage extends StatelessWidget {
                                       SizedBox(
                                         height: 7,
                                       ),
-                                      Text("대구 아이사랑 소속",
+                                      Text(
+                                          "${managerController.managerModelList[managerNum].value!.companyName} 소속",
                                           style: IcoTextStyle
                                               .mediumTextStyle12Grey4),
                                     ],
@@ -235,7 +236,7 @@ class ManagerDetailPage extends StatelessWidget {
                                     width: 95,
                                     height: 34,
                                     child: Text(
-                                      "리뷰 100+",
+                                      "리뷰 ${managerController.managerModelList[managerNum].value!.totalReview}+",
                                       style: IcoTextStyle.mediumTextStyle13P,
                                     ),
                                   ),

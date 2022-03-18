@@ -1,6 +1,7 @@
 import 'package:app/controllers/auth_controller.dart';
 import 'package:app/controllers/home_controller.dart';
 import 'package:app/controllers/review_controller.dart';
+import 'package:app/helpers/date_calculator.dart';
 import 'package:app/models/manager.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:get/get.dart';
@@ -16,15 +17,16 @@ class ManagerController extends GetxController {
     if (authController.reservationModel.value != null) {
       await getManagerFirestore(
           authController.reservationModel.value!.reservationNumber,
-          authController.reservationModel.value!.managersId);
+          authController.reservationModel.value!.managersId,
+          authController.reservationModel.value!.chosenCompany);
     }
 
     super.onInit();
   }
 
   // Future<RxList<Rxn<ManagerModel>>>
-  getManagerFirestore(
-      String reservationNumber, List<dynamic>? managerUidList) async {
+  getManagerFirestore(String reservationNumber, List<dynamic>? managerUidList,
+      String? chosenCompany) async {
     try {
       if (reservationNumber != "" && managerUidList != null) {
         for (var managerUid in managerUidList) {
@@ -33,15 +35,20 @@ class ManagerController extends GetxController {
               .where('uid', isEqualTo: managerUid)
               .get();
 
+          String companyUid = doc.docs[0].data()['company'];
+
           var company = await db
               .collection('Company')
-              .doc(doc.docs[0].data()['company'])
+              .where('uid', isEqualTo: chosenCompany)
               .get();
-          String companyName = company.data()!['name'];
+
+          var companyName = await company.docs[0].data()['companyName'];
+          print(companyName);
 
           Rxn<ManagerModel> model = Rxn<ManagerModel>();
+
           model.value = ManagerModel.fromJson(
-              {'company': companyName, ...doc.docs[0].data()});
+              {'companyName': companyName, ...doc.docs[0].data()});
           model.value!.managerRate = calcManagerRate(
               model.value!.totalReview, model.value!.totalReviewRate);
           managerModelList.add(model);

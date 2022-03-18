@@ -67,7 +67,6 @@ class VoucherSignedStep3 extends StatelessWidget {
                         IcoButton(
                             icon: false,
                             onPressed: () async {
-                              startLoadingIndicator();
                               await authController.createReservationFirestore(
                                   authController.userModel.value!,
                                   addressController.completeAddress.value!,
@@ -76,7 +75,7 @@ class VoucherSignedStep3 extends StatelessWidget {
                                   voucherController.voucherResult.value!);
 
                               await authController.setModelInfo();
-                              finishLoadingIndicator();
+
                               Get.offAllNamed(Routes.HOME);
                             },
                             active: true.obs,

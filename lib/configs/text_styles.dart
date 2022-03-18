@@ -283,7 +283,7 @@ class IcoTextStyle {
     fontSize: 14,
     fontWeight: FontWeight.normal,
     color: IcoColors.grey4,
-    // decoration: TextDecoration.underline,
+    decoration: TextDecoration.underline,
     // textBaseline: TextBaseline.ideographic,
 
     // shadows: [Shadow(color: Colors.black, offset: Offset(0, -3))],

@@ -1,5 +1,7 @@
 import 'package:app/configs/colors.dart';
+import 'package:app/pages/guide_page/empty_content_page.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 class SmallTextButton extends StatelessWidget {
   const SmallTextButton({
@@ -14,7 +16,9 @@ class SmallTextButton extends StatelessWidget {
         decoration: BoxDecoration(
             color: IcoColors.grey1, borderRadius: BorderRadius.circular(50)),
         child: TextButton(
-            onPressed: () {},
+            onPressed: () {
+              Get.to(EmptyInfoPage(appbarText: '내용보기'));
+            },
             child: Text(
               '내용보기',
               // textAlign: TextAlign.center,

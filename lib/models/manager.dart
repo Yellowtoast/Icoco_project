@@ -3,14 +3,14 @@ import 'package:app/configs/constants.dart';
 class ManagerModel {
   final String uid;
   final String name;
-  final String company;
+  final String companyName;
   final String companyUid;
   final List<dynamic> dispatchableArea;
-  final String? birthDate;
+  final String? ages;
   int totalReview;
   int totalReviewRate;
   String? status;
-  String? careerStartedDate;
+  String? careerCount;
   String? isCar;
   String? isResident;
   String? isCCTV;
@@ -26,14 +26,14 @@ class ManagerModel {
   ManagerModel({
     required this.uid,
     required this.name,
-    required this.company,
+    required this.companyName,
     required this.dispatchableArea,
-    required this.birthDate,
+    required this.ages,
     required this.companyUid,
     this.totalReviewRate = 0,
     this.totalReview = 0,
     this.status,
-    this.careerStartedDate,
+    this.careerCount,
     this.isCar,
     this.isResident,
     this.isCCTV,
@@ -51,14 +51,14 @@ class ManagerModel {
     return ManagerModel(
       uid: data['uid'],
       name: data['name'] ?? '',
-      company: '',
+      companyName: data['companyName'],
       companyUid: data['company'] ?? '',
       dispatchableArea: data['dispatchableArea'] ?? [],
-      birthDate: data['birthDate'] ?? '',
+      ages: data['birthDate'] ?? '',
       totalReview: data['totalReview'] ?? 0,
       totalReviewRate: data['totalReviewRate'] ?? 0,
       status: data['status'] ?? '',
-      careerStartedDate: data['careerStartedDate'] ?? '',
+      careerCount: data['careerStartedDate'] ?? '',
       isCar: data['isCar'] ?? '',
       isResident: data['isResident'] ?? '',
       isCCTV: data['isCCTV'] ?? '',
@@ -77,11 +77,11 @@ class ManagerModel {
         "name": name,
         "company": companyUid,
         "dispatchableArea": dispatchableArea,
-        "birthDate": birthDate,
+        "birthDate": ages,
         "totalReview": totalReview,
         "totalReviewRate": totalReviewRate,
         "status": status,
-        "careerStartedDate": careerStartedDate,
+        "careerStartedDate": careerCount,
         "isCar": isCar,
         "isResident": isResident,
         "isCCTV": isCCTV,

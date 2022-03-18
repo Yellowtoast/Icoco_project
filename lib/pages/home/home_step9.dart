@@ -99,7 +99,8 @@ class HomeStep9Items extends StatelessWidget {
                                 SizedBox(
                                   height: 7,
                                 ),
-                                Text("대구 아이사랑 소속",
+                                Text(
+                                    "${managerController.managerModelList[index].value!.companyName} 소속",
                                     style: IcoTextStyle.mediumTextStyle12Grey4),
                               ],
                             ),

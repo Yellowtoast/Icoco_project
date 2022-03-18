@@ -185,6 +185,9 @@ class ReserveStep2_6 extends StatelessWidget {
                           javascriptMode: JavascriptMode.unrestricted,
                         ),
                       ),
+                      SizedBox(
+                        height: 20,
+                      ),
                       IcoButton(
                           width: IcoSize.width - 40,
                           onPressed: () {

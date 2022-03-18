@@ -85,6 +85,7 @@ class VoucherController extends GetxController {
   }
 
   setDropDownList(Rxn<String>? voucherItem) {
+    voucherType2List.value = ['가', '통합', '라'].obs;
     if (voucherType1.value == 'A') {
       voucherType3List.value = ['1', '2', '3'];
     } else if (voucherType1.value == 'B') {
@@ -92,7 +93,8 @@ class VoucherController extends GetxController {
     } else if (voucherType1.value == 'C') {
       voucherType3List.value = [''];
     } else if (voucherType1.value == '일반') {
-      voucherType3List.value = ['단태아', '쌍태아', '삼태아'];
+      voucherType2List.value = ['단태아', '쌍태아', '삼태아'];
+      voucherType3List.value = [''];
     }
 
     if (voucherItem != null &&
@@ -129,7 +131,7 @@ class VoucherController extends GetxController {
 
   makeFullVoucherResult() {
     late String fullVoucher;
-    if (voucherType1.value == 'C') {
+    if (voucherType1.value == 'C' || voucherType1.value == '일반') {
       fullVoucher = voucherType1.value! + '-' + voucherType2.value!;
     } else {
       fullVoucher = voucherType1.value! +
@@ -146,7 +148,8 @@ class VoucherController extends GetxController {
     if ((voucherType1.value != null &&
             voucherType2.value != null &&
             voucherType3.value != null) ||
-        (voucherType1.value == 'C' && voucherType2.value != null)) {
+        (voucherType1.value == 'C' && voucherType2.value != null) ||
+        (voucherType1.value == '일반' && voucherType2.value != null)) {
       return true;
     } else {
       return false;
@@ -159,11 +162,20 @@ class VoucherController extends GetxController {
     if (companyUid.isNotEmpty) {
       await getCompanyFeeInfoFirestore(companyUid);
       totalFeeList = feeModelCompany.serviceFeeInfo[voucher];
-      govermentFeeList = feeModelCompany.govermentFeeInfo[voucher];
+
+      if (voucher.contains('일반')) {
+        govermentFeeList = [0, 0, 0, 0, 0];
+      } else {
+        govermentFeeList = feeModelCompany.govermentFeeInfo[voucher];
+      }
     } else {
       await getDefaultFeeInfoFirestore();
       totalFeeList = feeModelDefault.serviceFeeInfo[voucher];
-      govermentFeeList = feeModelDefault.govermentFeeInfo[voucher];
+      if (voucher.contains('일반')) {
+        govermentFeeList = [0, 0, 0, 0, 0];
+      } else {
+        govermentFeeList = feeModelDefault.govermentFeeInfo[voucher];
+      }
     }
 
     totalFeeList = totalFeeList.map((e) => (e == null) ? 0 : e).toList();

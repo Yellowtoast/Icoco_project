@@ -15,6 +15,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 
+import '../../../../../widgets/modal/warning_modal.dart';
 import '../../../step3/deposit_fee_status.dart';
 
 class VoucherSignedStep2 extends StatefulWidget {
@@ -138,9 +139,18 @@ class _VoucherSignedStep2State extends State<VoucherSignedStep2> {
                         children: [
                           IcoButton(
                               onPressed: () {
-                                // voucherController.updateRegnumToModel(
-                                //     authController.reservationModel);
-                                Get.toNamed(Routes.VOUCHER_SIGNED3);
+                                if (voucherController
+                                        .backRegNumController.value.text
+                                        .startsWith('1') ||
+                                    voucherController
+                                        .backRegNumController.value.text
+                                        .startsWith('3')) {
+                                  IcoWarningModal(() {
+                                    Get.back();
+                                  });
+                                } else {
+                                  Get.toNamed(Routes.VOUCHER_SIGNED3);
+                                }
                               },
                               active: voucherController.isButtonValid,
                               buttonColor: IcoColors.primary,

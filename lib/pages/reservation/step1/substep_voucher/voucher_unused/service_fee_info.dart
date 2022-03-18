@@ -27,17 +27,17 @@ class ServiceFeeInfoPage extends StatelessWidget {
   AddressController _addressController = Get.find();
   @override
   Widget build(BuildContext context) {
-    return SafeArea(
-      child: Scaffold(
-          backgroundColor: IcoColors.white,
-          appBar: IcoAppbar(
-            hasShadow: false,
-            iconColor: IcoColors.white,
-            backgroundColor: IcoColors.primary,
-            title: "요금표",
-            usePop: true,
-          ),
-          body: SingleChildScrollView(
+    return Scaffold(
+        backgroundColor: IcoColors.white,
+        appBar: IcoAppbar(
+          hasShadow: false,
+          iconColor: IcoColors.white,
+          backgroundColor: IcoColors.primary,
+          title: "요금표",
+          usePop: true,
+        ),
+        body: SingleChildScrollView(
+          child: SafeArea(
             child: Column(
               children: [
                 Container(
@@ -145,32 +145,36 @@ class ServiceFeeInfoPage extends StatelessWidget {
                       IcoButton(
                           icon: false,
                           onPressed: () async {
-                            await authController.createReservationFirestore(
-                                authController.userModel.value!,
-                                _addressController.completeAddress.value!,
-                                null,
-                                2,
-                                '일반서비스');
-                            await authController.setModelInfo();
-                            Get.offAllNamed(Routes.HOME);
+                            // await authController.createReservationFirestore(
+                            //     authController.userModel.value!,
+                            //     _addressController.completeAddress.value!,
+                            //     null,
+                            //     2,
+                            //     '일반서비스');
+                            // await authController.setModelInfo();
+                            // Get.offAllNamed(Routes.HOME);
+                            Get.toNamed(Routes.VOUCHER_UNSIGNED_NORMAL,
+                                arguments: {'command': ''});
                           },
                           active: true.obs,
                           buttonColor: IcoColors.primary,
                           textStyle: IcoTextStyle.buttonTextStyleW,
                           text: "일반서비스 신청"),
-                      UnderlinedTextButton(
-                          onTap: () async {
-                            await authController.setModelInfo();
-                            Get.offAllNamed(Routes.HOME);
-                          },
-                          text: '메인화면으로 이동'),
+                      Center(
+                        child: UnderlinedTextButton(
+                            onTap: () async {
+                              await authController.setModelInfo();
+                              Get.offAllNamed(Routes.HOME);
+                            },
+                            text: '메인화면으로 이동'),
+                      ),
                     ],
                   ),
                 ),
               ],
             ),
-          )),
-    );
+          ),
+        ));
   }
 }
 

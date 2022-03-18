@@ -55,6 +55,7 @@ import 'package:get/get.dart';
 
 import '../pages/mypage/edit/edit.dart';
 import '../pages/mypage/edit/edit_name.dart';
+import '../pages/reservation/step1/substep_voucher/voucher_unused/voucher_normal_service.dart';
 import '../pages/tip/tip_detail.dart';
 
 class Routes {
@@ -102,6 +103,8 @@ class Routes {
   static const VOUCHER_SIGNED1 = '/reserve/step1/voucher/signed/1';
   static const VOUCHER_SIGNED2 = '/reserve/step1/voucher/signed/2';
   static const VOUCHER_SIGNED3 = '/reserve/step1/voucher/signed/3';
+  static const VOUCHER_UNSIGNED_NORMAL =
+      '/reserve/step1/voucher/unsigned/normal';
   static const MANAGER = '/manager';
   static const MIDTERM_REVIEW = '/review/midterm';
   static const FINAL_REVIEW = '/review/final';
@@ -119,6 +122,7 @@ class Routes {
   static const MYPAGE_EDIT_NAME = '/mypage/edit/name';
   static const MYPAGE_EDIT_PHONE = '/mypage/edit/phone';
   static const MYPAGE_EDIT = '/mypage/edit';
+
   static final pages = [
     GetPage(
         name: Routes.SPLASH,
@@ -198,6 +202,10 @@ class Routes {
     GetPage(
         name: Routes.VOUCHER_SIGNED2,
         page: () => VoucherSignedStep2(),
+        transition: Transition.noTransition),
+    GetPage(
+        name: Routes.VOUCHER_UNSIGNED_NORMAL,
+        page: () => VoucherNormalService(),
         transition: Transition.noTransition),
     GetPage(
         name: Routes.VOUCHER_SIGNED3,
