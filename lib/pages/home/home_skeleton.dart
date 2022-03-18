@@ -215,6 +215,7 @@ class _HomeSkeleton2State extends State<HomeSkeletonPage> {
                       children: [
                         Expanded(
                           child: ListView.builder(
+                            physics: NeverScrollableScrollPhysics(),
                             scrollDirection: Axis.horizontal,
                             controller: autoScrollController.scrollController,
                             shrinkWrap: true,
@@ -363,7 +364,7 @@ class _HomeSkeleton2State extends State<HomeSkeletonPage> {
                               : (homeController.userStep.value >= 9)
                                   ? HomeNotifyButton(
                                       iconUrl: 'icons/register_paper2.svg',
-                                      onTap: () async {
+                                      onTap: () {
                                         loading(() async {
                                           authController.reservationModel.value!
                                               .userStep = 0;
@@ -374,9 +375,8 @@ class _HomeSkeleton2State extends State<HomeSkeletonPage> {
                                                       .value!
                                                       .reservationNumber);
                                           await authController.setModelInfo();
+                                          Get.offAllNamed(Routes.HOME);
                                         });
-
-                                        Get.offAllNamed(Routes.HOME);
                                       },
                                       title: '서비스 신규신청하기',
                                       subtitle: '새로운 서비스 신청을 진행하시겠습니까?',

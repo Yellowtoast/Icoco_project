@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:app/configs/colors.dart';
 import 'package:app/configs/routes.dart';
 import 'package:app/configs/size.dart';
@@ -160,14 +162,19 @@ class ServiceFeeInfoPage extends StatelessWidget {
                           buttonColor: IcoColors.primary,
                           textStyle: IcoTextStyle.buttonTextStyleW,
                           text: "일반서비스 신청"),
-                      Center(
-                        child: UnderlinedTextButton(
-                            onTap: () async {
-                              await authController.setModelInfo();
-                              Get.offAllNamed(Routes.HOME);
-                            },
-                            text: '메인화면으로 이동'),
-                      ),
+                      Container(
+                        margin: Platform.isAndroid
+                            ? const EdgeInsets.only(bottom: 20)
+                            : null,
+                        child: Center(
+                          child: UnderlinedTextButton(
+                              onTap: () async {
+                                await authController.setModelInfo();
+                                Get.offAllNamed(Routes.HOME);
+                              },
+                              text: '메인화면으로 이동'),
+                        ),
+                      )
                     ],
                   ),
                 ),

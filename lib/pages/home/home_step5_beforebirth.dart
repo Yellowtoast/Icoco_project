@@ -79,7 +79,7 @@ class HomeStep5Items_1 extends StatelessWidget {
                   textBaseline: TextBaseline.alphabetic,
                   children: [
                     Expanded(
-                      flex: 3,
+                      flex: 4,
                       child: Text(
                         "서비스 이용기간",
                         style: IcoTextStyle.mediumTextStyle12Grey4,
