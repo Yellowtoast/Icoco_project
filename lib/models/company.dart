@@ -13,22 +13,29 @@ class CompanyModel {
   String? blog;
   String? momcafe;
   String? thumbnail;
+  int extraFamilyCost;
+  int kindergartenerCost;
+  int preschoolerCost;
+  int schoolerCost;
 
-  CompanyModel({
-    required this.uid,
-    required this.companyName,
-    required this.address,
-    required this.phone,
-    required this.bankName,
-    required this.accountNumber,
-    required this.accountHolderName,
-    this.totalReviewRate = 0,
-    this.totalReview = 0,
-    this.homepage,
-    this.blog,
-    this.momcafe,
-    this.thumbnail,
-  });
+  CompanyModel(
+      {required this.uid,
+      required this.companyName,
+      required this.address,
+      required this.phone,
+      required this.bankName,
+      required this.accountNumber,
+      required this.accountHolderName,
+      this.totalReviewRate = 0,
+      this.totalReview = 0,
+      this.homepage,
+      this.blog,
+      this.momcafe,
+      this.thumbnail,
+      required this.extraFamilyCost,
+      required this.kindergartenerCost,
+      required this.preschoolerCost,
+      required this.schoolerCost});
 
   factory CompanyModel.fromJson(Map data) {
     return CompanyModel(
@@ -45,6 +52,10 @@ class CompanyModel {
       accountNumber: data['accountNumber'] ?? '',
       bankName: data['bankName'] ?? '',
       accountHolderName: data['accountHolderName'] ?? '',
+      extraFamilyCost: data['extraFamilyCost'] ?? 5000,
+      kindergartenerCost: data['kindergartenerCost'] ?? 5000,
+      preschoolerCost: data['preschoolerCost'] ?? 11000,
+      schoolerCost: data['schoolerCost'] ?? 5000,
     );
   }
 

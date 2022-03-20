@@ -50,14 +50,16 @@ class FCMController extends GetxController {
         statuses[Permission.notification] = PermissionStatus.denied;
       }
     } else {
-      Get.dialog(CupertinoAlertDialog(
-        title: Text(''),
-        content: Text(''),
-        actions: [
-          CupertinoDialogAction(child: Text('')),
-          CupertinoDialogAction(child: Text(''))
-        ],
-      ));
+      Get.dialog(
+        CupertinoAlertDialog(
+          title: Text(''),
+          content: Text(''),
+          actions: [
+            CupertinoDialogAction(child: Text('')),
+            CupertinoDialogAction(child: Text('')),
+          ],
+        ),
+      );
     }
 
     if (statuses[Permission.notification] == PermissionStatus.granted) {

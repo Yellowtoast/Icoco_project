@@ -48,7 +48,6 @@ class VoucherController extends GetxController {
   @override
   void onReady() {
     super.onReady();
-    // ever(voucherResult, setVoucherInfo);
   }
 
   setVoucherInfo(String? _voucher, int additionalFee) async {
@@ -106,27 +105,6 @@ class VoucherController extends GetxController {
       voucherType2.value = null;
       voucherType3.value = null;
     }
-    // if (voucherItem == null) {
-    //   //바우처 선택 액션이 취해지지 않은 상태에서 해당 함수가 실행된다면
-    //   //기존에 있던 바우처 정보를 불러와야 함 -> 드롭다운도 세팅되어 있는 상태여야 함
-
-    //   if (voucherType1.value == 'A') {
-    //     voucherType3List.value = ['1', '2', '3'];
-    //   } else if (voucherType1.value == 'B') {
-    //     voucherType3List.value = ['1', '2'];
-    //   } else if (voucherType1.value == 'C') {
-    //     voucherType3List.value = [''];
-    //   }
-    // } else {
-    //   if (voucherItem.value == 'A' ||
-    //       voucherItem.value == 'B' ||
-    //       voucherItem.value == 'C') {
-
-    //     showResult.value = false;
-    //     voucherType2.value = null;
-    //     voucherType3.value = null;
-    //   }
-    // }
   }
 
   makeFullVoucherResult() {
@@ -161,19 +139,34 @@ class VoucherController extends GetxController {
     depositFeeList = depositFeePerWeek.toList();
     if (companyUid.isNotEmpty) {
       await getCompanyFeeInfoFirestore(companyUid);
+
+      feeModelCompany.serviceFeeInfo[voucher][4] =
+          feeModelCompany.serviceFeeInfo[voucher][4] * 5;
+
       totalFeeList = feeModelCompany.serviceFeeInfo[voucher];
 
       if (voucher.contains('일반')) {
         govermentFeeList = [0, 0, 0, 0, 0];
       } else {
+        feeModelCompany.govermentFeeInfo[voucher][4] =
+            feeModelCompany.govermentFeeInfo[voucher][4] * 5;
+
         govermentFeeList = feeModelCompany.govermentFeeInfo[voucher];
       }
     } else {
       await getDefaultFeeInfoFirestore();
+
+      feeModelDefault.serviceFeeInfo[voucher][4] =
+          feeModelDefault.serviceFeeInfo[voucher][4] * 5;
+
       totalFeeList = feeModelDefault.serviceFeeInfo[voucher];
+
       if (voucher.contains('일반')) {
         govermentFeeList = [0, 0, 0, 0, 0];
       } else {
+        feeModelDefault.govermentFeeInfo[voucher][4] =
+            feeModelDefault.govermentFeeInfo[voucher][4] * 5;
+
         govermentFeeList = feeModelDefault.govermentFeeInfo[voucher];
       }
     }
@@ -207,6 +200,7 @@ class VoucherController extends GetxController {
     var documentSnapshot = await db.collection('Company').doc(companyid).get();
     FeeModel model = FeeModel.fromJson(
         {'companyId': companyid, ...documentSnapshot.data()!});
+
     feeModelCompany = model;
     return model;
   }

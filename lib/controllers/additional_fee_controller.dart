@@ -1,4 +1,5 @@
 import 'package:app/configs/enum.dart';
+import 'package:app/controllers/company_controller.dart';
 import 'package:app/helpers/addtional_fee_calculator.dart';
 import 'package:app/helpers/enum_to_string.dart';
 import 'package:app/models/reservation.dart';
@@ -17,6 +18,10 @@ class AdditionalFeeController extends GetxController {
   int? kindergartenFee;
   int? schoolerFee;
   int? extraFamilyFee;
+  int preschoolerFeeStandard = 0;
+  int kindergartenFeeStandard = 0;
+  int schoolerFeeStandard = 0;
+  int extraFamilyFeeStandard = 0;
   int? preschooler;
   int? kindergartener;
   int? schooler;
@@ -31,16 +36,38 @@ class AdditionalFeeController extends GetxController {
     super.onReady();
   }
 
+  getAdditionalFeeInfo() {
+    CompanyController companyController = Get.find();
+
+    preschoolerFeeStandard = companyController
+        .companyModelList[companyController.companySelected.value!]
+        .preschoolerCost;
+
+    kindergartenFeeStandard = companyController
+        .companyModelList[companyController.companySelected.value!]
+        .kindergartenerCost;
+
+    schoolerFeeStandard = companyController
+        .companyModelList[companyController.companySelected.value!]
+        .schoolerCost;
+
+    extraFamilyFeeStandard = companyController
+        .companyModelList[companyController.companySelected.value!]
+        .extraFamilyCost;
+  }
+
   setExtraChargeOptions() {
     preschooler = int.tryParse(preschoolerController.text) ?? 0;
     kindergartener = int.tryParse(kindergartenController.text) ?? 0;
     schooler = int.tryParse(schoolerController.text) ?? 0;
     extraFamily = int.tryParse(extraFamilyController.text) ?? 0;
 
-    preschoolerFee = (preschooler! * addtionalFeeCalc["preschooler"]!);
-    kindergartenFee = (kindergartener! * addtionalFeeCalc["kindergartener"]!);
-    schoolerFee = (schooler! * addtionalFeeCalc["schooler"]!);
-    extraFamilyFee = (extraFamily! * addtionalFeeCalc["extraFamily"]!);
+    getAdditionalFeeInfo();
+
+    preschoolerFee = (preschooler! * preschoolerFeeStandard);
+    kindergartenFee = (kindergartener! * kindergartenFeeStandard);
+    schoolerFee = (schooler! * schoolerFeeStandard);
+    extraFamilyFee = (extraFamily! * extraFamilyFeeStandard);
 
     totalAdditionalFee =
         preschoolerFee! + kindergartenFee! + schoolerFee! + extraFamilyFee!;
