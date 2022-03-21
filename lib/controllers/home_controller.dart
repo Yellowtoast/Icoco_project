@@ -29,16 +29,10 @@ class HomeController extends GetxController {
 
   @override
   void onInit() {
-    if (userModel.value == null && reservationModel.value == null) {
-      setInfoFromModel();
-    }
+    // if (userModel.value == null && reservationModel.value == null) {
+    setInfoFromModel();
 
     super.onInit();
-  }
-
-  @override
-  Future<void> onReady() async {
-    super.onReady();
   }
 
   setNoticeEventCount(int allNoticeNum, int allEventNum) {
@@ -92,6 +86,8 @@ class HomeController extends GetxController {
   }
 
   get setWidgetsForStep {
+    print('setwidgetforstep userStep');
+    print(homeInfoModel.value.userStep);
     if (homeInfoModel.value.userStep == 1) {
       return HomeStep1Items();
     } else if (homeInfoModel.value.userStep == 2) {

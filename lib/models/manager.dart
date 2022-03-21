@@ -6,11 +6,11 @@ class ManagerModel {
   final String companyName;
   final String companyUid;
   final List<dynamic> dispatchableArea;
-  final String? ages;
+  int ages;
   int totalReview;
   int totalReviewRate;
   String? status;
-  String? careerCount;
+  int? careerYears;
   String? isCar;
   String? isResident;
   String? isCCTV;
@@ -21,31 +21,32 @@ class ManagerModel {
   int managerRate;
   String? reservationNumber;
   String? specialty;
+  String? topSpecialty;
   Map<String, dynamic>? specialtyItems;
 
-  ManagerModel({
-    required this.uid,
-    required this.name,
-    required this.companyName,
-    required this.dispatchableArea,
-    required this.ages,
-    required this.companyUid,
-    this.totalReviewRate = 0,
-    this.totalReview = 0,
-    this.status,
-    this.careerCount,
-    this.isCar,
-    this.isResident,
-    this.isCCTV,
-    this.certName,
-    this.certHealth,
-    this.certCrime,
-    this.profileImage,
-    this.reservationNumber,
-    this.specialty,
-    this.specialtyItems,
-    this.managerRate = 0,
-  });
+  ManagerModel(
+      {required this.uid,
+      required this.name,
+      required this.companyName,
+      required this.dispatchableArea,
+      required this.ages,
+      required this.companyUid,
+      this.totalReviewRate = 0,
+      this.totalReview = 0,
+      this.status,
+      this.careerYears,
+      this.isCar,
+      this.isResident,
+      this.isCCTV,
+      this.certName,
+      this.certHealth,
+      this.certCrime,
+      this.profileImage,
+      this.reservationNumber,
+      this.specialty,
+      this.specialtyItems,
+      this.managerRate = 0,
+      this.topSpecialty});
 
   factory ManagerModel.fromJson(Map data) {
     return ManagerModel(
@@ -54,11 +55,11 @@ class ManagerModel {
       companyName: data['companyName'],
       companyUid: data['company'] ?? '',
       dispatchableArea: data['dispatchableArea'] ?? [],
-      ages: data['birthDate'] ?? '',
+      ages: data['ages'] ?? 40,
       totalReview: data['totalReview'] ?? 0,
       totalReviewRate: data['totalReviewRate'] ?? 0,
       status: data['status'] ?? '',
-      careerCount: data['careerStartedDate'] ?? '',
+      careerYears: data['careerYears'] ?? 1,
       isCar: data['isCar'] ?? '',
       isResident: data['isResident'] ?? '',
       isCCTV: data['isCCTV'] ?? '',
@@ -69,6 +70,7 @@ class ManagerModel {
       reservationNumber: data['reservationNumber'] ?? '',
       specialty: data['specialty'] ?? '',
       specialtyItems: data['specialtyItems'].cast<String, dynamic>(),
+      topSpecialty: data['topSpecialty'],
     );
   }
 
@@ -77,11 +79,9 @@ class ManagerModel {
         "name": name,
         "company": companyUid,
         "dispatchableArea": dispatchableArea,
-        "birthDate": ages,
         "totalReview": totalReview,
         "totalReviewRate": totalReviewRate,
         "status": status,
-        "careerStartedDate": careerCount,
         "isCar": isCar,
         "isResident": isResident,
         "isCCTV": isCCTV,

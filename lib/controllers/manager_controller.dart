@@ -43,15 +43,27 @@ class ManagerController extends GetxController {
               .get();
 
           var companyName = await company.docs[0].data()['companyName'];
-          print(companyName);
 
-          Rxn<ManagerModel> model = Rxn<ManagerModel>();
+          Rxn<ManagerModel> managerModel = Rxn<ManagerModel>();
 
-          model.value = ManagerModel.fromJson(
-              {'companyName': companyName, ...doc.docs[0].data()});
-          model.value!.managerRate = calcManagerRate(
-              model.value!.totalReview, model.value!.totalReviewRate);
-          managerModelList.add(model);
+          String birthDate = doc.docs[0].data()['birthDate'];
+          String careerStartedDate = doc.docs[0].data()['careerStartedDate'];
+          Map<dynamic, dynamic> specialityItems =
+              doc.docs[0].data()['specialtyItems'];
+          String specialty = doc.docs[0].data()['specialty'];
+
+          managerModel.value = ManagerModel.fromJson({
+            'companyName': companyName,
+            'ages': calcAges(birthDate),
+            'careerYears': calcCareerYears(careerStartedDate),
+            'topSpecialty': getTopSpeciality(specialityItems, specialty),
+            ...doc.docs[0].data()
+          });
+          managerModel.value!.managerRate = calcManagerRate(
+              managerModel.value!.totalReview,
+              managerModel.value!.totalReviewRate);
+
+          managerModelList.add(managerModel);
           managerModelList.refresh();
         }
       }
@@ -106,5 +118,34 @@ class ManagerController extends GetxController {
       managerRate = totalRate ~/ totalReview;
     }
     return managerRate;
+  }
+
+  int calcAges(String birthDate) {
+    int age = calcYearFromNow(birthDate);
+    if (age > 10) {
+      age = age ~/ 10 * 10;
+    }
+    return age;
+  }
+
+  int calcCareerYears(String careerStartDate) {
+    int careerYear = calcYearFromNow(careerStartDate);
+    return careerYear;
+  }
+
+  getTopSpeciality(Map<dynamic, dynamic> specialtyItems, String specialty) {
+    String topSpeciality = '산모케어';
+    int itemNum = 0;
+    specialtyItems.forEach((key, value) {
+      if (value > itemNum) {
+        topSpeciality = key;
+        itemNum = value;
+      }
+    });
+    if (itemNum == 0) {
+      topSpeciality = specialty;
+    }
+
+    return topSpeciality;
   }
 }

@@ -38,25 +38,39 @@ class FCMController extends GetxController {
       Permission.reminders
     ].request();
 
+    bool granted = false;
+
     if (!Platform.isIOS) {
-      var granted = await IcoOptionModal(
+      granted = await IcoOptionModal(
           title: '아이코코 푸시알림 동의',
           subtitle: '사운드 및 아이콘 배지가 알림에 포함될 수 있습니다. 마이페이지에서 이를 변경할 수 있습니다.',
           useIcon: false,
           barrierDismissible: true);
+
       if (granted) {
         statuses[Permission.notification] = PermissionStatus.granted;
       } else {
         statuses[Permission.notification] = PermissionStatus.denied;
       }
-    } else {
+    } else if (Platform.isIOS &&
+        statuses[Permission.notification] != PermissionStatus.granted) {
       Get.dialog(
         CupertinoAlertDialog(
           title: Text(''),
           content: Text(''),
           actions: [
-            CupertinoDialogAction(child: Text('')),
-            CupertinoDialogAction(child: Text('')),
+            CupertinoDialogAction(
+                onPressed: () {
+                  statuses[Permission.notification] = PermissionStatus.denied;
+                  Get.back();
+                },
+                child: Text('싫어')),
+            CupertinoDialogAction(
+                onPressed: () {
+                  statuses[Permission.notification] = PermissionStatus.granted;
+                  Get.back();
+                },
+                child: Text('조아')),
           ],
         ),
       );
@@ -66,17 +80,16 @@ class FCMController extends GetxController {
       print('User granted permission');
       pushAllowed.value = true;
       proceedSignup.value = true;
+      _settings.value = await _messaging.requestPermission(
+        alert: pushAllowed.value,
+        badge: pushAllowed.value,
+        sound: pushAllowed.value,
+      );
     } else {
       print('User declined or has not accepted permission');
       pushAllowed.value = false;
       proceedSignup.value = false;
     }
-
-    _settings.value = await _messaging.requestPermission(
-      alert: pushAllowed.value,
-      badge: pushAllowed.value,
-      sound: pushAllowed.value,
-    );
   }
 
   Future<String?> _getToken() async {

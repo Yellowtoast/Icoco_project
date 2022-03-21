@@ -199,7 +199,9 @@ class _SignupStep1PageState extends State<SignupStep1Page> {
                                                 fontWeight: FontWeight.w500),
                                             children: <TextSpan>[
                                               TextSpan(
-                                                text: ' (필수)',
+                                                text: (key == '중요정보 푸시서비스 동의')
+                                                    ? ' (선택)'
+                                                    : ' (필수)',
                                                 style: GoogleFonts.notoSans(
                                                     fontSize: 13,
                                                     color: IcoColors.primary,

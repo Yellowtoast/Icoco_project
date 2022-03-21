@@ -1,4 +1,5 @@
 import 'package:app/configs/colors.dart';
+import 'package:app/configs/constants.dart';
 import 'package:app/configs/routes.dart';
 import 'package:app/configs/size.dart';
 import 'package:app/configs/text_styles.dart';
@@ -210,7 +211,7 @@ class ManagerDetailPage extends StatelessWidget {
                                     width: 95,
                                     height: 34,
                                     child: Text(
-                                      "경력 3년이내",
+                                      "경력 ${managerController.managerModelList[managerNum].value!.careerYears}년이내",
                                       style: IcoTextStyle.mediumTextStyle13P,
                                     ),
                                   ),
@@ -223,7 +224,7 @@ class ManagerDetailPage extends StatelessWidget {
                                     width: 95,
                                     height: 34,
                                     child: Text(
-                                      "50대",
+                                      "${managerController.managerModelList[managerNum].value!.ages}대",
                                       style: IcoTextStyle.mediumTextStyle13P,
                                     ),
                                   ),
@@ -353,47 +354,21 @@ class ManagerDetailPage extends StatelessWidget {
                       ),
                       Row(
                         children: [
-                          Container(
-                            width: 106,
-                            height: 92,
-                            decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(10),
-                                border: Border.all(
-                                    width: 1, color: IcoColors.grey2)),
-                            child: Column(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              crossAxisAlignment: CrossAxisAlignment.center,
-                              children: [
-                                SvgPicture.asset(
-                                  "icons/cleaning_icon.svg",
-                                  color: IcoColors.primary,
-                                ),
-                                const SizedBox(
-                                  height: 8,
-                                ),
-                                Text(
-                                  "정리정돈",
-                                  style: IcoTextStyle.mediumTextStyle16P,
-                                )
-                              ],
-                            ),
-                          ),
+                          SpecialtyBox(
+                              specialty: managerController
+                                      .managerModelList[managerNum]
+                                      .value!
+                                      .topSpecialty ??
+                                  '정리정돈'),
                           SizedBox(
                             width: 14,
                           ),
-                          Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Text(
-                                "정리정돈",
-                                style: IcoTextStyle.boldTextStyle18B,
-                              ),
-                              Text(
-                                "청소를 깔끔하게 잘 하세요",
-                                style: IcoTextStyle.mediumTextStyle13Grey4,
-                              ),
-                            ],
-                          )
+                          SpecialtyIndex(
+                              specialty: managerController
+                                      .managerModelList[managerNum]
+                                      .value!
+                                      .topSpecialty ??
+                                  '정리정돈')
                         ],
                       )
                     ],
@@ -835,5 +810,66 @@ class ManagerDetailPage extends StatelessWidget {
         ),
       );
     });
+  }
+}
+
+class SpecialtyIndex extends StatelessWidget {
+  SpecialtyIndex({
+    Key? key,
+    required this.specialty,
+  }) : super(key: key);
+  String specialty;
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text(
+          specialty,
+          style: IcoTextStyle.boldTextStyle18B,
+        ),
+        Text(
+          specialtyItems[specialty] ?? '',
+          style: IcoTextStyle.mediumTextStyle13Grey4,
+        ),
+      ],
+    );
+  }
+}
+
+class SpecialtyBox extends StatelessWidget {
+  SpecialtyBox({
+    Key? key,
+    required this.specialty,
+  }) : super(key: key);
+  String specialty;
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      width: 106,
+      height: 92,
+      decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(10),
+          border: Border.all(width: 1, color: IcoColors.grey2)),
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: [
+          SvgPicture.asset(
+            specialtyItemsIcon[specialty] ?? "icons/mother_caring_icon.svg",
+            color: IcoColors.primary,
+          ),
+          const SizedBox(
+            height: 8,
+          ),
+          Text(
+            specialty,
+            style: IcoTextStyle.mediumTextStyle16P,
+          )
+        ],
+      ),
+    );
   }
 }

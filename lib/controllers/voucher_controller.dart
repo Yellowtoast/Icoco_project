@@ -148,9 +148,6 @@ class VoucherController extends GetxController {
       if (voucher.contains('일반')) {
         govermentFeeList = [0, 0, 0, 0, 0];
       } else {
-        feeModelCompany.govermentFeeInfo[voucher][4] =
-            feeModelCompany.govermentFeeInfo[voucher][4] * 5;
-
         govermentFeeList = feeModelCompany.govermentFeeInfo[voucher];
       }
     } else {
@@ -164,9 +161,6 @@ class VoucherController extends GetxController {
       if (voucher.contains('일반')) {
         govermentFeeList = [0, 0, 0, 0, 0];
       } else {
-        feeModelDefault.govermentFeeInfo[voucher][4] =
-            feeModelDefault.govermentFeeInfo[voucher][4] * 5;
-
         govermentFeeList = feeModelDefault.govermentFeeInfo[voucher];
       }
     }

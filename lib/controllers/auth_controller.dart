@@ -75,6 +75,7 @@ class AuthController extends GetxController {
       reservationModel.value =
           await getFirebaseReservationByUid(userModel.value!.uid);
       await storeModelInLocalStorage();
+      print('setModelInfo : ${homeModel.value.userStep}');
     } catch (e) {
       await Get.offAllNamed(Routes.START);
     }
@@ -114,7 +115,7 @@ class AuthController extends GetxController {
   }
 
   //get the firestore user from the firestore collection
-  Future<UserModel?> getFirestoreUser(User? authUser) {
+  getFirestoreUser(User? authUser) {
     return db.doc('/User/${authUser!.email}').get().then(
         (documentSnapshot) => UserModel.fromJson(documentSnapshot.data()!));
   }

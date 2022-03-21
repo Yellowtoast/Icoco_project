@@ -624,7 +624,7 @@ class MyReservationPage extends StatelessWidget {
                       height: 11,
                     ),
                     Row(
-                      crossAxisAlignment: CrossAxisAlignment.start,
+                      crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
                         SizedBox(
                           width: 105,

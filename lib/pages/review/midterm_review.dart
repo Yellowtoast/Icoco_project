@@ -42,7 +42,7 @@ class MidtermReviewPage extends StatelessWidget {
         backgroundColor: IcoColors.white,
         appBar: IcoAppbar(
           title: '예약하기',
-          usePop: true,
+          usePop: false,
         ),
         body: SingleChildScrollView(
           scrollDirection: Axis.vertical,

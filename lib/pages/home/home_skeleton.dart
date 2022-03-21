@@ -295,7 +295,7 @@ class _HomeSkeleton2State extends State<HomeSkeletonPage> {
                                 },
                                 width: double.infinity,
                               )
-                            : homeController.setWidgetsForStep,
+                            : homeController.setWidgetsForStep ?? SizedBox(),
                       ],
                     ),
                   ),

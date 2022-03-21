@@ -19,6 +19,19 @@ int calcDifferenceBetweenDates(String fromDate, String dateNow) {
   return newDateTime;
 }
 
+int calcYearFromNow(String fromDate) {
+  DateTime fromDateTime = dashStringDateToDateTime(fromDate);
+  DateTime untilDateTime = DateTime.now();
+  int year = 0;
+
+  year = untilDateTime.difference(fromDateTime).inDays ~/ 365 + 1;
+  if (year == 0) {
+    year = 1;
+  }
+
+  return year;
+}
+
 DateTime dashStringDateToDateTime(String dateString) {
   dateString = dateString.replaceAll(".", "-");
   return DateTime.parse(dateString);

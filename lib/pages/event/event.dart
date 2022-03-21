@@ -125,32 +125,34 @@ class EmptyListPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      mainAxisAlignment: MainAxisAlignment.center,
-      crossAxisAlignment: CrossAxisAlignment.center,
-      children: [
-        SizedBox(
-          height: IcoSize.height / 4.5,
-        ),
-        Image.asset(
-          'images/failed_human_grey.png',
-          height: 140,
-        ),
-        SizedBox(
-          height: 12,
-        ),
-        Text(
-          title,
-          style: IcoTextStyle.boldTextStyle20Grey4,
-        ),
-        SizedBox(
-          height: 6,
-        ),
-        Text(
-          subtitle,
-          style: IcoTextStyle.mediumTextStyle14Grey4,
-        )
-      ],
+    return Container(
+      height: 500,
+      width: IcoSize.width,
+      color: IcoColors.white,
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: [
+          Image.asset(
+            'images/failed_human_grey.png',
+            height: 140,
+          ),
+          SizedBox(
+            height: 12,
+          ),
+          Text(
+            title,
+            style: IcoTextStyle.boldTextStyle20Grey4,
+          ),
+          SizedBox(
+            height: 6,
+          ),
+          Text(
+            subtitle,
+            style: IcoTextStyle.mediumTextStyle14Grey4,
+          )
+        ],
+      ),
     );
   }
 }
