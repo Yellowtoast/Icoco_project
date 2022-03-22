@@ -52,7 +52,6 @@ class CompanyDetailPage extends StatelessWidget {
                     ),
                     Container(
                       width: IcoSize.width - 40,
-                      height: 200,
                       padding: const EdgeInsets.all(20),
                       decoration: BoxDecoration(
                         color: IcoColors.white,
@@ -197,10 +196,10 @@ class CompanyDetailPage extends StatelessWidget {
                                   color: IcoColors.grey1,
                                 ),
                                 width: IcoSize.width - 80,
-                                height: 34,
+                                height: 40,
                                 child: Text(
                                   "전화상담 바로가기",
-                                  style: IcoTextStyle.mediumTextStyle13P,
+                                  style: IcoTextStyle.mediumTextStyle14P,
                                 ),
                               ),
                             ],

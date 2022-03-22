@@ -27,9 +27,19 @@ class HomeStep3Items extends StatelessWidget {
       return Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text(
-            "바우처 ${homeController.reservationModel.value!.voucher} (${homeController.reservationModel.value!.serviceDuration})",
-            style: IcoTextStyle.boldTextStyle15P,
+          Row(
+            children: [
+              Text(
+                (homeController.reservationModel.value!.voucher!.contains("일반"))
+                    ? ""
+                    : "바우처 ",
+                style: IcoTextStyle.boldTextStyle15P,
+              ),
+              Text(
+                "${homeController.reservationModel.value!.voucher} (${homeController.reservationModel.value!.serviceDuration})",
+                style: IcoTextStyle.boldTextStyle15P,
+              ),
+            ],
           ),
           const SizedBox(
             height: 8,

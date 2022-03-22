@@ -1,15 +1,12 @@
 // ignore_for_file: prefer_final_fields, prefer_collection_literals, avoid_print
 import 'dart:io';
-
 import 'package:app/controllers/auth_controller.dart';
 import 'package:app/widgets/loading/loading.dart';
-import 'package:app/widgets/modal/exit_icon_modal.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:permission_handler/permission_handler.dart';
-
 import '../configs/routes.dart';
 import '../widgets/modal/bottomup_modal2.dart';
 import '../widgets/modal/option_modal.dart';
@@ -32,11 +29,10 @@ class FCMController extends GetxController {
   }
 
   Future<void> getPermissionFromUser() async {
-    Map<Permission, PermissionStatus> statuses = await [
-      Permission.notification,
-      // Permission.camera,
-      Permission.reminders
-    ].request();
+    Map<Permission, PermissionStatus> statuses = {
+      Permission.notification: PermissionStatus.denied,
+      Permission.reminders: PermissionStatus.denied
+    };
 
     bool granted = false;
 
@@ -54,23 +50,27 @@ class FCMController extends GetxController {
       }
     } else if (Platform.isIOS &&
         statuses[Permission.notification] != PermissionStatus.granted) {
-      Get.dialog(
+      await Get.dialog(
         CupertinoAlertDialog(
-          title: Text(''),
-          content: Text(''),
+          title: Text("'아이코코'에서 알림을 보내고자 합니다."),
+          content:
+              Text('경고, 사운드 및 아이콘 배지가 알림에 포함될 수 있습니다. 설정에서 이를 구성할 수 있습니다.'),
           actions: [
             CupertinoDialogAction(
                 onPressed: () {
                   statuses[Permission.notification] = PermissionStatus.denied;
                   Get.back();
                 },
-                child: Text('싫어')),
+                child: Text('허용안함')),
             CupertinoDialogAction(
                 onPressed: () {
                   statuses[Permission.notification] = PermissionStatus.granted;
                   Get.back();
                 },
-                child: Text('조아')),
+                child: Text(
+                  '허용',
+                  style: TextStyle(fontSize: 17, fontWeight: FontWeight.bold),
+                )),
           ],
         ),
       );
@@ -90,6 +90,7 @@ class FCMController extends GetxController {
       pushAllowed.value = false;
       proceedSignup.value = false;
     }
+    print('허용 누른 후 권한 상태? : ${statuses[Permission.notification]}');
   }
 
   Future<String?> _getToken() async {
@@ -106,12 +107,6 @@ class FCMController extends GetxController {
   }
 
   Future<void> _initNotification() async {
-    // await _messaging.setForegroundNotificationPresentationOptions(
-    //   alert: true,
-    //   badge: true,
-    //   sound: true,
-    // );
-
     FirebaseMessaging.onMessage.listen((RemoteMessage remoteMessage) async {
       _onMessage(remoteMessage);
     });
@@ -128,17 +123,9 @@ class FCMController extends GetxController {
     FirebaseMessaging.onBackgroundMessage(_firebaseMessagingBackgroundHandler);
   }
 
-  Future<void>? _onMessage(RemoteMessage message) {
+  _onMessage(RemoteMessage message) {
     print('FCM 메세지 도착');
     print("_onMessage : ${message.data}");
-
-    // exitIconModal(
-    //     message.notification?.title ?? 'title',
-    //     message.notification?.body ?? 'BODY',
-    //     '확인',
-    //     () => Get.back(),
-    //     'icons/checked.svg',
-    //     50);
 
     BottomUpModal2(
         title: message.notification?.title ?? "산후도우미 변경 완료",
@@ -150,7 +137,6 @@ class FCMController extends GetxController {
           loading(await authController.setModelInfo());
           Get.offAllNamed(Routes.HOME);
         });
-    return null;
   }
 
   Future<void> _firebaseMessagingBackgroundHandler(
@@ -178,8 +164,3 @@ class FCMController extends GetxController {
     });
   }
 }
-
-
-  // void _actionOnNotification(Map<String, dynamic> messageMap) {
-  //   message(messageMap);
-  // }

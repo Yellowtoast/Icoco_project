@@ -99,13 +99,13 @@ class EventController extends GetxController {
 
     list.forEach((event) {
       if (event.status == 'running') {
-        runningEvents.add(event);
+        runningEvents.insert(0, event);
       }
       if (event.status == 'announced') {
-        announcedEvents.add(event);
+        announcedEvents.insert(0, event);
       }
       if (event.status == 'completed') {
-        completedEvents.add(event);
+        completedEvents.insert(0, event);
       }
     });
 

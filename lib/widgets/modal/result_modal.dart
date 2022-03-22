@@ -70,15 +70,13 @@ BottomResultModal() {
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
-                            Expanded(
+                            SizedBox(
+                              width: 110,
                               child: Text(
-                                "미취학아동",
+                                "24개월 미만",
                                 textAlign: TextAlign.left,
                                 style: IcoTextStyle.boldTextStyle15B,
                               ),
-                            ),
-                            SizedBox(
-                              width: 5,
                             ),
                             Expanded(
                               child: Text(
@@ -109,9 +107,10 @@ BottomResultModal() {
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
-                            Expanded(
+                            SizedBox(
+                              width: 110,
                               child: Text(
-                                "유치원/어린이집",
+                                "미취학 아동",
                                 textAlign: TextAlign.left,
                                 style: IcoTextStyle.boldTextStyle15B,
                               ),
@@ -145,7 +144,8 @@ BottomResultModal() {
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
-                            Expanded(
+                            SizedBox(
+                              width: 110,
                               child: Text(
                                 "초등생 이상",
                                 textAlign: TextAlign.left,
@@ -178,7 +178,8 @@ BottomResultModal() {
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        Expanded(
+                        SizedBox(
+                          width: 110,
                           child: Text(
                             "기타가족",
                             textAlign: TextAlign.left,
@@ -218,13 +219,9 @@ BottomResultModal() {
                       voucherController.setVoucherInfo(
                           voucherController.voucherResult.value,
                           additionalFeeController.totalAdditionalFee);
-                      if (authController.reservationModel.value!.voucher ==
-                          '일반서비스') {
-                        Get.to(ReserveStep2_7_Novoucher());
-                      } else {
-                        Get.toNamed(Routes.RESERVE_STEP2_7,
-                            preventDuplicates: false);
-                      }
+
+                      Get.toNamed(Routes.RESERVE_STEP2_7,
+                          preventDuplicates: false);
                     }
                   } else {
                     Get.toNamed(

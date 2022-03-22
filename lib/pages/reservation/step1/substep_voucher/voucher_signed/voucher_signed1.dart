@@ -109,7 +109,10 @@ class VoucherSignedStep1 extends StatelessWidget {
                               child: VoucherDropdown(
                                   hintText:
                                       (voucherController.voucherType3.value ==
-                                              'C')
+                                                  'C' ||
+                                              voucherController
+                                                      .voucherType3.value ==
+                                                  '일반')
                                           ? ''
                                           : null,
                                   dropDownList:

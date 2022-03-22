@@ -371,7 +371,7 @@ class UnderlinedTextButton extends StatelessWidget {
         ),
         alignment: Alignment.bottomCenter,
         height: 30,
-        width: 115,
+        width: 110,
         child: Text(
           text,
           style: IcoTextStyle.mediumLinedTextStyle14G,

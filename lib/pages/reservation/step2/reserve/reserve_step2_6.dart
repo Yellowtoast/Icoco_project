@@ -196,26 +196,17 @@ class ReserveStep2_6 extends StatelessWidget {
                                 2) {
                               Get.toNamed(Routes.RESERVE_STEP2_FINISHED);
                             } else {
-                              if (authController
-                                      .reservationModel.value!.voucher ==
-                                  '일반서비스') {
-                                voucherController.setVoucherInfo(
-                                    voucherController.voucherResult.value,
-                                    additionalFeeController.totalAdditionalFee);
-                                Get.to(ReserveStep2_7_Novoucher());
-                              } else {
-                                additionalFeeController = Get.find();
+                              additionalFeeController = Get.find();
 
-                                voucherController.voucherResult.value =
-                                    authController
-                                        .reservationModel.value!.voucher;
-                                voucherController.setDropDownList(null);
-                                voucherController.setVoucherInfo(
-                                    voucherController.voucherResult.value,
-                                    additionalFeeController.totalAdditionalFee);
-                                Get.toNamed(Routes.RESERVE_STEP2_7,
-                                    preventDuplicates: false);
-                              }
+                              voucherController.voucherResult.value =
+                                  authController
+                                      .reservationModel.value!.voucher;
+                              voucherController.setDropDownList(null);
+                              voucherController.setVoucherInfo(
+                                  voucherController.voucherResult.value,
+                                  additionalFeeController.totalAdditionalFee);
+                              Get.toNamed(Routes.RESERVE_STEP2_7,
+                                  preventDuplicates: false);
                             }
                           },
                           active: (dateInfoController.serviceStartDate.value !=

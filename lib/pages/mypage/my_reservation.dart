@@ -676,7 +676,7 @@ class MyReservationPage extends StatelessWidget {
                   iconColor: IcoColors.white,
                   width: IcoSize.width - 40,
                   onPressed: () {
-                    // UrlLauncher().call()
+                    UrlLauncher().call('tel:010-4912-9519');
                   },
                   active: true.obs,
                   textStyle: IcoTextStyle.buttonTextStyleW,

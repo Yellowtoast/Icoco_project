@@ -13,7 +13,7 @@ class VoucherController extends GetxController {
   Rxn<String> voucherResult = Rxn<String>();
   Rxn<String> fullRegNum = Rxn<String>();
   RxBool hasPreviousVoucher = false.obs;
-  RxBool isVoucherUsed = false.obs;
+  RxBool isVoucherUnused = true.obs;
   Rxn<bool> isVoucherValid = Rxn<bool>();
   RxList<String> voucherType1List = ['A', 'B', 'C', '일반'].obs;
   RxList<String> voucherType2List = ['가', '통합', '라'].obs;
@@ -48,6 +48,11 @@ class VoucherController extends GetxController {
   @override
   void onReady() {
     super.onReady();
+    ever(isVoucherUnused, (_) async {
+      showResult.value = false;
+      await getVoucherCostInfo(voucherResult.value!,
+          authController.reservationModel.value!.extraCost!, companyUid.value);
+    });
   }
 
   setVoucherInfo(String? _voucher, int additionalFee) async {
@@ -56,10 +61,10 @@ class VoucherController extends GetxController {
       return;
     } else {
       voucherResult.value = _voucher;
-      if (_voucher != '일반서비스') {
-        await splitVoucherResult(_voucher);
-        await setDropDownList(null);
-      }
+      // if (_voucher != '일반서비스') {
+      await splitVoucherResult(_voucher);
+      await setDropDownList(null);
+      // }
       print(companyUid.value);
       await getVoucherCostInfo(_voucher, additionalFee, companyUid.value);
     }
@@ -140,34 +145,48 @@ class VoucherController extends GetxController {
     if (companyUid.isNotEmpty) {
       await getCompanyFeeInfoFirestore(companyUid);
 
+      feeModelCompany.serviceFeeInfo[voucher] = feeModelCompany
+          .serviceFeeInfo[voucher]
+          .map((e) => (e == null) ? 0 : e)
+          .toList();
       feeModelCompany.serviceFeeInfo[voucher][4] =
           feeModelCompany.serviceFeeInfo[voucher][4] * 5;
-
       totalFeeList = feeModelCompany.serviceFeeInfo[voucher];
 
-      if (voucher.contains('일반')) {
+      if (voucher.contains('일반') || isVoucherUnused.value) {
         govermentFeeList = [0, 0, 0, 0, 0];
       } else {
+        feeModelCompany.govermentFeeInfo[voucher] = feeModelCompany
+            .govermentFeeInfo[voucher]
+            .map((e) => (e == null) ? 0 : e)
+            .toList();
         govermentFeeList = feeModelCompany.govermentFeeInfo[voucher];
       }
     } else {
       await getDefaultFeeInfoFirestore();
-
+      feeModelDefault.serviceFeeInfo[voucher] = feeModelDefault
+          .serviceFeeInfo[voucher]
+          .map((e) => (e == null) ? 0 : e)
+          .toList();
       feeModelDefault.serviceFeeInfo[voucher][4] =
           feeModelDefault.serviceFeeInfo[voucher][4] * 5;
 
       totalFeeList = feeModelDefault.serviceFeeInfo[voucher];
 
-      if (voucher.contains('일반')) {
+      if (voucher.contains('일반') || isVoucherUnused.value) {
         govermentFeeList = [0, 0, 0, 0, 0];
       } else {
+        feeModelDefault.govermentFeeInfo[voucher] = feeModelDefault
+            .govermentFeeInfo[voucher]
+            .map((e) => (e == null) ? 0 : e)
+            .toList();
         govermentFeeList = feeModelDefault.govermentFeeInfo[voucher];
       }
     }
 
-    totalFeeList = totalFeeList.map((e) => (e == null) ? 0 : e).toList();
-    govermentFeeList =
-        govermentFeeList.map((e) => (e == null) ? 0 : e).toList();
+    // totalFeeList = totalFeeList.map((e) => (e == null) ? 0 : e).toList();
+    // govermentFeeList =
+    //     govermentFeeList.map((e) => (e == null) ? 0 : e).toList();
 
     for (int i = 0; i < 5; i++) {
       totalFeeList[i] = totalFeeList[i] + additionalFee;

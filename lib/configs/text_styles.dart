@@ -137,6 +137,12 @@ class IcoTextStyle {
     fontWeight: FontWeight.bold,
     color: IcoColors.grey3,
   );
+
+  static TextStyle boldTextStyle17Grey3 = GoogleFonts.notoSans(
+    fontSize: 17,
+    fontWeight: FontWeight.bold,
+    color: IcoColors.grey3,
+  );
   static TextStyle lineBoldTextStyle15Grey4 = GoogleFonts.notoSans(
       fontSize: 15,
       fontWeight: FontWeight.bold,
@@ -221,6 +227,12 @@ class IcoTextStyle {
     fontWeight: FontWeight.bold,
     color: IcoColors.black,
   );
+
+  static TextStyle boldTextStyle18Grey3 = GoogleFonts.notoSans(
+    fontSize: 18,
+    fontWeight: FontWeight.bold,
+    color: IcoColors.grey3,
+  );
   static TextStyle boldTextStyle18P = GoogleFonts.notoSans(
     fontSize: 18,
     fontWeight: FontWeight.bold,
@@ -283,7 +295,7 @@ class IcoTextStyle {
     fontSize: 14,
     fontWeight: FontWeight.normal,
     color: IcoColors.grey4,
-    decoration: TextDecoration.underline,
+    // decoration: TextDecoration.underline,
     // textBaseline: TextBaseline.ideographic,
 
     // shadows: [Shadow(color: Colors.black, offset: Offset(0, -3))],

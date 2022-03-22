@@ -61,7 +61,9 @@ class VoucherDropdown extends StatelessWidget {
             }
           },
           items: (voucherController.voucherType1.value == 'C' &&
-                  dropDownList![0] == '')
+                      dropDownList![0] == '' ||
+                  voucherController.voucherType1.value == '일반' &&
+                      dropDownList![0] == '')
               ? null
               : dropDownList!.map<DropdownMenuItem<String>>((String value) {
                   return DropdownMenuItem<String>(

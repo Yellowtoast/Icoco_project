@@ -104,15 +104,10 @@ class ReserveStep2_7 extends StatelessWidget {
                   CheckBoxText(
                     text: "바우처를 사용하지 않습니다",
                     onTap: () {
-                      if (voucherController.isVoucherUsed.value == true) {
-                        voucherController.isVoucherUsed.value = false;
-                      } else {
-                        voucherController.isVoucherUsed.value = true;
-                      }
+                      voucherController.isVoucherUnused.value =
+                          !voucherController.isVoucherUnused.value;
                     },
-                    isChecked: (voucherController.isVoucherUsed.value == false)
-                        ? false.obs
-                        : true.obs,
+                    isChecked: voucherController.isVoucherUnused.value,
                     iconChecked: "icons/check.svg",
                     iconUnchecked: "icons/unchecked.svg",
                   ),
@@ -150,7 +145,7 @@ class ReserveStep2_7 extends StatelessWidget {
                                   child: CostInfoSelectButton(
                                     feeTypeIndex: index,
                                     isVoucherUsed: (voucherController
-                                                .isVoucherUsed.value ==
+                                                .isVoucherUnused.value ==
                                             true)
                                         ? false.obs
                                         : true.obs,
@@ -198,27 +193,25 @@ class CheckBoxText extends StatelessWidget {
   String iconUnchecked;
   String iconChecked;
   String text;
-  Rx<bool> isChecked;
+  bool isChecked;
 
   @override
   Widget build(BuildContext context) {
-    return Obx(() {
-      return InkWell(
-        onTap: onTap,
-        child: Row(
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            SvgPicture.asset((isChecked.value) ? iconChecked : iconUnchecked),
-            SizedBox(
-              width: 9,
-            ),
-            Text(
-              text,
-              style: IcoTextStyle.mediumTextStyle16B,
-            ),
-          ],
-        ),
-      );
-    });
+    return InkWell(
+      onTap: onTap,
+      child: Row(
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: [
+          SvgPicture.asset((isChecked) ? iconChecked : iconUnchecked),
+          SizedBox(
+            width: 9,
+          ),
+          Text(
+            text,
+            style: IcoTextStyle.mediumTextStyle16B,
+          ),
+        ],
+      ),
+    );
   }
 }

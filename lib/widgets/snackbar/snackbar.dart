@@ -18,7 +18,7 @@ iconSnackbar() {
   return Get.dialog(
       Lottie.asset('assets/swipe.json',
           repeat: true, reverse: false, animate: true, width: 330),
-      barrierColor: Color.fromARGB(105, 0, 0, 0));
+      barrierColor: Color.fromARGB(101, 0, 0, 0));
 }
 
 iconSnackbar2() {

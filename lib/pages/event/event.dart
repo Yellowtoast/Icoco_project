@@ -92,25 +92,20 @@ class EventPage extends StatelessWidget {
           ),
           bottom: _getTabBar(),
         ),
-        body: (eventController.totalEventNumber.value == 0)
-            ? EmptyListPage(
-                title: '진행중인 이벤트가 없습니다.',
-                subtitle: '진행중인 이벤트가 없습니다.\n다양한 혜택을 곧 만나보세요!',
-              )
-            : Column(
-                children: [
-                  const SizedBox(
-                    height: 28,
-                  ),
-                  Expanded(
-                    child: _getTabBarView([
-                      _getScollView(eventController.runningEvents),
-                      _getScollView(eventController.completedEvents),
-                      _getScollView(eventController.announcedEvents),
-                    ]),
-                  ),
-                ],
-              ),
+        body: Column(
+          children: [
+            const SizedBox(
+              height: 28,
+            ),
+            Expanded(
+              child: _getTabBarView([
+                _getScollView(eventController.runningEvents),
+                _getScollView(eventController.completedEvents),
+                _getScollView(eventController.announcedEvents),
+              ]),
+            ),
+          ],
+        ),
       ),
     );
   }
@@ -126,32 +121,34 @@ class EmptyListPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 500,
+      height: IcoSize.height - 350,
       width: IcoSize.width,
       color: IcoColors.white,
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        crossAxisAlignment: CrossAxisAlignment.center,
-        children: [
-          Image.asset(
-            'images/failed_human_grey.png',
-            height: 140,
-          ),
-          SizedBox(
-            height: 12,
-          ),
-          Text(
-            title,
-            style: IcoTextStyle.boldTextStyle20Grey4,
-          ),
-          SizedBox(
-            height: 6,
-          ),
-          Text(
-            subtitle,
-            style: IcoTextStyle.mediumTextStyle14Grey4,
-          )
-        ],
+      child: Expanded(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            Image.asset(
+              'images/failed_human_grey.png',
+              height: 140,
+            ),
+            SizedBox(
+              height: 12,
+            ),
+            Text(
+              title,
+              style: IcoTextStyle.boldTextStyle18Grey3,
+            ),
+            SizedBox(
+              height: 6,
+            ),
+            Text(
+              subtitle,
+              style: IcoTextStyle.mediumTextStyle14Grey3,
+            )
+          ],
+        ),
       ),
     );
   }

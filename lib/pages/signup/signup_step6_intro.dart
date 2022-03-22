@@ -93,39 +93,42 @@ class SignupStep6Page extends StatelessWidget {
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      Column(
-                        children: [
-                          SizedBox(
-                            height: 15,
-                          ),
-                          Text.rich(
-                            TextSpan(
-                              text: "복잡한 산후도우미\n",
-                              style: IcoTextStyle.boldTextStyle27B,
-                              children: <TextSpan>[
-                                TextSpan(
-                                    text: '신청을',
-                                    style: IcoTextStyle.boldTextStyle27B),
-                                TextSpan(
-                                    text: ' 간편하게!',
-                                    style: IcoTextStyle.boldTextStyle27P),
-                              ],
+                      Expanded(
+                        flex: 2,
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Text.rich(
+                              TextSpan(
+                                text: "복잡한 산후도우미\n",
+                                style: IcoTextStyle.boldTextStyle27B,
+                                children: <TextSpan>[
+                                  TextSpan(
+                                      text: '신청을',
+                                      style: IcoTextStyle.boldTextStyle27B),
+                                  TextSpan(
+                                      text: ' 간편하게!',
+                                      style: IcoTextStyle.boldTextStyle27P),
+                                ],
+                              ),
+                              textAlign: TextAlign.center,
                             ),
-                            textAlign: TextAlign.center,
-                          ),
-                          SizedBox(
-                            height: 15,
-                          ),
-                          Text(
-                            "어렵고 복잡하기만한 산후도우미 신청\n아이코코 앱으로 간편하게 신청하세요",
-                            style: IcoTextStyle.mediumTextStyle14B,
-                            textAlign: TextAlign.center,
-                          ),
-                        ],
+                            SizedBox(
+                              height: 15,
+                            ),
+                            Text(
+                              "어렵고 복잡하기만한 산후도우미 신청\n아이코코 앱으로 간편하게 신청하세요",
+                              style: IcoTextStyle.mediumTextStyle14B,
+                              textAlign: TextAlign.center,
+                            ),
+                          ],
+                        ),
                       ),
-                      Image.asset(
-                        "images/intro_1.png",
-                        width: IcoSize.width - 70,
+                      Expanded(
+                        flex: 6,
+                        child: Image.asset(
+                          "images/intro_1.png",
+                        ),
                       ),
                     ],
                   ),
@@ -137,36 +140,39 @@ class SignupStep6Page extends StatelessWidget {
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      Column(
-                        children: [
-                          SizedBox(
-                            height: 15,
-                          ),
-                          Text.rich(
-                            TextSpan(
-                              text: "간편한 요금계산기로\n",
-                              style: IcoTextStyle.boldTextStyle27B,
-                              children: <TextSpan>[
-                                TextSpan(
-                                    text: '이용요금 알아보기!',
-                                    style: IcoTextStyle.boldTextStyle27P),
-                              ],
+                      Expanded(
+                        flex: 2,
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Text.rich(
+                              TextSpan(
+                                text: "간편한 요금계산기로\n",
+                                style: IcoTextStyle.boldTextStyle27B,
+                                children: <TextSpan>[
+                                  TextSpan(
+                                      text: '이용요금 알아보기!',
+                                      style: IcoTextStyle.boldTextStyle27P),
+                                ],
+                              ),
+                              textAlign: TextAlign.center,
                             ),
-                            textAlign: TextAlign.center,
-                          ),
-                          SizedBox(
-                            height: 15,
-                          ),
-                          Text(
-                            "나에게 맞는 산후도우미 요금이 궁금하다면\n요금계산기로 간편하게 계산해보세요",
-                            style: IcoTextStyle.mediumTextStyle14B,
-                            textAlign: TextAlign.center,
-                          ),
-                        ],
+                            SizedBox(
+                              height: 15,
+                            ),
+                            Text(
+                              "나에게 맞는 산후도우미 요금이 궁금하다면\n요금계산기로 간편하게 계산해보세요",
+                              style: IcoTextStyle.mediumTextStyle14B,
+                              textAlign: TextAlign.center,
+                            ),
+                          ],
+                        ),
                       ),
-                      Image.asset(
-                        "images/intro_2.png",
-                        width: IcoSize.width - 70,
+                      Expanded(
+                        flex: 6,
+                        child: Image.asset(
+                          "images/intro_2.png",
+                        ),
                       ),
                     ],
                   ),
@@ -178,36 +184,39 @@ class SignupStep6Page extends StatelessWidget {
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      Column(
-                        children: [
-                          SizedBox(
-                            height: 30,
-                          ),
-                          Text.rich(
-                            TextSpan(
-                              text: "미리 알아보는\n산후도우미 ",
-                              style: IcoTextStyle.boldTextStyle27B,
-                              children: <TextSpan>[
-                                TextSpan(
-                                    text: '정보&후기',
-                                    style: IcoTextStyle.boldTextStyle27P),
-                              ],
+                      Expanded(
+                        flex: 2,
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Text.rich(
+                              TextSpan(
+                                text: "미리 알아보는\n산후도우미 ",
+                                style: IcoTextStyle.boldTextStyle27B,
+                                children: <TextSpan>[
+                                  TextSpan(
+                                      text: '정보&후기',
+                                      style: IcoTextStyle.boldTextStyle27P),
+                                ],
+                              ),
+                              textAlign: TextAlign.center,
                             ),
-                            textAlign: TextAlign.center,
-                          ),
-                          SizedBox(
-                            height: 15,
-                          ),
-                          Text(
-                            "복불복 산후도우미 배정은 그만!\n어떤 산후도우미인지 정보를 확인해보세요",
-                            style: IcoTextStyle.mediumTextStyle14B,
-                            textAlign: TextAlign.center,
-                          ),
-                        ],
+                            SizedBox(
+                              height: 15,
+                            ),
+                            Text(
+                              "복불복 산후도우미 배정은 그만!\n어떤 산후도우미인지 정보를 확인해보세요",
+                              style: IcoTextStyle.mediumTextStyle14B,
+                              textAlign: TextAlign.center,
+                            ),
+                          ],
+                        ),
                       ),
-                      Image.asset(
-                        "images/intro_3.png",
-                        height: IcoSize.height - 80,
+                      Expanded(
+                        flex: 6,
+                        child: Image.asset(
+                          "images/intro_3.png",
+                        ),
                       ),
                     ],
                   ),
@@ -220,46 +229,48 @@ class SignupStep6Page extends StatelessWidget {
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        Column(
-                          children: [
-                            SizedBox(
-                              height: 15,
-                            ),
-                            Text.rich(
-                              TextSpan(
-                                text: "이용 후기",
-                                style: IcoTextStyle.boldTextStyle27P,
-                                children: <TextSpan>[
-                                  TextSpan(
-                                      text: '만 남겨도\n선물이 펑펑!',
-                                      style: IcoTextStyle.boldTextStyle27B),
-                                ],
+                        Expanded(
+                          flex: 2,
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Text.rich(
+                                TextSpan(
+                                  text: "이용 후기",
+                                  style: IcoTextStyle.boldTextStyle27P,
+                                  children: <TextSpan>[
+                                    TextSpan(
+                                        text: '만 남겨도\n선물이 펑펑!',
+                                        style: IcoTextStyle.boldTextStyle27B),
+                                  ],
+                                ),
+                                textAlign: TextAlign.center,
                               ),
-                              textAlign: TextAlign.center,
-                            ),
-                            SizedBox(
-                              height: 15,
-                            ),
-                            Text.rich(
-                              TextSpan(
-                                text: "후기를 작성해주신 모든 산모님께\n상품과 교환할 수 있는 포인트를\n",
-                                style: IcoTextStyle.mediumTextStyle14B,
-                                children: <TextSpan>[
-                                  TextSpan(
-                                      text: '최소 5,000원에서 최대 30,000까지 드립니다!',
-                                      style: IcoTextStyle.boldTextStyle14B),
-                                ],
+                              Text.rich(
+                                TextSpan(
+                                  text:
+                                      "후기를 작성해주신 모든 산모님께\n상품과 교환할 수 있는 포인트를\n",
+                                  style: IcoTextStyle.mediumTextStyle14B,
+                                  children: <TextSpan>[
+                                    TextSpan(
+                                        text: '최소 5,000원에서 최대 30,000까지 드립니다!',
+                                        style: IcoTextStyle.boldTextStyle14B),
+                                  ],
+                                ),
+                                textAlign: TextAlign.center,
                               ),
-                              textAlign: TextAlign.center,
-                            ),
-                            SizedBox(
-                              height: 54,
-                            ),
-                            Image.asset(
-                              "images/intro_4.png",
-                              width: IcoSize.width - 140,
-                            ),
-                          ],
+                              // SizedBox(
+                              //   height: 54,
+                              // ),
+                            ],
+                          ),
+                        ),
+                        Expanded(
+                          flex: 4,
+                          child: Image.asset(
+                            "images/intro_4.png",
+                            width: IcoSize.width - 140,
+                          ),
                         ),
                         Expanded(
                           child: Container(

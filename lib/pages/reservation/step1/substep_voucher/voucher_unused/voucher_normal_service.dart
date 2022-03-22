@@ -106,21 +106,6 @@ class VoucherNormalService extends StatelessWidget {
                                   selectedVoucherType:
                                       voucherController.voucherType2),
                             ),
-                            SizedBox(
-                              width: 8,
-                            ),
-                            Expanded(
-                              child: VoucherDropdown(
-                                  hintText:
-                                      (voucherController.voucherType3.value ==
-                                              'C')
-                                          ? ''
-                                          : null,
-                                  dropDownList:
-                                      voucherController.voucherType3List,
-                                  selectedVoucherType:
-                                      voucherController.voucherType3),
-                            ),
                           ],
                         ),
                       ),
