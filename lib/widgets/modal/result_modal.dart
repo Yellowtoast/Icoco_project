@@ -2,6 +2,7 @@
 
 import 'package:app/configs/colors.dart';
 import 'package:app/controllers/auth_controller.dart';
+import 'package:app/controllers/company_controller.dart';
 import 'package:app/controllers/voucher_controller.dart';
 
 import 'package:app/helpers/formatter.dart';
@@ -16,7 +17,10 @@ import 'package:app/widgets/button/button.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-BottomResultModal() {
+import '../../pages/inquiry/inquiry_page.dart';
+import '../../pages/refund/refund.dart';
+
+BottomResultSheet() {
   AdditionalFeeController additionalFeeController = Get.find();
   AuthController authController = Get.find();
   VoucherController voucherController = Get.find();
@@ -235,6 +239,59 @@ BottomResultModal() {
             SizedBox(
               height: 15,
             ),
+          ],
+        ),
+      ),
+      barrierColor: Colors.black12,
+      isDismissible: true);
+}
+
+BottomButtonSheet(String companyUid) {
+  CompanyController companyController = Get.put(CompanyController());
+
+  return Get.bottomSheet(
+      Container(
+        height: 220,
+        padding: EdgeInsets.fromLTRB(20, 20, 20, 10),
+        width: IcoSize.width,
+        decoration: BoxDecoration(
+          color: IcoColors.white,
+          boxShadow: [
+            BoxShadow(
+                color: IcoColors.grey3, blurRadius: 15, offset: Offset(0, -3)),
+          ],
+          borderRadius: BorderRadius.only(
+            topLeft: Radius.circular(10.0),
+            topRight: Radius.circular(10.0),
+          ),
+        ),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            SizedBox(
+              height: 14,
+            ),
+            IcoButton(
+                buttonColor: IcoColors.grey1,
+                onPressed: () {
+                  Get.toNamed(Routes.REFUND);
+                },
+                active: true.obs,
+                textStyle: IcoTextStyle.mediumTextStyle15B,
+                text: "서비스 환불 요청"),
+            SizedBox(
+              height: 14,
+            ),
+            IcoButton(
+                buttonColor: IcoColors.grey1,
+                onPressed: () async {
+                  companyController.companyModel.value = await companyController
+                      .getFirebaseCompanyByUid(companyUid);
+                  Get.toNamed(Routes.INQUIRY, arguments: 0);
+                },
+                active: true.obs,
+                textStyle: IcoTextStyle.mediumTextStyle15B,
+                text: "문의하기"),
           ],
         ),
       ),

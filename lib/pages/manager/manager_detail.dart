@@ -772,32 +772,32 @@ class ManagerDetailPage extends StatelessWidget {
                           active: true.obs,
                           textStyle: IcoTextStyle.mediumTextStyle15B,
                           text: "산후도우미 변경 요청"),
-                      SizedBox(
-                        height: 14,
-                      ),
-                      IcoButton(
-                          buttonColor: IcoColors.grey1,
-                          onPressed: () {
-                            Get.to(RefundPage());
-                          },
-                          active: true.obs,
-                          textStyle: IcoTextStyle.mediumTextStyle15B,
-                          text: "서비스 환불 요청"),
-                      SizedBox(
-                        height: 14,
-                      ),
-                      IcoButton(
-                          buttonColor: IcoColors.grey1,
-                          onPressed: () async {
-                            companyController.companyModel.value =
-                                await companyController.getFirebaseCompanyByUid(
-                                    authController
-                                        .reservationModel.value!.chosenCompany);
-                            Get.to(InquiryPage(), arguments: managerNum);
-                          },
-                          active: true.obs,
-                          textStyle: IcoTextStyle.mediumTextStyle15B,
-                          text: "문의하기"),
+                      // SizedBox(
+                      //   height: 14,
+                      // ),
+                      // IcoButton(
+                      //     buttonColor: IcoColors.grey1,
+                      //     onPressed: () {
+                      //       Get.to(RefundPage());
+                      //     },
+                      //     active: true.obs,
+                      //     textStyle: IcoTextStyle.mediumTextStyle15B,
+                      //     text: "서비스 환불 요청"),
+                      // SizedBox(
+                      //   height: 14,
+                      // ),
+                      // IcoButton(
+                      //     buttonColor: IcoColors.grey1,
+                      //     onPressed: () async {
+                      //       companyController.companyModel.value =
+                      //           await companyController.getFirebaseCompanyByUid(
+                      //               authController
+                      //                   .reservationModel.value!.chosenCompany);
+                      //       Get.to(InquiryPage(), arguments: managerNum);
+                      //     },
+                      //     active: true.obs,
+                      //     textStyle: IcoTextStyle.mediumTextStyle15B,
+                      //     text: "문의하기"),
                       SizedBox(
                         height: 30,
                       )

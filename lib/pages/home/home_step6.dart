@@ -13,8 +13,10 @@ import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 
+import '../../controllers/auth_controller.dart';
 import '../../widgets/button/grey_border_button.dart';
 import '../../widgets/loading/loading.dart';
+import '../../widgets/modal/result_modal.dart';
 import '../mypage/my_reservation.dart';
 import 'home_step8.dart';
 
@@ -23,6 +25,7 @@ class HomeStep6Items extends StatelessWidget {
   HomeController homeController = Get.find();
   ManagerController managerController = Get.find();
   ReviewController reviewController = Get.put(ReviewController());
+  AuthController authController = Get.find();
   @override
   Widget build(BuildContext context) {
     return Obx(() {
@@ -256,9 +259,27 @@ class HomeStep6Items extends StatelessWidget {
           Row(
             children: [
               Expanded(
-                child: GreyBorderButton(
+                child: BorderButton(
+                  textStyle: IcoTextStyle.mediumTextStyle15B,
+                  borderColor: IcoColors.grey2,
                   onTap: () {
                     Get.to(MyReservationPage());
+                  },
+                  width: double.infinity,
+                ),
+              ),
+              SizedBox(
+                width: 10,
+              ),
+              Expanded(
+                child: BorderButton(
+                  textStyle: IcoTextStyle.mediumTextStyle15W,
+                  borderColor: IcoColors.primary,
+                  buttonColor: IcoColors.primary,
+                  buttonText: '서비스 문의',
+                  onTap: () {
+                    BottomButtonSheet(
+                        authController.reservationModel.value!.chosenCompany!);
                   },
                   width: double.infinity,
                 ),

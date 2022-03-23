@@ -11,6 +11,7 @@ class CompanyController extends GetxController {
   RxBool isSelectedConpany = false.obs;
   Rxn<CompanyModel> companyModel = Rxn<CompanyModel>();
   Rx<String> chosenCompanyUid = ''.obs;
+  Rx<String> chosenCompanyPhoneNum = ''.obs;
 
   @override
   void onReady() {
@@ -63,5 +64,12 @@ class CompanyController extends GetxController {
     } catch (e) {
       print(e);
     }
+  }
+
+  Future<String> getCompanyPhoneNumber(String uid) async {
+    var doc = await db.collection('Company').where('uid', isEqualTo: uid).get();
+    String phone = doc.docs[0].data()['phone'];
+    chosenCompanyPhoneNum.value = phone;
+    return phone;
   }
 }

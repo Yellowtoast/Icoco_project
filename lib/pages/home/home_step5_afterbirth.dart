@@ -12,6 +12,7 @@ import 'package:app/pages/reservation/step1/substep_address/address1.dart';
 import 'package:app/pages/reservation/step2/reserve/reserve_step2_1.dart';
 import 'package:app/widgets/button/button.dart';
 import 'package:app/widgets/button/grey_border_button.dart';
+import 'package:app/widgets/modal/result_modal.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
@@ -22,6 +23,7 @@ import 'home_step8.dart';
 
 class HomeStep5Items_2 extends StatelessWidget {
   HomeStep5Items_2({Key? key}) : super(key: key);
+  AuthController authController = Get.find();
   HomeController homeController = Get.find();
   @override
   Widget build(BuildContext context) {
@@ -123,17 +125,16 @@ class HomeStep5Items_2 extends StatelessWidget {
           SizedBox(
             height: 20,
           ),
-          Row(
-            children: [
-              Expanded(
-                child: GreyBorderButton(
-                  onTap: () {
-                    Get.to(MyReservationPage());
-                  },
-                  width: double.infinity,
-                ),
-              ),
-            ],
+          BorderButton(
+            textStyle: IcoTextStyle.mediumTextStyle15B,
+            borderColor: IcoColors.grey2,
+            onTap: () {
+              Get.to(MyReservationPage());
+            },
+            width: double.infinity,
+          ),
+          SizedBox(
+            width: 10,
           )
         ],
       );

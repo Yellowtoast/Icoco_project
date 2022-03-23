@@ -9,12 +9,13 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import '../../configs/routes.dart';
+import '../../controllers/autoscroll_controller.dart';
 import '../event/event.dart';
 
 class TipPage extends StatelessWidget {
   TipPage({Key? key}) : super(key: key);
   TipController _tipController = Get.put(TipController());
-
+  AutoScrollController autoScrollController = Get.put(AutoScrollController());
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -39,6 +40,7 @@ class TipPage extends StatelessWidget {
                 children: [
                   Expanded(
                     child: ListView.builder(
+                      controller: autoScrollController.scrollController,
                       scrollDirection: Axis.horizontal,
                       shrinkWrap: true,
                       itemCount: _tipController.tipMenuList.length,
@@ -49,8 +51,11 @@ class TipPage extends StatelessWidget {
                               width: (index == 0) ? 20 : 8,
                             ),
                             GestureDetector(
-                              onTap: () => _tipController.selectedMenu.value =
-                                  _tipController.tipMenuList[index],
+                              onTap: () {
+                                _tipController.selectedMenu.value =
+                                    _tipController.tipMenuList[index];
+                                autoScrollController.startScroll(index);
+                              },
                               child: Container(
                                 width: 120,
                                 height: 40,

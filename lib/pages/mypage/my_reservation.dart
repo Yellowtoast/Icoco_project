@@ -3,6 +3,7 @@ import 'package:app/configs/enum.dart';
 import 'package:app/configs/size.dart';
 import 'package:app/configs/text_styles.dart';
 import 'package:app/controllers/auth_controller.dart';
+import 'package:app/controllers/company_controller.dart';
 import 'package:app/controllers/mypage_controller.dart';
 import 'package:app/helpers/url_launcher.dart';
 import 'package:app/pages/reservation/step2/reserve/reserve_step2_4.dart';
@@ -20,6 +21,7 @@ class MyReservationPage extends StatelessWidget {
   MyReservationPage({Key? key}) : super(key: key);
   AuthController authController = Get.find();
   MypageController mypageController = Get.find();
+  CompanyController _companyController = Get.put(CompanyController());
 
   @override
   Widget build(BuildContext context) {
@@ -33,14 +35,7 @@ class MyReservationPage extends StatelessWidget {
     if (authController.reservationModel.value!.careRanking != null &&
         authController.reservationModel.value!.careRanking!.isNotEmpty) {
       var careRanking = authController.reservationModel.value!.careRanking;
-      print(careRanking);
-
-      // careRankingEnumList[0] = carePriority.MOTHERCARE;
-      print(careRanking);
       for (var element in careRanking!) {
-        print(element);
-        print(element.compareTo('산모케어'));
-        print('');
         switch (element.toString()) {
           case '정리정돈':
             careRankingEnumList[careRanking.indexOf('정리정돈')] =
@@ -65,6 +60,9 @@ class MyReservationPage extends StatelessWidget {
     } else {
       careRankingEnumList = [].obs;
     }
+
+    _companyController.getCompanyPhoneNumber(
+        authController.reservationModel.value!.chosenCompany!);
 
     return Scaffold(
       appBar: IcoAppbar(title: '나의 신청내역'),
@@ -676,11 +674,12 @@ class MyReservationPage extends StatelessWidget {
                   iconColor: IcoColors.white,
                   width: IcoSize.width - 40,
                   onPressed: () {
-                    UrlLauncher().call('tel:010-4912-9519');
+                    UrlLauncher().call(
+                        'tel:${_companyController.chosenCompanyPhoneNum.value}');
                   },
                   active: true.obs,
                   textStyle: IcoTextStyle.buttonTextStyleW,
-                  text: '고객센터에 수정요청'),
+                  text: '고객센터 문의하기'),
               SizedBox(
                 height: 30,
               ),

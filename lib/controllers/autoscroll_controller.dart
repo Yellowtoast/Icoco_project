@@ -27,4 +27,12 @@ class AutoScrollController extends GetxController {
           duration: Duration(milliseconds: 600), curve: Curves.decelerate);
     }
   }
+
+  startScroll(int step) async {
+    if (scrollController.hasClients) {
+      scrollPixels.value = (step - 1) * 128;
+      await scrollController.animateTo(scrollPixels.value,
+          duration: Duration(milliseconds: 300), curve: Curves.decelerate);
+    }
+  }
 }

@@ -299,7 +299,10 @@ class CalculatorPage extends StatelessWidget {
                             ),
                             LinkButton(
                               iconUrl: 'icons/pc.svg',
-                              onTap: () {},
+                              onTap: () {
+                                UrlLauncher()
+                                    .launchURL(UrlLauncher.INSURANCE_APP_PC);
+                              },
                               text: 'PC',
                             ),
                           ],

@@ -13,11 +13,13 @@ import 'package:app/pages/calculator/calculator_result.dart';
 import 'package:app/pages/event/event.dart';
 import 'package:app/pages/event/event_detail.dart';
 import 'package:app/pages/home/home.dart';
+import 'package:app/pages/inquiry/inquiry_page.dart';
 import 'package:app/pages/login/login.dart';
 import 'package:app/pages/manager/manager_detail.dart';
 import 'package:app/pages/mypage/edit/edit_phone.dart';
 import 'package:app/pages/notice/notice.dart';
 import 'package:app/pages/notice/notice_detail.dart';
+import 'package:app/pages/refund/refund.dart';
 import 'package:app/pages/reservation/step1/substep_address/address1.dart';
 import 'package:app/pages/reservation/step1/substep_address/address2.dart';
 import 'package:app/pages/reservation/step1/substep_address/address3.dart';
@@ -122,6 +124,8 @@ class Routes {
   static const MYPAGE_EDIT_NAME = '/mypage/edit/name';
   static const MYPAGE_EDIT_PHONE = '/mypage/edit/phone';
   static const MYPAGE_EDIT = '/mypage/edit';
+  static const INQUIRY = '/inquiry';
+  static const REFUND = '/refund';
 
   static final pages = [
     GetPage(
@@ -320,5 +324,13 @@ class Routes {
         name: Routes.MYPAGE_EDIT,
         page: () => EditUserInfoPage(),
         transition: Transition.rightToLeft),
+    GetPage(
+        name: Routes.REFUND,
+        page: () => RefundPage(),
+        transition: Transition.fade),
+    GetPage(
+        name: Routes.INQUIRY,
+        page: () => InquiryPage(),
+        transition: Transition.fade),
   ];
 }

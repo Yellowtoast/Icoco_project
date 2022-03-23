@@ -289,11 +289,15 @@ class _HomeSkeleton2State extends State<HomeSkeletonPage> {
                         ),
                         sizeHeightBox(20),
                         (homeController.statusRefund.value)
-                            ? GreyBorderButton(
-                                onTap: () {
-                                  Get.to(MyReservationPage());
-                                },
-                                width: double.infinity,
+                            ? Expanded(
+                                child: BorderButton(
+                                  textStyle: IcoTextStyle.mediumTextStyle15B,
+                                  borderColor: IcoColors.grey2,
+                                  onTap: () {
+                                    Get.to(MyReservationPage());
+                                  },
+                                  width: double.infinity,
+                                ),
                               )
                             : homeController.setWidgetsForStep ?? SizedBox(),
                       ],

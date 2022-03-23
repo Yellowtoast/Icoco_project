@@ -8,13 +8,16 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 
+import '../../controllers/auth_controller.dart';
 import '../../widgets/button/grey_border_button.dart';
+import '../../widgets/modal/result_modal.dart';
 import '../mypage/my_reservation.dart';
 import 'home_step8.dart';
 
 class HomeStep5Items_1 extends StatelessWidget {
   HomeStep5Items_1({Key? key}) : super(key: key);
   HomeController homeController = Get.find();
+  AuthController authController = Get.find();
   @override
   Widget build(BuildContext context) {
     return Obx(() {
@@ -105,18 +108,14 @@ class HomeStep5Items_1 extends StatelessWidget {
           SizedBox(
             height: 20,
           ),
-          Row(
-            children: [
-              Expanded(
-                child: GreyBorderButton(
-                  onTap: () {
-                    Get.to(MyReservationPage());
-                  },
-                  width: double.infinity,
-                ),
-              ),
-            ],
-          )
+          BorderButton(
+            textStyle: IcoTextStyle.mediumTextStyle15B,
+            borderColor: IcoColors.grey2,
+            onTap: () {
+              Get.to(MyReservationPage());
+            },
+            width: double.infinity,
+          ),
         ],
       );
     });
