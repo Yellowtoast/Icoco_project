@@ -59,7 +59,7 @@ class HomeStep5Items_1 extends StatelessWidget {
                 Row(
                   children: [
                     Expanded(
-                      flex: 3,
+                      flex: 4,
                       child: Text(
                         "출산 예정일",
                         style: IcoTextStyle.mediumTextStyle12Grey4,

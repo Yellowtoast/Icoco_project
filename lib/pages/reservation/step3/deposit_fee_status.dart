@@ -350,14 +350,16 @@ class DepositFeeStatus extends StatelessWidget {
 }
 
 class UnderlinedTextButton extends StatelessWidget {
-  UnderlinedTextButton({
-    Key? key,
-    required this.onTap,
-    required this.text,
-  }) : super(key: key);
+  UnderlinedTextButton(
+      {Key? key,
+      required this.onTap,
+      required this.text,
+      this.underlineWidth = 105})
+      : super(key: key);
 
   void Function()? onTap;
   String text;
+  double underlineWidth;
 
   @override
   Widget build(BuildContext context) {
@@ -371,7 +373,7 @@ class UnderlinedTextButton extends StatelessWidget {
         ),
         alignment: Alignment.bottomCenter,
         height: 30,
-        width: 110,
+        width: underlineWidth,
         child: Text(
           text,
           style: IcoTextStyle.mediumLinedTextStyle14G,

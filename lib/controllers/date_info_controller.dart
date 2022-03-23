@@ -65,15 +65,17 @@ class DateInfoController extends GetxController {
         break;
       case datePickerType.SERVICE_START_DATE:
         if (birthDate.value != null) {
-          initialDateTime.value = birthDate.value;
+          initialDateTime.value = birthDate.value!.add(Duration(days: 1));
         }
         if (hospitalCheckoutDate.value != null &&
             initialDateTime.value!.isBefore(hospitalCheckoutDate.value!)) {
-          initialDateTime.value = hospitalCheckoutDate.value;
+          initialDateTime.value =
+              hospitalCheckoutDate.value!.add(Duration(days: 1));
         }
         if (careCenterChekcoutDate.value != null &&
             initialDateTime.value!.isBefore(careCenterChekcoutDate.value!)) {
-          initialDateTime.value = careCenterChekcoutDate.value;
+          initialDateTime.value =
+              careCenterChekcoutDate.value!.add(Duration(days: 1));
         }
         break;
     }

@@ -15,6 +15,8 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 
+import '../reservation/step3/deposit_fee_status.dart';
+
 class LoginPage extends StatelessWidget {
   LoginPage({Key? key}) : super(key: key);
   LoginController loginController = Get.find();
@@ -108,20 +110,12 @@ class LoginPage extends StatelessWidget {
                             buttonColor: IcoColors.primary,
                             textStyle: IcoTextStyle.buttonTextStyleW,
                             text: "다음으로"),
-                        SizedBox(
-                          height: 5,
-                        ),
-                        GestureDetector(
-                          onTap: () {
-                            Get.to(FindPasswordPage1());
-                          },
-                          child: Text.rich(
-                            TextSpan(
-                              text: "비밀번호 찾기",
-                              style: IcoTextStyle.mediumLinedTextStyle14G,
-                            ),
-                          ),
-                        ),
+                        UnderlinedTextButton(
+                            onTap: () {
+                              Get.to(FindPasswordPage1());
+                            },
+                            underlineWidth: 85,
+                            text: '비밀번호 찾기'),
                         SizedBox(
                           height: 20,
                         )

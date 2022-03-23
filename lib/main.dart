@@ -24,6 +24,13 @@ class IcocoApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GetMaterialApp(
+      builder: (BuildContext context, Widget? child) {
+        final MediaQueryData data = MediaQuery.of(context);
+        return MediaQuery(
+          data: data.copyWith(textScaleFactor: 1),
+          child: child ?? Container(),
+        );
+      },
       theme: ThemeData(
           backgroundColor: IcoColors.white,
           scaffoldBackgroundColor: IcoColors.white),

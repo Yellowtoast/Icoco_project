@@ -146,7 +146,7 @@ class Routes {
         name: Routes.LOGIN,
         page: () => LoginPage(),
         binding: LoginBindings(),
-        transition: Transition.downToUp),
+        transition: Transition.cupertino),
     GetPage(
         name: Routes.REMAINING_STATUS,
         page: () => RemainingFeeStatus(),
@@ -159,29 +159,29 @@ class Routes {
         name: Routes.SIGNUP_STEP1,
         page: () => SignupStep1Page(),
         binding: SignupBindings(),
-        transition: Transition.noTransition),
+        transition: Transition.cupertino),
     GetPage(
         name: Routes.SIGNUP_STEP2,
         page: () => SignupStep2Page(),
-        transition: Transition.noTransition),
+        transition: Transition.cupertino),
     GetPage(
         name: Routes.SIGNUP_STEP3,
         page: () => SignupStep3Page(),
-        transition: Transition.noTransition),
+        transition: Transition.cupertino),
     GetPage(
         name: Routes.SIGNUP_STEP4,
         page: () => SignupStep4Page(),
-        transition: Transition.noTransition),
+        transition: Transition.cupertino),
     GetPage(
         name: Routes.SIGNUP_STEP5,
         page: () => SignupStep5Page(),
         // binding: SignupBindings(),
-        transition: Transition.noTransition),
+        transition: Transition.cupertino),
     GetPage(
         name: Routes.SIGNUP_STEP6,
         page: () => SignupStep6Page(),
         // binding: SignupBindings(),
-        transition: Transition.noTransition),
+        transition: Transition.cupertino),
     GetPage(
         name: Routes.ADDRESS_1,
         page: () => AddressPage1(),

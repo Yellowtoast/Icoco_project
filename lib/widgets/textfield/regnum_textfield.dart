@@ -107,7 +107,7 @@ class IcoRegNumField extends StatelessWidget {
                           child: TextFormField(
                             keyboardType: TextInputType.number,
                             onTap: () {},
-                            maxLength: 7,
+                            maxLength: 1,
                             obscureText: obscureText,
                             controller: backTextController,
                             onChanged: onChanged,

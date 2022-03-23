@@ -20,13 +20,6 @@ class SplashPage extends StatelessWidget {
               'images/logo.png',
               width: Get.width - 190,
             ),
-            const SizedBox(
-              height: 6,
-            ),
-            Text(
-              '처음 만나는 산후도우미 매칭 플랫폼',
-              style: IcoTextStyle.initPageTextStyle,
-            )
           ],
         ),
       ),

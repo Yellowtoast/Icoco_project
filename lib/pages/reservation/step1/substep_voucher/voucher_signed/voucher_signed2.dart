@@ -162,6 +162,9 @@ class _VoucherSignedStep2State extends State<VoucherSignedStep2> {
                                 Get.offAllNamed(Routes.HOME);
                               },
                               text: '메인화면으로 이동'),
+                          SizedBox(
+                            height: 20,
+                          )
                         ],
                       ),
                     ),

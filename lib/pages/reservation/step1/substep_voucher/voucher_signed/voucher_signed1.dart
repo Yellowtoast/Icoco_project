@@ -142,8 +142,8 @@ class VoucherSignedStep1 extends StatelessWidget {
                                 color: Colors.white,
                                 boxShadow: [
                                   BoxShadow(
-                                      color: Color.fromARGB(168, 183, 183, 183),
-                                      blurRadius: 15,
+                                      color: Color.fromARGB(91, 183, 183, 183),
+                                      blurRadius: 10,
                                       offset: Offset(0, 1)),
                                 ]),
                             child: Column(

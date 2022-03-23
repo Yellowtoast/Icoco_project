@@ -13,7 +13,7 @@ class VoucherController extends GetxController {
   Rxn<String> voucherResult = Rxn<String>();
   Rxn<String> fullRegNum = Rxn<String>();
   RxBool hasPreviousVoucher = false.obs;
-  RxBool isVoucherUnused = true.obs;
+  RxBool isVoucherUnused = false.obs;
   Rxn<bool> isVoucherValid = Rxn<bool>();
   RxList<String> voucherType1List = ['A', 'B', 'C', '일반'].obs;
   RxList<String> voucherType2List = ['가', '통합', '라'].obs;

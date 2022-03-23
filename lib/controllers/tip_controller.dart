@@ -62,7 +62,7 @@ class TipController extends GetxController {
     tipList.clear();
 
     querySanpshots.docs.forEach((snapshot) {
-      tipList.add(TipModel.fromJson(snapshot.data()));
+      tipList.insert(0, TipModel.fromJson(snapshot.data()));
     });
 
     tipList.refresh();

@@ -4,6 +4,7 @@ import 'package:get/get.dart';
 
 class AutoScrollController extends GetxController {
   ScrollController scrollController = ScrollController();
+  ScrollController scrollController2 = ScrollController();
   final HomeController _homeController = Get.find();
   RxDouble scrollPixels = 0.0.obs;
   RxInt homeIndex = 0.obs;
@@ -29,9 +30,8 @@ class AutoScrollController extends GetxController {
   }
 
   startScroll(int step) async {
-    if (scrollController.hasClients) {
-      scrollPixels.value = (step - 1) * 128;
-      await scrollController.animateTo(scrollPixels.value,
+    if (scrollController2.hasClients) {
+      await scrollController2.animateTo((step - 1) * 128,
           duration: Duration(milliseconds: 300), curve: Curves.decelerate);
     }
   }

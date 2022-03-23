@@ -40,7 +40,7 @@ class TipPage extends StatelessWidget {
                 children: [
                   Expanded(
                     child: ListView.builder(
-                      controller: autoScrollController.scrollController,
+                      controller: autoScrollController.scrollController2,
                       scrollDirection: Axis.horizontal,
                       shrinkWrap: true,
                       itemCount: _tipController.tipMenuList.length,

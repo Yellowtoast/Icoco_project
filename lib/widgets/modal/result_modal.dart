@@ -17,6 +17,7 @@ import 'package:app/widgets/button/button.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
+import '../../helpers/url_launcher.dart';
 import '../../pages/inquiry/inquiry_page.dart';
 import '../../pages/refund/refund.dart';
 
@@ -251,7 +252,7 @@ BottomButtonSheet(String companyUid) {
 
   return Get.bottomSheet(
       Container(
-        height: 220,
+        height: 300,
         padding: EdgeInsets.fromLTRB(20, 20, 20, 10),
         width: IcoSize.width,
         decoration: BoxDecoration(
@@ -272,6 +273,31 @@ BottomButtonSheet(String companyUid) {
               height: 14,
             ),
             IcoButton(
+                buttonColor: IcoColors.primary,
+                onPressed: () async {
+                  companyController.companyModel.value = await companyController
+                      .getFirebaseCompanyByUid(companyUid);
+                  Get.toNamed(Routes.INQUIRY, arguments: 0);
+                },
+                active: true.obs,
+                textStyle: IcoTextStyle.mediumTextStyle15W,
+                text: "서비스 문의 / 건의사항"),
+            SizedBox(
+              height: 14,
+            ),
+            IcoButton(
+                buttonColor: IcoColors.grey1,
+                onPressed: () async {
+                  UrlLauncher().call(
+                      'tel:${companyController.chosenCompanyPhoneNum.value}');
+                },
+                active: true.obs,
+                textStyle: IcoTextStyle.mediumTextStyle15B,
+                text: "서비스 일시정지"),
+            SizedBox(
+              height: 14,
+            ),
+            IcoButton(
                 buttonColor: IcoColors.grey1,
                 onPressed: () {
                   Get.toNamed(Routes.REFUND);
@@ -279,19 +305,6 @@ BottomButtonSheet(String companyUid) {
                 active: true.obs,
                 textStyle: IcoTextStyle.mediumTextStyle15B,
                 text: "서비스 환불 요청"),
-            SizedBox(
-              height: 14,
-            ),
-            IcoButton(
-                buttonColor: IcoColors.grey1,
-                onPressed: () async {
-                  companyController.companyModel.value = await companyController
-                      .getFirebaseCompanyByUid(companyUid);
-                  Get.toNamed(Routes.INQUIRY, arguments: 0);
-                },
-                active: true.obs,
-                textStyle: IcoTextStyle.mediumTextStyle15B,
-                text: "문의하기"),
           ],
         ),
       ),

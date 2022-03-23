@@ -9,9 +9,9 @@ openSnackbar(String? title, String? subtitle) {
       snackPosition: SnackPosition.BOTTOM,
       backgroundColor: Color.fromARGB(152, 0, 0, 0),
       colorText: IcoColors.white,
-      duration: Duration(seconds: 3),
+      duration: Duration(milliseconds: 1400),
       borderRadius: 8,
-      margin: EdgeInsets.all(20));
+      margin: EdgeInsets.only(bottom: 80, left: 10, right: 10));
 }
 
 iconSnackbar() {

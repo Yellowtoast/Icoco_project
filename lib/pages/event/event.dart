@@ -146,6 +146,7 @@ class EmptyListPage extends StatelessWidget {
             Text(
               subtitle,
               style: IcoTextStyle.mediumTextStyle14Grey3,
+              textAlign: TextAlign.center,
             )
           ],
         ),

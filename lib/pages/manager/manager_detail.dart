@@ -272,58 +272,69 @@ class ManagerDetailPage extends StatelessWidget {
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          Container(
-                            width: 106,
-                            height: 106,
-                            decoration: BoxDecoration(
-                                color: IcoColors.purple2,
-                                borderRadius: BorderRadius.circular(10)),
-                            child: Column(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              crossAxisAlignment: CrossAxisAlignment.center,
-                              children: [
-                                SvgPicture.asset("icons/helper_info_car.svg"),
-                                Text(
-                                  "차량 ${managerController.managerModelList[managerNum].value!.isCar}",
-                                  style: IcoTextStyle.boldTextStyle13P,
-                                )
-                              ],
+                          Expanded(
+                            child: Container(
+                              height: 106,
+                              decoration: BoxDecoration(
+                                  color: IcoColors.purple2,
+                                  borderRadius: BorderRadius.circular(10)),
+                              child: Column(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                crossAxisAlignment: CrossAxisAlignment.center,
+                                children: [
+                                  SvgPicture.asset("icons/helper_info_car.svg"),
+                                  Text(
+                                    "차량 ${managerController.managerModelList[managerNum].value!.isCar}",
+                                    style: IcoTextStyle.boldTextStyle13P,
+                                  )
+                                ],
+                              ),
                             ),
                           ),
-                          Container(
-                            width: 106,
-                            height: 106,
-                            decoration: BoxDecoration(
-                                color: IcoColors.purple2,
-                                borderRadius: BorderRadius.circular(10)),
-                            child: Column(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              crossAxisAlignment: CrossAxisAlignment.center,
-                              children: [
-                                SvgPicture.asset("icons/helper_info_home.svg"),
-                                Text(
-                                  "입주 ${managerController.managerModelList[managerNum].value!.isResident}",
-                                  style: IcoTextStyle.boldTextStyle13P,
-                                )
-                              ],
+                          SizedBox(
+                            width: 10,
+                          ),
+                          Expanded(
+                            child: Container(
+                              height: 106,
+                              decoration: BoxDecoration(
+                                  color: IcoColors.purple2,
+                                  borderRadius: BorderRadius.circular(10)),
+                              child: Column(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                crossAxisAlignment: CrossAxisAlignment.center,
+                                children: [
+                                  SvgPicture.asset(
+                                      "icons/helper_info_home.svg"),
+                                  Text(
+                                    "입주 ${managerController.managerModelList[managerNum].value!.isResident}",
+                                    style: IcoTextStyle.boldTextStyle13P,
+                                  )
+                                ],
+                              ),
                             ),
                           ),
-                          Container(
-                            width: 106,
-                            height: 106,
-                            decoration: BoxDecoration(
-                                color: IcoColors.purple2,
-                                borderRadius: BorderRadius.circular(10)),
-                            child: Column(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              crossAxisAlignment: CrossAxisAlignment.center,
-                              children: [
-                                SvgPicture.asset("icons/helper_info_cctv.svg"),
-                                Text(
-                                  "CCTV${managerController.managerModelList[managerNum].value!.isCCTV}",
-                                  style: IcoTextStyle.boldTextStyle13P,
-                                )
-                              ],
+                          SizedBox(
+                            width: 10,
+                          ),
+                          Expanded(
+                            child: Container(
+                              height: 106,
+                              decoration: BoxDecoration(
+                                  color: IcoColors.purple2,
+                                  borderRadius: BorderRadius.circular(10)),
+                              child: Column(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                crossAxisAlignment: CrossAxisAlignment.center,
+                                children: [
+                                  SvgPicture.asset(
+                                      "icons/helper_info_cctv.svg"),
+                                  Text(
+                                    "CCTV${managerController.managerModelList[managerNum].value!.isCCTV}",
+                                    style: IcoTextStyle.boldTextStyle13P,
+                                  )
+                                ],
+                              ),
                             ),
                           ),
                         ],
@@ -828,6 +839,9 @@ class SpecialtyIndex extends StatelessWidget {
         Text(
           specialty,
           style: IcoTextStyle.boldTextStyle18B,
+        ),
+        SizedBox(
+          height: 5,
         ),
         Text(
           specialtyItems[specialty] ?? '',

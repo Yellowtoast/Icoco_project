@@ -228,7 +228,7 @@ class AuthController extends GetxController {
   }
 
   updateReservationFirestore(String reservationNumber) async {
-    db.doc('/Reservation/$reservationNumber').set(reservationModel.toJson());
+    db.doc('/Reservation/$reservationNumber').update(reservationModel.toJson());
     update();
   }
 

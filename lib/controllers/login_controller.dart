@@ -4,6 +4,8 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
+import '../widgets/snackbar/snackbar.dart';
+
 // ignore: prefer_final_fields
 class LoginController extends GetxController {
   final emailController = TextEditingController();
@@ -73,11 +75,11 @@ class LoginController extends GetxController {
       firebaseAuthUser.value = userCredential.user;
     } on FirebaseAuthException catch (e) {
       if (e.code == 'user-not-found') {
-        print('No user found for that email.');
+        openSnackbar("정보와 일치하는 유저가 없습니다", "올바른 정보로 로그인해주세요");
       } else if (e.code == 'wrong-password') {
-        print('Wrong password provided for that user.');
+        openSnackbar("비밀번호가 맞지 않습니다", "올바른 비밀번호를 입력해주세요");
       } else if (e.code == "invalid-email") {
-        print('이메일 형식이 잘못되었습니다');
+        openSnackbar("이메일 형식이 옳지 않습니다", "올바른 이메일로 로그인해주세요");
       } else {
         print(e);
       }
