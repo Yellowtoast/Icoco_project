@@ -140,8 +140,8 @@ class ReserveStep2_6 extends StatelessWidget {
                                 hintText: "이용주수를 선택해주세요",
                                 dropDownList:
                                     dateInfoController.serviceDurationTypeList,
-                                selectedValue:
-                                    dateInfoController.serviceDurationSelected,
+                                selectedValue: dateInfoController
+                                    .serviceDurationSelected.value,
                                 selectedTextStyle: (authController
                                             .reservationModel
                                             .value!
@@ -149,7 +149,6 @@ class ReserveStep2_6 extends StatelessWidget {
                                         null)
                                     ? IcoTextStyle.mediumTextStyle16B
                                     : IcoTextStyle.mediumTextStyle16Grey4,
-                                stepFinished: step2,
                               ),
                             )
                           ],

@@ -49,33 +49,59 @@ class MidtermReviewPage extends StatelessWidget {
           child: Column(
             children: [
               Container(
-                margin: const EdgeInsets.symmetric(horizontal: 20),
+                width: IcoSize.width,
+                padding: const EdgeInsets.symmetric(horizontal: 20),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    SizedBox(
-                      height: 27,
-                    ),
+                    (managerController.managerModelList.length > 1)
+                        ? Text(
+                            managerController
+                                .managerModelList[managerNum].value!.name,
+                            style: IcoTextStyle.boldTextStyle22P)
+                        : SizedBox(),
                     Row(
-                      crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
-                        (managerController.managerModelList.length > 1)
-                            ? Text(
-                                managerController
-                                    .managerModelList[managerNum].value!.name,
-                                style: IcoTextStyle.boldTextStyle20P)
-                            : SizedBox(),
-                        Text("관리사님의 이런부분이 좋았어요!",
+                        Text("관리사님께 한마디 부탁드려요!",
                             style: IcoTextStyle.boldTextStyle17B),
                         SizedBox(
                           width: 5,
                         ),
                         Text(
-                          "중복선택",
+                          "중복선택가능",
                           style: IcoTextStyle.mediumTextStyle13P,
                         ),
                       ],
                     ),
+
+                    // (managerController.managerModelList.length > 1)
+                    //     ? Text(
+                    //         "${managerController.managerModelList[managerNum].value!.name}",
+                    //         style: IcoTextStyle.boldTextStyle21P)
+                    //     : SizedBox(),
+                    // SizedBox(
+                    //   height: 2,
+                    // ),
+                    // Container(
+                    //   width: IcoSize.width - 40,
+                    //   child: Flexible(
+                    //     child: Text.rich(
+                    //         TextSpan(
+                    //           text: '',
+                    //           style: IcoTextStyle.boldTextStyle19B,
+                    //           children: <TextSpan>[
+                    //             TextSpan(
+                    //                 text: "관리사님의 이런부분이 좋았어요! ",
+                    //                 style: IcoTextStyle.boldTextStyle17B),
+                    //             TextSpan(
+                    //               text: "중복선택가능",
+                    //               style: IcoTextStyle.mediumTextStyle13P,
+                    //             ),
+                    //           ],
+                    //         ),
+                    //         maxLines: 2),
+                    //   ),
+                    // ),
                     SizedBox(
                       height: 22,
                     ),
@@ -139,18 +165,14 @@ class MidtermReviewPage extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   mainAxisAlignment: MainAxisAlignment.start,
                   children: [
-                    Row(
-                      children: [
-                        (managerController.managerModelList.length > 1)
-                            ? Text(
-                                managerController
-                                    .managerModelList[managerNum].value!.name,
-                                style: IcoTextStyle.boldTextStyle20P)
-                            : SizedBox(),
-                        Text("관리사님께 한마디 부탁드려요!",
-                            style: IcoTextStyle.boldTextStyle17B),
-                      ],
-                    ),
+                    (managerController.managerModelList.length > 1)
+                        ? Text(
+                            managerController
+                                .managerModelList[managerNum].value!.name,
+                            style: IcoTextStyle.boldTextStyle22P)
+                        : SizedBox(),
+                    Text("관리사님께 한마디 부탁드려요!",
+                        style: IcoTextStyle.boldTextStyle17B),
                     SizedBox(
                       height: 12,
                     ),

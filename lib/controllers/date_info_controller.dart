@@ -44,9 +44,8 @@ class DateInfoController extends GetxController {
 
   @override
   void onReady() {
-    ever(serviceDurationSelected, serviceDurationToInt);
-
     super.onReady();
+    ever(serviceDurationSelected, serviceDurationToInt);
   }
 
   setInitialDateTime(datePickerType dateType) {
@@ -187,6 +186,7 @@ class DateInfoController extends GetxController {
 
   setServiceEndDate(String? serviceDuration) {
     if (serviceStartDate.value != null) {
+      serviceDurationToInt(serviceDuration);
       serviceEndDate.value = serviceStartDate.value!
           .add(Duration(days: serviceDurationInt.value! * 7));
     } else {

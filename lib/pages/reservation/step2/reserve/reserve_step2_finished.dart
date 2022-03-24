@@ -63,17 +63,26 @@ class ReserveStep2_Finished extends StatelessWidget {
                             onPressed: () async {
                               authController.reservationModel.value!.status =
                                   '예약출산일확정';
-                              serviceInfoController.updateServiceInfoToModel(
-                                  authController.reservationModel,
-                                  dateInfoController
-                                      .serviceDurationSelected.value!);
-                              await dateInfoController.updateDateInfoToModel(
-                                  authController.reservationModel);
+
                               if (authController
                                       .reservationModel.value!.userStep ==
                                   2) {
+                                await serviceInfoController
+                                    .setServiceInfoToModel(
+                                        authController.reservationModel,
+                                        dateInfoController
+                                            .serviceDurationSelected.value!);
                                 await authController.setUserStep(3);
+                              } else {
+                                await serviceInfoController
+                                    .updateServiceInfoToModel(
+                                        authController.reservationModel,
+                                        dateInfoController
+                                            .serviceDurationSelected.value!);
                               }
+
+                              await dateInfoController.updateDateInfoToModel(
+                                  authController.reservationModel);
 
                               await authController.updateReservationFirestore(
                                   authController.reservationModel.value!

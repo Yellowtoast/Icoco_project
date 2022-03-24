@@ -257,6 +257,12 @@ class IcoTextStyle {
     color: IcoColors.primary,
   );
 
+  static TextStyle boldTextStyle21P = GoogleFonts.notoSans(
+    fontSize: 21,
+    fontWeight: FontWeight.bold,
+    color: IcoColors.primary,
+  );
+
   static TextStyle boldTextStyle22W = GoogleFonts.notoSans(
       fontSize: 22, fontWeight: FontWeight.bold, color: IcoColors.white);
 

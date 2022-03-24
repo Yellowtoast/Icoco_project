@@ -393,6 +393,7 @@ class ManagerDetailPage extends StatelessWidget {
                 (reviewController.totalReviews.value == 0)
                     ? EmptyListPage(
                         title: '아직 등록된 리뷰가 없습니다',
+                        subtitle: '등록된 리뷰 글이 없습니다',
                       )
                     : Container(
                         color: IcoColors.white,

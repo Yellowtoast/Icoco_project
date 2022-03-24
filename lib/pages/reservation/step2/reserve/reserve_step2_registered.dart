@@ -62,11 +62,10 @@ class ReserveStep2_Registered extends StatelessWidget {
                             icon: true,
                             iconColor: IcoColors.white,
                             onPressed: () async {
-                              await serviceInfoController
-                                  .updateServiceInfoToModel(
-                                      authController.reservationModel,
-                                      dateInfoController
-                                          .serviceDurationSelected.value!);
+                              await serviceInfoController.setServiceInfoToModel(
+                                  authController.reservationModel,
+                                  dateInfoController
+                                      .serviceDurationSelected.value!);
                               await dateInfoController.updateDateInfoToModel(
                                   authController.reservationModel);
                               if (authController
@@ -97,11 +96,10 @@ class ReserveStep2_Registered extends StatelessWidget {
                             icon: true,
                             iconColor: IcoColors.primary,
                             onPressed: () async {
-                              await serviceInfoController
-                                  .updateServiceInfoToModel(
-                                      authController.reservationModel,
-                                      dateInfoController
-                                          .serviceDurationSelected.value!);
+                              await serviceInfoController.setServiceInfoToModel(
+                                  authController.reservationModel,
+                                  dateInfoController
+                                      .serviceDurationSelected.value!);
                               await dateInfoController.updateDateInfoToModel(
                                   authController.reservationModel);
                               if (authController

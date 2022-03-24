@@ -91,8 +91,6 @@ class ServiceInfoController extends GetxController {
         voucherController.depositFeeList[listIndex];
     authController.reservationModel.value!.balanceCost =
         voucherController.remainingFeeList[listIndex];
-    // reservationController.reservationModel.value!.extraCost =
-    //     additionalFeeController.totalAdditionalFee;
   }
 
   carePriorityButtonController(carePriority selectedCare) {
@@ -140,9 +138,28 @@ class ServiceInfoController extends GetxController {
     }
   }
 
+  setServiceInfoToModel(Rxn<ReservationModel?> model, String serviceDuration) {
+    setServiceCost(serviceDuration);
+    setCarePriorityList();
+
+    model.value!.voucher = voucherController.voucherResult.value ??
+        authController.reservationModel.value!.voucher;
+    model.value!.careRanking =
+        (stringCarePriorityList.isNotEmpty) ? stringCarePriorityList : null;
+    model.value!.placeToBeServiced = (carePlaceTypeSelected.value != null)
+        ? carePlaceTypeSelected.value!.convertCarePlaceTypeToString
+        : null;
+    model.value!.lactationType = (lactationTypeSelected.value != null)
+        ? lactationTypeSelected.value!.convertLactationTypeToSting
+        : null;
+    model.value!.animalType = (petTypeSelected.value != null)
+        ? petTypeSelected.value!.convertPetTypeToString
+        : null;
+    model.value!.requirement = extraRequestsController.text;
+  }
+
   updateServiceInfoToModel(
       Rxn<ReservationModel?> model, String serviceDuration) {
-    setServiceCost(serviceDuration);
     setCarePriorityList();
 
     model.value!.voucher = voucherController.voucherResult.value ??

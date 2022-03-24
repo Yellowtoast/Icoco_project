@@ -289,15 +289,13 @@ class _HomeSkeleton2State extends State<HomeSkeletonPage> {
                         ),
                         sizeHeightBox(20),
                         (homeController.statusRefund.value)
-                            ? Expanded(
-                                child: BorderButton(
-                                  textStyle: IcoTextStyle.mediumTextStyle15B,
-                                  borderColor: IcoColors.grey2,
-                                  onTap: () {
-                                    Get.to(MyReservationPage());
-                                  },
-                                  width: double.infinity,
-                                ),
+                            ? BorderButton(
+                                textStyle: IcoTextStyle.mediumTextStyle15B,
+                                borderColor: IcoColors.grey2,
+                                onTap: () {
+                                  Get.to(MyReservationPage());
+                                },
+                                width: double.infinity,
                               )
                             : homeController.setWidgetsForStep ?? SizedBox(),
                       ],
@@ -308,7 +306,8 @@ class _HomeSkeleton2State extends State<HomeSkeletonPage> {
                   ),
                   (homeController.userStep.value > 2 &&
                           homeController.reservationModel.value!.isBirth ==
-                              false)
+                              false &&
+                          !homeController.statusRefund.value)
                       ? HomeNotifyButton(
                           iconUrl: 'icons/baby.svg',
                           onTap: () {
@@ -327,7 +326,8 @@ class _HomeSkeleton2State extends State<HomeSkeletonPage> {
                       : (homeController.reservationModel.value
                                       ?.midtermReviewFinished ==
                                   false &&
-                              homeController.userStep.value == 7)
+                              homeController.userStep.value == 7 &&
+                              !homeController.statusRefund.value)
                           ? HomeNotifyButton(
                               iconUrl: 'icons/register_paper.svg',
                               onTap: () {
@@ -347,7 +347,8 @@ class _HomeSkeleton2State extends State<HomeSkeletonPage> {
                           : (homeController.reservationModel.value
                                           ?.finalReviewFinished ==
                                       false &&
-                                  homeController.userStep.value >= 8)
+                                  homeController.userStep.value >= 8 &&
+                                  !homeController.statusRefund.value)
                               ? HomeNotifyButton(
                                   iconUrl: 'icons/register_paper.svg',
                                   onTap: () {
@@ -365,7 +366,8 @@ class _HomeSkeleton2State extends State<HomeSkeletonPage> {
                                   buttonColor: IcoColors.primary,
                                   iconHeight: 39,
                                 )
-                              : (homeController.userStep.value >= 9)
+                              : (homeController.userStep.value >= 9 &&
+                                      !homeController.statusRefund.value)
                                   ? HomeNotifyButton(
                                       iconUrl: 'icons/register_paper2.svg',
                                       onTap: () {

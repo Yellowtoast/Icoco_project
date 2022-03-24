@@ -264,7 +264,8 @@ class VoucherSignedStep1 extends StatelessWidget {
                                               style: IcoTextStyle
                                                   .boldTextStyle15B),
                                           TextSpan(
-                                              text: ' 3주차',
+                                              text:
+                                                  ' ${voucherController.maxWeekSupported.value}주차',
                                               style: IcoTextStyle
                                                   .boldTextStyle15P),
                                           TextSpan(

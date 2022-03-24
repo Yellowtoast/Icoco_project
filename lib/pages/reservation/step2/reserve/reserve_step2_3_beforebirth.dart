@@ -231,11 +231,10 @@ class ReserveStep2_3_BeforeBirth extends StatelessWidget {
                               hintText: "이용주수를 선택해주세요",
                               dropDownList:
                                   dateInfoController.serviceDurationTypeList,
-                              selectedValue:
-                                  dateInfoController.serviceDurationSelected,
+                              selectedValue: dateInfoController
+                                  .serviceDurationSelected.value,
                               selectedTextStyle:
                                   IcoTextStyle.mediumTextStyle16B,
-                              stepFinished: dateInfoController.step4,
                             ),
                           ),
                         ],

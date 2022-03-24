@@ -47,7 +47,7 @@ class EventPage extends StatelessWidget {
     return SingleChildScrollView(
         child: (list.isEmpty)
             ? EmptyListPage(
-                title: '진행중인 이벤트가 없습니다.',
+                title: '진행중인 이벤트가 없습니다',
                 subtitle: '진행중인 이벤트가 없습니다.\n다양한 혜택을 곧 만나보세요!',
               )
             : Column(

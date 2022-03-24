@@ -92,7 +92,7 @@ class TipPage extends StatelessWidget {
             ),
             (_tipController.tipList.isEmpty)
                 ? EmptyListPage(
-                    title: '등록된 육아팁이 없습니다', subtitle: '이 카테고리에 등록된 육아팁이 없습니다')
+                    title: '등록된 육아팁이 없습니다', subtitle: '해당 카테고리에 등록된 육아팁이 없습니다')
                 : SizedBox(
                     height: IcoSize.height - IcoSize.appbarHeight - 65 - 24,
                     child: Column(

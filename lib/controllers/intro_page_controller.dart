@@ -8,7 +8,7 @@ class IntroPageController extends GetxController {
   void onReady() {
     super.onReady();
     iconSnackbar();
-    Future.delayed(Duration(milliseconds: 900), () {
+    Future.delayed(Duration(milliseconds: 800), () {
       Get.back();
     });
   }

@@ -34,6 +34,7 @@ class VoucherController extends GetxController {
   late FeeModel feeModelCompany;
   late FeeModel feeModelDefault;
   Rx<String> companyUid = ''.obs;
+  Rx<int> maxWeekSupported = 3.obs;
 
   @override
   void onInit() {
@@ -60,6 +61,13 @@ class VoucherController extends GetxController {
       print('no voucher info');
       return;
     } else {
+      if (_voucher.contains('A') && _voucher.contains('1')) {
+        maxWeekSupported.value = 3;
+      } else if (_voucher.contains('B')) {
+        maxWeekSupported.value = 4;
+      } else if (_voucher.contains('C')) {
+        maxWeekSupported.value = 5;
+      }
       voucherResult.value = _voucher;
       // if (_voucher != '일반서비스') {
       await splitVoucherResult(_voucher);

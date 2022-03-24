@@ -195,12 +195,41 @@ class CalculatorResultPage extends StatelessWidget {
                                   SizedBox(
                                     height: 20,
                                   ),
-                                  Image.asset(
-                                    "images/overcost_caution.png",
+                                  Container(
+                                    alignment: Alignment.center,
                                     width: IcoSize.width - 40,
+                                    height: 50,
+                                    decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.circular(10),
+                                      color: IcoColors.grey1,
+                                    ),
+                                    child: Text.rich(
+                                      TextSpan(
+                                          style: IcoTextStyle.boldTextStyle22B,
+                                          children: [
+                                            TextSpan(
+                                                text: '정부지원금',
+                                                style: IcoTextStyle
+                                                    .boldTextStyle15P),
+                                            TextSpan(
+                                                text: '은',
+                                                style: IcoTextStyle
+                                                    .boldTextStyle15B),
+                                            TextSpan(
+                                                text:
+                                                    ' ${voucherController.maxWeekSupported.value}주차',
+                                                style: IcoTextStyle
+                                                    .boldTextStyle15P),
+                                            TextSpan(
+                                                text: '까지만 적용됩니다.',
+                                                style: IcoTextStyle
+                                                    .boldTextStyle15B),
+                                          ]),
+                                      textAlign: TextAlign.center,
+                                    ),
                                   ),
                                   SizedBox(
-                                    height: 120,
+                                    height: 125,
                                   ),
                                 ],
                               ),
